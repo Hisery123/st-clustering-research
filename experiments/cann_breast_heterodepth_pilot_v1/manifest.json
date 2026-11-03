@@ -1,0 +1,19 @@
+{
+  "status": "EXPLORATORY ONLY; not the original DLPFC A2 or independent test",
+  "source_training_script": "D:\\paper\\ST_Benchmark_Planning\\mvp\\stagate_breast_heterodepth_v1.py",
+  "source_evaluation_script": "D:\\paper\\ST_Benchmark_Planning\\mvp\\evaluate_breast_heterodepth_v1.py",
+  "C0": "existing heterodepth STAGATE, unchanged",
+  "C1": "0.5 * own log-normalized HVG expression + 0.5 * uniform spatial neighbor mean",
+  "C2": "0.5 * own expression + 0.5 * inverse-pixel-distance weighted spatial neighbor mean",
+  "C3": "alpha_i = 0.75 - 0.5 * average percentile rank(observed UMI, detected genes); alpha_i neighbor mixing",
+  "preprocessing": "same perturbation, same HVG procedure, same training settings; smoothing before model input",
+  "evaluation": "Leiden n15, Euclidean, UMAP, r1.0, seed42; reference labels for evaluation only",
+  "random_seeds": {
+    "training": 0,
+    "depth_assignment": 20261103,
+    "Leiden": 42
+  },
+  "all_arms_input_hvg_sha256": "92fcfe7c72830be6af2a957efc61bd062082041575d092f46060a2631f634108",
+  "all_arms_depth_assignment_sha256": "5dfe2381d28c547598e64860756342e624e99b16942738356ade4c352dcc110c",
+  "interpretation_constraint": "Single slice/seed, exploratory; do not select hyperparameters on pathology labels"
+}

@@ -1,0 +1,12 @@
+{
+  "evaluated_spatial_edges": 11032,
+  "reference_boundary_edges": 1140,
+  "predicted_boundary_edges": 1253,
+  "true_positive_boundary_edges": 307,
+  "boundary_precision": 0.24501197126895452,
+  "boundary_recall": 0.2692982456140351,
+  "boundary_f1": 0.2565816966151275,
+  "spatial_neighbor_agreement": 0.8864213197969543,
+  "chance_adjusted_agreement": 0.8804223443810066,
+  "evaluation_type": "exploratory"
+}

@@ -1,0 +1,5 @@
+reference_class,spots,clusters_for_90pct
+Healthy,485,4
+Invasive,1663,9
+Surrounding tumor,823,12
+Tumor,827,5

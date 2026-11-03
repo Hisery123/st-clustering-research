@@ -1,0 +1,15 @@
+{
+  "dataset": "BreastCancer_BlockA_Section1_Heterodepth_C2",
+  "method": "STAGATE_pyG + Leiden",
+  "total_spots": 3798,
+  "evaluated_spots": 3798,
+  "reference_column": "annot_type",
+  "reference_classes": 4,
+  "predicted_clusters": 24,
+  "ARI": 0.1446842384804811,
+  "NMI": 0.3863135682014135,
+  "nmi_average_method": "arithmetic",
+  "cluster_purity": 0.8217482885729331,
+  "evaluation_type": "exploratory",
+  "reference_labels_used_for_training_or_clustering": false
+}

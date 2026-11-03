@@ -1,0 +1,13 @@
+{
+  "method": "Leiden",
+  "n_neighbors": 15,
+  "metric": "euclidean",
+  "neighbor_method": "umap",
+  "resolution": 1.0,
+  "seed": 42,
+  "flavor": "leidenalg",
+  "directed": true,
+  "n_iterations": -1,
+  "reference_labels_used": false,
+  "scanpy_version": "1.11.5"
+}
