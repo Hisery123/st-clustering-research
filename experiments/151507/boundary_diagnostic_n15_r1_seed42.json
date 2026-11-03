@@ -1,0 +1,15 @@
+{
+  "dataset": "DLPFC_151507",
+  "method": "STAGATE_pyG + Leiden",
+  "evaluated_spots": 4221,
+  "evaluated_spatial_edges": 12381,
+  "reference_boundary_edges": 950,
+  "predicted_boundary_edges": 1375,
+  "true_positive_boundary_edges": 201,
+  "boundary_precision": 0.1461818181818182,
+  "boundary_recall": 0.21157894736842106,
+  "boundary_f1": 0.17290322580645162,
+  "spatial_neighbor_agreement": 0.8889427348356352,
+  "chance_adjusted_agreement": 0.8831480176477553,
+  "evaluation_type": "exploratory"
+}

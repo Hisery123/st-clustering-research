@@ -1,0 +1,15 @@
+{
+  "dataset": "DLPFC_151507",
+  "method": "STAGATE_pyG + Leiden",
+  "prediction_file": "leiden_n15_r1_seed42.csv",
+  "reference_column": "manual_layer",
+  "total_spots": 4226,
+  "evaluated_spots": 4221,
+  "reference_classes": 7,
+  "predicted_clusters": 22,
+  "ARI": 0.25462939949771624,
+  "NMI": 0.5471262928575984,
+  "nmi_average_method": "arithmetic",
+  "evaluation_type": "exploratory",
+  "reference_labels_used_for_training_or_clustering": false
+}
