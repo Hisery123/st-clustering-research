@@ -1,0 +1,15 @@
+{
+  "dataset": "BreastCancer_BlockA_Section1",
+  "method": "STAGATE_pyG + Leiden",
+  "total_spots": 3798,
+  "evaluated_spots": 3798,
+  "reference_column": "annot_type",
+  "reference_classes": 4,
+  "predicted_clusters": 28,
+  "ARI": 0.11731215111817232,
+  "NMI": 0.3698175194941186,
+  "nmi_average_method": "arithmetic",
+  "cluster_purity": 0.8280674038967878,
+  "evaluation_type": "exploratory",
+  "reference_labels_used_for_training_or_clustering": false
+}

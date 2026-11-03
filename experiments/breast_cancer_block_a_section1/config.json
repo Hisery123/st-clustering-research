@@ -1,0 +1,27 @@
+{
+  "dataset": "BreastCancer_BlockA_Section1",
+  "method": "STAGATE_pyG",
+  "graph": "Visium_hex_six_neighbors",
+  "undirected_edges": 11032,
+  "self_loops": 3798,
+  "hvg": 3000,
+  "hvg_flavor": "seurat_v3",
+  "target_sum": 10000,
+  "log1p": true,
+  "hidden_dims": [
+    3000,
+    512,
+    30
+  ],
+  "epochs": 1000,
+  "seed": 0,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "gradient_clipping": 5.0,
+  "torch_version": "2.7.1+cu126",
+  "scanpy_version": "1.11.5",
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "evaluation_labels_used_in_training": false,
+  "training_seconds": 23.217781499999546,
+  "peak_cuda_allocated_mib": 461.1982421875
+}
