@@ -1,0 +1,49 @@
+# Raw datasets
+data/
+datasets/
+raw_data/
+*.h5
+*.h5ad
+*.hdf5
+*.loom
+*.mtx
+*.mtx.gz
+*.fastq
+*.fastq.gz
+*.bam
+
+# Python and Conda environments
+.venv/
+venv/
+env/
+conda_envs/
+.conda/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Model weights and large archives
+*.pt
+*.pth
+*.ckpt
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+
+# Credentials and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+token.json
+
+# System files
+.DS_Store
+Thumbs.db
