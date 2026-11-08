@@ -54,7 +54,15 @@ STAGATE受控实验已经完成：
 - 4226个Spot
 - 12385条无向空间边
 
-STAGATE正式训练尚未完成。
+STAGATE受控实验已完成（1000轮）：ARI 0.254629，NMI 0.547126；其方法与参数限制见 [151507实验日志](experiments/151507/EXPERIMENT_LOG.md)。
+
+### DLPFC 151507 — CellCharter v0.3.2（技术冒烟与恢复验证）
+
+- 已验证：5000 HVG → 2轮scVI（GPU）→ Visium六邻域（12385条无向边）→ 4跳聚合 → K=7 GMM。
+- 保存的scVI潜在特征与CPU重新加载推断最大绝对差异为 1.1920928955078125e-06。
+- 保存的GMM权重重新载入后，4226个spot的预测与原CSV完全一致（不一致0个）。
+- **GMM在20次迭代上限下未收敛**；2轮scVI仅作冒烟，尚无正式CellCharter ARI/NMI。
+- 详见 [CellCharter 151507冒烟与复现审计](experiments/cellcharter_dlpfc/SMOKE_151507_20261108.md)。
 
 ## 4. Repository Structure
 
