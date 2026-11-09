@@ -80,3 +80,11 @@ EXIT_CODE=0
 - 软件包版本完全一致：CellCharter 0.3.2、TorchGMM 0.1.2、Torch 2.1.2+cu121、PyTorch Lightning 1.9.5、AnnData 0.9.2。
 - 两份h4预测ARI=0.713871（不需要人工标签）。差异来源仍未查明，可能涉及脚本中的实际随机数/初始化调用或输入实现细节；**不能将输入内容一致或随机数机制直接视为已证实**。须在不覆盖既有实验的前提下核对脚本快照及实际输入字节；评价时标明重复拟合不一致，随后考虑多个随机种子重复。
 - 统一后验评价可以进行，但必须复用既有人工标签、空间边的同一口径；原始`evaluation_provenance.json`记录151507有4221已标注spots、12381条有效边、950条参考边界，人工注释与组织坐标CSV的完整SHA256分别为`00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428`和`5c5be4dcd51c914bad02634f1ed2d96bd0c200ae487e236f644d94ded983efd0`。
+
+## 两份h4脚本快照关键代码行核对（用户本机只读输出）
+
+- 两份manifest记录的`source_aggregated_sha256`都为`96844547f535114184defe1eff6ef6bd34ee6b7c22b8bbf51a59da9cd3e0a13a`，`source_latent_sha256`都为`7cc6d513ec52aea97f346ddc543073c9b2209692f9dd27f2394171f89f5f8d91`。
+- 旧h4代码第106行：`X = np.ascontiguousarray(all_features[:, :n_features], dtype=np.float32)`（对于h4为全25列）；新h4第105行加载`np.asarray(aggregate, dtype=np.float32)`，第142行重建`np.ascontiguousarray(X, dtype=np.float32)`且其preflight在无置换h4下断言输入与原矩阵逐元素一致。**输入应相同仍需用两次实际数据字节直接核验以排除潜在差异**。
+- 旧h4快照第169/170行在模型构建前`torch.manual_seed(0)`与`np.random.seed(0)`，第171行开始创建`cc.tl.Cluster`，第188行fit；新h4快照第246/247行同样设置随机种子，随后第248/250行创建AnnData与`obsm`，第251行创建`cc.tl.Cluster`，第268行fit。两套`script_sha256`不同：旧`633bb6ed96c776bfd6f7a9e115fcb323684c16489cc4a75f43f9b1fad61a5075`，新`20fa357ad7ff43e6408f86be3f5bbcf576058d356d1d8423e2711c1051ab5fdf`。
+- 上述日志为关键字抽取结果，并未展示完整的模型实例化参数行与函数体。**差异来源仍未定位**，不能直接声称TorchGMM随机性已经被证实，更不能合并两次h4为相同模型。
+- 阅读检查`H4_SCRIPT_COMPARISON_READ_PASS`、`EXIT_CODE=0`。
