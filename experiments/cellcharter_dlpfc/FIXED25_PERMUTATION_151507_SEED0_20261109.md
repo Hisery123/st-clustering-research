@@ -96,3 +96,48 @@ EXIT_CODE=0
 可见执行顺序差异：旧脚本先在GMM函数内构造AnnData，后执行`torch.manual_seed(SEED)`、`np.random.seed(SEED)`并实例化GMM；新脚本先设置这两个全局种子，随后构造AnnData、再实例化GMM。**尚未证明该顺序差异实际消耗随机数或解释跨运行分区ARI=0.713871**，需进一步独立验证；绝不可把来源推测记作结论。
 
 第一次自动发现评价源CSV的脚本在`D:\\paper\\CellCharter_reproduction`下搜索时**排除了`runs`整个子目录**。用户终端显示：`NOT_FOUND_UNDER_PROJECT: manual_annotations`、`NOT_FOUND_UNDER_PROJECT: tissue_positions`以及`EVALUATION_SOURCE_PREFLIGHT_FINISHED`、`EXIT_CODE=0`。因此该输出只能说明限定范围内未发现符合完整SHA256的原始文件，**不能据此判断标签/坐标文件丢失**。下一步扩大到其他研究工作目录，找到文件后必须检查SHA256与旧评价一致，才可直接复用旧指标口径。
+
+
+## 五组统一后验评价完成（2026-11-09，研究者Windows终端输出）
+
+终端返回：
+```text
+EVALUATION_SOURCE_PASS: labeled=4221 edges=12381 reference_boundaries=950
+FIXED25_HOP_0_EVALUATED
+FIXED25_HOP_1_EVALUATED
+FIXED25_HOP_2_EVALUATED
+FIXED25_HOP_3_EVALUATED
+FIXED25_HOP_4_EVALUATED
+FIXED25_ALL_FIVE_EVALUATION_PASS
+EXIT_CODE=0
+```
+
+本次评价在训练后进行，使用之前通过SHA256校验的151507人工层注释`D:\paper\ST_Benchmark_Planning\mvp\data\151507\manual_layer_annotations.csv`及组织坐标`D:\paper\ST_Benchmark_Planning\mvp\data\151507\tissue_positions_list.csv`，与上一轮评价相同口径：4221个有效标注spot、12381条有效空间边、950条参考边界。评价输出来自用户终端摘要；助手尚未直接核验本机CSV/JSON原始字节。
+
+| Hop | Feature dimension | ARI | NMI (arithmetic) | Boundary precision | Boundary recall | Boundary F1 | Spatial neighbor agreement | Pred boundary edges | True positive boundary edges |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0 | 25 | 0.081178 | 0.125404 | 0.083368 | 0.847368 | 0.151801 | 0.220095 | 9656 | 805 |
+| 1 | 25 | 0.296666 | 0.425794 | 0.093543 | 0.652632 | 0.163632 | 0.464664 | 6628 | 620 |
+| 2 | 25 | 0.379413 | 0.543273 | 0.079572 | 0.328421 | 0.128105 | 0.683305 | 3921 | 312 |
+| 3 | 25 | 0.466840 | 0.599026 | 0.108645 | 0.195789 | 0.139745 | 0.861724 | 1712 | 186 |
+| 4 | 25 | 0.497627 | 0.624839 | 0.120000 | 0.173684 | 0.141935 | 0.888943 | 1375 | 165 |
+
+终端报告输出目录：`D:\paper\CellCharter_reproduction\runs\151507_fixed25_permutation_evaluation_seed0_20261109`，`fixed25_permutation_metrics.csv`、`evaluation_provenance.json`据评价脚本应当保存在该目录。后续需核对两份文件实际内容以及所引用的五组预测SHA256；目前不得声称助手已打开两份本地文件。
+
+### 描述性趋势
+
+- 0→4跳总体ARI单调上升0.081178→0.497627，NMI单调上升0.125404→0.624839。
+- Boundary recall单调下降0.847368→0.173684；Spatial neighbor agreement单调上升0.220095→0.888943。
+- **Boundary F1非单调**：0.151801、0.163632、0.128105、0.139745、0.141935。1跳最高，不能宣称F1随邻域对齐跳数单调下降。
+- 0跳高召回源自9656条预测边界中的805条正确，Precision 0.083368；假阳性=8851条。4跳预测1375条中的165条正确，Precision 0.12；假阳性1210条。相对于950条真实边界，随机预测边界的基准命中率与边界占比有关，不能简单只比召回。
+- 此对照每个未启用的邻域块采用**独立全行随机置换**，因此0跳是由正确scVI与4个错位邻域块组成的25维噪声对照，**不等同于真正的仅5维scVI基线**。虽然维度固定，但已改变信号质量、同spot相关性、变量分布的联合结构，不可宣称「仅空间传播半径变化」或过度平滑因果成立。
+- 本次h4（ARI 0.497627、NMI 0.624839、Boundary F1 0.141935）不等于旧变维度h4（ARI 0.467183、NMI 0.590068、Boundary F1 0.120438）；先前两份h4预测分区之间ARI为0.713871，随机性/实现差异尚待核查，**不得将h4两套结果差归因于维度或随机置换（本次h4没有置换）**。
+- 一张已探索切片、单种子、GMM已知参考K=7，属探索性后验评价而非独立测试；不能把边/spot视为独立生物学重复，未运行显著性检验。
+
+### 评价数据定位
+
+研究者按旧评价溯源的完整SHA256搜索后确认两个原始CSV：
+- `D:\paper\ST_Benchmark_Planning\mvp\data\151507\manual_layer_annotations.csv`：`00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428`
+- `D:\paper\ST_Benchmark_Planning\mvp\data\151507\tissue_positions_list.csv`：`5c5be4dcd51c914bad02634f1ed2d96bd0c200ae487e236f644d94ded983efd0`
+
+评价运行时报告数据校验通过。下一步应核验本地评价CSV与JSON的内部一致性、五组预测文件SHA256、原始指标口径，并将两组曲线以分面形式展示且标明训练配置不完全可直接对齐；然后考虑多seed及跨切片、预注册的更严格对照。
