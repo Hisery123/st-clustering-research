@@ -141,3 +141,24 @@ EXIT_CODE=0
 - `D:\paper\ST_Benchmark_Planning\mvp\data\151507\tissue_positions_list.csv`：`5c5be4dcd51c914bad02634f1ed2d96bd0c200ae487e236f644d94ded983efd0`
 
 评价运行时报告数据校验通过。下一步应核验本地评价CSV与JSON的内部一致性、五组预测文件SHA256、原始指标口径，并将两组曲线以分面形式展示且标明训练配置不完全可直接对齐；然后考虑多seed及跨切片、预注册的更严格对照。
+
+## 固定25维统一评价CSV产物一致性核查（2026-11-09）
+
+研究者在Windows上读取`fixed25_permutation_metrics.csv`与`evaluation_provenance.json`，逐行根据`true_positive_boundary_edges`、`predicted_boundary_edges`、950条参考边界及12381条有效空间边重新计算Boundary Precision/Recall/F1和空间邻居一致率，并核对每组与CSV的值（atol=1e-6）。终端真实输出：
+
+```text
+HOP_0_METRICS_CONSISTENT
+HOP_1_METRICS_CONSISTENT
+HOP_2_METRICS_CONSISTENT
+HOP_3_METRICS_CONSISTENT
+HOP_4_METRICS_CONSISTENT
+CSV_ROWS: 5
+PROVENANCE_KEYS: ['design', 'evaluated_spatial_edges', 'evaluation_type', 'labeled_spots', 'limitations', 'manual_annotations_sha256', 'manual_labels_used_for_training', 'nmi_average_method', 'previous_evaluation_provenance_sha256', 'reference_boundary_edges', 'reference_class_count_used_to_set_K', 'runs', 'sample_unit', 'section', 'seed', 'tissue_positions_sha256']
+PROVENANCE_RUNS: 5
+FIXED25_EVALUATION_ARTIFACT_AUDIT_PASS
+EXIT_CODE=0
+```
+
+**审计范围**：上述值的一致性、CSV五行与hop0..4/25维、JSON可解析和五个run条目。此次脚本**没有逐项对比JSON中各份预测的SHA256、没有独立重算ARI/NMI**；不得把`FIXED25_EVALUATION_ARTIFACT_AUDIT_PASS`扩大解释为全部评价指标及全部溯源哈希已经外部独立复算。
+
+**作图决策**：以旧变维度消融`hop_ablation_metrics.csv`和固定25维置换对照`fixed25_permutation_metrics.csv`本机原始文件作2行3列同坐标范围SVG，不绘制虚构误差棒、不将两次h4输出差当作对照效应；后续仍需跨随机种子及独立切片验证。
