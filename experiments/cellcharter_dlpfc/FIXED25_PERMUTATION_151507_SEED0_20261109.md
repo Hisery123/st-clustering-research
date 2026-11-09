@@ -162,3 +162,20 @@ EXIT_CODE=0
 **审计范围**：上述值的一致性、CSV五行与hop0..4/25维、JSON可解析和五个run条目。此次脚本**没有逐项对比JSON中各份预测的SHA256、没有独立重算ARI/NMI**；不得把`FIXED25_EVALUATION_ARTIFACT_AUDIT_PASS`扩大解释为全部评价指标及全部溯源哈希已经外部独立复算。
 
 **作图决策**：以旧变维度消融`hop_ablation_metrics.csv`和固定25维置换对照`fixed25_permutation_metrics.csv`本机原始文件作2行3列同坐标范围SVG，不绘制虚构误差棒、不将两次h4输出差当作对照效应；后续仍需跨随机种子及独立切片验证。
+
+
+## 两套消融对照SVG本地绘图完成（2026-11-09）
+
+研究者已在Windows手动执行`scripts/plotting/plot_cellcharter_two_ablation_comparison.py`，通过明确提供`--fixed`参数避免默认路径遗漏日期后缀。用户终端结果：
+
+```text
+SOURCE_OLD: D:\paper\CellCharter_reproduction\runs\151507_hop_ablation_evaluation_seed0\hop_ablation_metrics.csv
+SOURCE_FIXED: D:\paper\CellCharter_reproduction\runs\151507_fixed25_permutation_evaluation_seed0_20261109\fixed25_permutation_metrics.csv
+VALIDATED_ROWS: 5 5
+COMPARISON_SVG_SAVED: D:\paper\CellCharter_reproduction\figures\cellcharter_151507_two_hop_ablations_comparison.svg
+SVG_SIZE_BYTES: 66728
+TWO_ABLATION_PLOT_PASS
+EXIT_CODE=0
+```
+
+状态：**已成功运行绘图脚本并报告生成SVG**，未曾修改训练或评价结果；尚未接收和视觉验收本次最终生成的SVG原文件。拟请研究者上传SVG检查六面板数据呈现、图例、字体和整体排版。**绘图成功不等于论文图终审通过**。已知原始变维度h4和固定25维h4存在跨脚本重现性差异（两份预测ARI=0.713871），必须持续标注两组是不同设计的描述性对照，不能把差值当空间聚合的净因果效应。
