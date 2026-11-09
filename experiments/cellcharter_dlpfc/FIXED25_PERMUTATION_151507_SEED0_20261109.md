@@ -88,3 +88,11 @@ EXIT_CODE=0
 - 旧h4快照第169/170行在模型构建前`torch.manual_seed(0)`与`np.random.seed(0)`，第171行开始创建`cc.tl.Cluster`，第188行fit；新h4快照第246/247行同样设置随机种子，随后第248/250行创建AnnData与`obsm`，第251行创建`cc.tl.Cluster`，第268行fit。两套`script_sha256`不同：旧`633bb6ed96c776bfd6f7a9e115fcb323684c16489cc4a75f43f9b1fad61a5075`，新`20fa357ad7ff43e6408f86be3f5bbcf576058d356d1d8423e2711c1051ab5fdf`。
 - 上述日志为关键字抽取结果，并未展示完整的模型实例化参数行与函数体。**差异来源仍未定位**，不能直接声称TorchGMM随机性已经被证实，更不能合并两次h4为相同模型。
 - 阅读检查`H4_SCRIPT_COMPARISON_READ_PASS`、`EXIT_CODE=0`。
+
+## 随机种子位置与评价数据定位检查（用户2026-11-09终端）
+
+用户进一步打印两套GMM完整实例化参数段：K=7，random_state=0，full协方差，kmeans初始化，收敛容差0.001、正则1e-6，CPU单设备、最多100 epochs、无进度条；**显式设置一致**。
+
+可见执行顺序差异：旧脚本先在GMM函数内构造AnnData，后执行`torch.manual_seed(SEED)`、`np.random.seed(SEED)`并实例化GMM；新脚本先设置这两个全局种子，随后构造AnnData、再实例化GMM。**尚未证明该顺序差异实际消耗随机数或解释跨运行分区ARI=0.713871**，需进一步独立验证；绝不可把来源推测记作结论。
+
+第一次自动发现评价源CSV的脚本在`D:\\paper\\CellCharter_reproduction`下搜索时**排除了`runs`整个子目录**。用户终端显示：`NOT_FOUND_UNDER_PROJECT: manual_annotations`、`NOT_FOUND_UNDER_PROJECT: tissue_positions`以及`EVALUATION_SOURCE_PREFLIGHT_FINISHED`、`EXIT_CODE=0`。因此该输出只能说明限定范围内未发现符合完整SHA256的原始文件，**不能据此判断标签/坐标文件丢失**。下一步扩大到其他研究工作目录，找到文件后必须检查SHA256与旧评价一致，才可直接复用旧指标口径。
