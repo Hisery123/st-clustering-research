@@ -50,3 +50,25 @@ D:\paper\CellCharter_reproduction\runs\151507_fixed25_perm_h4_seed0_20261109_174
 1. 上述日志显示**训练成功**，还须检查每组`manifest.json`、`predictions.csv`、`gmm_weights.pt`、`script_snapshot.py`、`permutation_indices.npz`、`run.log`、条形码顺序、完整SHA256及跨组参数一致性；此处尚不声称已通过产物验收。
 2. 置换对照的h4输入恰为完整25维原始聚合特征，但它的簇分布与上一次独立h4拟合不同。尽管两者都报告GMM seed=0，**这提示应专门核查跨脚本重跑的一致性以及潜在初始化/执行差异**，不能把模型结果变化简单归因于置换。
 3. 五组全部执行后统一做训练后ARI/NMI/Boundary F1评价；没有理由选优舍差或根据标签改参数。单张切片、单个随机种子，不能估计跨供体不确定性。
+
+## 五组独立产物审计（用户2026-11-09终端记录）
+
+用户运行文件、参数、条形码及重建特征核查脚本后返回：
+
+```text
+HOP_0_AUDIT_PASS: iterations=34
+HOP_1_AUDIT_PASS: iterations=25
+HOP_2_AUDIT_PASS: iterations=19
+HOP_3_AUDIT_PASS: iterations=35
+HOP_4_AUDIT_PASS: iterations=29
+SAME_SOURCE_FILES: True
+SAME_SCRIPT: True
+SAME_PERMUTATIONS: True
+H4_PARTITION_AGREEMENT_ARI: 0.713871
+FIXED25_ALL_FIVE_AUDIT_PASS
+EXIT_CODE=0
+```
+
+审计对照内容包括：六个预期产物文件、manifest字段、源文件SHA256、保存脚本的SHA256、每组四套permutation索引的散列及无不动点要求、重建25维特征SHA256、4226个barcodes顺序与唯一性、预测簇范围/数量、以及组4与原始25维聚合特征逐元素相等。**这些是研究者在本机执行的自查结果，不代表助手独立读取本地二进制文件。**
+
+**重要跨次一致性疑点：**固定25维置换h4（未置换）与此前变维度消融h4的预测分区的Adjusted Rand Index仅0.713871，虽输入应相同但输出并未重现。不能据此证明置换/空间半径因果效应。下一步对比两次manifest参数与运行配置，保留两次结果并检查聚类随机性，之后统一后验评价五组。
