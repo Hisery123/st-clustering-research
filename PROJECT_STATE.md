@@ -1,5 +1,11 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-10 151509 GPU scVI+CellCharter25D 首片训练成功
+
+用户真实Windows日志：执行 `prepare_dlpfc_10_features.py --sample 151509 --train`，先 `151509_GRAPH_CHECK_PASS spots 4789 edges 14086`，`151509_CUDA_READY NVIDIA GeForce RTX 4070 Laptop GPU`，`151509_PREPROCESS_PASS (4789,5000)`；`Global seed set to 22911`。Lightning明确 `GPU available: True (cuda), used: True`，于 epoch222/400 early-stop（连续45 records无validation ELBO提升、best score1395.943），正常得到`151509_SCVI_TRAIN_FINISHED`、`151509_FEATURE_CACHE_COMPLETE`。status completed; latent[4789,5], aggregate[4789,25], graph undirected edges14086; latent sha256 `fac7c28ae833e3eb8277b79b3170dcbf9d08bcc80fb6a9f8397e97424ae5d2c4`; aggregate sha256 `1f29060473365c02d2c26b51a477d87ff2fb4ee6a4e7ae8e18193895c8dfc32e`; script reported peak_cuda_mib106.73 (PyTorch allocated memory diagnostic only, not full GPU usage); finished UTC 2026-11-10T07:08:01.204473+00:00。TensorFlow `No GPU/TPU found, falling back to CPU` 与Lightning明确CUDA使用非同一框架，不视为失败。
+
+输出目录 `D:\paper\CellCharter_reproduction\results\cellcharter_151509_scvi22911_features_batch_v1`；模型训练成功、25D完成，**尚未进行151509的GMM和性能评价**。下一步用户可执行 `--all --train`，脚本对于已完成且源文件哈希匹配的151509缓存会跳过，后续9片每片独立进程训练、失败即停止并保留现场。不会重新挑seed或筛选有利结果。
+
 ## 2026-11-10 十张新增DLPFC切片批量空间图只读预检全部通过
 
 用户上传真实PowerShell日志：`python scripts/cellcharter/prepare_dlpfc_10_features.py --all`，未附加`--train`。十片依次输出`{sid}_GRAPH_CHECK_PASS`和`{sid}_CHECK_ONLY_COMPLETE; NO_TRAINING; NO_FILES_WRITTEN`，末行`DLPFC_10_FEATURE_CHECK_ONLY_COMPLETE 10/10`。图均通过六邻居几何和无向图检查。
