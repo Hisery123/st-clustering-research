@@ -1,5 +1,13 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 151508 预检结果（2026-11-10，最新）
+
+用户在Windows实际以 CellCharter 专用 Python 运行只读核查并输出 `151508_INPUT_PREFLIGHT_COMPLETE`。真实终端：`EXPRESSION_SHAPE: (4384, 33538)`；`POSITION_ROWS: 4384`；`BARCODE_UNIQUE: True`；`BARCODE_ORDER_MATCH: True`；`COORDINATES_VALID: True`；`ANNOTATED_SPOTS: 4381`；`ANNOTATION_CLASSES: 7`；`ANNOTATION_BARCODES_MATCH: True`。读10x H5时有两个基因变量名不唯一 UserWarning，属于预处理注意事项，原151507脚本使用 `var_names_make_unique()`，此轮未写文件。
+
+**证据边界**：以上是用户真实终端转录，不是AI直接取得本地文件；这仅验证矩阵与坐标/标注匹配，不证明历史使用或已有latent缓存、也未运行151508 scVI/GMM。151508不是完全未知的盲测数据（项目早前已涉及该切片），后续应称跨切片验证/扩展开发验证并明确已有接触程度。
+
+**当前唯一下一步**：在指定本地项目目录只读寻找151508可复用的 scVI 5维 latent 和25维聚合特征。若找不到，才准备匹配151507预处理的训练脚本；不重复训练，也不更换锁定 A/B（L0+L1+L2 vs L0+L1+L4）。
+
 ## 151508 输入文件存在（2026-11-10；当前最优先）
 
 用户Windows检查：151508 的表达H5、spots_aligned.csv、manual_layer_annotations.csv 三文件均存在；指定 `CellCharter_reproduction\results` 下没有列出匹配151508的目录。**未检查文件结构/条码匹配、也未确证所有位置没有scVI缓存**。下一步仅只读检验151508矩阵与坐标行顺序及标注覆盖；随后决定最小跨片实验。方案A L0+L1+L2、B L0+L1+L4不变。暂不重训、不查STAGATE。
