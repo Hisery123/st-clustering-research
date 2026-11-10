@@ -39,3 +39,12 @@
 2. 脚本 hash 不同且历史检查提示 seed 与 AnnData 创建的执行顺序不同；这只能构成待验证原因，**不能据此声称 TorchGMM 非确定性已证实**。
 3. 在相同实际输入矩阵、同 seed、同完整拟合调用确认之前，不将 NLL 或分区差异归因于算法模块；也不将历史不同批次的 h4 结果混成一组公平对照。
 4. 唯一下一步：只读查看两份 `script_snapshot.py` 的输入矩阵构造、随机种子与 GMM fit 邻近代码，随后决定是否需要仅用现有矩阵/权重开展无训练哈希核查。
+
+## 2026-11-10 后续：两份 script_snapshot 的关键行只读检查
+
+来源：用户通过 PowerShell `Select-String -Context 5,5` 输出的关键代码片段（本次尚未获取两份完整脚本原始文件）。
+
+- 旧 L4 第106行：`X = np.ascontiguousarray(all_features[:, :n_features], dtype=np.float32)`，其中 hop=4，n_features=25；第169–170行在已创建 AnnData 后调用 `torch.manual_seed(SEED)`、`np.random.seed(SEED)`；171行创建 `cc.tl.Cluster`，188行 `model.fit(adata)`。
+- 固定25维 L4 第142行返回 `np.ascontiguousarray(X, dtype=np.float32)`；第202行记录 `feature_matrix_sha256`；第246–247行设全局随机种子，第248–250行才创建 AnnData、设置 obs_names/obsm；第251行创建 `cc.tl.Cluster`，268行 fit。
+- 两者均在创建 Cluster 之前设种子，**差异在设置种子与创建 AnnData 的先后顺序**。尚未证明 AnnData 构建是否消耗相关随机数、是否造成预测不一致。旧 manifest 未记录实际输入数组 hash，不能把同源文件 hash 等同于最终 GMM 输入完全相同。
+- 下一个最小只读操作：从历史来源 `aggregated.npz` 重新构造两种脚本的 hop4 输入，计算按 C-contiguous float32 转换后的数组 SHA256，与固定25维 manifest 记录的 `f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463` 核对；此核对不训练模型、不修改历史结果。
