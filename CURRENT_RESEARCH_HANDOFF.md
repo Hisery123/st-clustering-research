@@ -1,5 +1,13 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 151508 表征缓存盘点与训练准备（2026-11-10，最新）
+
+用户Windows只读搜索 `D:\paper\CellCharter_reproduction` 与 `D:\paper\ST_Benchmark_Planning\mvp` 下路径包含151508且文件名匹配 `latent|aggregat|embedding|scvi`、扩展名为 `.npy/.npz/.h5ad/.pt` 的文件，**终端无输出**。这表示在此匹配范围内未发现缓存，**不代表全盘绝对不存在，也不是训练已执行**。
+
+根据已经核实的151507适配版原始脚本，GitHub新建 [151508 特征准备脚本](scripts/cellcharter/prepare_151508_scvi_aggregation.py)，采用相同5000 HVG/seurat_v3、5维scVI、AdamW/early-stop、4跳25维空间拼接、seed22911和基于Visium六邻域几何校验。仅生成 scVI 5维 latent / 25维聚合/条码顺序，不拟合GMM、不读取人工层标注、不更换已锁定A/B。新结果目录独立且拒绝覆盖。**脚本仅已提交GitHub，Windows尚未同步或运行**。
+
+**唯一下一步：先 `git pull --ff-only` 同步新脚本；然后再单独运行 `--check-only` 核对空间图并确认不会训练写文件；成功后再正式开始scVI训练。** 来源151508曾用于项目其他任务，跨切片检验不称严格全新盲测。避免重复STAGATE与历史GMM排错。
+
 ## 151508 预检结果（2026-11-10，最新）
 
 用户在Windows实际以 CellCharter 专用 Python 运行只读核查并输出 `151508_INPUT_PREFLIGHT_COMPLETE`。真实终端：`EXPRESSION_SHAPE: (4384, 33538)`；`POSITION_ROWS: 4384`；`BARCODE_UNIQUE: True`；`BARCODE_ORDER_MATCH: True`；`COORDINATES_VALID: True`；`ANNOTATED_SPOTS: 4381`；`ANNOTATION_CLASSES: 7`；`ANNOTATION_BARCODES_MATCH: True`。读10x H5时有两个基因变量名不唯一 UserWarning，属于预处理注意事项，原151507脚本使用 `var_names_make_unique()`，此轮未写文件。
