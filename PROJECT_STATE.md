@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 151508 跨切片准备：Windows 路径清点（2026-11-10）
+
+用户在 Windows 手动执行三输入文件的 `Test-Path` 与结果目录筛查，真实输出表明 `D:\paper\ST_Benchmark_Planning\mvp\data\151508\` 下 `filtered_feature_bc_matrix.h5`、`spots_aligned.csv`、`manual_layer_annotations.csv` 均为 `True`；在 `D:\paper\CellCharter_reproduction\results` 下按目录名匹配 `151508` **未列出目录**。这不证明其他位置不存在缓存或151508未曾用于其他实验。
+
+**下一步唯一动作**：对151508执行只读矩阵/空间坐标和标注表结构检查（数量、barcode唯一性及顺序、标注覆盖；不得拟合、不得写文件）。如无既有CellCharter latent，之后才规划最小scVI缓存生成，不能立即宣称已有跨片实验。候选固定为A=`L0+L1+L2` vs B=`L0+L1+L4`，均15维。151508历史上用于其他任务的情况应说明，不称未经探索的独立盲测。
+
+
 ## 最新分区一致性复核与下一步（2026-11-10，最高优先级）
 
 用户在Windows只读检查两轮 `predictions.csv`，按 `barcode` 一对一合并各4226行，真实输出：对照 `L0+L1+L2` 的跨GMM seed分区ARI=`0.5049001187368433`，候选 `L0+L1+L4` 的跨GMM seed分区ARI=`1.0`。说明候选B在seed22911和101的这两次拟合中得到**相同分区（允许标签编号置换）**；**不是**与人工标签ARI=1，更不能代表跨切片验证。详细记录见 [MVP-1b档案](experiments/cellcharter_dlpfc/MVP_FIXED15_GMM_SEED101_151507_20261110.md)。
