@@ -39,3 +39,16 @@
 3. 若训练完成，则检查10个输出目录 `status.json`、`config.json`、`cellcharter_aggregated.npy`、`spot_order.csv`、hash、样本行序是否匹配；如出现失败保留目录、只做定点诊断，绝不擅自删除/重跑。
 4. 特征验证成功以后，才按冻结协议执行每片 A/B 同预算 GMM 和完整全样本报告，分供体汇总、不伪重复；结合最接近文献判断最小创新是否成立。
 5. 下一次只能下发**一个**手动PowerShell操作，并说明目的、预期输出和错误时处理。
+
+
+## 2026-11-10 批量10片特征生成终端证据：全部成功（此前“运行中”状态已更新）
+
+用户贴出`prepare_dlpfc_10_features.py --all --train`的终端尾部，**最终明确打印 `DLPFC_10_FEATURE_TRAIN_COMPLETE 10/10`**。按已归档脚本该标志说明全部10个子进程正常返回，各样本走完整成功保存或通过原有已完成缓存哈希检查的重用分支，因而不再应把批量状态写作运行中；但尚未在本地针对所有缓存执行独立写后审计。终端直接展示：
+- 151674: scVI epoch275/400早停、`FEATURE_CACHE_COMPLETE`，n3673，latent[3673,5]、aggregate[3673,25]、edges10629，latent sha256`d55bd042b8b7da7e99572a17df5abb93c7099138d79d8412f75846c88dd3d303`，aggregate sha256`6e2d2bfa006ed836eb256215736dda81808b1ed7c1b3542c3e7623bc187e340a`。
+- 151675: epoch313/400早停、`FEATURE_CACHE_COMPLETE`，n3592，latent[3592,5]、aggregate[3592,25]、edges10381，latent sha256`2d0555ddad15354c190043ba07f2470f4dd902832ad309256f620aab4bf8af74`，aggregate sha256`210aebd5225eedbc4c4430e1f43d81b87c09e663422a7c0e747d0e762ba0cf80`。
+- 151676: epoch274/400早停、`FEATURE_CACHE_COMPLETE`，n3460，latent[3460,5]、aggregate[3460,25]、edges10026，latent sha256`504af4b34a3dbfc303452a4cfda3abe983d3ac8d388448e209d15836520c34ed`，aggregate sha256`834d10f10d4880523ddcd3d0df04b3696998c5dc01d1d98f72c9d1c0f635d4e2`。
+- 其余151510、151669–151673单片完整日志未在这次摘录展示；不补造其epoch或SHA。
+- 151509先前独立训练已完成，批量脚本具备已完成hash匹配cache复用机制。
+- 显示 `GPU available: True(cuda), used: True`，警告`No GPU/TPU found`来自另一框架、不会否定Lightning CUDA训练。
+
+**下一步唯一动作**：只读批量审计10片output目录中 status.json、config.json、spot_order.csv、scvi_latent.npy、cellcharter_aggregated.npy、shape/条码对齐及文件SHA，核实无一张错片/截断，再创建冻结A/B GMM + evaluation脚本；不得重复scVI，不允许看新结果后改A/B/K/seed。仍仅3个独立供体，方法创新尚未成立。
