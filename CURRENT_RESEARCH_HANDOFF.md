@@ -1,5 +1,13 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 151508 冻结 A/B 对照已完成：边界F1正向、全局ARI/NMI非正向（2026-11-10，最高优先级）
+
+用户Windows运行 `scripts/cellcharter/mvp_fixed15_block_swap_151508.py`，终端明确 `MVP_FIXED15_COMPLETE`，输出目录 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151508_gmm22911_v1`，**已实际执行**。同一151508 scVI seed22911 的25D缓存切出两组15D；Oracle K7，CPU GMM seed22911。A: ARI `0.46267065495944715`, NMI `0.6132171362713753`, boundaryF1 `0.10315575161180861`, TP152/FP1868/FN775，L5/L6 41/139；B: ARI `0.46059571688191825`, NMI `0.5691388933817928`, boundaryF1 `0.16513761467889906`, TP261/FP1973/FN666，L5/L6 49/139。B−A：ARI −0.002075，NMI −0.044078，边界F1 +0.061982，边界FP +105（负面需保留）。真实评估边12846，真界面边927。
+
+对比151507开发切片：同seed B的ARI/NMI/F1均更好；**151508上整体聚类ARI略差且NMI明显差，不能宣称整体聚类跨切片稳定提升；仅两切片边界F1有探索性改善信号**。所有数值来自用户终端，不是假定已独立读取本地CSV。当前不做统计显著性声明；spot/边不等于生物独立样本，151508是曾经接触的样本，非严格未触碰盲测。完整终端归档：[151508 试验报告](experiments/cellcharter_dlpfc/MVP_FIXED15_151508_EXTENSION_PLAN_20261110.md)。
+
+**下一步**：不追加151508随机种子挑好成绩、不更改已冻结A/B；预先确定下一阶段主要终点、容忍的ARI/NMI损失，盘点是否有未用于设计的其他切片；公平对照和创新性审查之后才评估发展方法论文的可行性。不要转STAGATE或重启历史GMM排错。
+
 ## 151508 scVI/25D 缓存完成，锁定跨切片 A/B 脚本待运行（2026-11-10，最新）
 
 **用户终端已证实成功**：v2脚本输出 `151508_SCVI_TRAIN_FINISHED` 及 `151508_FEATURE_CACHE_COMPLETE`，scVI提前停止于epoch260；4384×5 latent，4384×25聚合，空间边12849，CUDA运行，peak_cuda_mib=106.73（仅Torch统计），聚合文件SHA256=`094f702ba7fae32fc69c6c8026acb5765bd7bcd39b2802fbe8091b26baba60ee`。缓存路径 `D:\paper\CellCharter_reproduction\results\cellcharter_151508_scvi22911_features_v2`。**尚未在151508运行GMM、未生成跨切片比较指标。**
