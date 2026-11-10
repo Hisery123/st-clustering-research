@@ -1,5 +1,13 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-10 新增10片 25D特征写后缓存独立审计通过，已准备冻结A/B脚本（待运行）
+
+用户Windows真实只读输出：151509,151510,151669,151670,151671,151672,151673,151674,151675,151676 均 `PASS`，最终 `FEATURE_CACHE_AUDIT_COMPLETE 10/10`。审计条件包括每片 `status.json` completed、sample与config匹配、scVI latent数组(spot数,5)、CellCharter aggregate数组(spot数,25)、spot_order.csv与源spots_aligned.csv条码逐行匹配、两数组SHA256与status记录一致、源H5与坐标CSV哈希与config一致。**该证明限十片新增缓存；用户本人本地读审。**
+
+已在GitHub创建 `scripts/cellcharter/mvp_fixed15_dlpfc_10_sections.py`，移植此前151508同预算A=L0+L1+L2/B=L0+L1+L4各15D的CellCharter CPU GMM、seed22911/full covariance/kmeans/cov reg1e-6/tol.001/maxepochs100，以及相同六邻居无向边的boundary F1/ARI/NMI/L5L6指标；冻结每片K与spot/edge/annotation统计，源哈希与缓存顺序核验。该脚本默认无拟合、无写入；单片`--sample 151509`或`--all`纯检查。只有带`--fit`才在不同新目录分别保存 A/B prediction CSV、manifest、results，**先两组聚类再读标注**；出错保留失败状态，拒绝覆盖。需先同步GitHub并实际进行无写入检查，不能宣称已经测试脚本在Windows正确跑通，也没有任何新增GMM结果。
+
+冻结协议: `experiments/cellcharter_dlpfc/DLPFC_12_SECTION_FROZEN_EVALUATION_PROTOCOL_20261110.md`，已知151507/151508开发结果不重跑，供体n3，K5/7，所有负结果完整报告。下一步用户`git pull --ff-only`，确认后再运行`python ...mvp_fixed15_dlpfc_10_sections.py --all`。下个里程碑才启动CPU GMM。
+
 ## 2026-11-10 批量10片特征生成终端证据：全部成功（此前“运行中”状态已更新）
 
 用户贴出`prepare_dlpfc_10_features.py --all --train`的终端尾部，**最终明确打印 `DLPFC_10_FEATURE_TRAIN_COMPLETE 10/10`**。按已归档脚本该标志说明全部10个子进程正常返回，各样本走完整成功保存或通过原有已完成缓存哈希检查的重用分支，因而不再应把批量状态写作运行中；但尚未在本地针对所有缓存执行独立写后审计。终端直接展示：
