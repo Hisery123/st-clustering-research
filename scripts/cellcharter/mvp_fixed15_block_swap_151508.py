@@ -66,7 +66,7 @@ def spatial_pairs(positions: pd.DataFrame):
 def metrics(pred: np.ndarray, truth: np.ndarray, i: np.ndarray, j: np.ndarray) -> dict:
     valid = pd.notna(truth)
     if valid.sum() != 4381:
-        raise ValueError(f"Expected 4221 annotated spots; found {valid.sum()}")
+        raise ValueError(f"Expected 4381 annotated spots; found {valid.sum()}")
     good = valid[i] & valid[j]
     u, v = i[good], j[good]
     y_boundary = truth[u] != truth[v]
