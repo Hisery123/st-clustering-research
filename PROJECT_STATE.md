@@ -1,5 +1,11 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 最新分区一致性复核与下一步（2026-11-10，最高优先级）
+
+用户在Windows只读检查两轮 `predictions.csv`，按 `barcode` 一对一合并各4226行，真实输出：对照 `L0+L1+L2` 的跨GMM seed分区ARI=`0.5049001187368433`，候选 `L0+L1+L4` 的跨GMM seed分区ARI=`1.0`。说明候选B在seed22911和101的这两次拟合中得到**相同分区（允许标签编号置换）**；**不是**与人工标签ARI=1，更不能代表跨切片验证。详细记录见 [MVP-1b档案](experiments/cellcharter_dlpfc/MVP_FIXED15_GMM_SEED101_151507_20261110.md)。
+
+**决策**：不继续在151507刷seed/挑更多组合，候选B暂固定待跨片检验；首先**只读盘点151508已有数据及缓存，不开始大规模重训**。此前写的“下一步对比两份CSV”已完成，失效。不要开启STAGATE或历史GMM排错。
+
 ## 最新 MVP-1b 结果（2026-11-10；当前优先）
 
 - 用户实际执行 `mvp_fixed15_block_swap_gmm101_151507.py` 成功，`MVP_FIXED15_COMPLETE`；结果在本地 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1`，当前仓库仅终端转录。
