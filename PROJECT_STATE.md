@@ -1,60 +1,38 @@
-# PROJECT_STATE · 第三篇空间转录组聚类论文
+# PROJECT_STATE — 第三篇空间转录组聚类论文
 
-> **2026-11-10 文献核查新进展**：已核实 CellCharter 原文/官方邻域拼接 API、AugGCL 2026 PLOS 原文 NIA 表达-邻域相似度加权、CodaST 出版方摘要 LSWC、HarveST PMC 全文及 GATCL/TRACER 的摘要；详见 [第一轮最近邻审计](experiments/cellcharter_dlpfc/NEAREST_PRIOR_ART_AUDIT_20261110_V1.md)。**STOP：**不得将单纯表达相似性加权邻接或 GAT 注意力包装成独创。**条件 GO：**先审查多尺度特征块与 GMM 可分性影响的最小、可证伪机制对照（非新算法）。AugGCL GitHub 代码含根据每epoch ARI选择最佳结果的片段，但尚未证实其用于论文151507的报告值。当前无需 Windows 操作，不自动恢复已暂停的历史 GMM 排查。下方早期“下一步查 GMM”均为旧记录。
+> 当前有效存档，2026-11-10。**先读此文件的当前状态，再按需看实验归档；历史诊断保留于日记和原始记录，不作为当前待办。**
+> 新对话阅读顺序：[AGENTS.md](AGENTS.md) → 本文件 → [当日日记](RESEARCH_JOURNAL/2026-11-10.md) → [交接索引](CURRENT_RESEARCH_HANDOFF.md)。
 
+## 当前目标与采用的科研策略
 
-> **2026-11-10 用户最新科研决策（优先于下文旧待办）**：停止追查历史两份 seed0 L4 GMM 不一致，根因未明，暂存为局限；**禁止自动继续预测对齐、RNG、重复拟合诊断**。转入 S2/S3：对 CellCharter 边界/连续性权衡作最近邻论文原创性审查，再决定单一最小机制。初步检索与源链接：[研究转向记录](experiments/cellcharter_dlpfc/RESEARCH_PIVOT_AND_PRIOR_ART_SCREEN_20261110.md)。后文涉及“下一步继续查 GMM”的句子是先前历史状态，现已失效。
+- **目标**：争取符合毕业要求的普通 SCI 方法论文，以成熟可运行基线、低成本可解释的**小幅增量**为导向，不追求重大理论突破，也不承诺任何期刊录用。
+- **流程**：成熟基线 → 可测弱点 → 1–2个最小候选 → 低成本开发集 MVP → 同预算必要对照、锁定方案并跨独立样本验证 → 随实验并行写稿。原创性审查优先最近3–5项最相似工作，避免无限审查。
+- **诚信边界不变**：开发集可以探索但不能将幸运最佳成绩当独立盲测；保留所有失败、无提升和负结果；人工参考标签不用于所谓独立测试的调参/早停；不伪造引用/结果。Oracle K=7 是根据人工标注类别数设置。
+- **暂停事项**：用户要求停止历史 seed0 L4 GMM 两组预测不一致原因排查，已有审计与不确定性保存于实验文档；**不要再让用户跑这两套历史诊断命令**。
 
+## 已完成且可追溯的结果（不是最终论文结果）
 
-> 更新：2026-11-10。此文件为**当前存档**，不是原始实验记录或独立验证。详见 [交接索引](CURRENT_RESEARCH_HANDOFF.md) 和 [当日日记](RESEARCH_JOURNAL/2026-11-10.md)。旧 README / handoff 正文中的早期「L3未执行」描述已经过期。
+- CellCharter **v0.3.2 适配版**，scVI 5D latent、Visium 六邻域、TorchGMM CPU；与作者 v0.2.0/PyCave/原预处理 h5ad 不同，不能宣称一模一样的作者复现。
+- DLPFC 151507：4226 spots，4221 有有效人工层标签；12385 无向邻边、12381 有效评价边、950 跨层参考边界。**151507 已用于开发，不是独立测试片**。
+- seed22911、Oracle K7、L0–L4 共用一份 scVI latent，特征维度依次 5/10/15/20/25，GMM各自拟合：
+  - ARI：0.362131 / 0.444156 / 0.457461 / 0.469696 / 0.496146
+  - NMI：0.441915 / 0.569587 / 0.604740 / 0.585078 / 0.675436
+  - 全局边界F1：0.175802 / 0.162024 / 0.132590 / 0.136045 / 0.171509
+  - L4 的 Layer5/Layer6 边界检出0/145、Layer4/Layer5约3/160；L0 在多个组织层内部错误分割率较高；L4也有部分界面召回反弹，不能声称全体单调下降或过度平滑因果成立。
+- L3 初次预测完成但边界评价因 Layer5 标签字符串错误而失败，已从保存预测恢复指标并保留失败；统一五档边界与逐层审计已实际执行。
+- 主要证据：[全局边界](experiments/cellcharter_dlpfc/snapshot_20261110/BOUNDARY_AUDIT_151507_SEED22911_20261110.md)、[逐层边界](experiments/cellcharter_dlpfc/snapshot_20261110/LAYERWISE_BOUNDARY_151507_SEED22911_20261110.md)、[L3恢复指标](experiments/cellcharter_dlpfc/snapshot_20261110/results/cellcharter_v032_151507_seed22911_L3_diagnostic/metrics_recovered.json)。
+- 最近邻已有研究：[文献审查V1](experiments/cellcharter_dlpfc/NEAREST_PRIOR_ART_AUDIT_20261110_V1.md)。**简单邻域表达相似性权重、注意力或仅重命名模块不能自动声称原创性**；AugGCL 的训练代码存在每epoch ARI选最优的片段，但是否用于对应报告值仍待核实，不能断言原作者整篇泄漏。
 
-## 目标与边界
+## 当前阶段：MVP-0，多尺度特征块的只读预检
 
-- 基线：CellCharter v0.3.2 适配版；研究 DLPFC 空间聚类的组织连续性—边界保留权衡。
-- 当前证据等级：**探索性单切片（151507）＋单 seed22911＋Oracle K=7**。尚不是完全同版本作者复现或独立测试。
-- 与作者协议差异：scVI latent=5、5000 HVG、重建 Visium 六邻域、TorchGMM CPU，而非作者旧版 PyCave 与其预处理 h5ad。基线 scVI 已在 GPU 训练；此后 L0–L4 复用 latent。
-- Windows 本地：训练 `D:\paper\CellCharter_reproduction`；数据 `D:\paper\ST_Benchmark_Planning\mvp\data\151507`；Git checkout `D:\paper\st-clustering-research`；Python `D:\paper\CellCharter_reproduction\env_cellcharter\python.exe`。
+- [完整务实方案](experiments/cellcharter_dlpfc/MVP_INCREMENTAL_RESEARCH_PLAN_20261110.md) 已冻结**首项只读检查**，没有训练任何新方法；后续加权候选仅为待决定方案。
+- 新建 [预检脚本](scripts/cellcharter/preflight_multiscale_blocks_151507.py)，读取已保存的 seed22911 L4 `cellcharter_aggregated.npy`（4226×25），按五个5维块报告绝对均值、RMS、列STD、自身块相关，**不加载标注、不运行GMM、不写文件**。
+- **下一个唯一手动操作**：用户在 Windows 先从 GitHub 同步最新脚本（代理 git pull 的旧成功参数可复用），收到成功日志后再单独执行上述预检脚本。绝不要在用户同步前称本地已有新脚本。
+- 预检结果返回后决定是否有理由预先锁定一个**固定25维**块尺度校准候选，以及原始 L4、最简单替代控制与同协议 GMM 的开发集实验。因为 full-covariance GMM 对可逆线性缩放理论上可吸收，任何差别可能来源于初始化/正则/数值，不能直接归因于生物学新机制。
 
-## 已完成、可追溯的实验
+## 仍需面对的局限与实施规则
 
-- 151507：4226 spots、4221 有标签 spots，12385 物理无向边、12381 可评价边、950 条人工跨层参考边界。
-- seed22911 L0–L4 五档聚合+GMM 已执行，ARI分别为 **0.362131 / 0.444156 / 0.457461 / 0.469696 / 0.496146**；NMI分别为 **0.441915 / 0.569587 / 0.604740 / 0.585078 / 0.675436**。L3 初次评价标签字符串有错，GMM/predictions 已生成；后用独立恢复脚本从预测重算，保留失败记录。L3 [恢复指标](experiments/cellcharter_dlpfc/snapshot_20261110/results/cellcharter_v032_151507_seed22911_L3_diagnostic/metrics_recovered.json) 是按真实终端 JSON 转录入 GitHub，未核对原文件字节。
-- 五档统一边界审计已完成（终端显示 `ALL_DEPTH_BOUNDARY_AUDIT_COMPLETE`）；全局边界 F1：**0.175802 / 0.162024 / 0.132590 / 0.136045 / 0.171509**。完整计数见 [全局审计记录](experiments/cellcharter_dlpfc/snapshot_20261110/BOUNDARY_AUDIT_151507_SEED22911_20261110.md)。
-- 逐组织层结果已由用户打印，见 [逐层审计](experiments/cellcharter_dlpfc/snapshot_20261110/LAYERWISE_BOUNDARY_151507_SEED22911_20261110.md)：L4 下 L5/L6 边界检出 0/145，L4/L5 约 3/160；但上层界面并非一致单调下降。L0 高检出伴随多个层内的高错误分割率。
-- 历史 seed0 的 [跳数消融](experiments/cellcharter_dlpfc/HOP_ABLATION_151507_SEED0_20261109.md) 与 [固定25维置换](experiments/cellcharter_dlpfc/FIXED25_PERMUTATION_151507_SEED0_20261109.md) 已运行；不可混为 seed22911 的重复，也不能视为纯粹深度因果控制。
-
-## 当前阻碍／尚未完成
-
-1. **GMM 重拟合一致性疑点（两份 manifest 已读取）**：2026-11-10 用户提供完整历史 seed0/L4 的两份 manifest，均报告相同来源特征 SHA256、K7/full/kmeans/seed0/CPU、容差0.001/正则1e-6/100上限；但脚本 SHA256 不同，旧 manifest 无最终输入矩阵 hash，GMM 分别在24/29迭代收敛，NLL=4.6140360832/4.7212352753。早先两份预测分区 ARI=0.713871。完整表格见 [GMM manifest 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。**实际输入矩阵是否完全一致、随机调用顺序是否解释差异仍未知**。
-2. 聚合深度从 L0 到 L4 同时把维度从 5 增到 25。旧固定25维置换会破坏块与 spot 对应关系，因此不足以单独证明「过度平滑」。
-3. 五档逐层分析 CSV、L3 预测和原始失败状态等本地文件尚未完整上传/外部复核；不能把终端打印的四位小数当全精度 CSV。
-4. 跨随机种子、独立样本或供体、最近邻文献查新、候选增量机制及消融**未完成**。151507 已密集探索，不是独立留出测试切片。
-
-## 最优先的一件事
-
-**只读检查两次历史 L4 seed0 的 manifest / script_snapshot / 实际输入证据，排查拟合差异来源；不重跑训练。**
-
-- 旧 L4：`D:\paper\CellCharter_reproduction\runs\151507_hop_ablation_h4_seed0_20261109_151425_400946`
-- 固定25维 L4：`D:\paper\CellCharter_reproduction\runs\151507_fixed25_perm_h4_seed0_20261109_174954_951592`
-- 两目录经用户列示均存在 `manifest.json`、`predictions.csv`、`gmm_weights.pt`、`run.log`、`script_snapshot.py`；第二目录还含置换索引。完整配置输出仍待确认。
-- 用户已回传并核对两份 manifest；下一步查看脚本快照中实际输入矩阵构建、seed 与 GMM fit 调用顺序。**不要重复提出此前已经做完的 L3、五档边界审计。**
-
-## 最新脚本快照审查（2026-11-10）
-
-用户已回传两份 `script_snapshot.py` 的关键行：旧 L4 在构建 AnnData 后设置 `torch.manual_seed(0)` / `np.random.seed(0)`；固定25维 L4 在设置种子后才构建 AnnData。两者均在创建 `cc.tl.Cluster` 前设置种子，不能据此断定 AnnData 消耗随机数或 TorchGMM 非确定性。旧 h4 从原始聚合矩阵截取完整25列，新 h4 返回 C-contiguous float32；下一步**只读核对最终数组 SHA256**（不重训）。详情 [审计追加记录](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
-
-## 最新输入校验（2026-11-10）
-
-用户已从共同源 `aggregated.npz` 加载 `X_cellcharter` 4226×25 float32，按旧 L4 脚本方式重建矩阵后 SHA256 为 `f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463`，**与固定25维 L4 manifest 的最终矩阵 hash 一致**。结果增强了输入一致性证据，但旧实验并无运行时最终矩阵哈希；不能据此断言 TorchGMM 自身不确定。下一步检查构建 AnnData 是否改变设种子后的 NumPy/Torch RNG 状态（只读内存测试，不训练）。详情见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
-
-## 最新 RNG 诊断（2026-11-10）
-
-用户已在 Windows 实测 AnnData 创建前后 PyTorch CPU 和 NumPy 全局 RNG 状态：旧、新两种形式均输出 `TORCH_RNG_CHANGED: False`、`NUMPY_RNG_CHANGED: False`。首次助手提供的 RNG 检测代码因错误调用 `torch.Generator.get_rng_state()` 报错，已更正并成功得到上述结果；失败和修复都存档。结论限定于本次模拟 AnnData 构造的全局状态，不涵盖 TorchGMM 内部 RNG/完整 fit。下一步仅只读比较两份脚本的完整 `cc.tl.Cluster(...)` 参数、AnnData 输入构造及调用差异，再决定是否做最小拟合重复性实验。见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
-
-## 最新完整构造参数核查（2026-11-10）
-
-用户已回传两份脚本的完整 Cluster 初始化与 fit 上下文：两者显式 GMM 参数、trainer_params 一致；旧脚本先创建 AnnData 后设置 Torch/NumPy seed，新脚本反过来，而前一步模拟 RNG 测试未观察到全局状态消耗。固定25维 h4 置换循环为空，输入数组复算哈希一致。仍未核对两份原始脚本加载 barcode/特征顺序及此前 predictions 对照按 barcode 是否严格对齐；下一步只读检查两个脚本的 `load_source` 和 CSV 比较对齐方式，不重新拟合。见 [审计记录](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
-
-## 状态维护规则
-
-每次实验或重要科研判断归档，AI 同步更新本文件、`CURRENT_RESEARCH_HANDOFF.md` 与当日 `RESEARCH_JOURNAL/YYYY-MM-DD.md`；GitHub 提交不等于本地已拉取。
+- 当前仅开发切片单种子，深度与输入特征维度联动；跨独立切片/供体、重复种子、全套公平对照、最近邻完整机制审查、创新验证、论文结果均未完成。
+- Windows: `D:\paper\CellCharter_reproduction`；本地 Git: `D:\paper\st-clustering-research`；Python: `D:\paper\CellCharter_reproduction\env_cellcharter\python.exe`。原始 H5、部分本地模型和 CSV 未上传；GitHub 终端转录不是原始文件字节校验。
+- 用户本人执行 Windows 本地实验；AI 直接管理允许的 GitHub 文档/脚本。**一次只给一条可复制命令**，说明预期与报错处理。
+- 本文件每次关键研究推进时保持简短、移除过期下一步；历史细节去日记和 `experiments/`，不能重复堆叠相互冲突的“下一步”。
