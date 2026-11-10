@@ -45,6 +45,10 @@ L3 首次运行聚合及 GMM 预测已完成，但边界代码误把 `Layer 5/La
 
 逐层结果：L4 下 L5/L6 为 0/145，L4/L5 约为 3/160；但是 L1/L2、L2/L3 在 L4 比 L3 回升。L0 高边界召回伴随大量同层错误分割；全局 F1 亦非单调。**仅可声称单切片探索性权衡，不可声称因果过度平滑、普遍规律或已验证创新。**
 
+## 最新核查补记（2026-11-10）
+
+用户已经提供两份历史 seed0 L4 原始 `manifest.json` 的完整终端内容；见 [GMM manifest 对照归档](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。来源聚合与 latent 的 SHA256 一致、显式 GMM 超参一致，但旧 manifest 缺少最终输入矩阵 SHA256，脚本 hash 不同，训练实际收敛迭代 24 vs 29，NLL 4.614036 vs 4.721235；此不一致原因仍未定位。**下一步只读比较实际脚本中的矩阵构造、随机种子调用与 GMM fit 位置，不重复已完成的 manifest 检查或训练。**
+
 ## 当前阻碍及下一步
 
 1. **立即下一步只读审查历史 GMM 重拟合一致性：** 2026-11-09 两次 seed0、名义上同源 L4 输入和同名超参数的预测分区 ARI=0.713871，而不是 1，原因不明。用户最近已列示两次本地运行目录有 `manifest.json`、`predictions.csv`、`script_snapshot.py`、`gmm_weights.pt` 等。**还未收到新一轮完整 manifest JSON 输出**；不能声称已经核查完该对比。
