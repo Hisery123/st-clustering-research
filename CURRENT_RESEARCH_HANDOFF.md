@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 151508 输入文件存在（2026-11-10；当前最优先）
+
+用户Windows检查：151508 的表达H5、spots_aligned.csv、manual_layer_annotations.csv 三文件均存在；指定 `CellCharter_reproduction\results` 下没有列出匹配151508的目录。**未检查文件结构/条码匹配、也未确证所有位置没有scVI缓存**。下一步仅只读检验151508矩阵与坐标行顺序及标注覆盖；随后决定最小跨片实验。方案A L0+L1+L2、B L0+L1+L4不变。暂不重训、不查STAGATE。
+
+
 ## 最新结果（2026-11-10）：已完成 Barcode 分区一致性复核
 
 用户实际只读合并两轮各4226行 predictions.csv，结果：对照 A 的跨 GMM seed 分区 ARI=`0.5049001187368433`，候选 B 的分区 ARI=`1.0`。因此 B 在这两个 GMM seed 下为同一分区（簇编号可置换），不是对人工标签 ARI=1.0、不是不同切片验证。原本本文件旧段落“尚未直接读取预测文件”已过期；详细档案见 [MVP-1b](experiments/cellcharter_dlpfc/MVP_FIXED15_GMM_SEED101_151507_20261110.md)。**接下来仅只读检查151508已有数据及特征缓存；不继续刷151507、不恢复STAGATE和历史GMM排查。**
