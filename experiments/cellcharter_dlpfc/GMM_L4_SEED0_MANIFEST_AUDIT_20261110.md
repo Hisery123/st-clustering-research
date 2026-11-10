@@ -1,0 +1,41 @@
+# 历史 seed0 L4 两次 GMM manifest 对照（2026-11-10）
+
+## 证据和边界
+
+用户在 Windows PowerShell 使用 `Get-Content -Raw` 读取 2026-11-09 两份原始 manifest，并将完整 JSON 输出于当前会话。**本文件依据用户终端文本审计；不是 GitHub 已收到本地 manifest 原始字节或权重。**
+
+- 旧 L4：`D:\paper\CellCharter_reproduction\runs\151507_hop_ablation_h4_seed0_20261109_151425_400946\manifest.json`
+- 固定25维 L4：`D:\paper\CellCharter_reproduction\runs\151507_fixed25_perm_h4_seed0_20261109_174954_951592\manifest.json`
+- 两次均标记 `GMM_CONVERGED`、`manual_labels_read=false`、`ARI_computed=false`；151507 是探索性切片，K=7 来源于已知人工类别数。
+
+## 对照结果
+
+| 项目 | 旧 L4 | 固定25维 L4 |
+|---|---|---|
+| sample / hop / feature dim | 151507 / 4 / 25 | 151507 / 4 / 25 |
+| source run | 151507_baseline_seed0_20261109_135812_583663 | 相同 |
+| source_aggregated_sha256 | 96844547f535114184defe1eff6ef6bd34ee6b7c22b8bbf51a59da9cd3e0a13a | 相同 |
+| source_latent_sha256 | 7cc6d513ec52aea97f346ddc543073c9b2209692f9dd27f2394171f89f5f8d91 | 相同 |
+| source_predictions_sha256 | eeff8124a049636299aba75cf129936cf6cbeac955ac180268c42fef2190ab5a | 相同 |
+| script_sha256 | 633bb6ed96c776bfd6f7a9e115fcb323684c16489cc4a75f43f9b1fad61a5075 | 20fa357ad7ff43e6408f86be3f5bbcf576058d356d1d8423e2711c1051ab5fdf |
+| feature_matrix_sha256 | 未记录 | f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463 |
+| permuted_neighborhood_blocks | 不适用（截取完整前25列） | []（按设计无置换） |
+| random seed | 0 | 0 |
+| GMM K/covariance/init | 7 / full / kmeans | 7 / full / kmeans |
+| tolerance / regularization / max EM | 0.001 / 1e-6 / 100 | 相同 |
+| CPU/software | CellCharter 0.3.2; TorchGMM 0.1.2; torch 2.1.2+cu121; Lightning 1.9.5 | 相同 |
+| converged EM iterations | 24 | 29 |
+| final NLL | 4.6140360832214355 | 4.7212352752685555 |
+
+注：固定25维 L4 原始 JSON 中 NLL 实际为 **4.721235275268555**；上表尾数应以此值为准。先前历史记录两次分区 ARI=0.713871（两次预测互相比，不是人工标签 ARI）。
+
+两次聚类计数：
+- 旧 L4: [701,253,604,446,582,615,1025]
+- 固定25维 L4: [642,314,527,1385,385,279,694]
+
+## 判断和下一步
+
+1. 两个**来源文件** hash 相同，不代表两份最终 **GMM 输入矩阵**已经按相同序列化方式逐字节核对。旧 manifest 缺少最终矩阵 hash，尽管旧脚本按记录为前25列、新脚本 h4 不置换，仍需实际代码核查。
+2. 脚本 hash 不同且历史检查提示 seed 与 AnnData 创建的执行顺序不同；这只能构成待验证原因，**不能据此声称 TorchGMM 非确定性已证实**。
+3. 在相同实际输入矩阵、同 seed、同完整拟合调用确认之前，不将 NLL 或分区差异归因于算法模块；也不将历史不同批次的 h4 结果混成一组公平对照。
+4. 唯一下一步：只读查看两份 `script_snapshot.py` 的输入矩阵构造、随机种子与 GMM fit 邻近代码，随后决定是否需要仅用现有矩阵/权重开展无训练哈希核查。
