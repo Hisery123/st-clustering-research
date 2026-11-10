@@ -1,5 +1,16 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-10 跨对话中途归档：批量GPU训练已启动，最终状态未知（最高优先级）
+
+**当前主任务**：第三篇 DLPFC/CellCharter 方法论文。用户提出换新对话时已表示正在执行 `prepare_dlpfc_10_features.py --all --train`，但本次归档时**尚未发回整批终端日志**；除了先前151509已成功完成5D scVI和25D缓存，其余9片的训练完成情况**未知**，严禁称十片训练完成。
+
+**从这里接手**：先阅读[中途归档与接手手册](experiments/cellcharter_dlpfc/SESSION_CHECKPOINT_20261110_MIDRUN.md)，再根据任务阅读[冻结12片评价协议](experiments/cellcharter_dlpfc/DLPFC_12_SECTION_FROZEN_EVALUATION_PROTOCOL_20261110.md)和[批量特征脚本](scripts/cellcharter/prepare_dlpfc_10_features.py)。用户下一条消息优先判断批量运行是否结束、有无 `DLPFC_10_FEATURE_TRAIN_COMPLETE 10/10`；如正在运行不打扰训练，结束后收集实际日志及各片status/hash验证。**不要提前启动GMM，也不要重新训练已经完成的样本，更不要碰已封存的seed0 GMM历史矛盾**。
+
+**已完成且确认**：新增10片来源下载与位置/metadata标注对齐、转换 `--write`、10/10写后读审计、十片6邻居空间图无训练预检；151509 GPU scVI于epoch222早停并成功缓存25D。历史已见151507、151508固定A/B结果见冻结协议，新片尚无GMM评价。仅3位供体，供体2 K5，其他K7；标注来源 `layer_guess` 需要说明。研究方法创新**尚未成立**，目标为真实可靠的普通SCI增量研究。Github是笔记/脚本，不含未上传的本地H5及模型。
+
+**跨对话工作约定**：下一位助手先调用GitHub Connector读取原始权威记录，再给“已完成/未完成/风险/唯一下一步”；用户Windows一次只执行一条PowerShell命令；中途归档并不等于一天科研结束。
+
+
 ## 2026-11-10 151509 GPU scVI+CellCharter25D 首片训练成功
 
 用户真实Windows日志：执行 `prepare_dlpfc_10_features.py --sample 151509 --train`，先 `151509_GRAPH_CHECK_PASS spots 4789 edges 14086`，`151509_CUDA_READY NVIDIA GeForce RTX 4070 Laptop GPU`，`151509_PREPROCESS_PASS (4789,5000)`；`Global seed set to 22911`。Lightning明确 `GPU available: True (cuda), used: True`，于 epoch222/400 early-stop（连续45 records无validation ELBO提升、best score1395.943），正常得到`151509_SCVI_TRAIN_FINISHED`、`151509_FEATURE_CACHE_COMPLETE`。status completed; latent[4789,5], aggregate[4789,25], graph undirected edges14086; latent sha256 `fac7c28ae833e3eb8277b79b3170dcbf9d08bcc80fb6a9f8397e97424ae5d2c4`; aggregate sha256 `1f29060473365c02d2c26b51a477d87ff2fb4ee6a4e7ae8e18193895c8dfc32e`; script reported peak_cuda_mib106.73 (PyTorch allocated memory diagnostic only, not full GPU usage); finished UTC 2026-11-10T07:08:01.204473+00:00。TensorFlow `No GPU/TPU found, falling back to CPU` 与Lightning明确CUDA使用非同一框架，不视为失败。
