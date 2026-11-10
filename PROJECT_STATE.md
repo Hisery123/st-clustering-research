@@ -37,6 +37,10 @@
 
 用户已回传两份 `script_snapshot.py` 的关键行：旧 L4 在构建 AnnData 后设置 `torch.manual_seed(0)` / `np.random.seed(0)`；固定25维 L4 在设置种子后才构建 AnnData。两者均在创建 `cc.tl.Cluster` 前设置种子，不能据此断定 AnnData 消耗随机数或 TorchGMM 非确定性。旧 h4 从原始聚合矩阵截取完整25列，新 h4 返回 C-contiguous float32；下一步**只读核对最终数组 SHA256**（不重训）。详情 [审计追加记录](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
 
+## 最新输入校验（2026-11-10）
+
+用户已从共同源 `aggregated.npz` 加载 `X_cellcharter` 4226×25 float32，按旧 L4 脚本方式重建矩阵后 SHA256 为 `f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463`，**与固定25维 L4 manifest 的最终矩阵 hash 一致**。结果增强了输入一致性证据，但旧实验并无运行时最终矩阵哈希；不能据此断言 TorchGMM 自身不确定。下一步检查构建 AnnData 是否改变设种子后的 NumPy/Torch RNG 状态（只读内存测试，不训练）。详情见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
 ## 状态维护规则
 
 每次实验或重要科研判断归档，AI 同步更新本文件、`CURRENT_RESEARCH_HANDOFF.md` 与当日 `RESEARCH_JOURNAL/YYYY-MM-DD.md`；GitHub 提交不等于本地已拉取。
