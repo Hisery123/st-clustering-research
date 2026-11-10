@@ -19,7 +19,7 @@
 
 ## 当前阻碍／尚未完成
 
-1. **GMM 重拟合一致性疑点**：2026-11-09 历史两次 nominally seed0、L4 同源特征、同名显式超参数的预测分区 ARI=0.713871（非1）。来源不明；两组文件及 script_snapshot、manifest 在本机保留。用户最新已确认文件存在，但还**没有提供本轮所请求的两份完整 manifest 输出**。
+1. **GMM 重拟合一致性疑点（两份 manifest 已读取）**：2026-11-10 用户提供完整历史 seed0/L4 的两份 manifest，均报告相同来源特征 SHA256、K7/full/kmeans/seed0/CPU、容差0.001/正则1e-6/100上限；但脚本 SHA256 不同，旧 manifest 无最终输入矩阵 hash，GMM 分别在24/29迭代收敛，NLL=4.6140360832/4.7212352753。早先两份预测分区 ARI=0.713871。完整表格见 [GMM manifest 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。**实际输入矩阵是否完全一致、随机调用顺序是否解释差异仍未知**。
 2. 聚合深度从 L0 到 L4 同时把维度从 5 增到 25。旧固定25维置换会破坏块与 spot 对应关系，因此不足以单独证明「过度平滑」。
 3. 五档逐层分析 CSV、L3 预测和原始失败状态等本地文件尚未完整上传/外部复核；不能把终端打印的四位小数当全精度 CSV。
 4. 跨随机种子、独立样本或供体、最近邻文献查新、候选增量机制及消融**未完成**。151507 已密集探索，不是独立留出测试切片。
@@ -31,7 +31,7 @@
 - 旧 L4：`D:\paper\CellCharter_reproduction\runs\151507_hop_ablation_h4_seed0_20261109_151425_400946`
 - 固定25维 L4：`D:\paper\CellCharter_reproduction\runs\151507_fixed25_perm_h4_seed0_20261109_174954_951592`
 - 两目录经用户列示均存在 `manifest.json`、`predictions.csv`、`gmm_weights.pt`、`run.log`、`script_snapshot.py`；第二目录还含置换索引。完整配置输出仍待确认。
-- 用户下一步在 Windows 手动读取两份 manifest，再将实际 JSON/日志回传；由 AI 核对。**不要重复提出此前已经做完的 L3、五档边界审计。**
+- 用户已回传并核对两份 manifest；下一步查看脚本快照中实际输入矩阵构建、seed 与 GMM fit 调用顺序。**不要重复提出此前已经做完的 L3、五档边界审计。**
 
 ## 状态维护规则
 
