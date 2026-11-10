@@ -1,5 +1,11 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 151508 特征准备首次正式运行失败（2026-11-10）
+
+用户实际运行 `prepare_151508_scvi_aggregation.py`（无 `--check-only`）。终端先输出 `151508_GRAPH_CHECK_PASS spots 4384 edges 12849`、`151508_PREPROCESS_PASS (4384, 5000)`、`Global seed set to 22911`；随后出现 `No GPU/TPU found, falling back to CPU.`，在**任何 `151508_SCVI_TRAIN_START` 之前**的 `torch.cuda.reset_peak_memory_stats(0)` 第127行报 `RuntimeError: Invalid device argument 0: did you call init?`。因此**scVI尚未训练，不存在新的latent/aggregated结果**。脚本已创建专属结果目录并通过except将status.json标为failed（代码预期；未直接读取本地文件，须通过用户后续输出确认）。原脚本禁止覆写，不能立即重试。
+
+当前唯一下一步：用户在原CellCharter Python环境运行一个仅诊断的单条PowerShell命令，检查 torch.cuda.is_available、device_count、NVIDIA设备名、最小CUDA张量能否分配及显存统计 API 是否可用；异常按字符串输出。确认问题后再为失败结果目录设计安全的续跑方案（**新目录、保留失败记录**），不盲目重新安装依赖/换CPU/重训旧数据。
+
 ## 151508 六邻域图预检成功（2026-11-10）
 
 用户Windows实际执行 `prepare_151508_scvi_aggregation.py --check-only`，终端输出：
