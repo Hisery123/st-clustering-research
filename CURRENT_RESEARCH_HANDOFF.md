@@ -1,5 +1,13 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 最新 MVP-1b 结果（2026-11-10；当前优先）
+
+- 用户实际执行 `mvp_fixed15_block_swap_gmm101_151507.py` 成功，`MVP_FIXED15_COMPLETE`；结果在本地 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1`，当前仓库仅终端转录。
+- 固定151507/scVI seed22911/15维特征，GMM seed101：A `L0+L1+L2` 的 ARI=`0.4177569883`、NMI=`0.6113343544`、boundary F1=`0.1694744782`、L5/L6=`3/145`；B `L0+L1+L4` 的 ARI=`0.5272652573`、NMI=`0.6175659085`、boundary F1=`0.2030360531`、L5/L6=`62/145`。对照先前seed22911：A的ARI=0.480019、F1=0.154412、L5/L6=64/145，B与本次全部指标完全相同。**B两次cluster_sizes互为排列，但尚未直接读取预测文件确认按barcode分区是否严格一致。**
+- **判断**：候选B在这两个GMM初始化下的全局指标均优于A，但A对seed敏感，L5/L6在一个seed中反而是A更好。仅同切片单scVI表征双GMM seed，不能归纳为泛化优势或完整边界修复。实验明细：[MVP-1b真实终端归档](experiments/cellcharter_dlpfc/MVP_FIXED15_GMM_SEED101_151507_20261110.md)。
+- **当前最小下一步**：只读比对两次候选B的预测CSV，按barcode计算分区一致性ARI，不训练、不更改原结果；其后考虑冻结方案并规划另一张切片的实际开发/验证协议。不主动重启已取消的历史 seed0 h4 问题或 STAGATE。
+
+
 > **2026-11-10 文献核查新进展**：已核实 CellCharter 原文/官方邻域拼接 API、AugGCL 2026 PLOS 原文 NIA 表达-邻域相似度加权、CodaST 出版方摘要 LSWC、HarveST PMC 全文及 GATCL/TRACER 的摘要；详见 [第一轮最近邻审计](experiments/cellcharter_dlpfc/NEAREST_PRIOR_ART_AUDIT_20261110_V1.md)。**STOP：**不得将单纯表达相似性加权邻接或 GAT 注意力包装成独创。**条件 GO：**先审查多尺度特征块与 GMM 可分性影响的最小、可证伪机制对照（非新算法）。AugGCL GitHub 代码含根据每epoch ARI选择最佳结果的片段，但尚未证实其用于论文151507的报告值。当前无需 Windows 操作，不自动恢复已暂停的历史 GMM 排查。下方早期“下一步查 GMM”均为旧记录。
 
 
