@@ -1,5 +1,24 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-10 新增10张数据源的只读对齐审计成功
+
+用户在Windows运行批量只读 Python/scanpy 审计，终端为10张切片逐张报告 H5_SPOTS、POSITION_MATCH、IN_TISSUE_1、POSITION_DUPLICATES、METADATA_ROWS，结尾 `SOURCE_ALIGNMENT_AUDIT_COMPLETE`，无FAIL。
+
+| slice | H5 spots | position matches | in_tissue=1 among matching spots | spatial barcode duplicates | metadata rows |
+|---|---:|---:|---:|---:|---:|
+|151509|4789|4789|4789|0|4789|
+|151510|4634|4634|4634|0|4634|
+|151669|3661|3661|3661|0|3661|
+|151670|3498|3498|3498|0|3498|
+|151671|4110|4110|4110|0|4110|
+|151672|4015|4015|4015|0|4015|
+|151673|3639|3639|3639|0|3639|
+|151674|3673|3673|3673|0|3673|
+|151675|3592|3592|3592|0|3592|
+|151676|3460|3460|3460|0|3460|
+
+前20个metadata字段包含 `barcode, sample_name, tissue, row, col, imagerow, imagecol, Cluster, ...`，但**尚未查看所有列，不能将 Cluster 擅自认作人工组织层标签**。上一轮命令也未检查metadata的barcode唯一性和与H5完全匹配（仅长度相等），仍需只读核对。下一步：一次性列出所有metadata列（至少一张及其跨片列集合差异）、候选人工layer字段的值计数、metadata barcode唯一性及匹配量；确定真实参考标签字段后才允许生成 spots_aligned/manual_layer_annotations，尤其供体2 K可能不同。**尚未转换任何新增数据，未训练新增样本**。
+
 ## 2026-11-10 批量坐标/标注来源下载成功（终端核实）
 
 用户再次执行十张切片（151509/151510/151669/151670/151671/151672/151673/151674/151675/151676）的 metadata_source.tsv 和 tissue_positions_source.csv 下载，显式 `curl.exe --proxy http://127.0.0.1:7897`。终端显示先前成功项目 `SKIP`，其余全部 `OK`，没有 `FAILED`。因此指定本地目录预计已有十套这两个来源文件（20个原始文件），已有151507/151508的转换文件不改动。用户第一次无显式代理的尝试曾因连接重置失败，代理下载后成功。**只确认curl成功和文件非空，尚未读取验证来源表列名、metadata标注、barcode对齐、空间 in_tissue 及层类别。**
