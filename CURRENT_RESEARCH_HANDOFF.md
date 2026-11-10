@@ -1,5 +1,16 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 151508 六邻域图预检成功（2026-11-10）
+
+用户Windows实际执行 `prepare_151508_scvi_aggregation.py --check-only`，终端输出：
+```text
+151508_GRAPH_CHECK_PASS spots 4384 edges 12849
+151508_CHECK_ONLY_COMPLETE; NO_TRAINING; NO_FILES_WRITTEN
+```
+另见 `Global seed set to 0`（包导入阶段初始化信息）及 `pkg_resources`、基因名称重复的 UserWarning。正式脚本在拟合scVI前将设置 seed22911，预处理调用 `var_names_make_unique()`。
+
+这只证明空间图几何/对称性等检查成功；**scVI尚未训练，5D/25D缓存尚未生成**。下一步用户仅运行正式 `prepare_151508_scvi_aggregation.py`（无 `--check-only`）来准备151508 5D latent及25D聚合，脚本拒绝覆盖已有结果、不执行GMM或人工标注评价。继续冻结开发阶段A/B组合；151508跨切片不能表述为先前从未探索的独立盲测。 
+
 ## 151508 表征缓存盘点与训练准备（2026-11-10，最新）
 
 用户Windows只读搜索 `D:\paper\CellCharter_reproduction` 与 `D:\paper\ST_Benchmark_Planning\mvp` 下路径包含151508且文件名匹配 `latent|aggregat|embedding|scvi`、扩展名为 `.npy/.npz/.h5ad/.pt` 的文件，**终端无输出**。这表示在此匹配范围内未发现缓存，**不代表全盘绝对不存在，也不是训练已执行**。
