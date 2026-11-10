@@ -1,5 +1,11 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-10 10张新增切片已正式完成统一输入文件转换
+
+用户Windows实际执行 `scripts/cellcharter/prepare_dlpfc_10_sources.py --write`，连续打印十张 `VALIDATED` 并以 `DLPFC_10_SOURCE_CONVERSION_WRITTEN_COMPLETE 10/10` 正常完成。按照脚本行为，每张新增切片应已写出 `spots_aligned.csv`、`manual_layer_annotations.csv`、`source_conversion_manifest.json`。未改151507/151508，也未运行scVI/GMM；**文件写出已获终端完成标记，尚未进行独立的写后内容核查**。逐片样本量/类别来自此前预检：151509 4789 spots/4788标注/K7，151510 4634/4595/K7，151669 3661/3636/K5，151670 3498/3484/K5，151671 4110/4093/K5，151672 4015/3888/K5，151673 3639/3611/K7，151674 3673/3635/K7，151675 3592/3566/K7，151676 3460/3431/K7。
+
+**下一步**：Windows 单命令只读写后核验每张CSV存在、列名/记录数量、空间坐标barcode顺序和manifest/label数量对应；通过后再制定冻结的跨供体A/B预注册分析计划，包括Oracle-K各供体差异、边界F1/ARI/NMI主次终点、GMM初始化的处理、切片与供体的分析单位、避免按结果挑片，以及 `layer_guess` 来源与历史标注的可比性。不要立即无协议启动全10张训练。
+
 ## 2026-11-10 10张新增DLPFC切片批量转换只读预检全部通过
 
 用户 Windows 实际运行 `scripts/cellcharter/prepare_dlpfc_10_sources.py` **未带 `--write`**，终端输出 `DLPFC_10_SOURCE_CONVERSION_CHECK_ONLY_COMPLETE 10/10`。每张均有 `VALIDATED`，对应spot/有标注/未标注/Oracle-K：
