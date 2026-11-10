@@ -1,7 +1,6 @@
 # Spatial Transcriptomics Clustering Research
 
-> **继续本研究 / New ChatGPT conversation:** 请先阅读 [CURRENT_RESEARCH_HANDOFF.md](CURRENT_RESEARCH_HANDOFF.md)（2026-11-10 最新交接笔记），其中记录了 CellCharter v0.3.2 的正式 151507 seed22911 基线、L0/L1/L2/L4 诊断、原始证据链接、科研限制和下一步 L3 实验。本文后续较早的冒烟与 STAGATE 段落是历史记录，请勿将“尚无正式 CellCharter ARI/NMI”的旧描述视作最新状态。
-
+> **新对话读档：** [AGENTS.md](AGENTS.md) → [PROJECT_STATE.md](PROJECT_STATE.md) → [最近科研日记](RESEARCH_JOURNAL/2026-11-10.md) → [CURRENT_RESEARCH_HANDOFF.md](CURRENT_RESEARCH_HANDOFF.md)。当前 CellCharter 151507 seed22911 的 L0–L4 五档诊断与逐层边界审计已完成；下一步是审计历史 GMM seed0 L4 重拟合不一致。下方 STAGATE、冒烟等内容为历史背景，不能视为最新状态。
 
 空间转录组聚类研究：可复现实验、方法对照与科研工作日志。
 
