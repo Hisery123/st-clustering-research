@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 最新结果（2026-11-10）：已完成 Barcode 分区一致性复核
+
+用户实际只读合并两轮各4226行 predictions.csv，结果：对照 A 的跨 GMM seed 分区 ARI=`0.5049001187368433`，候选 B 的分区 ARI=`1.0`。因此 B 在这两个 GMM seed 下为同一分区（簇编号可置换），不是对人工标签 ARI=1.0、不是不同切片验证。原本本文件旧段落“尚未直接读取预测文件”已过期；详细档案见 [MVP-1b](experiments/cellcharter_dlpfc/MVP_FIXED15_GMM_SEED101_151507_20261110.md)。**接下来仅只读检查151508已有数据及特征缓存；不继续刷151507、不恢复STAGATE和历史GMM排查。**
+
+
 ## 最新 MVP-1b 结果（2026-11-10；当前优先）
 
 - 用户实际执行 `mvp_fixed15_block_swap_gmm101_151507.py` 成功，`MVP_FIXED15_COMPLETE`；结果在本地 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1`，当前仓库仅终端转录。
