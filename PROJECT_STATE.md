@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 最新 GPU 诊断与 v2 准备（2026-11-10）
+
+用户原环境实际输出：`TORCH_VERSION 2.1.2+cu121`、`TORCH_CUDA_VERSION 12.1`、`CUDA_AVAILABLE True`、`CUDA_DEVICE_COUNT 1`、`CUDA_ALLOCATION PASS`、`GPU_NAME NVIDIA GeForce RTX 4070 Laptop GPU`、`CUDA_MEMORY_STATS PASS`。此前151508 v1在 `reset_peak_memory_stats(0)` 报 Invalid device，**目前未证实是设备损坏或具体根因**，当次scVI训练未开始。
+
+已在GitHub新建 [v2 特征准备脚本](scripts/cellcharter/prepare_151508_scvi_aggregation_v2.py)，独立结果目录 `cellcharter_151508_scvi22911_features_v2`；在创建目录/开始训练前显式 `torch.cuda.init()`、分配1元素测试张量并同步。统计API故障仅记录警告（不改变是否训练模型），禁止CPU静默回退；保留v1失败目录。**v2尚未同步到用户Windows，也尚未运行。当前唯一下一步：用户手动git pull，确认成功后再单独执行v2。**
+
+
 ## 151508 特征准备首次正式运行失败（2026-11-10）
 
 用户实际运行 `prepare_151508_scvi_aggregation.py`（无 `--check-only`）。终端先输出 `151508_GRAPH_CHECK_PASS spots 4384 edges 12849`、`151508_PREPROCESS_PASS (4384, 5000)`、`Global seed set to 22911`；随后出现 `No GPU/TPU found, falling back to CPU.`，在**任何 `151508_SCVI_TRAIN_START` 之前**的 `torch.cuda.reset_peak_memory_stats(0)` 第127行报 `RuntimeError: Invalid device argument 0: did you call init?`。因此**scVI尚未训练，不存在新的latent/aggregated结果**。脚本已创建专属结果目录并通过except将status.json标为failed（代码预期；未直接读取本地文件，须通过用户后续输出确认）。原脚本禁止覆写，不能立即重试。
