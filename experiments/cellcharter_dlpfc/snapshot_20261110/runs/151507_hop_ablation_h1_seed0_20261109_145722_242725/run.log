@@ -1,0 +1,9 @@
+RUN_DIR: D:\paper\CellCharter_reproduction\runs\151507_hop_ablation_h1_seed0_20261109_145722_242725
+ABLATION_HOP: 1 FEATURE_SHAPE: (4226, 10)
+D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\pytorch_lightning\trainer\setup.py:176: PossibleUserWarning: GPU available but not used. Set `accelerator` and `devices` using `Trainer(accelerator='gpu', devices=1)`.
+  rank_zero_warn(
+GMM_ITERATIONS: 22
+GMM_CONVERGED: True
+GMM_NLL: 8.151444435119629
+CLUSTER_COUNTS: {'0': 296, '1': 824, '2': 894, '3': 731, '4': 381, '5': 703, '6': 397}
+HOP_ABLATION_RESULT_SAVED: GMM_CONVERGED

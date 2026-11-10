@@ -1,0 +1,10 @@
+RUN_DIR: D:\paper\CellCharter_reproduction\runs\151507_fixed25_perm_h0_seed0_20261109_174139_045095
+FIXED_DIMENSION: (4226, 25)
+CONTROL_HOP: 0 TRUE_BLOCKS: 0 SHUFFLED_BLOCKS: 4
+PERMUTATION_SEED: 20261109
+D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\pytorch_lightning\trainer\setup.py:176: PossibleUserWarning: GPU available but not used. Set `accelerator` and `devices` using `Trainer(accelerator='gpu', devices=1)`.
+  rank_zero_warn(
+GMM_ITERATIONS: 34
+GMM_CONVERGED: True
+CLUSTER_COUNTS: {'0': 486, '1': 705, '2': 691, '3': 306, '4': 542, '5': 608, '6': 888}
+FIXED25_CONTROL_RESULT_SAVED: GMM_CONVERGED

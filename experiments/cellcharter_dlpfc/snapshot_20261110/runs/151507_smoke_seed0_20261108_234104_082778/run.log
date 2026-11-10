@@ -1,0 +1,16 @@
+RUN_DIR: D:\paper\CellCharter_reproduction\runs\151507_smoke_seed0_20261108_234104_082778
+D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\anndata\_core\anndata.py:1840: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+  utils.warn_names_duplicates("var")
+D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\anndata\_core\anndata.py:1840: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+  utils.warn_names_duplicates("var")
+PREPROCESS_PASS: (4226, 5000)
+No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+SCVI_PASS: (4226, 5)
+GRAPH_PASS: 12385
+  0%|          | 0/5 [00:00<?, ?it/s]100%|##########| 5/5 [00:00<00:00, 252.61it/s]
+AGGREGATION_PASS: (4226, 25)
+D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\pytorch_lightning\trainer\setup.py:176: PossibleUserWarning: GPU available but not used. Set `accelerator` and `devices` using `Trainer(accelerator='gpu', devices=1)`.
+  rank_zero_warn(
+GMM_ITERATIONS: 20 CONVERGED: False
+CLUSTER_COUNTS: {'0': 480, '1': 337, '2': 1626, '3': 490, '4': 393, '5': 558, '6': 342}
+SMOKE_PASS_SAVED_WITH_SHIM

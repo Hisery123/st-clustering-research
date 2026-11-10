@@ -1,0 +1,14 @@
+{
+  "section": "151507",
+  "method": "CellCharter_v0.3.2",
+  "evaluation_type": "EXPLORATORY_POSTHOC",
+  "boundary_definition": "different labels across an undirected Visium six-neighbor edge",
+  "evaluated_edges": 12381,
+  "reference_boundary_edges": 950,
+  "predicted_boundary_edges": 1047,
+  "true_positive_boundary_edges": 114,
+  "boundary_precision": 0.10888252148997135,
+  "boundary_recall": 0.12,
+  "boundary_f1": 0.11417125688532799,
+  "spatial_neighbor_agreement": 0.9154349406348438
+}

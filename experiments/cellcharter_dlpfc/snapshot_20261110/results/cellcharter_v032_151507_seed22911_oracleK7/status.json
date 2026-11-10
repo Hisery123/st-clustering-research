@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "sample": "151507",
+  "seed": 22911,
+  "n_spots_total": 4226,
+  "n_spots_evaluated": 4221,
+  "n_clusters_oracle": 7,
+  "k_selection": "manual annotation count; NOT label-free selection",
+  "ari": 0.4961464421378273,
+  "nmi": 0.6754358219165002,
+  "peak_torch_cuda_allocated_mib": 106.73,
+  "end_utc": "2026-11-10T01:23:44.461457+00:00"
+}

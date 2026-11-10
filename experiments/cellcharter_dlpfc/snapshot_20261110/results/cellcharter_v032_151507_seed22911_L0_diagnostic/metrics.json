@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "sample": "151507",
+  "seed": 22911,
+  "condition": "L0_no_neighborhood_aggregation",
+  "scvi_embedding_source": "D:\\paper\\CellCharter_reproduction\\results\\cellcharter_v032_151507_seed22911_oracleK7\\scvi_latent.npy",
+  "gmm_clusters": 7,
+  "k_selection": "oracle K=7",
+  "n_evaluated": 4221,
+  "ari": 0.3621313559802306,
+  "nmi": 0.4419154914613748,
+  "baseline_l4_ari": 0.4961464421378273,
+  "baseline_l4_nmi": 0.6754358219165002,
+  "delta_ari_L0_minus_L4": -0.13401508615759672,
+  "delta_nmi_L0_minus_L4": -0.23352033045512538
+}

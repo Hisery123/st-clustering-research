@@ -1,0 +1,57 @@
+{
+  "status": "GMM_CONVERGED",
+  "stage": "done",
+  "experiment": "EXPLORATORY_HOP_ABLATION_NOT_INDEPENDENT_TEST",
+  "sample": "151507",
+  "hop": 1,
+  "input_features": 10,
+  "n_spots": 4226,
+  "source_run": "D:\\paper\\CellCharter_reproduction\\runs\\151507_baseline_seed0_20261109_135812_583663",
+  "source_aggregated_sha256": "96844547f535114184defe1eff6ef6bd34ee6b7c22b8bbf51a59da9cd3e0a13a",
+  "source_latent_sha256": "7cc6d513ec52aea97f346ddc543073c9b2209692f9dd27f2394171f89f5f8d91",
+  "source_predictions_sha256": "eeff8124a049636299aba75cf129936cf6cbeac955ac180268c42fef2190ab5a",
+  "script_sha256": "633bb6ed96c776bfd6f7a9e115fcb323684c16489cc4a75f43f9b1fad61a5075",
+  "created_at": "2026-11-09T14:57:22",
+  "manual_labels_read": false,
+  "ARI_computed": false,
+  "known_k_reference_count": true,
+  "parameters": {
+    "random_seed": 0,
+    "gmm_k": 7,
+    "gmm_covariance_type": "full",
+    "gmm_init_strategy": "kmeans",
+    "gmm_convergence_tolerance": 0.001,
+    "gmm_covariance_regularization": 1e-06,
+    "gmm_max_em_iterations": 100,
+    "gmm_accelerator": "cpu",
+    "input": "first 5*(hop+1) columns of saved CellCharter h4 features"
+  },
+  "versions": {
+    "cellcharter": "0.3.2",
+    "torchgmm": "0.1.2",
+    "torch": "2.1.2+cu121",
+    "pytorch-lightning": "1.9.5",
+    "anndata": "0.9.2"
+  },
+  "shim": "IndexBatchSamplerWrapper._batch_sampler -> _sampler (runtime only)",
+  "limits": [
+    "One explored slice / one seed, not independent testing",
+    "Feature dimensionality increases with hop number",
+    "K=7 known from reference class count, but spot labels not loaded",
+    "NLL values across different dimensions are not directly comparable"
+  ],
+  "gmm_converged": true,
+  "gmm_iterations": 22,
+  "gmm_nll": 8.151444435119629,
+  "cluster_counts": {
+    "0": 296,
+    "1": 824,
+    "2": 894,
+    "3": 731,
+    "4": 381,
+    "5": 703,
+    "6": 397
+  },
+  "runtime_seconds": 1.109,
+  "finished_at": "2026-11-09T14:57:23"
+}

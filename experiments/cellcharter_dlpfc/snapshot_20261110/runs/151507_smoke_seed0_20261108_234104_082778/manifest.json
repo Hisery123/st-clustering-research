@@ -1,0 +1,60 @@
+{
+  "status": "SMOKE_PASS",
+  "mode": "SMOKE_NOT_PUBLICATION_METRIC",
+  "section": "151507",
+  "created_at": "2026-11-08T23:41:04",
+  "random_seed": 0,
+  "manual_labels_read": false,
+  "ARI_computed": false,
+  "python_version": "3.10.22",
+  "torch_cuda_version": "12.1",
+  "parameters": {
+    "gene_min_counts": 3,
+    "spot_min_counts": 3,
+    "hvg": 5000,
+    "hvg_flavor": "seurat_v3",
+    "norm_target": 1000000,
+    "scvi_n_latent": 5,
+    "scvi_max_epochs": 2,
+    "scvi_batch_size": 128,
+    "nhood_layers": 4,
+    "spatial_grid_neighbors": 6,
+    "gmm_k": 7,
+    "gmm_max_em_iterations": 20,
+    "gmm_accelerator": "cpu"
+  },
+  "package_versions": {
+    "cellcharter": "0.3.2",
+    "torchgmm": "0.1.2",
+    "scvi-tools": "0.20.3",
+    "scanpy": "1.10.4",
+    "squidpy": "1.5.0",
+    "torch": "2.1.2+cu121",
+    "pytorch-lightning": "1.9.5"
+  },
+  "shim": "IndexBatchSamplerWrapper._batch_sampler -> _sampler (runtime only)",
+  "input_sha256": {
+    "filtered_feature_bc_matrix.h5": "686521ab02a68dfdd810c3cde26daea2257d016c8047859877ffb8c7ac5bdd01",
+    "tissue_positions_list.csv": "5c5be4dcd51c914bad02634f1ed2d96bd0c200ae487e236f644d94ded983efd0"
+  },
+  "cuda_device": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "preprocessing_shape": [
+    4226,
+    5000
+  ],
+  "scvi_cuda_peak_allocated_mib": 106.73,
+  "spatial_undirected_edges": 12385,
+  "gmm_converged": false,
+  "gmm_num_iter": 20,
+  "cluster_counts": {
+    "0": 480,
+    "1": 337,
+    "2": 1626,
+    "3": 490,
+    "4": 393,
+    "5": 558,
+    "6": 342
+  },
+  "runtime_seconds": 4.58,
+  "finished_at": "2026-11-08T23:41:08"
+}

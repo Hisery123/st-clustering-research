@@ -1,0 +1,17 @@
+{
+  "section": "151507",
+  "evaluation_type": "EXPLORATORY_POSTHOC_NOT_INDEPENDENT_TEST",
+  "total_spots": 4226,
+  "labeled_spots": 4221,
+  "missing_labels": 5,
+  "reference_classes": 7,
+  "predicted_clusters": 7,
+  "ARI": 0.47787882602427956,
+  "NMI": 0.6056124629218221,
+  "NMI_average_method": "arithmetic",
+  "model_status": "EXPLORATORY_FIT_CONVERGED",
+  "gmm_converged": true,
+  "manual_labels_used_in_training": false,
+  "predictions_sha256": "eeff8124a049636299aba75cf129936cf6cbeac955ac180268c42fef2190ab5a",
+  "manual_annotations_sha256": "00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428"
+}

@@ -1,0 +1,53 @@
+{
+  "evaluation_type": "EXPLORATORY_POSTHOC_NOT_INDEPENDENT_TEST",
+  "section": "151507",
+  "model": "CellCharter_v0.3.2",
+  "seed": 0,
+  "sample_unit": "single_DLPFC_section",
+  "nmi_average_method": "arithmetic",
+  "manual_labels_used_for_training": false,
+  "reference_class_count_used_to_set_K": true,
+  "labeled_spots": 4221,
+  "evaluated_spatial_edges": 12381,
+  "reference_boundary_edges": 950,
+  "manual_annotations_sha256": "00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428",
+  "tissue_positions_sha256": "5c5be4dcd51c914bad02634f1ed2d96bd0c200ae487e236f644d94ded983efd0",
+  "runs": [
+    {
+      "hop": 0,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_hop_ablation_h0_seed0_20261109_145306_993753",
+      "manifest_sha256": "03a324c70fbe6ae4a9c833b465f2273abd111d1a2ea7617b866429ad8ea0077d",
+      "predictions_sha256": "3e54647e217b1a93685d919a3f16096e0470d437a125f4b7668679582a8f9277"
+    },
+    {
+      "hop": 1,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_hop_ablation_h1_seed0_20261109_145722_242725",
+      "manifest_sha256": "eea13277ac0527d97e6b3233f04dad3e36f3ad69173bd32730c3d7f149868db7",
+      "predictions_sha256": "d889788d599e55cc9e942f985d23e788270677bdb6cf6a28929db4b249f05ca7"
+    },
+    {
+      "hop": 2,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_hop_ablation_h2_seed0_20261109_145832_848393",
+      "manifest_sha256": "4be02ddf2021a3627271734d8fa283dcfffa2a04b6b3397413351fc3cbc044be",
+      "predictions_sha256": "5ad3ae2bbd73288fdc971837e02a5fa54fc72c98c54bad19d7a5655cad2801c6"
+    },
+    {
+      "hop": 3,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_hop_ablation_h3_seed0_20261109_150401_788622",
+      "manifest_sha256": "b500f81ed1e7a180dc956939cb7bee3034e085b652dc406dae5512eeeb117a52",
+      "predictions_sha256": "bf1d92911b4884bcd79de0fe4dbfca5ed7d6ab39c80de323c617eb61034b57b3"
+    },
+    {
+      "hop": 4,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_hop_ablation_h4_seed0_20261109_151425_400946",
+      "manifest_sha256": "49fce8c76101332c3e006c0bf73e0cd8f8f9d1689a76743bf8a6852684e4cfcc",
+      "predictions_sha256": "859f9cde94711dac5dbb5f135458b6946923a998f9224d585b66600af54de97a"
+    }
+  ],
+  "limitations": [
+    "One exploratory section and one random seed",
+    "Feature dimension increases with hop count",
+    "Known reference class count K=7",
+    "Do not claim causal over-smoothing or independent test"
+  ]
+}

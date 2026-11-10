@@ -1,0 +1,21 @@
+{
+  "status": "completed",
+  "sample": "151507",
+  "seed": 22911,
+  "condition": "L1_neighborhood_aggregation_diagnostic",
+  "embedding": "reused_original_scvi_latent",
+  "n_layers": 1,
+  "feature_dim": 10,
+  "n_clusters": 7,
+  "k_selection": "oracle K from manual annotation",
+  "n_evaluated": 4221,
+  "ari": 0.4441559574625183,
+  "nmi": 0.5695873961254575,
+  "boundary_tp": 445,
+  "boundary_fp": 4098,
+  "boundary_fn": 505,
+  "boundary_precision": 0.09795289456306405,
+  "boundary_recall": 0.46842105263157896,
+  "boundary_f1": 0.16202439468414348,
+  "l5_l6_boundary_recall": 0.5448275862068965
+}

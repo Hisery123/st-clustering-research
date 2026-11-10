@@ -1,0 +1,59 @@
+{
+  "evaluation_type": "EXPLORATORY_POSTHOC_NOT_INDEPENDENT_TEST",
+  "design": "FIXED25_PERMUTATION_NEGATIVE_CONTROL",
+  "section": "151507",
+  "seed": 0,
+  "sample_unit": "single_DLPFC_section",
+  "nmi_average_method": "arithmetic",
+  "manual_labels_used_for_training": false,
+  "reference_class_count_used_to_set_K": true,
+  "labeled_spots": 4221,
+  "evaluated_spatial_edges": 12381,
+  "reference_boundary_edges": 950,
+  "manual_annotations_sha256": "00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428",
+  "tissue_positions_sha256": "5c5be4dcd51c914bad02634f1ed2d96bd0c200ae487e236f644d94ded983efd0",
+  "previous_evaluation_provenance_sha256": "f3dd3fac35030912d10de1fccca8b642e4156cf8bcb232b30ccaecbe8aecf3c0",
+  "runs": [
+    {
+      "hop": 0,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_fixed25_perm_h0_seed0_20261109_174433_394836",
+      "manifest_sha256": "c3bd6b30667c8363d4c7a412a37366d86b30b488ae5a041c8c824725d2053c97",
+      "predictions_sha256": "f1a87af6a139fbc4fe82954dc4952e05f246d1be499be9f87c60aa8340eeb0e6",
+      "feature_matrix_sha256": "67ff7fa1b542be064be12160e6682e28d365564913bad4ea0a480db6e8c195bd"
+    },
+    {
+      "hop": 1,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_fixed25_perm_h1_seed0_20261109_174648_424396",
+      "manifest_sha256": "483c3363eae5918f131748fd727d2fcb18d294192d3d0908c3ccdfd561034a6b",
+      "predictions_sha256": "862aacc6c9876738a90db1dee92600da6a06895fd7573432da3802731301b0a9",
+      "feature_matrix_sha256": "0d45e89befdd6c51869cabdc04409b8648b73847eb51b6d18287f9f64cc72171"
+    },
+    {
+      "hop": 2,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_fixed25_perm_h2_seed0_20261109_174920_860393",
+      "manifest_sha256": "65724e111ddb54e406750dc6928d3d491320079ccee5617851117bcce5877145",
+      "predictions_sha256": "679c1eb134bd8eb0e8af8f870fbc6d8e225634099e11475f93b7a062c1ba1f82",
+      "feature_matrix_sha256": "76c872f65ce1396737fc9b7165b64de766a1e91b5bfe1d6f3bdfea38d404c48a"
+    },
+    {
+      "hop": 3,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_fixed25_perm_h3_seed0_20261109_174937_316711",
+      "manifest_sha256": "364d93103063a194ed493a3abfd0ebaa798a51fc544e7e1e81a8abecda4c4549",
+      "predictions_sha256": "9b531277b7948d2759b3bd277abc64707bd6af68066733e0c9ab312ac1c70ba4",
+      "feature_matrix_sha256": "886b13c59a5bfc3ab46e8d986c5a101d0f7b2645155804e25e567737375613f4"
+    },
+    {
+      "hop": 4,
+      "run_dir": "D:\\paper\\CellCharter_reproduction\\runs\\151507_fixed25_perm_h4_seed0_20261109_174954_951592",
+      "manifest_sha256": "e1175dd57dba25dfb70b654be92ac108a438ba1a030d906a453d9a4bb1e507b4",
+      "predictions_sha256": "0a0749c78e9294d6a6ad2bb9d1b6205d11018d7fc4917efd68d62b93acfdbbd2",
+      "feature_matrix_sha256": "f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463"
+    }
+  ],
+  "limitations": [
+    "Single explored section and one random seed; not an independent test",
+    "Permuting unused hop blocks also alters between-feature correlations",
+    "Separate 4-hop run was not identical: cross-run partition ARI=0.713871",
+    "K=7 uses known reference class count; no inferential significance"
+  ]
+}

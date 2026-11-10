@@ -1,0 +1,38 @@
+[
+  {
+    "boundary_pair": "Layer 1 | Layer 2",
+    "true_edges": 204,
+    "detected_edges": 0,
+    "recall": 0.0
+  },
+  {
+    "boundary_pair": "Layer 2 | Layer 3",
+    "true_edges": 180,
+    "detected_edges": 48,
+    "recall": 0.26666666666666666
+  },
+  {
+    "boundary_pair": "Layer 4 | Layer 5",
+    "true_edges": 160,
+    "detected_edges": 37,
+    "recall": 0.23125
+  },
+  {
+    "boundary_pair": "Layer 3 | Layer 4",
+    "true_edges": 157,
+    "detected_edges": 8,
+    "recall": 0.050955414012738856
+  },
+  {
+    "boundary_pair": "Layer 5 | Layer 6",
+    "true_edges": 145,
+    "detected_edges": 21,
+    "recall": 0.14482758620689656
+  },
+  {
+    "boundary_pair": "Layer 6 | WM",
+    "true_edges": 104,
+    "detected_edges": 0,
+    "recall": 0.0
+  }
+]
