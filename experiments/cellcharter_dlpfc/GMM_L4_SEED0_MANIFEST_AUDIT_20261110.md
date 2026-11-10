@@ -48,3 +48,13 @@
 - 固定25维 L4 第142行返回 `np.ascontiguousarray(X, dtype=np.float32)`；第202行记录 `feature_matrix_sha256`；第246–247行设全局随机种子，第248–250行才创建 AnnData、设置 obs_names/obsm；第251行创建 `cc.tl.Cluster`，268行 fit。
 - 两者均在创建 Cluster 之前设种子，**差异在设置种子与创建 AnnData 的先后顺序**。尚未证明 AnnData 构建是否消耗相关随机数、是否造成预测不一致。旧 manifest 未记录实际输入数组 hash，不能把同源文件 hash 等同于最终 GMM 输入完全相同。
 - 下一个最小只读操作：从历史来源 `aggregated.npz` 重新构造两种脚本的 hop4 输入，计算按 C-contiguous float32 转换后的数组 SHA256，与固定25维 manifest 记录的 `f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463` 核对；此核对不训练模型、不修改历史结果。
+
+## 2026-11-10 后续：GMM 输入重建 SHA256 校验通过
+
+用户在 Windows 上只读加载历史共同来源 `151507_baseline_seed0_20261109_135812_583663/aggregated.npz`，报告其数组包含 `barcodes (4226,) <U18`、`X_cellcharter (4226,25) float32`。对 `X_cellcharter[:, :25]` 执行 `np.ascontiguousarray(..., dtype=np.float32)` 并计算 `sha256(x.tobytes())`，实际得到：
+
+`f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463`
+
+终端显示 `MATCH_FIXED25_L4: True`，与固定25维 L4 manifest 里的 `feature_matrix_sha256` 一致。该结果支持：按旧脚本的输入切片/转换重建出的矩阵与新 h4 记录的矩阵字节一致。**仍非直接读取旧运行时内存的证据，旧 manifest 不含最终矩阵 hash**。
+
+下一步最小诊断：只读/内存内测试在设置相同 Torch/NumPy seed 后创建旧/新形式 AnnData，是否消耗 Torch/NumPy 随机数状态。无需重新训练 GMM、无需创建输出文件。若随机状态均不变，再检查 fit 内部初始化、执行环境/调用差异；不预断定随机性成因。
