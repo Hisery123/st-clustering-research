@@ -45,6 +45,10 @@
 
 用户已在 Windows 实测 AnnData 创建前后 PyTorch CPU 和 NumPy 全局 RNG 状态：旧、新两种形式均输出 `TORCH_RNG_CHANGED: False`、`NUMPY_RNG_CHANGED: False`。首次助手提供的 RNG 检测代码因错误调用 `torch.Generator.get_rng_state()` 报错，已更正并成功得到上述结果；失败和修复都存档。结论限定于本次模拟 AnnData 构造的全局状态，不涵盖 TorchGMM 内部 RNG/完整 fit。下一步仅只读比较两份脚本的完整 `cc.tl.Cluster(...)` 参数、AnnData 输入构造及调用差异，再决定是否做最小拟合重复性实验。见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
 
+## 最新完整构造参数核查（2026-11-10）
+
+用户已回传两份脚本的完整 Cluster 初始化与 fit 上下文：两者显式 GMM 参数、trainer_params 一致；旧脚本先创建 AnnData 后设置 Torch/NumPy seed，新脚本反过来，而前一步模拟 RNG 测试未观察到全局状态消耗。固定25维 h4 置换循环为空，输入数组复算哈希一致。仍未核对两份原始脚本加载 barcode/特征顺序及此前 predictions 对照按 barcode 是否严格对齐；下一步只读检查两个脚本的 `load_source` 和 CSV 比较对齐方式，不重新拟合。见 [审计记录](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
 ## 状态维护规则
 
 每次实验或重要科研判断归档，AI 同步更新本文件、`CURRENT_RESEARCH_HANDOFF.md` 与当日 `RESEARCH_JOURNAL/YYYY-MM-DD.md`；GitHub 提交不等于本地已拉取。
