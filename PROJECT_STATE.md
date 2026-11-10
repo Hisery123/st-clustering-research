@@ -41,6 +41,10 @@
 
 用户已从共同源 `aggregated.npz` 加载 `X_cellcharter` 4226×25 float32，按旧 L4 脚本方式重建矩阵后 SHA256 为 `f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463`，**与固定25维 L4 manifest 的最终矩阵 hash 一致**。结果增强了输入一致性证据，但旧实验并无运行时最终矩阵哈希；不能据此断言 TorchGMM 自身不确定。下一步检查构建 AnnData 是否改变设种子后的 NumPy/Torch RNG 状态（只读内存测试，不训练）。详情见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
 
+## 最新 RNG 诊断（2026-11-10）
+
+用户已在 Windows 实测 AnnData 创建前后 PyTorch CPU 和 NumPy 全局 RNG 状态：旧、新两种形式均输出 `TORCH_RNG_CHANGED: False`、`NUMPY_RNG_CHANGED: False`。首次助手提供的 RNG 检测代码因错误调用 `torch.Generator.get_rng_state()` 报错，已更正并成功得到上述结果；失败和修复都存档。结论限定于本次模拟 AnnData 构造的全局状态，不涵盖 TorchGMM 内部 RNG/完整 fit。下一步仅只读比较两份脚本的完整 `cc.tl.Cluster(...)` 参数、AnnData 输入构造及调用差异，再决定是否做最小拟合重复性实验。见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
 ## 状态维护规则
 
 每次实验或重要科研判断归档，AI 同步更新本文件、`CURRENT_RESEARCH_HANDOFF.md` 与当日 `RESEARCH_JOURNAL/YYYY-MM-DD.md`；GitHub 提交不等于本地已拉取。
