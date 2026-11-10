@@ -1,5 +1,11 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-10 标签版本一致性检查已完成；10片转换脚本待本地预检
+
+用户Windows真实输出：历史 `manual_layer_annotations.csv` 的151507含4221有效7类、151508含4381有效7类，命名 `Layer 1` 至 `Layer 6` 及 `WM`。新增十片的 `layer_guess` 与 `layer_guess_reordered` 每片 `MISMATCHES=0`，脚本输出 `LABEL_COMPATIBILITY_CHECK_COMPLETE`。**来源差异仍然要披露**：新增切片标注来自SEDR metadata中的 `layer_guess`；不能自动保证和历史两个切片人工标注采用完全相同的注释流程，原 `Layer` 列全NaN。供体2四张片仅5类，不允许拆分Layer3。
+
+已上传新脚本 [prepare_dlpfc_10_sources.py](scripts/cellcharter/prepare_dlpfc_10_sources.py)：默认只读，10片逐个以H5条码为行序检查坐标和metadata、标签允许值、来源SHA256；将 `Layer1` 等改为 `Layer 1`、保留WM，未标注spot不写入annotation表；只有显式`--write`才为每片生成`spots_aligned.csv`、`manual_layer_annotations.csv`、`source_conversion_manifest.json`，拒绝覆盖。类别数由实际标签5或7决定，未来Oracle-K随片匹配而不能只用7。**GitHub已建脚本，用户Windows尚未拉取，也尚未运行脚本或生成新文件**。下一步仅git pull，然后独立执行无写入预检；不可提前说转换已成功。
+
 ## 2026-11-10 全10张新增切片 layer_guess / 元数据参考标签审计
 
 用户Windows只读检查10张 `metadata_source.tsv`，每张 `META_BARCODE_UNIQUE=True`，`META_POSITION_MATCH=metadata总行数`。每张 `Layer` 原列**全部NaN**；可用标签列为 `layer_guess`、`layer_guess_reordered`、`layer_guess_reordered_short`。实际终端各片 `layer_guess` 值计数如下（每张均有未标注NaN，不可默认为背景）：
