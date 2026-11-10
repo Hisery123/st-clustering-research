@@ -33,6 +33,10 @@
 - 两目录经用户列示均存在 `manifest.json`、`predictions.csv`、`gmm_weights.pt`、`run.log`、`script_snapshot.py`；第二目录还含置换索引。完整配置输出仍待确认。
 - 用户已回传并核对两份 manifest；下一步查看脚本快照中实际输入矩阵构建、seed 与 GMM fit 调用顺序。**不要重复提出此前已经做完的 L3、五档边界审计。**
 
+## 最新脚本快照审查（2026-11-10）
+
+用户已回传两份 `script_snapshot.py` 的关键行：旧 L4 在构建 AnnData 后设置 `torch.manual_seed(0)` / `np.random.seed(0)`；固定25维 L4 在设置种子后才构建 AnnData。两者均在创建 `cc.tl.Cluster` 前设置种子，不能据此断定 AnnData 消耗随机数或 TorchGMM 非确定性。旧 h4 从原始聚合矩阵截取完整25列，新 h4 返回 C-contiguous float32；下一步**只读核对最终数组 SHA256**（不重训）。详情 [审计追加记录](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
 ## 状态维护规则
 
 每次实验或重要科研判断归档，AI 同步更新本文件、`CURRENT_RESEARCH_HANDOFF.md` 与当日 `RESEARCH_JOURNAL/YYYY-MM-DD.md`；GitHub 提交不等于本地已拉取。
