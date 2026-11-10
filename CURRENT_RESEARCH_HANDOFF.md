@@ -68,6 +68,10 @@ L3 首次运行聚合及 GMM 预测已完成，但边界代码误把 `Layer 5/La
 
 用户完成 AnnData 构造 RNG 状态检测：`old` 与 `fixed25` 均显示 `TORCH_RNG_CHANGED=False`、`NUMPY_RNG_CHANGED=False`。第一次助手给出的测试代码误用 `torch.Generator.get_rng_state()` 导致 `AttributeError`，后修正成功；未重新训练。说明所测模拟 AnnData 创建过程没有消耗 CPU Torch/NumPy 全局 RNG，**不等于 TorchGMM 内部随机性已排除**。下一步只读核查脚本中完整 `cc.tl.Cluster(...)` 构造及特征装载差异。详见 [审计追加记录](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
 
+## 最新完整 GMM 调用核查（2026-11-10）
+
+用户回传旧 L4 和固定25维 L4 的脚本原始行号片段；两份 `cc.tl.Cluster` 的 n_clusters、random_state、covariance_type、init_strategy、convergence_tolerance、covariance_regularization、trainer_params 全部一致，且新 h4 的特征置换循环为空。当前尚未发现显式参数差异。**唯一下一步：只读审查两份脚本中的原始 barcode/feature 加载、顺序与此前 ARI 比对对齐口径；不先重复训练**。参见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
 ## 下一次新对话如何接手
 
 先按顶部顺序读取三个记忆文件。若 `PROJECT_STATE.md` 与本文件不一致，以**最新可核实的原始证据**为准并报告冲突；不要从旧 README 中取代当前状态。读取任务相关的 `manifest.json`、脚本、日志与指标，再给用户一条 Windows 手动操作；目前不需重建环境、重跑 L3、L0–L4、跨深度边界审计。
