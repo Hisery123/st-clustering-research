@@ -87,7 +87,22 @@ def run_section(sample: str, train: bool):
         print(f"{sample}_CHECK_ONLY_COMPLETE; NO_TRAINING; NO_FILES_WRITTEN", flush=True)
         return
     if OUT.exists():
-        raise FileExistsError(f"Refusing to overwrite prior section directory: {OUT}")
+        # Resume the batch safely: reuse only a fully completed, hash-matched cache.
+        status_file = OUT / "status.json"
+        config_file = OUT / "config.json"
+        if status_file.is_file() and config_file.is_file():
+            prior = json.loads(status_file.read_text(encoding="utf-8"))
+            cfg = json.loads(config_file.read_text(encoding="utf-8"))
+            cache = OUT / "cellcharter_aggregated.npy"
+            if (prior.get("status") == "completed"
+                    and prior.get("sample") == sample
+                    and cfg.get("raw_h5_sha256") == sha256_file(h5)
+                    and cfg.get("aligned_csv_sha256") == sha256_file(pos_path)
+                    and cache.is_file()
+                    and prior.get("aggregate_sha256") == sha256_file(cache)):
+                print(f"{sample}_FEATURE_CACHE_REUSED", flush=True)
+                return
+        raise FileExistsError(f"Prior directory not safely reusable; preserve it: {OUT}")
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA not available: will not silently alter 151507 protocol")
     # Explicitly initialize CUDA *before* creating output directory or training.
