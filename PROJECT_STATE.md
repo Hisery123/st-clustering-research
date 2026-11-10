@@ -3,6 +3,13 @@
 > 当前有效存档，2026-11-10。**先读此文件的当前状态，再按需看实验归档；历史诊断保留于日记和原始记录，不作为当前待办。**
 > 新对话阅读顺序：[AGENTS.md](AGENTS.md) → 本文件 → [当日日记](RESEARCH_JOURNAL/2026-11-10.md) → [交接索引](CURRENT_RESEARCH_HANDOFF.md)。
 
+## 最新 MVP-1 结果和唯一下一步（2026-11-10）
+
+- 用户 Windows **已实际运行完成** `mvp_fixed15_block_swap_151507.py`，终端确认 `MVP_FIXED15_COMPLETE`；本地结果目录 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151507_seed22911_v1`。本仓库目前是**用户终端转录**，并未直接读取本地结果文件。
+- 同为15维、相同scVI表征和单次 GMM seed22911：A=`L0+L1+L2`，B=`L0+L1+L4`。A→B：ARI `0.480019→0.527265`，NMI `0.574796→0.617566`，全局边界F1 `0.154412→0.203036`，FP `2564→1891`；**负结果：L5/L6界面检出64/145→62/145**。GMM有100 max_epochs提示，不能将单次结果视作收敛/稳定性证明。详细 [实际运行档案](experiments/cellcharter_dlpfc/MVP_FIXED15_BLOCK_SWAP_151507_SEED22911_20261110.md)。
+- **当前唯一下一步**：用户先同步 GitHub 最新脚本 `scripts/cellcharter/mvp_fixed15_block_swap_gmm101_151507.py`，随后单独运行该脚本，用不同的**GMM初始化seed=101**验证同一输入下对比方向是否保持。**scVI来源仍为seed22911，不是独立生物重复，不重新训练scVI；新脚本未运行。**
+- 禁止反向把本次正结果称已证实创新或独立验证；STAGATE不在当前任务范围；历史seed0 GMM不一致不重启。
+
 ## 当前目标与采用的科研策略
 
 - **目标**：争取符合毕业要求的普通 SCI 方法论文，以成熟可运行基线、低成本可解释的**小幅增量**为导向，不追求重大理论突破，也不承诺任何期刊录用。
