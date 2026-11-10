@@ -1,5 +1,22 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-10 全10张新增切片 layer_guess / 元数据参考标签审计
+
+用户Windows只读检查10张 `metadata_source.tsv`，每张 `META_BARCODE_UNIQUE=True`，`META_POSITION_MATCH=metadata总行数`。每张 `Layer` 原列**全部NaN**；可用标签列为 `layer_guess`、`layer_guess_reordered`、`layer_guess_reordered_short`。实际终端各片 `layer_guess` 值计数如下（每张均有未标注NaN，不可默认为背景）：
+
+- 151509：Layer3 1884、Layer1 1189、Layer2 602、Layer4 369、Layer5 363、Layer6 215、WM166、NaN1；7有效类。
+- 151510：Layer3 1774、Layer1 1180、Layer2 650、Layer4 318、Layer5 310、Layer6 179、WM184、NaN39；7类。
+- 151669：Layer3 2141、Layer4 364、Layer5 510、Layer6 391、WM230、NaN25；**5类**。
+- 151670：Layer3 2175、Layer4 211、Layer5 581、Layer6 308、WM209、NaN14；5类。
+- 151671：Layer3 1918、Layer4 245、Layer5 721、Layer6 760、WM449、NaN17；5类。
+- 151672：Layer3 1575、Layer4 304、Layer5 728、Layer6 882、WM399、NaN127；5类。
+- 151673：Layer3 989、Layer1 273、Layer2 253、Layer4 218、Layer5 673、Layer6 692、WM513、NaN28；7类。
+- 151674：Layer3 924、Layer1 380、Layer2 224、Layer4 247、Layer5 621、Layer6 614、WM625、NaN38；7类。
+- 151675：Layer3 771、Layer1 328、Layer2 275、Layer4 275、Layer5 732、Layer6 533、WM652、NaN26；7类。
+- 151676：Layer3 836、Layer1 289、Layer2 254、Layer4 254、Layer5 649、Layer6 616、WM533、NaN29；7类。
+
+**严格限定**：当前还没有验证这些 `layer_guess` 与151507/151508既有 `manual_layer_annotations.csv` 标注**来源、格式及一致性**。标签列名有猜测性质，不得直接称真值或说是 `Layer`（全空）；如按每片实测类数进行Oracle-K，供体2为5，其余7，需预先公布K的切片级规则、禁止用聚类结果挑K，并且不能比较跨供体绝对边界F1不考虑标注粒度差异。**下一步**：只读核查151507/151508历史标签示例、缺失情况及新增10片 `layer_guess` 与 `layer_guess_reordered` 是否实际一致，再编写批量一致转换脚本。当前未转换也未开始新训练。
+
 ## 2026-11-10 新增10张数据源的只读对齐审计成功
 
 用户在Windows运行批量只读 Python/scanpy 审计，终端为10张切片逐张报告 H5_SPOTS、POSITION_MATCH、IN_TISSUE_1、POSITION_DUPLICATES、METADATA_ROWS，结尾 `SOURCE_ALIGNMENT_AUDIT_COMPLETE`，无FAIL。
