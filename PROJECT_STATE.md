@@ -1,5 +1,16 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-10 全12张H5已实测读取成功；发现关键 Oracle-K / 标注协议差异
+
+用户在Windows用CellCharter Python逐一 `scanpy.read_10x_h5` 并检查 barcode唯一性，终端 `H5_AUDIT_COMPLETE 12/12`，所有文件可读，所有切片33538 genes、无重复barcode，spot数：151507=4226，151508=4384，151509=4789，151510=4634，151669=3661，151670=3498，151671=4110，151672=4015，151673=3639，151674=3673，151675=3592，151676=3460。**H5内部读取通过**，但尚未批量验证空间坐标和人工标签；本地用户未传原H5，不得说AI已独立检查。
+
+**重要新文献审查（对未来实验设计有实质影响）**：
+1. LieberInstitute/HumanPilot `get_barcode_lists.R` https://github.com/LieberInstitute/HumanPilot/blob/master/get_barcode_lists.R 记录供体2的151669–151672大量 “Layer 2/3” 合并标注，供体1/3为分开的Layer2、Layer3。具体标注类别不完全相同，边界 F1 的基数及含义可能因供体差异变化。
+2. SEDR_analyses https://github.com/JinmiaoChenLab/SEDR_analyses 的DLPFC benchmark `n_clusters` 表给151669/151670/151671/151672 **K=5**，其余切片K=7；与BASS https://pmc.ncbi.nlm.nih.gov/articles/PMC9351148/ 写的“所有12片K=7（oracle）”协议不一致。**必须先确认来源、标注映射、K的统一规则并预先声明比较目标，不能直接把151507 K7脚本循环到供体2，也不能把不同K造成的效果当作新算法改进。**
+3. spatialLIBD https://research.libd.org/spatialLIBD/articles/spatialLIBD.html 可通过 `fetch_data(type="spe")` 得到全12片colData含 `array_row,array_col,spatialLIBD` 等，但目前没有在用户本地加载，不应默认已有坐标/标签。
+
+**下一步先不训练**：只读检查各本地目录对应 `spots_aligned.csv` 和 `manual_layer_annotations.csv` 是否存在及大小，确认缺口后统一下载/转换，并核对 barcode、坐标与标注取值。随后设计冻结的统一 Oracle-K 协议及报告不同供体的标签差异。
+
 ## 2026-11-10 追加：完整12切片 H5 下载成功（用户终端）
 
 用户 PowerShell 批量下载剩余9张 DLPFC 切片，终端九次 `DOWNLOAD_OK`：151509、151510、151670、151671、151672、151673、151674、151675、151676。此前用户已下载151669，151507/151508为已有数据。因此指定本地根目录 `D:\paper\ST_Benchmark_Planning\mvp\data` 中预计12张切片的 `filtered_feature_bc_matrix.h5` 均已取得；本次脚本判断以 curl 退出码0且文件非空为条件，**尚未逐个打开 H5 验证完整性、条码、空间坐标或人工标签；不能直接宣称12张数据集已准备到可训练阶段**。
