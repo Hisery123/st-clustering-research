@@ -73,3 +73,14 @@ fixed25 TORCH_RNG_CHANGED: False NUMPY_RNG_CHANGED: False
 该结果表明测试代码中旧/新形式 AnnData 创建、设置 obs_names 和 obsm **未改变所检测的 PyTorch CPU 和 NumPy 全局 RNG 状态**。本次代码用全零假特征而非原聚合矩阵，检查的是构造行为而非完整 GMM 拟合；未测试 TorchGMM 内部独立 generator、数据加载器随机性或全训练数值路径。此前“seed 与 AnnData 创建先后顺序”作为差异解释的支持度下降，但仍不可宣称已排除一切 RNG 影响。
 
 下一步：只读比较两份 `script_snapshot.py` 中完整 `cc.tl.Cluster(...)` 参数、AnnData 构造与设置特征的代码，检查有无除了上述显式 GMM manifest 外的调用差异；再决定是否需要最小隔离 GMM 拟合实验。不重复 scVI 或聚合训练。
+
+## 2026-11-10：两份 GMM 代码片段的逐行核查
+
+用户 PowerShell 已实际输出旧 L4 的 `script_snapshot.py` 第100–122和165–190行，以及固定25维 L4 的第110–143和238–270行。
+
+- 旧 L4：`X = np.ascontiguousarray(all_features[:, :25], dtype=np.float32)`，然后创建 AnnData、设置 obs_names/obsm，随后执行 `torch.manual_seed(SEED)` 和 `np.random.seed(SEED)`，再构造 `cc.tl.Cluster` 并 fit。
+- 固定25维 L4：`build_features(hop=4)` 的 `range(hop+1, 5)` 是空区间，返回完整 `original.copy()` 的 contiguous float32，之后先设置 Torch/NumPy seed、再创建和填充 AnnData、再构造 Cluster 并 fit。
+- **两者完整显式调用均一致：** `n_clusters=K`, `random_state=SEED`, `covariance_type="full"`, `init_strategy="kmeans"`, `convergence_tolerance=0.001`, `covariance_regularization=1e-6`, `trainer_params={"accelerator":"cpu","devices":1,"max_epochs":MAX_EM_ITERATIONS,"enable_progress_bar":False}`。
+- 结合共同源和重建数组哈希一致、AnnData 全局 RNG 测试均为 False，本次尚**未发现明确的显式拟合参数或输入值差异**。未完整检查来源的 barcode 顺序、`load_source` 和数据下游取样；也未运行同输入同配置重复拟合，**不能归咎于 TorchGMM 的固有非确定性**。
+
+**下一步**：只读检查两份脚本数据加载、`barcodes` 与 `X` 的排序/对齐方式，重点寻找是否按相同原始顺序将 spot 送入 GMM。尽管聚类本身输入值 hash 已复算，观察的预测分区 ARI 也要求比较两个 predictions.csv 中相同 barcode 的归属，不能仅按行号假设对齐。
