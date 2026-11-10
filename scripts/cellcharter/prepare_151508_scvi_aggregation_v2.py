@@ -166,7 +166,8 @@ def main():
             "aggregate_shape": list(agg.shape), "edges_undirected": int(graph.nnz//2),
             "latent_sha256": sha256_file(OUT / "scvi_latent.npy"),
             "aggregate_sha256": sha256_file(OUT / "cellcharter_aggregated.npy"),
-            "peak_cuda_mib": (round(torch.cuda.max_memory_allocated(0)/1048576, 2)\n                              if peak_memory_tracking else None),
+            "peak_cuda_mib": (round(torch.cuda.max_memory_allocated(0)/1048576, 2)
+                              if peak_memory_tracking else None),
             "finished_utc": datetime.now(timezone.utc).isoformat()
         }
         status.write_text(json.dumps(result, indent=2), encoding="utf-8")
