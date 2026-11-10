@@ -1,5 +1,22 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-10 新增10片冻结A/B GMM只读预检完成（接下来可显式--fit）
+
+用户Windows执行 `python scripts/cellcharter/mvp_fixed15_dlpfc_10_sections.py --all`（**未附加--fit**）。终端10次`FIXED15_CHECK_PASS`，最终`DLPFC_10_FIXED15_CHECK_ONLY_COMPLETE 10/10`：
+151509 n4789 K7 edges14086 sha1f29060473365c02d2c26b51a477d87ff2fb4ee6a4e7ae8e18193895c8dfc32e；
+151510 n4634 K7 edges13599 sha bcdbe68d60ab802f5752406e45cd6ccbe95ee87b67be390b1f8431e16e298d17；
+151669 n3661 K5 edges10597 sha50071ef3b8f0abe8507c2697df7cccc9c0dc05d1d95d65b4ece9bc2cef732fa4；
+151670 n3498 K5 edges10185 sha6006e085aaa2c455c210e3a055bd83b99b843a9a05356f9a25dd0e8f4ca5732a；
+151671 n4110 K5 edges12026 sha b121f6a63f344c05d7a67a703f53f2d399b4a579c23bd5ec208c9939a13522c3；
+151672 n4015 K5 edges11691 sha bb979d485a4b939d455e987ca9fe7c3312092e16521ec03b609409ba14fbb943；
+151673 n3639 K7 edges10562 sha a43e600dc41d58cd353f0d0ec67748e5c776bd2f7572de08491b7dd2758ae0a0；
+151674 n3673 K7 edges10629 sha6e2d2bfa006ed836eb256215736dda81808b1ed7c1b3542c3e7623bc187e340a；
+151675 n3592 K7 edges10381 sha210aebd5225eedbc4c4430e1f43d81b87c09e663422a7c0e747d0e762ba0cf80；
+151676 n3460 K7 edges10026 sha834d10f10d4880523ddcd3d0df04b3696998c5dc01d1d98f72c9d1c0f635d4e2。
+反复xarray_schema pkg_resources deprecated仅警告。
+
+**未运行新增GMM、未生成ARI/NMI/边界F1**。下一步用户手动一条PowerShell命令带`--all --fit`执行冻结A/B两种CPU GMM；每片独立Python子进程，两种预测保存后方读取标注评价，失败保留目录且终止。不改参数，不因结果改K/挑种子，不重新训练scVI。
+
 ## 2026-11-10 新增10片 25D特征写后缓存独立审计通过，已准备冻结A/B脚本（待运行）
 
 用户Windows真实只读输出：151509,151510,151669,151670,151671,151672,151673,151674,151675,151676 均 `PASS`，最终 `FEATURE_CACHE_AUDIT_COMPLETE 10/10`。审计条件包括每片 `status.json` completed、sample与config匹配、scVI latent数组(spot数,5)、CellCharter aggregate数组(spot数,25)、spot_order.csv与源spots_aligned.csv条码逐行匹配、两数组SHA256与status记录一致、源H5与坐标CSV哈希与config一致。**该证明限十片新增缓存；用户本人本地读审。**
