@@ -1,5 +1,9 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 数据目录清点（2026-11-10，最新）
+
+用户Windows只读执行 `Get-ChildItem "D:\paper\ST_Benchmark_Planning\mvp\data" -Directory | Where-Object { $_.Name -match "^1515\\d{2}$" }`，只返回 `151507` 和 `151508`。因此该特定本地目录中目前只有这两张匹配的 DLPFC 切片；**不能推断其他磁盘/目录或公开数据集没有更多切片**。当前两片已有结果：151507候选B的ARI/NMI/边界F1均改善；151508候选B的ARI略降、NMI下降而边界F1上升。下一步应选定未参与锁定组合选择的额外公开切片（优先核实独立供体），按冻结评价协议验证；暂不新建无终点的 seed/组合搜索或切回STAGATE。目标仍是普通SCI增量方法论文，当前尚未成立。
+
 ## 151508 冻结 A/B 对照已完成：边界F1正向、全局ARI/NMI非正向（2026-11-10，最高优先级）
 
 用户Windows运行 `scripts/cellcharter/mvp_fixed15_block_swap_151508.py`，终端明确 `MVP_FIXED15_COMPLETE`，输出目录 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151508_gmm22911_v1`，**已实际执行**。同一151508 scVI seed22911 的25D缓存切出两组15D；Oracle K7，CPU GMM seed22911。A: ARI `0.46267065495944715`, NMI `0.6132171362713753`, boundaryF1 `0.10315575161180861`, TP152/FP1868/FN775，L5/L6 41/139；B: ARI `0.46059571688191825`, NMI `0.5691388933817928`, boundaryF1 `0.16513761467889906`, TP261/FP1973/FN666，L5/L6 49/139。B−A：ARI −0.002075，NMI −0.044078，边界F1 +0.061982，边界FP +105（负面需保留）。真实评估边12846，真界面边927。
