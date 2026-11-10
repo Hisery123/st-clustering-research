@@ -1,5 +1,8 @@
 # PROJECT_STATE · 第三篇空间转录组聚类论文
 
+> **2026-11-10 用户最新科研决策（优先于下文旧待办）**：停止追查历史两份 seed0 L4 GMM 不一致，根因未明，暂存为局限；**禁止自动继续预测对齐、RNG、重复拟合诊断**。转入 S2/S3：对 CellCharter 边界/连续性权衡作最近邻论文原创性审查，再决定单一最小机制。初步检索与源链接：[研究转向记录](experiments/cellcharter_dlpfc/RESEARCH_PIVOT_AND_PRIOR_ART_SCREEN_20261110.md)。后文涉及“下一步继续查 GMM”的句子是先前历史状态，现已失效。
+
+
 > 更新：2026-11-10。此文件为**当前存档**，不是原始实验记录或独立验证。详见 [交接索引](CURRENT_RESEARCH_HANDOFF.md) 和 [当日日记](RESEARCH_JOURNAL/2026-11-10.md)。旧 README / handoff 正文中的早期「L3未执行」描述已经过期。
 
 ## 目标与边界
