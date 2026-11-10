@@ -58,3 +58,18 @@
 终端显示 `MATCH_FIXED25_L4: True`，与固定25维 L4 manifest 里的 `feature_matrix_sha256` 一致。该结果支持：按旧脚本的输入切片/转换重建出的矩阵与新 h4 记录的矩阵字节一致。**仍非直接读取旧运行时内存的证据，旧 manifest 不含最终矩阵 hash**。
 
 下一步最小诊断：只读/内存内测试在设置相同 Torch/NumPy seed 后创建旧/新形式 AnnData，是否消耗 Torch/NumPy 随机数状态。无需重新训练 GMM、无需创建输出文件。若随机状态均不变，再检查 fit 内部初始化、执行环境/调用差异；不预断定随机性成因。
+
+## 2026-11-10 后续：AnnData 创建与全局 RNG 状态测试
+
+首次检测脚本由助手写错，将 `torch.manual_seed(0)` 返回的 `torch.Generator` 当成具有 `get_rng_state()` 的对象，报 `AttributeError`，无有效结果；随后更正为直接通过 `torch.get_rng_state().clone()` 与 `np.random.get_state()` 比较创建 AnnData 前后的全局状态。
+
+用户 Windows 实际终端输出：
+
+```text
+old TORCH_RNG_CHANGED: False NUMPY_RNG_CHANGED: False
+fixed25 TORCH_RNG_CHANGED: False NUMPY_RNG_CHANGED: False
+```
+
+该结果表明测试代码中旧/新形式 AnnData 创建、设置 obs_names 和 obsm **未改变所检测的 PyTorch CPU 和 NumPy 全局 RNG 状态**。本次代码用全零假特征而非原聚合矩阵，检查的是构造行为而非完整 GMM 拟合；未测试 TorchGMM 内部独立 generator、数据加载器随机性或全训练数值路径。此前“seed 与 AnnData 创建先后顺序”作为差异解释的支持度下降，但仍不可宣称已排除一切 RNG 影响。
+
+下一步：只读比较两份 `script_snapshot.py` 中完整 `cc.tl.Cluster(...)` 参数、AnnData 构造与设置特征的代码，检查有无除了上述显式 GMM manifest 外的调用差异；再决定是否需要最小隔离 GMM 拟合实验。不重复 scVI 或聚合训练。
