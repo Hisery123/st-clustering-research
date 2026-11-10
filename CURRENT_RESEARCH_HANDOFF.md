@@ -60,6 +60,10 @@ L3 首次运行聚合及 GMM 预测已完成，但边界代码误把 `Layer 5/La
 
 用户已运行两份 `script_snapshot.py` 的关键字与上下文检查：旧 h4 在创建 AnnData 之后设 seed，固定25维 h4 在创建 AnnData 之前设 seed；均在 Cluster 构造前设 seed。尚无法断定该顺序影响随机数。旧 h4 从聚合特征取前25列，新 h4 在 hop4 无置换并返回 C-contiguous float32。**下一个唯一动作：只读计算两者的最终输入数组 SHA256，与新 h4 manifest 的哈希比较**。详情见 [历史 GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
 
+## 最新输入哈希复核（2026-11-10）
+
+用户实际运行只读 SHA256 检查：共同来源 `aggregated.npz` 中 `X_cellcharter (4226,25) float32`，按旧脚本 `np.ascontiguousarray(..., dtype=np.float32)` 重建后得到 `f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463`，与新固定25维 h4 manifest 中的输入矩阵 hash **一致**。这是重建一致性证据，旧运行时最终输入 hash 未被原始日志独立记录。下一步只读检查 AnnData 建立前后 NumPy/Torch RNG 状态是否被消耗，再决定是否需最小训练重复性实验；不可直接声称非确定性已证实。详见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
 ## 下一次新对话如何接手
 
 先按顶部顺序读取三个记忆文件。若 `PROJECT_STATE.md` 与本文件不一致，以**最新可核实的原始证据**为准并报告冲突；不要从旧 README 中取代当前状态。读取任务相关的 `manifest.json`、脚本、日志与指标，再给用户一条 Windows 手动操作；目前不需重建环境、重跑 L3、L0–L4、跨深度边界审计。
