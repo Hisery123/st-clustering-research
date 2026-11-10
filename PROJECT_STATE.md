@@ -1,5 +1,13 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 新增文献核查：DLPFC 供体结构纠正（2026-11-10，最高优先级）
+
+已查公开来源（本条是**公开文献/数据项目报告**，不是Windows实验结果）：
+- BASS论文 https://pmc.ncbi.nlm.nih.gov/articles/PMC9351148/ 描述12张DLPFC切片来自3位独立供体，每供体4张切片。
+- 2026 ICLR Workshop公开论文 https://openreview.net/pdf/63a0bb10dd34a1ca90af0deae2bcd06d6de42cec.pdf 附表按供体列出：供体1 `151507/151508/151509/151510`，供体2 `151669/151670/151671/151672`，供体3 `151673/151674/151675/151676`。因此**此前泛称151509可作为独立样本并不准确**：它和已使用的151507、151508同供体。
+- 研究机构官方空间LIBD源数据链接 https://github.com/LieberInstitute/spatialLIBD/blob/devel/README.Rmd ，151669 H5官方直链 `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_filtered_feature_bc_matrix.h5`。
+**当前方案**：优先选择另一供体的151669用于冻结方案A L0+L1+L2、B L0+L1+L4的扩展验证；需另行核实其标签/坐标来源和过去是否用于模型选型。切片数不等于独立供体数，151507/151508同供体。**尚未下载151669，也未进行新实验。** 先由用户手动下载原始H5到独立新文件夹并核验，其他输入随后准备，不先训练。
+
 ## 数据目录清点（2026-11-10，最新）
 
 用户Windows只读执行 `Get-ChildItem "D:\paper\ST_Benchmark_Planning\mvp\data" -Directory | Where-Object { $_.Name -match "^1515\\d{2}$" }`，只返回 `151507` 和 `151508`。因此该特定本地目录中目前只有这两张匹配的 DLPFC 切片；**不能推断其他磁盘/目录或公开数据集没有更多切片**。当前两片已有结果：151507候选B的ARI/NMI/边界F1均改善；151508候选B的ARI略降、NMI下降而边界F1上升。下一步应选定未参与锁定组合选择的额外公开切片（优先核实独立供体），按冻结评价协议验证；暂不新建无终点的 seed/组合搜索或切回STAGATE。目标仍是普通SCI增量方法论文，当前尚未成立。
