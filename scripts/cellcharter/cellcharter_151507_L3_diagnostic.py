@@ -43,7 +43,7 @@ def boundary_metrics(pred, truth, graph, valid):
     precision = tp / (tp + fp) if tp + fp else 0.0
     recall = tp / (tp + fn) if tp + fn else 0.0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
-    pair = ((y[i] == "L5") & (y[j] == "L6")) | ((y[i] == "L6") & (y[j] == "L5"))
+    pair = ((y[i] == "Layer 5") & (y[j] == "Layer 6")) | ((y[i] == "Layer 6") & (y[j] == "Layer 5"))
     pair_count = int(np.count_nonzero(pair))
     pair_found = int(np.count_nonzero(pair & estimated))
     if int(actual.sum()) != 950 or pair_count != 145:
