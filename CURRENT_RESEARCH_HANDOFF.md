@@ -1,5 +1,13 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-10 新增10片写后核验10/10 + 冻结后续协议和批量特征脚本（最新）
+
+用户Windows实测新增10张的 `POST_WRITE_AUDIT_COMPLETE 10/10`，每张 `PASS`：151509 4789/4788/K7、151510 4634/4595/K7、151669 3661/3636/K5、151670 3498/3484/K5、151671 4110/4093/K5、151672 4015/3888/K5、151673 3639/3611/K7、151674 3673/3635/K7、151675 3592/3566/K7、151676 3460/3431/K7（格式：总spots/有标签spots/Oracle K）。这证明生成CSV的行数/条码/标注/转换manifest基本一致，非完全人工独立重审或原始标签质量保证。
+
+已在GitHub新增 **[冻结协议](experiments/cellcharter_dlpfc/DLPFC_12_SECTION_FROZEN_EVALUATION_PROTOCOL_20261110.md)**：在已知151507、151508结果之后锁定新增样本的固定A=L0+L1+L2、B=L0+L1+L4，同15D，GMM seed22911，K按切片已知参考类别5或7，主要观察boundaryF1差值并共同报告ARI/NMI/FP等负结果。仅3位供体，供体1已开发，151673之前在其他项目使用过；**不能冒充全12片事先注册或全新独立盲测，不能把12张切片视为12个生物学重复**。
+
+已上传 **[新增10片 scVI+25D 通用批量准备脚本](scripts/cellcharter/prepare_dlpfc_10_features.py)**。基于已成功的151508 v2协议，只有显式`--train`才训练；`--all`按每片独立Python进程串行运行，每张输出不同 `cellcharter_{sample}_scvi22911_features_batch_v1` 目录，已完整生成且hash匹配的缓存会跳过，失败目录不被覆盖；不读层标签、不拟合GMM。**该脚本仅已在GitHub上传，尚未用户Windows git pull，也未执行。** 下一步唯一动作用户 `git pull --ff-only`；成功后再单独运行无训练 `--all` 检查，绝不能提前声称训练已完成。
+
 ## 2026-11-10 10张新增切片已正式完成统一输入文件转换
 
 用户Windows实际执行 `scripts/cellcharter/prepare_dlpfc_10_sources.py --write`，连续打印十张 `VALIDATED` 并以 `DLPFC_10_SOURCE_CONVERSION_WRITTEN_COMPLETE 10/10` 正常完成。按照脚本行为，每张新增切片应已写出 `spots_aligned.csv`、`manual_layer_annotations.csv`、`source_conversion_manifest.json`。未改151507/151508，也未运行scVI/GMM；**文件写出已获终端完成标记，尚未进行独立的写后内容核查**。逐片样本量/类别来自此前预检：151509 4789 spots/4788标注/K7，151510 4634/4595/K7，151669 3661/3636/K5，151670 3498/3484/K5，151671 4110/4093/K5，151672 4015/3888/K5，151673 3639/3611/K7，151674 3673/3635/K7，151675 3592/3566/K7，151676 3460/3431/K7。
