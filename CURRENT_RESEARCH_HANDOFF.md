@@ -1,5 +1,9 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## v2 语法错误修复（2026-11-10；最新）
+
+用户 Windows 尝试运行 `prepare_151508_scvi_aggregation_v2.py`，Python **编译解析阶段**第169行报 `SyntaxError: unexpected character after line continuation character`。原因是我此前通过GitHub写入脚本时把 `peak_cuda_mib` 条件表达式的换行误写为字面量 `\\n`。在程序运行前已失败，**未触发任何CUDA初始化、训练或输出目录创建**，故 v2 结果目录应尚未由这次命令创建（如存在则另行检查）。我已在同一 v2 脚本中将字面量替换为真实换行，未改实验配置、代码行为或输出目录。修复提交 `2b372dc`。下一步**只需手动git pull同步修复**，等待用户成功结果后再运行 v2。不得再让用户运行旧脚本版本或误判为GPU故障。
+
 ## 最新 GPU 诊断与 v2 准备（2026-11-10）
 
 用户原环境实际输出：`TORCH_VERSION 2.1.2+cu121`、`TORCH_CUDA_VERSION 12.1`、`CUDA_AVAILABLE True`、`CUDA_DEVICE_COUNT 1`、`CUDA_ALLOCATION PASS`、`GPU_NAME NVIDIA GeForce RTX 4070 Laptop GPU`、`CUDA_MEMORY_STATS PASS`。此前151508 v1在 `reset_peak_memory_stats(0)` 报 Invalid device，**目前未证实是设备损坏或具体根因**，当次scVI训练未开始。
