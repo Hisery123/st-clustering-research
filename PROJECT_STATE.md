@@ -1,5 +1,16 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-10 批量10片特征生成终端证据：全部成功（此前“运行中”状态已更新）
+
+用户贴出`prepare_dlpfc_10_features.py --all --train`的终端尾部，**最终明确打印 `DLPFC_10_FEATURE_TRAIN_COMPLETE 10/10`**。按已归档脚本该标志说明全部10个子进程正常返回，各样本走完整成功保存或通过原有已完成缓存哈希检查的重用分支，因而不再应把批量状态写作运行中；但尚未在本地针对所有缓存执行独立写后审计。终端直接展示：
+- 151674: scVI epoch275/400早停、`FEATURE_CACHE_COMPLETE`，n3673，latent[3673,5]、aggregate[3673,25]、edges10629，latent sha256`d55bd042b8b7da7e99572a17df5abb93c7099138d79d8412f75846c88dd3d303`，aggregate sha256`6e2d2bfa006ed836eb256215736dda81808b1ed7c1b3542c3e7623bc187e340a`。
+- 151675: epoch313/400早停、`FEATURE_CACHE_COMPLETE`，n3592，latent[3592,5]、aggregate[3592,25]、edges10381，latent sha256`2d0555ddad15354c190043ba07f2470f4dd902832ad309256f620aab4bf8af74`，aggregate sha256`210aebd5225eedbc4c4430e1f43d81b87c09e663422a7c0e747d0e762ba0cf80`。
+- 151676: epoch274/400早停、`FEATURE_CACHE_COMPLETE`，n3460，latent[3460,5]、aggregate[3460,25]、edges10026，latent sha256`504af4b34a3dbfc303452a4cfda3abe983d3ac8d388448e209d15836520c34ed`，aggregate sha256`834d10f10d4880523ddcd3d0df04b3696998c5dc01d1d98f72c9d1c0f635d4e2`。
+- 其余151510、151669–151673单片完整日志未在这次摘录展示；不补造其epoch或SHA。
+- 151509先前独立训练已完成，批量脚本具备已完成hash匹配cache复用机制。
+- 显示 `GPU available: True(cuda), used: True`，警告`No GPU/TPU found`来自另一框架、不会否定Lightning CUDA训练。
+
+**下一步唯一动作**：只读批量审计10片output目录中 status.json、config.json、spot_order.csv、scvi_latent.npy、cellcharter_aggregated.npy、shape/条码对齐及文件SHA，核实无一张错片/截断，再创建冻结A/B GMM + evaluation脚本；不得重复scVI，不允许看新结果后改A/B/K/seed。仍仅3个独立供体，方法创新尚未成立。
 ## 2026-11-10 跨对话中途归档：批量GPU训练已启动，最终状态未知（最高优先级）
 
 **当前主任务**：第三篇 DLPFC/CellCharter 方法论文。用户提出换新对话时已表示正在执行 `prepare_dlpfc_10_features.py --all --train`，但本次归档时**尚未发回整批终端日志**；除了先前151509已成功完成5D scVI和25D缓存，其余9片的训练完成情况**未知**，严禁称十片训练完成。
