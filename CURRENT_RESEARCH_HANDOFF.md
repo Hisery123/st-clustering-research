@@ -1,5 +1,21 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-10 10张新增DLPFC切片批量转换只读预检全部通过
+
+用户 Windows 实际运行 `scripts/cellcharter/prepare_dlpfc_10_sources.py` **未带 `--write`**，终端输出 `DLPFC_10_SOURCE_CONVERSION_CHECK_ONLY_COMPLETE 10/10`。每张均有 `VALIDATED`，对应spot/有标注/未标注/Oracle-K：
+- 151509:4789/4788/1/K7
+- 151510:4634/4595/39/K7
+- 151669:3661/3636/25/K5
+- 151670:3498/3484/14/K5
+- 151671:4110/4093/17/K5
+- 151672:4015/3888/127/K5
+- 151673:3639/3611/28/K7
+- 151674:3673/3635/38/K7
+- 151675:3592/3566/26/K7
+- 151676:3460/3431/29/K7
+
+该脚本已验证原始H5/坐标/metadata barcode、行序、样本ID、合法标签取值及缺失情况，并计算待转换的标准字段。**本次纯只读；新spots_aligned.csv/manual_layer_annotations.csv/source_conversion_manifest.json 尚未由此命令写出**。用户可在下一步单独运行 `--write`，脚本拒绝覆盖旧结果。十张新切片标签来自 SEDR metadata的 `layer_guess`，与旧片标注来源的潜在差异必须披露，不能声称统一人工金标准。运行后的实际输出必须由用户回传再判断成功，不得推定。
+
 ## 2026-11-10 标签版本一致性检查已完成；10片转换脚本待本地预检
 
 用户Windows真实输出：历史 `manual_layer_annotations.csv` 的151507含4221有效7类、151508含4381有效7类，命名 `Layer 1` 至 `Layer 6` 及 `WM`。新增十片的 `layer_guess` 与 `layer_guess_reordered` 每片 `MISMATCHES=0`，脚本输出 `LABEL_COMPATIBILITY_CHECK_COMPLETE`。**来源差异仍然要披露**：新增切片标注来自SEDR metadata中的 `layer_guess`；不能自动保证和历史两个切片人工标注采用完全相同的注释流程，原 `Layer` 列全NaN。供体2四张片仅5类，不允许拆分Layer3。
