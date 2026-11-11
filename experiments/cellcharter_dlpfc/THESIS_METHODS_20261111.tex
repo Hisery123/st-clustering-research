@@ -9,6 +9,7 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{amsmath,amssymb,booktabs,tabularx}
 \usepackage{tikz}
+\usepackage{float}
 \usetikzlibrary{arrows.meta,positioning}
 \usepackage{hyperref}
 \hypersetup{hidelinks}
@@ -85,7 +86,7 @@
 \subsection{实验技术路线}
 图\ref{fig:pipeline}根据已审计源代码绘制，为研究流程示意而非训练结果图。参考标签仅进入聚类数Oracle-K设定及预测后的评价环节。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   font=\small,
@@ -132,11 +133,4 @@
 
 本章研究方法是对成熟CellCharter/scVI流程的复现和有控制的特征块比较；尚没有证据支持将固定$L_4$替换$L_2$命名为一个新的算法或已验证的原创结构。本方法在真实分析中依赖Oracle-K、有限独立供体以及非完全一致来源的参考标签，论文结果应同时报告这些前提与局限。
 
-\section*{定稿核查备忘（不属于正式论文正文）}
-\begin{itemize}
-\item 待补真实参考文献：DLPFC数据集、CellCharter、scVI、SEDR标签来源；尚未核实DOI，不在这里编造。
-\item 已检查主要参数的来源脚本：\texttt{prepare\_dlpfc\_10\_sources.py}、\texttt{prepare\_dlpfc\_10\_features.py}、\texttt{mvp\_fixed15\_dlpfc\_10\_sections.py}、\texttt{mvp\_fixed15\_block\_swap\_151508.py}。
-\item 151507/151508和新增10片的标签来源与运行协议差异需要最终逐项核对；本稿没有写成完全统一盲测。
-\item 独立编译使用XeLaTeX；并入学校模板时删除本文件导言区和document环境，调整编号及图注。
-\end{itemize}
 \end{document}
