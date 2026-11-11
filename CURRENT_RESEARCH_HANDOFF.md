@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-11 毕业论文章节证据矩阵已建（最新）
+
+基于12片/3供体、冻结15D A/B结果与10片核心指标独立复核，GitHub已建立 [毕业论文章节证据矩阵/实验与作图清单](experiments/cellcharter_dlpfc/THESIS_CHAPTER_EVIDENCE_MATRIX_20261111.md)。明确旧2片属于开发、新10片是扩展，Oracle-K、标签来源差异、边界F1改善6/12及新方法尚未成立。源码检查止损：不是GMM建议“失败”，只是尚未证明稳定性问题且当前不再无终点追查；CellCharter0.3.2/TorchGMM0.1.2版本与源码只读检查已执行。**下一现场唯一操作**：Windows只读盘点151507/151508已存在的15D A/B原始结果目录与文件，为12片主表提供可追溯来源；不训练、不重新拟合。
+
+
 ## 2026-11-11 TorchGMM随机种子实现只读检查已完成；转入毕业论文章节组织（最新）
 
 用户在Windows实测环境：CellCharter 0.3.2、TorchGMM 0.1.2、PyTorch 2.1.2+cu121。源码显示CellCharter `Cluster`向中间 `GaussianMixture` 传递 `random_state`，中间类仅保存 `self.random_state`；用户完整打印的 TorchGMM `estimator.py` `GaussianMixture.fit` 没有显式使用该参数，KMeans初始化由 `KMeans(...).fit(data)` 执行。既有A/B实验脚本还显式调用 `np.random.seed(SEED)` 与 `torch.manual_seed(SEED)`。**不能据此判断整个底层随机路径失控或旧实验失效**；未开展新的GMM重拟合。基于毕业优先、有限预算决定停止无终点的源码追查（历史seed0 L4问题继续封存）。下步应优先组织全12片结果、供体级图表与论文章节；有明确必要时才按预声明最小范围开展跨seed诊断。详见 [源码检查归档](experiments/cellcharter_dlpfc/FIXED15_PREDICTION_REAUDIT_AND_NEXT_DECISION_20261110.md)。
