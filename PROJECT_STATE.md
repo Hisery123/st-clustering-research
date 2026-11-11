@@ -1,5 +1,9 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-11 12片等维对照三面板科研图已制作；TeX已更新
+
+基于此前用户上传并确实存放在当前项目环境的三份真实Matplotlib SVG：`delta_ari_by_donor.svg`、`delta_nmi_by_donor.svg`、`delta_boundary_f1_by_donor.svg`，用独立嵌套与ID防冲突方式合成为上下A/B/C三个面板的`DLPFC_12_sections_A_B_delta_three_panel.svg`，通过Inkscape导出`DLPFC_12_sections_A_B_delta_three_panel.pdf`，PDF图像已实际渲染核查，图中有12片按3供体着色、旧2片开发标圈。打包`DLPFC_12_sections_A_B_delta_three_panel.zip`向用户提供下载；**这些二进制图件尚未保存到用户Windows，亦未上传GitHub**。GitHub中的TeX `THESIS_RESULTS_DISCUSSION_20261111.tex`已添加条件性真实图插入，路径在Windows结果目录，缺文件时保留占位。尚未在用户Windows同步或编译，不能声称最终PDF已更新。下一步先让用户解压PDF到已有结果文件夹，再单步同步/编译。保持数值图来源与12片独立供体n=3的限制，旧两片开发集清晰圈出。
+
 ## 2026-11-11 中文LaTeX实验结果章节已提交GitHub（最新）
 
 用户要求将已归档的实验结果与分析章节改写为TeX并上传GitHub。已新建 [THESIS_RESULTS_DISCUSSION_20261111.tex](experiments/cellcharter_dlpfc/THESIS_RESULTS_DISCUSSION_20261111.tex)，采用 `ctexart` 独立XeLaTeX草稿结构，保留已有真实12片ARI/NMI/F1、供体差异、TP/FP/FN总计、151671/151676层间边界召回、局限；内含4个数据表、1个边界F1公式、2个**明确的待插图占位**（不冒充实图），没有编造DOI或外部引文。已通过GitHub读取新文件并检查正文起止及表格环境数量；**尚未在用户Windows编译、未宣称PDF已生成**。独立文件并入学校论文模板须适配ctex导言和章节编号。下一步可由用户Windows手动同步，再运行一次XeLaTeX检查（每次一条命令）。
