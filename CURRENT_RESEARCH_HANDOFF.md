@@ -1,5 +1,9 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-11 文献核查与第二章TeX已完成（最新）
+
+已通过期刊/PubMed网页核对CellCharter(Varrone 2024 DOI10.1038/s41588-023-01588-4)、scVI(Lopez 2018 DOI10.1038/s41592-018-0229-2)、DLPFC(Maynard 2021 DOI10.1038/s41593-020-00787-0)、SEDR(Xu 2024 DOI10.1186/s13073-024-01283-x)、m2ST(Zhang 2025 DOI10.1093/bioinformatics/btaf221)、SACCELERATOR(Sun 2026 DOI10.1038/s41592-026-03194-8)，并读CellCharter官方aggregate_neighbors API文档。GitHub新建 `experiments/cellcharter_dlpfc/LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md` 与 `THESIS_BACKGROUND_RELATED_WORK_20261111.tex`，完整撰写第二章的研究背景、相关工作与研究问题；TeX带6条已验证参考文献。严格明确多尺度邻域特征本身、尺度赋权不是当然创新，固定B未取得跨供体稳定优势；新版2026 SACCELERATOR提醒DLPFC基准/参考标注局限。**尚未在用户Windows同步和XeLaTeX编译；没有下载/精读付费CellCharter全文及其补充材料；SEDR layer_guess元数据的最初标注来源待追溯。** 最新用户仍在Windows手动操作模式，下一步只给一条带Clash本机7897临时代理的git pull --ff-only，成功后再单独xelatex编译，不重复已完成实验。
+
 ## 2026-11-11 方法章节TeX初稿已提交（最新）
 
 基于已从GitHub直接读取的 `scripts/cellcharter/prepare_dlpfc_10_sources.py`、`prepare_dlpfc_10_features.py`、`mvp_fixed15_dlpfc_10_sections.py`、`cellcharter_151507_baseline_v032.py`、`mvp_fixed15_block_swap_151508.py` 编写中文独立XeLaTeX方法章节 `experiments/cellcharter_dlpfc/THESIS_METHODS_20261111.tex`。包括12片/3供体、原始来源与SEDR `layer_guess` 来源边界、barcode/六邻接、HVG5000/5D scVI训练、CellCharter n_layers4/25D、冻结15D A/B、full协方差CPU GMM、Oracle K、ARI/NMI/边界F1和层对召回定义、数据泄漏预防、可重复性与局限。内含TikZ原生矢量方法流程图；所有真实科研图与先前7页结果PDF保持独立。**已提交GitHub，但还没有在用户Windows同步/编译；当前环境不能直接取得Github TeX文件以完成实际编译验证。** 文献引用未编造，旧两片标注来源需进一步核查。下一步先一条PowerShell git pull同步，之后单独XeLaTeX编译检查。不要重训模型或要求重复已提交的数据。
