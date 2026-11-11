@@ -1,5 +1,9 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-11 方法章节TeX初稿已提交（最新）
+
+基于已从GitHub直接读取的 `scripts/cellcharter/prepare_dlpfc_10_sources.py`、`prepare_dlpfc_10_features.py`、`mvp_fixed15_dlpfc_10_sections.py`、`cellcharter_151507_baseline_v032.py`、`mvp_fixed15_block_swap_151508.py` 编写中文独立XeLaTeX方法章节 `experiments/cellcharter_dlpfc/THESIS_METHODS_20261111.tex`。包括12片/3供体、原始来源与SEDR `layer_guess` 来源边界、barcode/六邻接、HVG5000/5D scVI训练、CellCharter n_layers4/25D、冻结15D A/B、full协方差CPU GMM、Oracle K、ARI/NMI/边界F1和层对召回定义、数据泄漏预防、可重复性与局限。内含TikZ原生矢量方法流程图；所有真实科研图与先前7页结果PDF保持独立。**已提交GitHub，但还没有在用户Windows同步/编译；当前环境不能直接取得Github TeX文件以完成实际编译验证。** 文献引用未编造，旧两片标注来源需进一步核查。下一步先一条PowerShell git pull同步，之后单独XeLaTeX编译检查。不要重训模型或要求重复已提交的数据。
+
 ## 2026-11-11 12片等维对照三面板科研图已制作；TeX已更新
 
 基于此前用户上传并确实存放在当前项目环境的三份真实Matplotlib SVG：`delta_ari_by_donor.svg`、`delta_nmi_by_donor.svg`、`delta_boundary_f1_by_donor.svg`，用独立嵌套与ID防冲突方式合成为上下A/B/C三个面板的`DLPFC_12_sections_A_B_delta_three_panel.svg`，通过Inkscape导出`DLPFC_12_sections_A_B_delta_three_panel.pdf`，PDF图像已实际渲染核查，图中有12片按3供体着色、旧2片开发标圈。打包`DLPFC_12_sections_A_B_delta_three_panel.zip`向用户提供下载；**这些二进制图件尚未保存到用户Windows，亦未上传GitHub**。GitHub中的TeX `THESIS_RESULTS_DISCUSSION_20261111.tex`已添加条件性真实图插入，路径在Windows结果目录，缺文件时保留占位。尚未在用户Windows同步或编译，不能声称最终PDF已更新。下一步先让用户解压PDF到已有结果文件夹，再单步同步/编译。保持数值图来源与12片独立供体n=3的限制，旧两片开发集清晰圈出。
