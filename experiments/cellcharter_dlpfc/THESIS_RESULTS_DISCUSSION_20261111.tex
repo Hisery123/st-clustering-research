@@ -1,0 +1,177 @@
+% !TeX program = xelatex
+% 第三篇毕业论文：实验结果与分析（独立可编译版本，2026-11-11）
+% 证据来源：已核对的12片A/B汇总CSV，以及151671/151676分层边界Windows终端输出。
+% 此文件为写作草稿，不能替代学校学位论文模板；图位是明确的待排版标识。
+% 编译：xelatex -interaction=nonstopmode -halt-on-error THESIS_RESULTS_DISCUSSION_20261111.tex
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.3em}
+\renewcommand{\arraystretch}{1.18}
+\setcounter{section}{3}
+
+% 无正式图件时保持可编译，不伪称已置入真实图像。
+\newcommand{\PendingFigure}[2]{%
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\begin{minipage}[c][3.0cm][c]{0.88\linewidth}
+      \centering\small #2\\[0.5em]
+      \textbf{待插入真实实验图件；当前仅为占位标识。}
+    \end{minipage}}
+    \caption{#1}
+  \end{figure}
+}
+
+\begin{document}
+\section{实验结果与分析}
+\label{sec:results}
+
+\subsection{实验设计与结果报告原则}
+\label{subsec:design}
+为考察CellCharter多尺度邻域特征组合与空间域识别质量之间的关系，本研究基于背外侧前额叶皮层（dorsolateral prefrontal cortex, DLPFC）的12张空间转录组切片进行等维特征对照。12张切片来自3位供体，每位供体4张切片。对照配置A采用$L_0$、$L_1$与$L_2$特征块，候选配置B采用$L_0$、$L_1$与$L_4$特征块，二者均为15维，并来自此前已生成的CellCharter多尺度特征。两组使用相同的高斯混合模型（Gaussian mixture model, GMM）配置，实验记录中的随机种子为22911。
+
+对于第二位供体的切片，聚类数取$K=5$；其余供体取$K=7$。该设置根据参考标注类别数确定，属于\textit{Oracle-K}，不应解释为独立于真实标签的聚类数选择。
+
+评价指标为调整兰德指数（adjusted Rand index, ARI）、归一化互信息（normalized mutual information, NMI）和空间边界F1。空间边界基于Visium阵列无向六邻接图定义，仅将两个端点均有参考标注的邻接边纳入评价。相邻spot的参考层标签不同时，该边记为参考真实边界；相邻spot的预测聚类编号不同时，该边记为模型预测边界。通过真正例（TP）、假正例（FP）和假负例（FN）计算
+\begin{equation}
+  F_{1,\mathrm{boundary}}=\frac{2TP}{2TP+FP+FN}.
+  \label{eq:boundaryf1}
+\end{equation}
+此定义反映相邻边层面的边界检出，而非像素级轮廓重合度。
+
+切片151507与151508为前期开发性观察；其余10张切片为后续扩展评价。后者并不一概构成完全未接触的盲测集。全部12张切片仅对应3个独立供体，不能将spot、空间边或同供体不同切片视为独立生物学重复。此外，开发切片与扩展切片的参考标注来源存在差异，后续解释须保留这一局限。
+
+\subsection{等维邻域特征组合的整体聚类表现}
+\label{subsec:overall}
+12张切片的配对结果显示，候选配置B并未在整体聚类或组织边界指标上形成一致优势。相对于A，B的ARI、NMI和边界F1的切片级平均变化分别为$-0.0175$、$-0.0047$和$-0.0047$；对应正向变化分别出现在4/12、6/12和6/12张切片中（表\ref{tab:overall}）。表中均值是对切片结果求算术平均的描述性统计量，不代表基于12个独立生物重复完成的显著性检验。
+
+\begin{table}[htbp]
+\centering
+\caption{候选配置B相对对照配置A的12张切片指标变化（描述性统计）}
+\label{tab:overall}
+\begin{tabular}{lcc}
+\toprule
+指标 & 切片级平均差值（B$-$A） & B高于A的切片数 \\
+\midrule
+ARI & $-0.0175$ & 4/12 \\
+NMI & $-0.0047$ & 6/12 \\
+边界F1 & $-0.0047$ & 6/12 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+开发性观察与扩展评价之间亦存在差异。前2张开发切片的边界F1平均变化为$+0.0553$，后续10张扩展切片则为$-0.0167$；对应ARI平均变化分别为$+0.0226$与$-0.0256$。这一结果说明开发阶段观察到的边界改善并未在后续扩展切片中持续出现。但是，由于两组切片的供体构成不同，且参考标注来源不完全一致，不能仅据此将差异归因为过拟合。
+
+\PendingFigure{12张DLPFC切片的等维特征替换指标差值。应按供体展示$\Delta$ARI、$\Delta$NMI和$\Delta$边界F1，并单独标记151507/151508开发切片。}{图源计划：由section\_metrics\_A\_B\_delta.csv生成的3张SVG；正式版尚待合并排版。}
+
+\subsection{供体间表现及结果异质性}
+\label{subsec:donor}
+将每位供体内部4张切片的B$-$A差值作描述性平均，三位供体呈现不同方向的变化（表\ref{tab:donor}）。D1的ARI、NMI和边界F1变化均为正；D2的ARI和边界F1略有下降，NMI变化接近于零；D3三个指标的平均变化均为负。三个供体内部，B使边界F1上升的切片数量分别为3/4、2/4和1/4。
+
+\begin{table}[htbp]
+\centering
+\caption{不同供体内部4张切片的指标平均差值（B$-$A）}
+\label{tab:donor}
+\begin{tabular}{lrrrr}
+\toprule
+供体 & $\Delta$ARI & $\Delta$NMI & $\Delta$边界F1 & F1改善切片数 \\
+\midrule
+D1 & $+0.0099$ & $+0.0133$ & $+0.0250$ & 3/4 \\
+D2 & $-0.0098$ & $+0.0002$ & $-0.0048$ & 2/4 \\
+D3 & $-0.0527$ & $-0.0274$ & $-0.0344$ & 1/4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+这些差异可能受到组织组成、标签粒度、邻域表征、不同聚类数和模型拟合等因素共同影响。由于D2采用$K=5$而D1、D3采用$K=7$，且参考标注处理存在差别，现有设计无法分别识别上述因素的独立作用。因此，本节仅报告供体内切片的描述性方向与幅度，不进行缺乏独立重复支持的显著性推断，也不将其解释为确定的生物学机制。
+
+\subsection{整体边界误报与漏检的变化}
+\label{subsec:errors}
+对12张切片中已经记录的边界计数求和，对照A的TP、FP、FN分别为2103、19338和7862，候选B分别为1999、17917和7966（表\ref{tab:errors}）。B相对A减少104条真实边界的正确检出，同时减少1421条错误预测边界，并增加104条漏检边界。
+
+\begin{table}[htbp]
+\centering
+\caption{12张切片边界错误计数之和（仅描述性汇总）}
+\label{tab:errors}
+\begin{tabular}{lrrr}
+\toprule
+计数 & A & B & B$-$A \\
+\midrule
+TP & 2103 & 1999 & $-104$ \\
+FP & 19338 & 17917 & $-1421$ \\
+FN & 7862 & 7966 & $+104$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+边界计数的求和受到各张切片被评价边数的影响，不是对独立供体效应的估计。因此，误报减少并不能单独证明边界识别提高：模型可能同时丢失真实组织边界。本研究将整体边界F1与TP、FP、FN及具体参考层间边界检出率联合报告，以避免仅根据单一综合指标推断模型行为。
+
+\subsection{典型切片的空间可视化与分层边界检出}
+\label{subsec:cases}
+本研究在检查边界F1变化方向后，选取151671和151676分别作为正向与负向的\textbf{说明性案例}，并非随机抽取的独立验证样本。空间图基于相同spot坐标展示参考层标注、A的原始GMM聚类和B的原始GMM聚类。不同面板的相同聚类编号和颜色不意味着相同的组织学层或一一对应关系，不能对无监督聚类编号作未经验证的生物学命名。
+
+\subsubsection{151671：整体边界F1改善伴随局部召回率损失}
+151671中，B的边界F1由0.1067升至0.1349，但TP由120减少至116、FN由447增加至451，而FP由1562降至1037。该切片F1改善主要与误报减少有关，不代表真实层间边界的总体正确检出数增加。将参考真实边界按组织层对拆分后，Layer 3/4与Layer 4/5的召回率分别由26.62\%降至23.38\%、由19.48\%降至5.84\%；而Layer 5/6与Layer 6/WM分别由15.48\%升至25.16\%、由24.04\%升至30.77\%（表\ref{tab:layerpairs}）。
+
+参考层与预测聚类的交叉表还表明，A、B均未形成以Layer 4为多数参考标签的独立聚类。这说明整体F1上升可以与部分局部参考边界的检出率下降同时出现，但不直接证明具体的聚合平滑因果机制。
+
+\subsubsection{151676：多类组织边界召回率同时下降}
+在151676中，B的边界F1由0.1590降至0.0679，TP由177降至71，FN由795增加至901，FP仅从1078略降至1048。六类真实参考层交界的B召回率均低于A。例如，Layer 1/2由33.33\%降至5.56\%，Layer 2/3由19.91\%降至3.32\%，Layer 6/WM由38.61\%降至10.89\%。
+
+这种负向结果说明，单纯降低错误预测边界数量并不能抵消真实边界大量漏检造成的损失。两张案例的不同表现可用于理解边界识别中的误报与漏检权衡，但不能外推为全部12张切片共享某种确定机制。
+
+\begin{table}[htbp]
+\centering
+\caption{151671与151676的代表性参考层边界召回率（A/B，百分比）}
+\label{tab:layerpairs}
+\begin{tabular}{llrr}
+\toprule
+切片 & 真实参考层边界 & A召回率（\%） & B召回率（\%） \\
+\midrule
+151671 & Layer 3/4 & 26.62 & 23.38 \\
+151671 & Layer 4/5 & 19.48 & 5.84 \\
+151671 & Layer 5/6 & 15.48 & 25.16 \\
+151671 & Layer 6/WM & 24.04 & 30.77 \\
+\midrule
+151676 & Layer 1/2 & 33.33 & 5.56 \\
+151676 & Layer 2/3 & 19.91 & 3.32 \\
+151676 & Layer 3/4 & 9.52 & 7.94 \\
+151676 & Layer 4/5 & 5.52 & 4.42 \\
+151676 & Layer 5/6 & 15.85 & 14.02 \\
+151676 & Layer 6/WM & 38.61 & 10.89 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\PendingFigure{正负案例空间域比较。两行分别为151671与151676，三列依次为参考层标注、A原始聚类、B原始聚类。聚类颜色和编号不跨面板对应。}{图源计划：spatial\_triptych\_151671\_raw\_clusters.svg与spatial\_triptych\_151676\_raw\_clusters.svg；需重排为六面板。}
+
+\subsection{研究局限与小结}
+\label{subsec:limitations}
+在固定15维输入和相同GMM设置下，不同邻域特征组合的空间域识别质量及局部边界检出存在明显异质性，但尚无证据支持候选配置B在12张切片上稳定优于A。本研究仍存在以下限制：
+
+\begin{enumerate}
+ \item 仅有3位独立供体，切片、spot与空间边不能当作独立的生物学重复；
+ \item 聚类数采用依赖参考类别数的Oracle-K，开发集和扩展集之间部分参考标注来源不同；
+ \item 候选B仅为固定尺度特征块替换，既未验证稳定性能优势，也不构成已证实的原创算法；
+ \item GMM随机数实现仅进行源码路径检查，尚未进行预先约定范围的独立跨随机种子稳定性试验；
+ \item 151671/151676的分层边界诊断为事后选取的两张说明性案例，不能代替全部12片的系统分析；
+ \item 外部数据集、其他公平基线和更细致的误报归因尚需依据毕业论文实际要求与实验预算决定是否补充。
+\end{enumerate}
+
+综上，固定远邻特征替换不能保证空间域识别质量普遍提高。整体ARI、NMI、边界F1及不同真实层间边界召回率应联合分析，特别需要区分误报减少与漏检增加所带来的不同影响。这些结论属于当前数据和实验协议下的实证观察，不等同于对特定平滑机制的因果证明，也不构成已验证的新方法声明。
+
+\section*{定稿前核查提示（不属于正式学位论文正文）}
+\begin{itemize}
+  \item 本文尚未插入未经验证的数据集论文、CellCharter方法论文或其他外部参考文献；需依学校规范补齐可核查引文。
+  \item 两处灰框是图件待插入提示，\textbf{不是}真实科研图。已有原始SVG已通过当前对话审看，但尚未合并到仓库或作最终排版。
+  \item 章节编号目前使用第4节作示例。并入学位论文主文件时，应删除本文件独立导言区并调整章节层级和编号。
+  \item 正式稿需回到原始JSON/CSV核对表格精度、图例和标签来源；当前没有正式显著性检验结果。
+\end{itemize}
+
+\end{document}
