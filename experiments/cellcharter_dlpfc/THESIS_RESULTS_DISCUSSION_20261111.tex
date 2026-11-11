@@ -8,6 +8,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs,tabularx,array}
 \usepackage{graphicx}
+\usepackage{pdflscape}
 \usepackage{caption}
 \usepackage{hyperref}
 \hypersetup{hidelinks}
@@ -149,7 +150,17 @@ FN & 7862 & 7966 & $+104$ \\
 \end{tabular}
 \end{table}
 
-\PendingFigure{正负案例空间域比较。两行分别为151671与151676，三列依次为参考层标注、A原始聚类、B原始聚类。聚类颜色和编号不跨面板对应。}{图源计划：spatial\_triptych\_151671\_raw\_clusters.svg与spatial\_triptych\_151676\_raw\_clusters.svg；需重排为六面板。}
+\begin{landscape}
+\IfFileExists{D:/paper/CellCharter_reproduction/results/thesis_fixed15_12_sections_summary_v1/DLPFC_151671_151676_raw_six_panel.pdf}{%
+  \begin{center}
+    \includegraphics[width=0.97\linewidth,height=0.79\textheight,keepaspectratio]{D:/paper/CellCharter_reproduction/results/thesis_fixed15_12_sections_summary_v1/DLPFC_151671_151676_raw_six_panel.pdf}
+    \captionof{figure}{151671与151676空间域正负案例比较。上排为151671（边界F1上升），下排为151676（边界F1下降）；每排依次为参考层、A原始聚类和B原始聚类。各面板的聚类编号与颜色不跨配置或参考标注对应。两张切片均是在观察结果后按边界F1变化方向选取的说明性案例。}
+    \label{fig:spatial-six-panel}
+  \end{center}
+}{%
+  \PendingFigure{正负案例空间域比较：151671与151676的参考层、A及B原始聚类。}{六面板真实PDF尚未放入约定的Windows结果目录；下载图件后将自动替换此占位框。}
+}
+\end{landscape}
 
 \subsection{研究局限与小结}
 \label{subsec:limitations}
