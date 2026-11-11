@@ -69,7 +69,16 @@ NMI & $-0.0047$ & 6/12 \\
 
 开发性观察与扩展评价之间亦存在差异。前2张开发切片的边界F1平均变化为$+0.0553$，后续10张扩展切片则为$-0.0167$；对应ARI平均变化分别为$+0.0226$与$-0.0256$。这一结果说明开发阶段观察到的边界改善并未在后续扩展切片中持续出现。但是，由于两组切片的供体构成不同，且参考标注来源不完全一致，不能仅据此将差异归因为过拟合。
 
-\PendingFigure{12张DLPFC切片的等维特征替换指标差值。应按供体展示$\Delta$ARI、$\Delta$NMI和$\Delta$边界F1，并单独标记151507/151508开发切片。}{图源计划：由section\_metrics\_A\_B\_delta.csv生成的3张SVG；正式版尚待合并排版。}
+\IfFileExists{D:/paper/CellCharter_reproduction/results/thesis_fixed15_12_sections_summary_v1/DLPFC_12_sections_A_B_delta_three_panel.pdf}{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.91\linewidth,height=0.77\textheight,keepaspectratio]{D:/paper/CellCharter_reproduction/results/thesis_fixed15_12_sections_summary_v1/DLPFC_12_sections_A_B_delta_three_panel.pdf}
+\caption{12张DLPFC切片的候选配置B与对照配置A指标差值。依次为ARI、NMI和边界F1；各点代表一张切片，颜色标识供体，空心圈标识先期开发切片151507与151508。零线表示A与B数值相等。图中切片属于3位供体，不可视为12次独立生物学重复。}
+\label{fig:delta-three-panel}
+\end{figure}
+}{%
+\PendingFigure{12张DLPFC切片的ARI、NMI和边界F1差值（B$-$A），按供体分组。}{真实三面板PDF尚未放入约定的Windows结果目录；放置后将自动替换此占位框。}
+}
 
 \subsection{供体间表现及结果异质性}
 \label{subsec:donor}
@@ -180,7 +189,7 @@ FN & 7862 & 7966 & $+104$ \\
 \section*{定稿前核查提示（不属于正式学位论文正文）}
 \begin{itemize}
   \item 本文尚未插入未经验证的数据集论文、CellCharter方法论文或其他外部参考文献；需依学校规范补齐可核查引文。
-  \item 两处灰框是图件待插入提示，\textbf{不是}真实科研图。已有原始SVG已通过当前对话审看，但尚未合并到仓库或作最终排版。
+  \item 当实际图件缺失时才显示占位框；如果已将两张真实PDF放入本地结果目录，两个占位框会被替换。定稿仍须核查图注与可读性。
   \item 章节编号目前使用第4节作示例。并入学位论文主文件时，应删除本文件独立导言区并调整章节层级和编号。
   \item 正式稿需回到原始JSON/CSV核对表格精度、图例和标签来源；当前没有正式显著性检验结果。
 \end{itemize}
