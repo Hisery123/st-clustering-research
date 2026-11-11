@@ -46,3 +46,14 @@ Claude建议将“GMM运行间稳定性（run-to-run stability）”从噪声来
 ## 五、操作纪律
 
 用户手动Windows PowerShell、AI给出一次一条命令及预期/失败处理；禁止默认Codex远控。任何本地数据未上传GitHub，不声称已归档原始CSV/权重。下一位GPT先读 `AGENTS.md`、`PROJECT_STATE.md` 和本文件，优先最新成功审计，不要从旧日记的过时“下一步”重跑已完成的实验。
+
+
+## 2026-11-11 源码只读核查：随机种子路径与阶段性止损
+
+**实际来源**：用户在 Windows 对原环境运行 `pip show`、Python `inspect` 及 PowerShell `Select-String`，随后粘贴完整 TorchGMM `GaussianMixture.fit` 代码；GitHub 并未取得用户本地安装包的完整文件字节。本记录仅归纳用户提供的实际终端内容。
+
+- 已安装 `cellcharter==0.3.2`、`torchgmm==0.1.2`、`torch==2.1.2+cu121`，安装路径在 `D:\\paper\\CellCharter_reproduction\\env_cellcharter\\lib\\site-packages`。
+- CellCharter `tl.Cluster` 接收 `random_state`，转给本包 `tl._gmm.GaussianMixture`；该中间类执行 `self.random_state = random_state`，对 TorchGMM 父类的 `super().__init__` 没有显式传递该参数。
+- 用户展示的 TorchGMM `torchgmm/bayes/gmm/estimator.py` 中 `GaussianMixture.fit` 方法通过 `KMeans(...).fit(data)` 初始化中心，再进行初始化与 EM；该完整方法内没有显式 `random_state` 或手动种子调用。**不能仅凭本函数断言底层所有随机路径没有被其他方式控制，也不能宣称有可重复性故障。**
+- 现有冻结A/B脚本在每组 GMM 前明确调用 `np.random.seed(SEED)` 和 `torch.manual_seed(SEED)`；独立于 `random_state` 属性，可能影响相关初始化。当前没有新的跨seed试点或重拟合结果。
+- **止损决策**：不继续无终点的随机数底层源码追查；旧seed0 L4争议仍封存。若写作或后续明确需要稳定性证据，再预声明最小、同预算、完整报告的跨seed试点。毕业论文章节的12片原有结果、供体分组、错误分析及可复现图表优先。
