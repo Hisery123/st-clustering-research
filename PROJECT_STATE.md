@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-11 TorchGMM随机种子实现只读检查已完成；转入毕业论文章节组织（最新）
+
+用户在Windows实测环境：CellCharter 0.3.2、TorchGMM 0.1.2、PyTorch 2.1.2+cu121。源码显示CellCharter `Cluster`向中间 `GaussianMixture` 传递 `random_state`，中间类仅保存 `self.random_state`；用户完整打印的 TorchGMM `estimator.py` `GaussianMixture.fit` 没有显式使用该参数，KMeans初始化由 `KMeans(...).fit(data)` 执行。既有A/B实验脚本还显式调用 `np.random.seed(SEED)` 与 `torch.manual_seed(SEED)`。**不能据此判断整个底层随机路径失控或旧实验失效**；未开展新的GMM重拟合。基于毕业优先、有限预算决定停止无终点的源码追查（历史seed0 L4问题继续封存）。下步应优先组织全12片结果、供体级图表与论文章节；有明确必要时才按预声明最小范围开展跨seed诊断。详见 [源码检查归档](experiments/cellcharter_dlpfc/FIXED15_PREDICTION_REAUDIT_AND_NEXT_DECISION_20261110.md)。
+
+
 ## 2026-11-10 最新用户目标：毕业论文优先、SCI增量创新为争取项（最高优先级）
 
 **必须优先执行的研究定位**：第三篇CellCharter首先服务于硕士**毕业论文的一章实质性研究内容**，而不是必须独立发表一篇SCI论文。以普通SCI/会议方法论文的规范与实验强度作参考，争取有真实最小增量创新，但**不以找到新算法作为完成研究的唯一条件**。学位论文的最终合格标准、是否需要正式发表与章节是否足够，仍须依据学校培养方案及导师意见，不能承诺一定毕业。
