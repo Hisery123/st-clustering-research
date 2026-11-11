@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-11 12片边界错误计数已补齐；科研图表脚本已提交（最新）
+
+用户实际从新增10片本地 `results.json` 输出20行A/B TP、FP、FN、L5/L6检出；与此前旧2片原始JSON合并后全12片计数齐备。按供体计数相加的候选B相对A：D1 ΔTP+72/ΔFP−1207/ΔFN−72，D2 ΔTP−18/ΔFP−225/ΔFN+18，D3 ΔTP−158/ΔFP+11/ΔFN+158；全12片ΔTP−104/ΔFP−1421/ΔFN+104。汇总是描述性的，供体n=3，不能以边为生物独立样本。详情及逐片原始读出：[证据矩阵](experiments/cellcharter_dlpfc/THESIS_CHAPTER_EVIDENCE_MATRIX_20261111.md)。
+
+GitHub新建 `scripts/cellcharter/export_thesis_12_fixed15_results.py`：拟从本地12份已有原始`results.json`只读提取完整ARI/NMI/F1/TP/FP/FN/L5L6，并做一致性检查；默认另建独立目录生成CSV、三个Matplotlib矢量SVG及来源哈希清单；**尚未同步Windows，尚未运行，图表与CSV尚未生成**。有 `--check-only` 预检不写文件。**下一步唯一Windows操作先git pull --ff-only**同步脚本；确认成功后才单独运行`--check-only`；不重训scVI/GMM。软件随机性源码检查已止损。
+
+
 ## 2026-11-11 毕业论文章节证据矩阵已建（最新）
 
 基于12片/3供体、冻结15D A/B结果与10片核心指标独立复核，GitHub已建立 [毕业论文章节证据矩阵/实验与作图清单](experiments/cellcharter_dlpfc/THESIS_CHAPTER_EVIDENCE_MATRIX_20261111.md)。明确旧2片属于开发、新10片是扩展，Oracle-K、标签来源差异、边界F1改善6/12及新方法尚未成立。源码检查止损：不是GMM建议“失败”，只是尚未证明稳定性问题且当前不再无终点追查；CellCharter0.3.2/TorchGMM0.1.2版本与源码只读检查已执行。**下一现场唯一操作**：Windows只读盘点151507/151508已存在的15D A/B原始结果目录与文件，为12片主表提供可追溯来源；不训练、不重新拟合。
