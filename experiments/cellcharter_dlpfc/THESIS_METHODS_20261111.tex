@@ -36,7 +36,7 @@
 
 \subsection{表达预处理与scVI低维表示}
 \label{subsec:scvi}
-预处理依据归档运行脚本：首先使基因名唯一；分别以 \texttt{min\_counts=3} 过滤基因和spot，检验spot数量与barcode顺序未发生变化；随后在 \texttt{counts} 层保留原始计数副本。另对主表达矩阵使用总量归一化（\texttt{target\_sum=10^6}）和对数变换，并基于 \texttt{counts} 层使用 \texttt{seurat\_v3} 选出5000个高变基因（highly variable genes, HVGs）。
+预处理依据归档运行脚本：首先使基因名唯一；分别以 \texttt{min\_counts=3} 过滤基因和spot，检验spot数量与barcode顺序未发生变化；随后在 \texttt{counts} 层保留原始计数副本。另对主表达矩阵使用总量归一化（\texttt{target\_sum=1e6}）和对数变换，并基于 \texttt{counts} 层使用 \texttt{seurat\_v3} 选出5000个高变基因（highly variable genes, HVGs）。
 
 通过 \texttt{scvi.model.SCVI.setup\_anndata(..., layer="counts")} 设置模型输入，构建潜变量维数为5的scVI模型。源代码中的训练设置为最大400 epoch、启用提前停止（early stopping）、AdamW优化器及学习率平台期衰减，随机种子设为22911。后续10张切片的脚本要求使用CUDA训练，不允许静默退回CPU。模型训练得到每张切片的低维表示
 \begin{equation}
