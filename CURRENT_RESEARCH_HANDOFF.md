@@ -1,5 +1,15 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 最新接手点｜2026-11-12：第二章已同步Windows，等待第一次XeLaTeX
+
+用户实际Windows `git pull --ff-only` 输出：`0792652..73bbc05 Fast-forward`，确认第二章TeX `experiments/cellcharter_dlpfc/THESIS_BACKGROUND_RELATED_WORK_20261111.tex` 和文献证据矩阵均已下载。**不要再让用户重复这一步**。用户要求“先存个档”，本轮仅归档，无训练/编译。
+
+**章节状态：** 第二章TeX已写、已本地同步、尚未编译；第三章5页、第四章7页独立PDF已真实编译并上传核查，尚未合并。第三章后续二次编译已消除“图??”、图位置正常；第四章两张科研图已嵌入。12片3供体、单种子冻结15D A/B结论不变：B无稳定改进；仅3位生物学独立供体；Oracle-K及开发/扩展标注差异务必披露；不把多尺度特征称新算法。
+
+**唯一下一步：** 让用户在PowerShell手动XeLaTeX编译第二章TeX（输出到既有结果目录）；等完整成功/失败日志再决定是否二次编译或修正，然后上传第二章PDF进行实际逐页审查。**现在不提供新的git pull，不重训任何模型，也不要声称第二章PDF已生成**。
+
+**读档路径：** `AGENTS.md` → `PROJECT_STATE.md` → 本文件 → `RESEARCH_JOURNAL/2026-11-12.md` → 需要时读`LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md`与相关TeX/实际脚本。此前旧“下一步”只能作为历史。
+
 ## 2026-11-11 文献核查与第二章TeX已完成（最新）
 
 已通过期刊/PubMed网页核对CellCharter(Varrone 2024 DOI10.1038/s41588-023-01588-4)、scVI(Lopez 2018 DOI10.1038/s41592-018-0229-2)、DLPFC(Maynard 2021 DOI10.1038/s41593-020-00787-0)、SEDR(Xu 2024 DOI10.1186/s13073-024-01283-x)、m2ST(Zhang 2025 DOI10.1093/bioinformatics/btaf221)、SACCELERATOR(Sun 2026 DOI10.1038/s41592-026-03194-8)，并读CellCharter官方aggregate_neighbors API文档。GitHub新建 `experiments/cellcharter_dlpfc/LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md` 与 `THESIS_BACKGROUND_RELATED_WORK_20261111.tex`，完整撰写第二章的研究背景、相关工作与研究问题；TeX带6条已验证参考文献。严格明确多尺度邻域特征本身、尺度赋权不是当然创新，固定B未取得跨供体稳定优势；新版2026 SACCELERATOR提醒DLPFC基准/参考标注局限。**尚未在用户Windows同步和XeLaTeX编译；没有下载/精读付费CellCharter全文及其补充材料；SEDR layer_guess元数据的最初标注来源待追溯。** 最新用户仍在Windows手动操作模式，下一步只给一条带Clash本机7897临时代理的git pull --ff-only，成功后再单独xelatex编译，不重复已完成实验。
