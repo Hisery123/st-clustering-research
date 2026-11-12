@@ -1,5 +1,14 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-12 更新：第二章PDF已核查，通过；2–4章整合TeX已提交，待Windows验证（当前最新）
+
+**用户实际PDF证据：** 最新上传的第二章《研究背景与相关工作》PDF（3页）经逐页检查：页眉误显示“参考文献”的问题已消除，m2ST参考文献间距正常，6条参考文献完整。这只是格式审查通过，不代表已经核查全部付费论文全文或符合学校学位模板。
+
+**GitHub新增：** 保留三个原始独立TeX不变，新建 `experiments/cellcharter_dlpfc/THESIS_CHAPTERS_2_4_INTEGRATED_20261112.tex` 主文件和 `chapter_02_background_integrated.tex`、`chapter_03_methods_integrated.tex`、`chapter_04_results_integrated.tex` 三份正文快照。统一ctexart导言、2/3/4节次序和文末6篇参考文献；从整合版第4节移除“定稿前核查提示”。两张实验图仍只引用用户Windows已有的真实PDF文件，源TeX里有找不到文件时的明确占位提示。**这些新增文件尚未在用户Windows同步，也未经过Windows实际XeLaTeX编译或视觉验收，不可称整合已成功。** 原TeX与真实本地结果均未被覆盖；整合片段是快照，后续更改单章要同步片段。
+
+**当前下一步唯一Windows操作**：运行此前成功的 `git -c http.proxy=http://127.0.0.1:7897 -c https.proxy=http://127.0.0.1:7897 -C "D:\paper\st-clustering-research" pull --ff-only`。确认Fast-forward和四个新文件到位，之后另一回合单独编译主TeX，核查总图/表/公式编号、文末参考文献、横向六联图及缺图占位。禁止重训，禁止把12切片当12独立供体、把B称为已验证创新。
+
+
 ## 2026-11-12 归档冻结点：本地Git同步成功，待编译第二章（当前唯一权威下一步）
 
 **用户Windows实际终端日志**：在 PowerShell 执行带本机代理的 `git ... -C "D:\paper\st-clustering-research" pull --ff-only`，结果 `Updating 0792652..73bbc05`、`Fast-forward`，5个文件共141行新增，明确新增：
