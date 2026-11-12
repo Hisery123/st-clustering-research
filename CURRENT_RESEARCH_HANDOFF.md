@@ -1,5 +1,11 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 最新权威接手点｜2026-11-12（用户要求存档并暂停标签排查）
+
+完整存档见 experiments/cellcharter_dlpfc/THIRD_PAPER_PAUSE_CHECKPOINT_20261112.md。第三篇核心第二、三、四章16页整合PDF已由Windows两轮XeLaTeX成功编译、上传并审查，3张图4张表6篇文献齐全；尚未写绪论、总结、摘要，也未适配学校模板。不要误用下方旧条目的过期指令（例如继续编译第二章）。
+151507最新真实审计：metadata.tsv里3661行第三字段全部是151669，原文件表头73/数据74列；manual_layer_annotations.csv含151507的4221行和151669的740行；spots_aligned.csv共4226行，对151507自身4221条标签逐barcode匹配一致数4221、标签不一致0、无参考5。5个未匹配spot的标记及下游评价代码尚未检查，不得断言评价已污染或完全无污染。用户已明确暂时不追查此事；后续以写作及用户主动决定为优先，不启动训练。GitHub本次修改尚未同步Windows。
+
+
 ## 2026-11-12 追加：DLPFC参考层标签源头得到官方资料支持（待本地逐barcode复核）
 
 公开SEDR_analyses仓库README证实其DLPFC数据源为SpatialLIBD、metadata.tsv与BayesSpace数据一致，源码DLPFC_Seurat.R直接读取layer_guess作为参考标签；SpatialLIBD官方fetch_data文档列出layer_guess字段。完整证据与原网址见 `experiments/cellcharter_dlpfc/DLPFC_LABEL_ORIGIN_AUDIT_20261112.md`。可说后10片沿用公开数据链中的既有参考标签，而非SEDR模型输出或本研究新人工标注；**尚未证实本地CSV与公开上游每行一致、也未核实旧2片与新10片完全同源**。下一步用户Windows只读列出12个目录里metadata_source.tsv与manual_layer_annotations.csv的实际存在性，收到输出再设计逐barcode核对；不训练，不改旧结果。本次新增GitHub证据档案，尚未同步用户Windows。
