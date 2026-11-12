@@ -6,6 +6,8 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{hyperref}
 \hypersetup{hidelinks}
+% 独立章节草稿使用简洁页码页眉，避免同页出现文献标题覆盖上一节页眉。
+\pagestyle{plain}
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0.3em}
 \setcounter{section}{1}
@@ -46,6 +48,8 @@ SEDR是另一类空间表示学习框架。Xu等使用掩码自监督表示学�
 \end{enumerate}
 本研究的主要工作是基于成熟CellCharter/scVI框架建立可复现的等维特征对照、完成12张切片与3位供体的描述性比较，并进一步分析部分组织层间边界的误报与漏检权衡。研究的结论以实际实验数值为依据，不预设候选特征组合具有普适优势，也不将已有多尺度方法的组成部分重新命名为新算法。
 
+\begingroup
+\raggedright
 \begin{thebibliography}{99}
 \bibitem{lopez2018}
 Lopez R, Regier J, Cole MB, et al.
@@ -83,4 +87,5 @@ Beyond benchmarking: an expert-guided consensus approach to spatially aware clus
 \textit{Nature Methods}, 2026, 23: 1814--1826.
 doi:10.1038/s41592-026-03194-8.
 \end{thebibliography}
+\endgroup
 \end{document}
