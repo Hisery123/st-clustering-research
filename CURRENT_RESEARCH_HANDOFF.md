@@ -1,5 +1,9 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-12 追加：DLPFC参考层标签源头得到官方资料支持（待本地逐barcode复核）
+
+公开SEDR_analyses仓库README证实其DLPFC数据源为SpatialLIBD、metadata.tsv与BayesSpace数据一致，源码DLPFC_Seurat.R直接读取layer_guess作为参考标签；SpatialLIBD官方fetch_data文档列出layer_guess字段。完整证据与原网址见 `experiments/cellcharter_dlpfc/DLPFC_LABEL_ORIGIN_AUDIT_20261112.md`。可说后10片沿用公开数据链中的既有参考标签，而非SEDR模型输出或本研究新人工标注；**尚未证实本地CSV与公开上游每行一致、也未核实旧2片与新10片完全同源**。下一步用户Windows只读列出12个目录里metadata_source.tsv与manual_layer_annotations.csv的实际存在性，收到输出再设计逐barcode核对；不训练，不改旧结果。本次新增GitHub证据档案，尚未同步用户Windows。
+
 ## 2026-11-12 16页整合PDF用户实测通过、逐页视觉审查（最新）
 
 用户Windows第二轮XeLaTeX成功生成`THESIS_CHAPTERS_2_4_INTEGRATED_20261112.pdf`(16页)并上传，已直接审查PDF：第2章页1–3、第3章页4–8、第4章页9–15、参考文献页16；方法TikZ图1页7、12片Δ三面板图2页10、两例六面板真实空间图3页14，4张表全在，6篇参考文献文末出现，未出现缺图占位框。公式跨章连续到(11)，图表编号已统一。**整合版技术结构初步通过，但有实际页面问题**：第6页3.6标题/引导文字留在页尾而图1在第7页；第13页表4单独位于空白较多的页面；第14页六面板原图图例偏小。另用户终端只有`caption hypcap=true ignored`非致命警告。不要断言达到学校学位模板要求。
