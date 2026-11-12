@@ -1,5 +1,21 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-12 归档冻结点：本地Git同步成功，待编译第二章（当前唯一权威下一步）
+
+**用户Windows实际终端日志**：在 PowerShell 执行带本机代理的 `git ... -C "D:\paper\st-clustering-research" pull --ff-only`，结果 `Updating 0792652..73bbc05`、`Fast-forward`，5个文件共141行新增，明确新增：
+- `experiments/cellcharter_dlpfc/LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md`
+- `experiments/cellcharter_dlpfc/THESIS_BACKGROUND_RELATED_WORK_20261111.tex`
+同时更新 `PROJECT_STATE.md`、`CURRENT_RESEARCH_HANDOFF.md`、`RESEARCH_JOURNAL/2026-11-11.md`。**这次同步已完成，不再让用户重复git pull来取得第二章。**
+
+**论文进度（已知真实状态）**：第二章研究背景和相关工作TeX已在GitHub、现已同步Windows，但用户**尚未编译/上传该章PDF**。第三章研究方法独立5页PDF已由用户编译两轮、上传最新版，经逐页检查：TikZ图处于3.6节、图号“图1”、3.7公式顺序正常、末尾备忘移除。第四章实验结果与分析独立7页PDF已由用户编译、上传，2张真实科研图已出现；仍需最终格式与参考文献统一。**2+3+4尚未合并成完整论文，也不等于满足学位要求。**
+
+**实证/创新界限保持不变**：DLPFC12张切片/3位独立供体；A=L0+L1+L2和B=L0+L1+L4同为15维；固定22911 CPU GMM、D2 K5、D1/D3 K7（Oracle-K）；全12片B的边界F1改善6/12、平均ΔF1约−0.0047，未验证稳定优势/原创算法。旧151507/151508开发切片与新增10片参考标签来源差异，SEDR元数据`layer_guess`上游原始标签来源待追溯。文献证据矩阵已列已核实6篇期刊来源和DOI，但不意味着已精读全部全文/补充材料。
+
+**下一次唯一Windows操作（尚未执行）**：用户手动运行一次XeLaTeX，编译已同步的 `D:\paper\st-clustering-research\experiments\cellcharter_dlpfc\THESIS_BACKGROUND_RELATED_WORK_20261111.tex`，输出目录 `D:\paper\CellCharter_reproduction\results\thesis_fixed15_12_sections_summary_v1`。确认终端输出后处理交叉引用/编译错误，并请用户上传PDF作逐页检查；不要先并章、不要重训。历史段落中与此冲突的“下一步git pull”等已经过时。
+
+**本次归档动作**：只更新GitHub文档与2026-11-12科研日记，不修改`AGENTS.md`稳定规则、不改实验脚本、不执行本地训练/编译。新提交由GitHub工具完成后**尚未同步Windows**；不能误将文档提交当成本地编译或备份Windows模型。
+
+
 ## 2026-11-11 文献核查与第二章TeX已完成（最新）
 
 已通过期刊/PubMed网页核对CellCharter(Varrone 2024 DOI10.1038/s41588-023-01588-4)、scVI(Lopez 2018 DOI10.1038/s41592-018-0229-2)、DLPFC(Maynard 2021 DOI10.1038/s41593-020-00787-0)、SEDR(Xu 2024 DOI10.1186/s13073-024-01283-x)、m2ST(Zhang 2025 DOI10.1093/bioinformatics/btaf221)、SACCELERATOR(Sun 2026 DOI10.1038/s41592-026-03194-8)，并读CellCharter官方aggregate_neighbors API文档。GitHub新建 `experiments/cellcharter_dlpfc/LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md` 与 `THESIS_BACKGROUND_RELATED_WORK_20261111.tex`，完整撰写第二章的研究背景、相关工作与研究问题；TeX带6条已验证参考文献。严格明确多尺度邻域特征本身、尺度赋权不是当然创新，固定B未取得跨供体稳定优势；新版2026 SACCELERATOR提醒DLPFC基准/参考标注局限。**尚未在用户Windows同步和XeLaTeX编译；没有下载/精读付费CellCharter全文及其补充材料；SEDR layer_guess元数据的最初标注来源待追溯。** 最新用户仍在Windows手动操作模式，下一步只给一条带Clash本机7897临时代理的git pull --ff-only，成功后再单独xelatex编译，不重复已完成实验。
