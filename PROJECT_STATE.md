@@ -1,5 +1,13 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【最新科研主计划｜2026-11-12：《第三篇完整实验建议1》】
+
+**用户已明确要求汇总并正式归档两轮Claude建议及本助手修正，原则上全部实施、不因时间/算力估计而预先缩减。权威全文**：[`THIRD_PAPER_COMPLETE_RECOMMENDATION_1_20261112.md`](experiments/cellcharter_dlpfc/THIRD_PAPER_COMPLETE_RECOMMENDATION_1_20261112.md)。现有16页正文只是单seed A/B阶段稿，第三篇进入**全部12片系统消融＋同seed重复性/10seed稳定性＋25D置换对照＋K敏感性＋全空间图/混淆与标志基因＋Leiden/STAGATE/GraphST/SpaGCN/BayesSpace/SEDR公平基线＋第二数据集＋供体统计＋容差边界和无监督指标＋无标签自适应尺度候选＋论文重写**的正式研究计划。10唯一配置×12片×10seed理论上1200个GMM任务（额外K、基线另计），未经实测不能断言“一夜跑完”。
+
+**必须区别证据**：151507三点hop数字和STAGATE ARI来自Claude报告，待原始CSV/日志核对；GitHub `GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md`确实记录两次**同为seed0**、预测互比ARI≈0.713871，不能说“只改变seed导致不一致”；需区分同seed重复性和跨seed波动。151507混合标签文件及5个缺参考spot、下游评价join尚未彻查，正式批量评价前须完成适当数据质量门槛，旧结果不覆盖。**全部E1–E6新增实验尚未因本次存档而执行**，不预设规律、贡献或SCI录用。
+
+**下次真正执行的第一步**：按用户需求只读核查GMM脚本、旧hop/固定25D、STAGATE/Leiden产物、25D缓存、标签评价代码，编制可复用清单，冻结预注册矩阵后做小规模冒烟与测时。用户Windows手动每回合最多一条PowerShell指令；GitHub档案未自动同步到其Windows。
+
 ## 【2026-11-12 最新正式科研决策｜全面扩充第三篇实验，优先于旧MVP收尾策略】
 
 **用户明确要求：原则上全盘接受Claude提出的毕业论文+SCI实验补充建议，不因“实验数量多/尚无时间压力”而预先缩减，除非后续实际执行有实质困难或公平性/有效性约束。** 完整任务清单、科研红线、状态划分与执行路线已存档：[`THIRD_PAPER_FULL_EXPERIMENT_EXPANSION_DECISION_20261112.md`](experiments/cellcharter_dlpfc/THIRD_PAPER_FULL_EXPERIMENT_EXPANSION_DECISION_20261112.md)。
