@@ -76,3 +76,11 @@
 - 另一个已记录151507 seed101 vs seed22911的跨seed结果：A prediction ARI=0.504900119、B=1.0；当前同seedB=0.7761说明不能直接概括为B跨seed稳定，更不能把预测一致性当标签准确度/创新。
 - E1先做定界复核，不启动原拟12×10×10任务；正式10seed冻结/批处理尚未执行。保留新旧结果与失败/警告。
 **下次唯一优先操作**：Windows只读查看Python/torch/cellcharter/torchgmm/scikit-learn版本，CPU线程设置/BLAS线程池及旧、新manifest完整性，确定是否需要在隔离进程里进行单线程、固定环境复现实验；不得修改旧实验或臆断原因。
+
+## 2026-11-13 E2首个新任务：151507 / cum_L0 / seed22911（用户Windows实际完成）
+
+**真实终端证据**：用户先运行不带`--fit`预检，显示`E1E2_PREFLIGHT_PASS 151507 cum_L0 22911 shape (4226, 5) K 7 feature_sha256 6db5122dc4e7ae88efe998015a68d73eb4838592295a74c110b0a39a477e21d3`及`NO_TRAINING_NO_FILES_WRITTEN`。随后首次执行`--fit`时收到`FileExistsError: Output already exists and will NOT be overwritten`，即防覆盖保护触发，**没有证据认定第一次拟合成功或覆盖**。用户再次执行相同命令后，终端实测`E1E2_TASK_COMPLETE 151507 cum_L0 seed 22911 ARI 0.360282 NMI 0.412568 fit_seconds 0.958`，`RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0\seed_22911`。前一次目录为何存在、两次之间发生什么，**用户尚未报告，不作推断**。
+
+按已审核的`e1e2_multiscale_gmm_task.py`代码，`--fit`一次仅训练指定单个GMM且先保存预测后才读取参考标签；metrics/manifest会写入独立目录，设置completed。根据终端可确认脚本报告完成，但本助手尚未直接读到Windows生成的manifest/预测文件字节；正式文件审计下一步可做一次只读核查。现值为**真实参考标签监督评价**ARI=0.360282、NMI=0.412568（终端按6位小数显示），与同seed或跨seed的预测互比ARI/NMI不是同一种指标。该配置=5D L0/Oracle-K7/22911，4226 spot中4221有有效标签（前次标签审计）。一个任务耗时0.958s，不等于能直接外推1200任务耗时。
+
+目前建议1全矩阵保留；不得基于这个单点推断尺度趋势、B优势或创新。不为历史same-seed问题停工。**唯一下步**：只读核查本次`manifest.json`、`metrics.json`和`predictions.csv`完整性（状态、标签数、文件SHA、4226唯一barcode、ARI/NMI等）；若通过，继续`151507/cum_L0_L1/seed22911`。
