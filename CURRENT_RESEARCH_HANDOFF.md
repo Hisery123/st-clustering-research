@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-13 用户策略决定：不再排查同seed差异，恢复建议1系统实验】
+
+用户明确表示第三篇主要研究目标不是验证GMM相同seed百分百复现，要求停止历史重复性根因追查、按原全套系统实验计划行事并如实记录波动。**接受**：E1同seedA/B预测ARI0.784965371/0.776070708仍归档为事实和潜在限制，但**不再构成停跑E2的门槛**；不继续环境/线程诊断或旧seed0分析。助手记忆不会直接改变用户已运行代码，除非对话导致脚本/配置差异。现已冻结十种子表、十种唯一特征组合、12片与Oracle-K/CPU-GMM规范，见[ E1/E2冻结协议 ](experiments/cellcharter_dlpfc/THIRD_PAPER_E1E2_FROZEN_GMM_PROTOCOL_20261113.md)。**实际新增E2任务仍未运行**；准备单任务脚本，用户先自行保存至Windows后，再做只读preflight与首个任务，不重新训练scVI、不覆盖历史结果。
+
+
 ## 【2026-11-13 E1首次同seed复现有差异：暂停大批量GMM】
 
 用户Windows已真实执行E1首个151507同seed22911独立Python进程冒烟，终端显示`E1_PILOT_COMPLETE`、新目录`results/e1_same_seed_151507_gmm22911_rep01_v1`。对照历史seed22911预测，**A(L0/L1/L2)预测互比ARI=0.784965371、NMI=0.830379493、fit+predict=1.811s；B(L0/L1/L4)预测互比ARI=0.776070708、NMI=0.834877522、0.835s**。两配置同seed均未完全复现，原因**尚未确定**。GitHub历史151507代码及新运行代码都显式`np.random.seed(22911)`、`torch.manual_seed(22911)`，Cluster random_state=22911。不能拿之前B跨seed101/22911预测ARI1.0证明B普遍稳定；这不是相对参考标签的ARI/NMI。**不能现在启动1200批任务，需先做针对性的只读环境/线程诊断和受控独立进程验证**。详情见 [E0/E1延伸审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
