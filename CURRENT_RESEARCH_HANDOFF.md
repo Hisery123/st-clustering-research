@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-13 E1首次同seed复现有差异：暂停大批量GMM】
+
+用户Windows已真实执行E1首个151507同seed22911独立Python进程冒烟，终端显示`E1_PILOT_COMPLETE`、新目录`results/e1_same_seed_151507_gmm22911_rep01_v1`。对照历史seed22911预测，**A(L0/L1/L2)预测互比ARI=0.784965371、NMI=0.830379493、fit+predict=1.811s；B(L0/L1/L4)预测互比ARI=0.776070708、NMI=0.834877522、0.835s**。两配置同seed均未完全复现，原因**尚未确定**。GitHub历史151507代码及新运行代码都显式`np.random.seed(22911)`、`torch.manual_seed(22911)`，Cluster random_state=22911。不能拿之前B跨seed101/22911预测ARI1.0证明B普遍稳定；这不是相对参考标签的ARI/NMI。**不能现在启动1200批任务，需先做针对性的只读环境/线程诊断和受控独立进程验证**。详情见 [E0/E1延伸审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
 ## 【2026-11-13 E0第11步完成｜11片历史结果可复用，E1待启动】
 
 用户Windows实际输出 `LEGACY_RESULT_AUDIT_PASS 11/11`：151508及151509–151676（共11片）既有固定15D A/B GMM seed22911结果，Manifest与25D源、15D切片特征SHA256、GMM参数、oracle-K和预测CSV条码顺序/类别全部通过核验。**无须重做这11片已完成的相同配置**，下一步切换E1同seed独立进程重复性冒烟，优先151507使用已有25D、两种15D特征与GMM seed22911；新运行必须使用新目录、不覆盖旧预测；按barcode比较新旧分区ARI/NMI，并记录环境版本与耗时。此11/11为Windows运行结果，未表示助手直接读取了本地CSV。E1、E2及新训练仍未开始；详情见 [E0资产审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
