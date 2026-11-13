@@ -44,3 +44,13 @@
 - 两者记录的GMM配置一致：full covariance, kmeans init, tolerance 0.001, regularization 1e-6, CPU, max_epochs 100。记录的每条件fit+predict时间：seed101为0.611s/0.683s；seed22911为0.890s/0.606s。仅为这两次任务耗时，不能推断批量总耗时。
 - 候选L0/L1/L4的7个cluster_sizes为`[762,1045,331,446,296,568,778]`和`[296,568,446,331,762,1045,778]`，仅排列不同；**簇大小相同不证明实际Spot分区相同**。对照L0/L1/L2的cluster_sizes不同。下一步须读取两份预测CSV按barcode对齐计算两种配置各自的预测-预测ARI/NMI。
 - **关键结论**：这两个目录是**跨GMM种子（101 vs 22911）**的开发集结果，不能当作`E1同seed独立进程重复`；不能与历史seed0两次分区互比ARI≈0.713871混淆。没有任何新增GMM实验在本次检查中运行。
+
+## 2026-11-13 E0第10步：151507两GMM种子实际预测分区互比
+
+**证据**：用户Windows PowerShell读取两目录的`control_L0_L1_L2_predictions.csv`和`candidate_L0_L1_L4_predictions.csv`，按barcode集合验证一致后reindex对齐，每配置4226个Spot，直接用sklearn adjusted_rand_score/normalized_mutual_info_score比较**预测对预测**，并提供成功终端输出`CROSS_SEED_COMPARISON_COMPLETE`。
+
+- 同一输入、同一25D源文件SHA、相同15D条件特征SHA、同K=7与GMM配置，种子 **101 vs 22911**。
+- 对照A（L0+L1+L2）：prediction-vs-prediction ARI = **0.504900119**，NMI = **0.637920634**，same_partition=False。
+- 候选B（L0+L1+L4）：prediction-vs-prediction ARI = **1.0**，NMI = **1.0**，same_partition=True。两者簇编号允许不同。
+- **解释限制**：这是151507单切片、仅两GMM种子的探索性**跨seed分区稳定性**结果，不是以人工标签为参照的准确性ARI/NMI，不足以推广到其他切片、供体、10seed或证明B优越/创新。与另一个历史同seed0两次分区ARI≈0.713871不能混为一谈；E1同seed独立重复依然未执行。
+- **唯一下一步**：只读核对151508与后10片已保存A/B结果manifest，核查seed、K、输入文件哈希、GMM参数、条件与预测文件的实际可复用性，避免重跑；随后设计E1双独立进程同seed重复实验。
