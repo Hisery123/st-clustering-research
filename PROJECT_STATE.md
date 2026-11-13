@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-13 E2首次正式GMM任务完成】
+
+用户Windows实测`151507 / cum_L0 (5D) / seed22911 / Oracle-K7`单任务：终端`E1E2_TASK_COMPLETE`，**参考标签ARI=0.360282、NMI=0.412568、fit+predict=0.958s**，输出目录`D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0\seed_22911`。此前同一`--fit`命令曾因目录已存在而防覆盖报错，之后用户重试成功；**不能推断中间目录处理方式**。这不是预测对预测的稳定性ARI；仅单配置，不预设尺度规律。完整E2仍按12片×10唯一配置×10seed推进，历史可复用任务仍不覆盖。**下一步只读核对新完成任务的manifest/metrics/predictions实际文件和条码哈希，然后151507的cum_L0_L1同seed单任务继续。** 详见[E0/E1/E2日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
 ## 【2026-11-13 用户策略决定：不再排查同seed差异，恢复建议1系统实验】
 
 用户明确表示第三篇主要研究目标不是验证GMM相同seed百分百复现，要求停止历史重复性根因追查、按原全套系统实验计划行事并如实记录波动。**接受**：E1同seedA/B预测ARI0.784965371/0.776070708仍归档为事实和潜在限制，但**不再构成停跑E2的门槛**；不继续环境/线程诊断或旧seed0分析。助手记忆不会直接改变用户已运行代码，除非对话导致脚本/配置差异。现已冻结十种子表、十种唯一特征组合、12片与Oracle-K/CPU-GMM规范，见[ E1/E2冻结协议 ](experiments/cellcharter_dlpfc/THIRD_PAPER_E1E2_FROZEN_GMM_PROTOCOL_20261113.md)。**实际新增E2任务仍未运行**；准备单任务脚本，用户先自行保存至Windows后，再做只读preflight与首个任务，不重新训练scVI、不覆盖历史结果。
