@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-13 E0第9步更新：两组151507固定15D并非同seed重复】
+
+用户Windows实际打印两份完整Manifest：`mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1` 使用GMM seed101，`mvp_fixed15_block_swap_151507_seed22911_v1` 使用seed22911；两者状态completed、source 25D SHA256相同、A/B各自15D特征哈希相同，记录的GMM full/kmeans/CPU/100epoch等参数相同。候选B簇大小仅排列不同，但**不能据此断言两次分区一致**；需先按barcode对齐两目录的预测CSV，分别算A与B的分区互比ARI/NMI。**两者是跨seed对比，E1同seed重复仍未执行。** 完整字段与证据限制见 [E0审计档案](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。下一步只读比较两组预测，不运行训练、不覆盖旧结果。
+
+
 ## 【2026-11-13 最新接手点｜建议1：E0只读核查到第8步，用户要求存档】
 
 **真实Windows终端新证据**：12张DLPFC切片的25D聚合特征和5D latent文件均已定位，形状/float32/有限值检查通过；前2片spot行顺序与已有预测/spot_order一致；后10片源聚合/latent/坐标文件实际SHA256与历史status/config逐一MATCH（10/10）。12片按sample_name筛选并逐barcode匹配人工标签，`LABEL_ALIGNMENT_PASS 12/12`，本切片无重复标注或超出Spot条码；共352个Spot无有效参考层标签。151507参考CSV含来自151669的740行，筛选后有4221匹配、5无标签（has_label=False）；**不能据此断言其他历史评价脚本全部无污染或与上游官方数据逐barcode相符**。
