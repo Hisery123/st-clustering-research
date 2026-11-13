@@ -1,5 +1,16 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-13 最新接手点｜建议1：E0只读核查到第8步，用户要求存档】
+
+**真实Windows终端新证据**：12张DLPFC切片的25D聚合特征和5D latent文件均已定位，形状/float32/有限值检查通过；前2片spot行顺序与已有预测/spot_order一致；后10片源聚合/latent/坐标文件实际SHA256与历史status/config逐一MATCH（10/10）。12片按sample_name筛选并逐barcode匹配人工标签，`LABEL_ALIGNMENT_PASS 12/12`，本切片无重复标注或超出Spot条码；共352个Spot无有效参考层标签。151507参考CSV含来自151669的740行，筛选后有4221匹配、5无标签（has_label=False）；**不能据此断言其他历史评价脚本全部无污染或与上游官方数据逐barcode相符**。
+
+**刚完成的E0第8步**：Windows只读列举结果目录（仅文件存在性、尚未读取其内容）：后10片各有1组固定15D A/B（manifest=1、results/metrics JSON=1、prediction CSV=2）；151508有一组；151507有两组命名不同的固定15D结果，每组同样有1 manifest、1 JSON、2预测CSV；151507另有L0–L4逐层诊断目录及其预测/指标。**不能将151507两组直接视为受控的同seed双运行**。详细证据与未核实项见 [E0核查档案](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+**实验状态**：本轮未做任何新增GMM/scVI训练、未运行E1、未冻结或执行1200拟议任务、未证实新创新；16页论文工作稿和原先A/B阴性结果不变。
+
+**下一回合唯一优先操作**：用户Windows只读查看151507两个固定15D实验manifest及对照151508/后10片代表性manifest关键字段，核查完成状态/seed/K/GMM超参/输入特征哈希。待核对后再设计同seed重复性冒烟，不重复全缓存预检、不重跑scVI。只给一个PowerShell命令并等用户结果。**GitHub此处为远端存档，未自动同步Windows**。
+
+
 ## 【最新科研主计划｜2026-11-12：《第三篇完整实验建议1》】
 
 **用户已明确要求汇总并正式归档两轮Claude建议及本助手修正，原则上全部实施、不因时间/算力估计而预先缩减。权威全文**：[`THIRD_PAPER_COMPLETE_RECOMMENDATION_1_20261112.md`](experiments/cellcharter_dlpfc/THIRD_PAPER_COMPLETE_RECOMMENDATION_1_20261112.md)。现有16页正文只是单seed A/B阶段稿，第三篇进入**全部12片系统消融＋同seed重复性/10seed稳定性＋25D置换对照＋K敏感性＋全空间图/混淆与标志基因＋Leiden/STAGATE/GraphST/SpaGCN/BayesSpace/SEDR公平基线＋第二数据集＋供体统计＋容差边界和无监督指标＋无标签自适应尺度候选＋论文重写**的正式研究计划。10唯一配置×12片×10seed理论上1200个GMM任务（额外K、基线另计），未经实测不能断言“一夜跑完”。
