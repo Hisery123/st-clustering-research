@@ -33,3 +33,14 @@
 - 本次查验未覆盖历史旧hop/25D置换的所有可能存放路径（含子目录）、STAGATE/Leiden其他根目录、也未审查数据文件字节。
 
 **当前明确状态**：E0基础缓存/条码/标签一致性初检已获终端支持，历史产物存在性已盘点；E0仍未彻底结束（需读manifest/评估旧实验可比性和官方标签溯源边界）；E1同seed重复性和任何新增GMM任务均未执行。**下次唯一优先事项**：只读提取151507两份固定15D manifest及151508与后10片代表性manifest的关键字段（input hash、seed、K、GMM参数、完成状态和路径），据实判断旧结果能否复用；不要盲目重跑、改数据或提前启动1200项矩阵。
+
+## 2026-11-13 E0第9步：151507两份固定15D Manifest 原始内容核验
+
+**来源级别**：用户在Windows PowerShell执行只读JSON打印并在会话中粘贴了两份完整manifest；本助手检查了粘贴的字段，尚未直接读取本地文件字节或预测CSV。两份manifest均`status=completed`，`sample=151507`，`split=development only`，`oracle_k=7`，`scvi_retrained=false`，`manual_labels_used_for_fit=false`。
+
+- `mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1`：GMM seed=`gmm_seed:101`，scVI来源seed=`scvi_source_seed:22911`，输入shape=(4226,25)。
+- `mvp_fixed15_block_swap_151507_seed22911_v1`：记录`seed:22911`，相同输入shape=(4226,25)。
+- 两者source_file_sha256相同：`15b1fd58d092277f81fa2a1513bb2fbf865eea71b1b7450a9a2f710c941a8f54`；15D对照L0/L1/L2 SHA256相同 `12453178bf51f99c3bd247de218b35bec6bfd6818dc259848e01aec19804ba61`；候选L0/L1/L4 SHA256相同 `0332cb6746ddbb630040203ba40aa914f14dd302cf7e3d7928fa8688cfc30ba4`。
+- 两者记录的GMM配置一致：full covariance, kmeans init, tolerance 0.001, regularization 1e-6, CPU, max_epochs 100。记录的每条件fit+predict时间：seed101为0.611s/0.683s；seed22911为0.890s/0.606s。仅为这两次任务耗时，不能推断批量总耗时。
+- 候选L0/L1/L4的7个cluster_sizes为`[762,1045,331,446,296,568,778]`和`[296,568,446,331,762,1045,778]`，仅排列不同；**簇大小相同不证明实际Spot分区相同**。对照L0/L1/L2的cluster_sizes不同。下一步须读取两份预测CSV按barcode对齐计算两种配置各自的预测-预测ARI/NMI。
+- **关键结论**：这两个目录是**跨GMM种子（101 vs 22911）**的开发集结果，不能当作`E1同seed独立进程重复`；不能与历史seed0两次分区互比ARI≈0.713871混淆。没有任何新增GMM实验在本次检查中运行。
