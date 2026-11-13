@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-13 E0第11步完成｜11片历史结果可复用，E1待启动】
+
+用户Windows实际输出 `LEGACY_RESULT_AUDIT_PASS 11/11`：151508及151509–151676（共11片）既有固定15D A/B GMM seed22911结果，Manifest与25D源、15D切片特征SHA256、GMM参数、oracle-K和预测CSV条码顺序/类别全部通过核验。**无须重做这11片已完成的相同配置**，下一步切换E1同seed独立进程重复性冒烟，优先151507使用已有25D、两种15D特征与GMM seed22911；新运行必须使用新目录、不覆盖旧预测；按barcode比较新旧分区ARI/NMI，并记录环境版本与耗时。此11/11为Windows运行结果，未表示助手直接读取了本地CSV。E1、E2及新训练仍未开始；详情见 [E0资产审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
 ## 【2026-11-13 E0第10步更新：151507跨GMM seed分区稳定性新证据】
 
 用户Windows实测，两组151507等维A/B预测CSV跨GMM种子101与22911、按4226条barcode对齐后，**对照A(L0+L1+L2)：预测互比ARI=0.504900119、NMI=0.637920634；候选B(L0+L1+L4)：预测互比ARI=1.0、NMI=1.0**。这仅表示单切片两seed的**预测分区相似度**；不是相对人工层标签的准确性，不能推出B多切片普遍更稳定、更准确或是新方法。旧两次seed0预测ARI≈0.713871是另一项记录，不能混淆；正式E1同seed独立重复未执行。详情见 [E0资产审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。**下一步只读核查151508及后10片历史manifest/预测输出与缓存来源的一致性**；不训练、不改历史文件。
