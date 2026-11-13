@@ -62,3 +62,17 @@
 **可得结论**：11片已有固定15D A/B、GMM seed22911的预测资产可以在同协议的后续比较中复用，不需重复运行相同的配置。已核验的是终端中各断言/比较汇总，助手未直接读取本地Manifest或CSV字节；旧结果与软件运行环境绝对一致性、真实评价指标复算及上游标签源逐barcodes审计不在此次11/11覆盖内。151507已有seed101与seed22911 Manifest，之前另作检查，不计入11/11。
 
 **下一阶段**：E1开始前冻结少量同seed独立进程复现协议：固定25D输入SHA，15D切片、K、GMM hyperparameters、种子、输出不可覆盖、每次独立进程、预测按barcode比较ARI/NMI；同时报告旧模型版本信息是否能完全核实。E1尚未执行，不得把用户过去seed101 vs seed22911比较视为同seed重复。
+
+## 2026-11-13 E1首个同seed独立进程冒烟：结果已执行，预测**不一致**
+
+**证据类别**：用户在Windows PowerShell直接运行上一条完整Python here-string，并粘贴终端全程输出；本助手未直接读取其本地新产物。终端打印`E1_PILOT_COMPLETE`和`RESULT_DIR D:\paper\CellCharter_reproduction\results\e1_same_seed_151507_gmm22911_rep01_v1`。按运行代码，新目录有manifest及两份预测CSV；因没有直接查验磁盘，严格以“运行输出报告成功写入”为限。
+
+- 固定151507，25D来源历史SHA `15b1fd58d092277f81fa2a1513bb2fbf865eea71b1b7450a9a2f710c941a8f54`，由源25D切片构成A=L0+L1+L2和B=L0+L1+L4各15D；Oracle-K=7、seed22911、CPU、full covariance、kmeans init、tol0.001、reg1e-6、max_epochs100，基准为`mvp_fixed15_block_swap_151507_seed22911_v1`。
+- **A**：同seed新结果相对历史预测，预测对预测ARI = **0.784965371**，NMI = **0.830379493**；本次fit+predict用时 **1.811秒**。
+- **B**：同seed新结果相对历史预测，预测对预测ARI = **0.776070708**，NMI = **0.834877522**；用时 **0.835秒**。
+- 新脚本运行无exception，manifest终态`completed`，但A/B分区**都不完全复现**。这是E1发现，需要以独立进程设置、环境版本与软件内部随机行为等证据逐步诊断。**不应武断归咎于任何单个原因**。
+- 终端出现`pkg_resources is deprecated`警告、`GPU available ... used False`提醒、多个`Trainer.fit stopped: max_epochs=13/100/1`；在CPU预设下显示CUDA未用是正常现象。警告并不证明聚类差异由它引起。
+- 本助手另从GitHub读取了`scripts/cellcharter/mvp_fixed15_block_swap_151507.py`并核对其GMM fit前也调用`np.random.seed(SEED)`、`torch.manual_seed(SEED)`，并在`cc.tl.Cluster`传`random_state=SEED`；用户新脚本也一样。**随机数播种表面设置相同，但跨进程结果不一致；具体环境/线程、代码运行时状态尚未核实**。
+- 另一个已记录151507 seed101 vs seed22911的跨seed结果：A prediction ARI=0.504900119、B=1.0；当前同seedB=0.7761说明不能直接概括为B跨seed稳定，更不能把预测一致性当标签准确度/创新。
+- E1先做定界复核，不启动原拟12×10×10任务；正式10seed冻结/批处理尚未执行。保留新旧结果与失败/警告。
+**下次唯一优先操作**：Windows只读查看Python/torch/cellcharter/torchgmm/scikit-learn版本，CPU线程设置/BLAS线程池及旧、新manifest完整性，确定是否需要在隔离进程里进行单线程、固定环境复现实验；不得修改旧实验或臆断原因。
