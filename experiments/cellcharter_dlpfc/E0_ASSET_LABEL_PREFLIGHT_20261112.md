@@ -20,3 +20,16 @@
 
 ## 唯一下步（E0结尾→E1准备）
 先只读盘点用户本地现有GMM预测、manifest与历史实验输出目录，标记已完成/仅转录/未见，避免把新重复性冒烟覆盖旧实验；然后设计独立进程的同seed双运行，比较预测对预测ARI，并记录完整配置、时间、哈希及失败。
+
+
+## 2026-11-13 用户实际终端：E0第8步，历史产物目录盘点（只读）
+
+用户用PowerShell枚举 `D:\paper\CellCharter_reproduction\results` 的一级子目录，统计与12张切片名匹配的 manifest、结果JSON、预测CSV、25D缓存文件数。以下是**文件存在性证据**，尚未打开这些结果文件核验配置、指标或完成状态。
+
+- 后10张（151509、151510、151669–151676）：每片都有 `mvp_fixed15_<sid>_gmm22911_batch_v1` 目录，均列出 manifest=1、metrics/results JSON=1、prediction CSV=2、feature25D=0（25D缓存另存于features目录，非缺失）。
+- 151508：`mvp_fixed15_block_swap_151508_gmm22911_v1` 目录中 manifest=1、JSON=1、预测CSV=2；另有 v1/v2 两个历史features目录，只有v2被核实有25D缓存。
+- 151507：`mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1` 与 `mvp_fixed15_block_swap_151507_seed22911_v1` 各存在 manifest=1、JSON=1、预测CSV=2；尚不能认定它们是同输入、同超参、同种子的可重复性双运行。
+- 151507还有 `cellcharter_v032_151507_seed22911_L0_diagnostic` 至 `L3_diagnostic` 四个单层目录，各1 JSON、1预测CSV，以及 `cellcharter_v032_151507_seed22911_oracleK7`（L4）1 JSON、1预测CSV、1份25D缓存；单独有 `all_depth_boundary_audit_v1` 目录，但此前命令只统计特定文件名。
+- 本次查验未覆盖历史旧hop/25D置换的所有可能存放路径（含子目录）、STAGATE/Leiden其他根目录、也未审查数据文件字节。
+
+**当前明确状态**：E0基础缓存/条码/标签一致性初检已获终端支持，历史产物存在性已盘点；E0仍未彻底结束（需读manifest/评估旧实验可比性和官方标签溯源边界）；E1同seed重复性和任何新增GMM任务均未执行。**下次唯一优先事项**：只读提取151507两份固定15D manifest及151508与后10片代表性manifest的关键字段（input hash、seed、K、GMM参数、完成状态和路径），据实判断旧结果能否复用；不要盲目重跑、改数据或提前启动1200项矩阵。
