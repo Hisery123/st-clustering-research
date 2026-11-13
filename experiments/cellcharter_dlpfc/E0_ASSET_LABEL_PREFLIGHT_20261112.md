@@ -54,3 +54,11 @@
 - 候选B（L0+L1+L4）：prediction-vs-prediction ARI = **1.0**，NMI = **1.0**，same_partition=True。两者簇编号允许不同。
 - **解释限制**：这是151507单切片、仅两GMM种子的探索性**跨seed分区稳定性**结果，不是以人工标签为参照的准确性ARI/NMI，不足以推广到其他切片、供体、10seed或证明B优越/创新。与另一个历史同seed0两次分区ARI≈0.713871不能混为一谈；E1同seed独立重复依然未执行。
 - **唯一下一步**：只读核对151508与后10片已保存A/B结果manifest，核查seed、K、输入文件哈希、GMM参数、条件与预测文件的实际可复用性，避免重跑；随后设计E1双独立进程同seed重复实验。
+
+## 2026-11-13 E0第11步：151508与后10片历史固定15D A/B资产复用审计
+
+**来源**：用户Windows PowerShell本地只读逐片校验后，完整提供终端输出，终行 `LEGACY_RESULT_AUDIT_PASS 11/11`。用户实际检查11片（151508、151509、151510、151669–151676）。每片Manifest：`status=completed`、样本号吻合、`seed=22911`、Oracle-K=7（151508/151509/151510/151673–151676）或K=5（151669–151672），特征维度15且条件字典A=L0/L1/L2、B=L0/L1/L4。GMM记录full covariance、kmeans初始化、tol=0.001、regularization=1e-6、CPU、100 max epochs。25D源实际文件SHA256与Manifest相同；从25D切片生成的每个15D矩阵内容SHA256与Manifest记录相同；两个预测CSV均有合法簇ID且行数/条码顺序与对应spots_aligned.csv吻合，Manifest每条件预测阶段已保存。
+
+**可得结论**：11片已有固定15D A/B、GMM seed22911的预测资产可以在同协议的后续比较中复用，不需重复运行相同的配置。已核验的是终端中各断言/比较汇总，助手未直接读取本地Manifest或CSV字节；旧结果与软件运行环境绝对一致性、真实评价指标复算及上游标签源逐barcodes审计不在此次11/11覆盖内。151507已有seed101与seed22911 Manifest，之前另作检查，不计入11/11。
+
+**下一阶段**：E1开始前冻结少量同seed独立进程复现协议：固定25D输入SHA，15D切片、K、GMM hyperparameters、种子、输出不可覆盖、每次独立进程、预测按barcode比较ARI/NMI；同时报告旧模型版本信息是否能完全核实。E1尚未执行，不得把用户过去seed101 vs seed22911比较视为同seed重复。
