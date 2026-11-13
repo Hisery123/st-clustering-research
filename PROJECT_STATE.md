@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-13 E0第10步更新：151507跨GMM seed分区稳定性新证据】
+
+用户Windows实测，两组151507等维A/B预测CSV跨GMM种子101与22911、按4226条barcode对齐后，**对照A(L0+L1+L2)：预测互比ARI=0.504900119、NMI=0.637920634；候选B(L0+L1+L4)：预测互比ARI=1.0、NMI=1.0**。这仅表示单切片两seed的**预测分区相似度**；不是相对人工层标签的准确性，不能推出B多切片普遍更稳定、更准确或是新方法。旧两次seed0预测ARI≈0.713871是另一项记录，不能混淆；正式E1同seed独立重复未执行。详情见 [E0资产审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。**下一步只读核查151508及后10片历史manifest/预测输出与缓存来源的一致性**；不训练、不改历史文件。
+
+
 ## 【2026-11-13 E0第9步更新：两组151507固定15D并非同seed重复】
 
 用户Windows实际打印两份完整Manifest：`mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1` 使用GMM seed101，`mvp_fixed15_block_swap_151507_seed22911_v1` 使用seed22911；两者状态completed、source 25D SHA256相同、A/B各自15D特征哈希相同，记录的GMM full/kmeans/CPU/100epoch等参数相同。候选B簇大小仅排列不同，但**不能据此断言两次分区一致**；需先按barcode对齐两目录的预测CSV，分别算A与B的分区互比ARI/NMI。**两者是跨seed对比，E1同seed重复仍未执行。** 完整字段与证据限制见 [E0审计档案](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。下一步只读比较两组预测，不运行训练、不覆盖旧结果。
