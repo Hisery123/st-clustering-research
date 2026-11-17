@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-17最新：151507/seed25842前5项已审计，允许用户启动剩余8seed连续批次】
+
+用户Windows真实`RUN_AUDIT_PASS`：seed25842的cum_L0 0.360789/0.435997、cum_L0_L1 0.384524/0.523974、cum_L0_L1_L2 0.424493/0.594504、cum_L0_L1_L2_L3 0.491921/0.615256、cum_L0_L1_L2_L3_L4 0.482264/0.654713（值为ARI/NMI）；`BATCH_RUN_COMPLETE new_tasks=5`，报告`results/e1e2_batch_reports_v1/151507/seed_25842/20261117T093740Z_c2d2b056f9/summary.json`。因此151507目前已核验**25/100项**：22911(10/10)、7449(10/10)、25842(5/10)。用户询问能否运行之前提供的无人值守顺序PowerShell循环，助手核对现有runner可跳过5项，只跑缺项，每seed最多10项，失败停止；**已告知可按原脚本直接运行**（seed25842后剩5项，另7个seed最多70项，总最多75）。此循环**尚无用户实际执行/完成反馈，不得记为已完成或臆造额外指标**。下次接手重点：读取用户结束输出/可能的multi_seed日志，逐种子进行只读审计，确保最终151507 100/100再推进其他11片及E3–E6。
+
+
 ## 【2026-11-17：151507/seed7449 10/10审核完成；计划顺序批次8种子】
 
 用户Windows最新`PLAN_OK sample=151507 seed=7449 verified=10 missing=0`、`ALL_TASKS_AUDITED NO_TRAINING_NO_FILES_WRITTEN`，全部10个配置`NEW_AUDITED`，其中最新3项`fixed_L0_L2_L3`ARI0.467507/NMI0.598102、`fixed_L0_L2_L4`0.516643/0.639311、`fixed_L0_L3_L4`0.459927/0.633146。seed22911的10配置也已独立审核，故151507 **20/100项**。**用户现明确希望出门期间一条PowerShell循环按冻结顺序运行剩余8个seed（25842、10379、6690、26128、21059、22159、32389、12815），各seed调用既有安全runner `--run --max-new 10`；此为用户Windows将要执行的计划，未启动。**已读取真实runner源代码，遇已有完整结果自动核验跳过，遇损坏/不完整直接拒绝，遇训练失败返回非0停止，不删除重跑。循环必须`$LASTEXITCODE`非0后停止；可记录PowerShell transcript与runner内置summary.json。完成151507后再扩大11片、E3–E6；不把单片多seed当独立生物重复。
