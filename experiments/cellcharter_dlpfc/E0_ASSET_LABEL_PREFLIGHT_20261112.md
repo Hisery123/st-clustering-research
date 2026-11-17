@@ -247,3 +247,34 @@ BATCH_RUN_COMPLETE new_tasks=1 report=D:\paper\CellCharter_reproduction\results\
 该seed累计25D相对20D，ARI=-0.012802，NMI=+0.038175；目前7项中ARI最大为fixed_L0_L1_L4(0.523749)，NMI最大为25D(0.653431)，但**三个配置未做、不可宣称全部10项最佳或跨seed规律**。不挑选性汇报，不把种子当生物学重复。
 
 **下一步唯一手动PowerShell操作**：继续用户自己的安全runner，同一切片/seed，指定`--run --max-new 3`；脚本应自动核验并跳过已有7项，只启动剩余三项，逐个复核后输出`BATCH_RUN_COMPLETE new_tasks=3`。异常立即停下并保留文件与报告，不重试、不覆盖、不重新训练scVI。
+
+## 2026-11-17｜151507 全100项的首次多种子统计汇总已实际完成（用户Windows输出）
+
+用户在`D:\paper\CellCharter_reproduction\`中运行`e1e2_aggregate_multiseed.py --sample 151507`；终端逐个打印全部10个预冻结seed的`AUDIT_SEED_OK ... verified=10/10`，以及：
+```
+ALL_MATRIX_AUDIT_PASS sample=151507 tasks=100 seeds=10 conditions=10
+SUMMARY_COMPLETE sample=151507 verified=100 conditions=10 paired_rows=50
+OUTPUT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v1\151507\20261117T124154Z_75d68b68
+NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED
+```
+**证据属性**：程序已在用户Windows完成，四份统计CSV与provenance.json据程序报告生成到独立目录，但AI未直接读取本地CSV字节，以下数字严格转录用户终端。无模型重训或原结果文件修改。
+
+| 特征配置 | 维度 | mean(ARI) | sample SD(ARI) | mean(NMI) | sample SD(NMI) |
+|---|---:|---:|---:|---:|---:|
+| cum_L0 | 5 | 0.330236 | 0.017216 | 0.414420 | 0.007973 |
+| cum_L0_L1 | 10 | 0.393865 | 0.021179 | 0.530471 | 0.017232 |
+| cum_L0_L1_L2 | 15 | 0.449659 | 0.017648 | 0.588899 | 0.015598 |
+| cum_L0_L1_L2_L3 | 20 | 0.492395 | 0.016608 | 0.622214 | 0.016876 |
+| cum_L0_L1_L2_L3_L4 | 25 | 0.504370 | 0.032078 | 0.664849 | 0.019590 |
+| fixed_L0_L1_L3 | 15 | 0.473122 | 0.015384 | 0.609701 | 0.022952 |
+| fixed_L0_L1_L4 | 15 | 0.499547 | 0.024121 | 0.629072 | 0.015919 |
+| fixed_L0_L2_L3 | 15 | 0.467422 | 0.016343 | 0.613909 | 0.023940 |
+| fixed_L0_L2_L4 | 15 | 0.496319 | 0.030429 | 0.643471 | 0.012237 |
+| fixed_L0_L3_L4 | 15 | 0.519286 | 0.048324 | 0.655772 | 0.023636 |
+
+**审慎解释**：
+- 本切片10seed中，累计25D获得最高均值NMI=0.664849；固定15D的L0+L3+L4获得最高均值ARI=0.519286（比25D高0.014916），但其ARI种子标准差0.048324高于25D的0.032078，不能称其整体稳定胜出。
+- 同维对照：固定L0+L1+L4减去累计15D L0+L1+L2的**两项seed均值差**=ARI+0.049888、NMI+0.040173；固定L0+L3+L4相对累计15D均值差=ARI+0.069627、NMI+0.066873。不能仅凭这些平均差宣称统计显著或跨切片泛化；paired_rows=50已报告产生，尚未直接读取其数值与配对SD。
+- 这100格来自**同一张151507切片**，10个随机种子属于算法/技术重复，不是10个独立生物学重复；报告样本SD用于描述seed波动，不以seed冒充供体n=10。累计Hop与特征维度同时变化，尺度因果解释受限；不基于单切片选择最佳特征后把其他切片当作未污染的盲测，须坚持预冻全配置无选择性汇报。
+
+**下一步**：用户Windows仅运行一次`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`，默认纯只读，核验该切片既有两个seed22911历史15D资产与缓存/标签，再决定分批运行其他8个缺项；如有报错则停止不覆盖。随后继续12片×10配置×10seed完整建议1，并做后续E3-K敏感性、边界、成熟基线、外部数据集、统计/论文写作。
