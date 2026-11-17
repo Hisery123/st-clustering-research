@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-17 最新：E2累计25D成功，切换固定15D等维消融】
+
+用户Windows实际运行`151507/cum_L0_L1_L2_L3_L4/seed22911 --fit`成功：终端`E1E2_TASK_COMPLETE`，**参考标签ARI=0.514192、NMI=0.641353、fit+predict=0.737秒**，新目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1_L2_L3_L4/seed_22911`。此前同seed同片5D=0.360282/0.412568、10D=0.384925/0.520652、20D=0.475498/0.588648；15D旧实验指标仍须后续合并，不能补值。已有4个新增累计配置成功完成（5D已独立复算，10/20/25D终端完成但未各自独立复算）；只是单切片单seed、维数/尺度混杂。**下一步运行151507固定15D`fixed_L0_L1_L3`、seed22911单任务，避免重跑已核验历史15D A(L0,L1,L2)、B(L0,L1,L4)。** 不追查历史同seed；按冻结建议1继续12片×10配置×10seed。详情见[E0/E1/E2档案](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
 ## 【2026-11-17 E2 20D任务完成｜下一步25D】
 
 用户Windows实际输出`E1E2_TASK_COMPLETE 151507 cum_L0_L1_L2_L3 seed 22911 ARI 0.475498 NMI 0.588648 fit_seconds 0.755`，结果目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1_L2_L3/seed_22911`。同片同seed已知5D=ARI0.360282/NMI0.412568、10D=0.384925/0.520652；**仅三个实际点（5D/10D/20D），不填补15D与25D，尺度和输入维数同时变化，不得外推或断言新颖性**。20D终端完成，但尚未独立审计其新CSV/metrics文件字节。已审查用户脚本`get_legacy_result`，25D`cum_L0_L1_L2_L3_L4`不自动复用旧151507 baseline，而新统一GMM协议需要保持full/kmeans/100epochs等显式参数，因此下一步只运行一个新任务：`151507/cum_L0_L1_L2_L3_L4/seed22911 --fit`，不覆盖历史。详细档案见[E0/E1/E2记录](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
