@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17：E2首张10配置完整结果表经用户Windows只读复核10/10通过】
+
+用户实际执行只读全矩阵核查，终端`FULL_151507_SEED22911_AUDIT_PASS 10/10`。**151507/seed22911全部10种冻结配置已经有经本地独立重算的参考ARI/NMI**；8个本轮新任务+2个历史可复用15D任务。核验按条码4226条一致、4221有效标签、条件特征SHA和输入源SHA、Manifest和预测SHA、预测簇范围及独立计算ARI/NMI与保存值一致。完整10行实数见[本日审计日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)最末段。两历史配置的监督指标已确认：`cum_L0_L1_L2`=ARI0.480019/NMI0.574796；`fixed_L0_L1_L4`=ARI0.527265/NMI0.617566。六种等维15D里ARI最大`fixed_L0_L3_L4`=0.531983，NMI最大`fixed_L0_L1_L3`=0.652819；**仅单片单seed，不可当作普遍最优或创新已证实**。**下一步唯一Windows操作：151507 / cum_L0 / GMM seed7449 --fit**，单任务新目录不覆盖。原12片×10唯一配置×10冻结seed实验继续，不再追溯历史same-seed排障。
+
+
 ## 【2026-11-17 E2 151507/seed22911 已具10/10结果资产，待统一只读审核】
 
 用户Windows最新真实输出：`E1E2_TASK_COMPLETE 151507 fixed_L0_L3_L4 seed 22911 ARI 0.531983 NMI 0.645675 fit_seconds 1.758`，目录`results/e1e2_multiscale_gmm_v1/151507/fixed_L0_L3_L4/seed_22911`。同片同seed25D ARI0.514192/NMI0.641353；此次15D比25D分别高0.017791/0.004322，但单点不能归因或声称显著性。151507/seed22911的**8项新增GMM完成终端+2项历史同参数15D可复用=10/10项存在结果资产**，但**新旧10项统一指标/哈希审计尚未运行**，历史15D的ARI/NMI不能补造。**下一步仅运行一条只读PowerShell/Python核验10项输入特征SHA、manifest、预测SHA、barcode及ARI/NMI复算，生成屏幕完整10项表**。不重训scVI、不覆盖原结果；完成后再扩大seed和其他11切片。详见[E2原始终端日志转录](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
