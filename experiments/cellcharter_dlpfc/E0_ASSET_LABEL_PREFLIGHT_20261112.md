@@ -148,3 +148,14 @@ RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\1515
 此次训练终端报告成功，但尚未直接从用户Windows读到该任务的CSV/Manifest/metrics字节进行独立复算。CPU GMM训练期间的GPU available but not used提示与当前CPU协议一致；Trainer.fit的epochs状态仅为终端输出，不作为额外算法结论。
 
 **151507/seed22911进度：** 新跑已终端完成6项（cum_L0, cum_L0_L1, cum_L0_L1_L2_L3, cum_L0_L1_L2_L3_L4, fixed_L0_L1_L3, fixed_L0_L2_L3），可复用旧15D 2项（cum_L0_L1_L2, fixed_L0_L1_L4），故已有8/10格实验资产，但全部结果尚待后续一次性统一汇总/文件审核。剩下两个新任务fixed_L0_L2_L4、fixed_L0_L3_L4。**下一步只运行fixed_L0_L2_L4/seed22911**，不得重跑现有任务或覆盖结果。原12片×10独立配置×10预先固定seed计划保持不变。
+
+## 2026-11-17：151507 fixed_L0_L2_L4/seed22911 新增15D任务完成（用户Windows终端）
+
+用户实际反馈：
+```
+E1E2_TASK_COMPLETE 151507 fixed_L0_L2_L4 seed 22911 ARI 0.516344 NMI 0.640627 fit_seconds 1.936
+RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\fixed_L0_L2_L4\seed_22911
+```
+此为程序完成终端证据，并非助手直接读取Windows预测CSV/metrics/manifest或独立复算。按冻结设计这是15D的[0,2,4]块、Oracle-K=7、seed22911。比较已跑同片同seed其他15D：fixed_L0_L1_L3 ARI0.456330/NMI0.652819；fixed_L0_L2_L3 ARI0.449927/NMI0.610138；fixed_L0_L2_L4 ARI0.516344/NMI0.640627。与同片同seed25D(0.514192/0.641353)相比，ARI高0.002152、NMI低0.000726；差距微小，不能以单点宣称15D优于25D，也不能依据数值选择性筛除配置。拟合预测耗时1.936秒，高于此前同片几个任务，但不能据此估算跨片资源成本。
+
+**151507/seed22911当前资产共9/10项**：7个本轮新完成任务（cum_L0, cum_L0_L1, cum_L0_L1_L2_L3, cum_L0_L1_L2_L3_L4, fixed_L0_L1_L3, fixed_L0_L2_L3, fixed_L0_L2_L4），2个已核验历史15D预测可复用（cum_L0_L1_L2与fixed_L0_L1_L4；历史具体参考ARI/NMI待统一汇总），仅剩`fixed_L0_L3_L4`未执行。当前脚本静态确认有`fixed_L0_L3_L4`映射=(0,3,4)，故下一步只运行`151507 fixed_L0_L3_L4 seed22911 --fit`单任务，新目录不覆盖。完成后统一审计本轮各新任务的manifest/metrics/CSV/标签掩码，合并旧结果，不要凭终端就认定整张结果矩阵已独立核验。
