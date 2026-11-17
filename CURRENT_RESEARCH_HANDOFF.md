@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-17 E2第2个任务完成：151507 L0+L1(10D)】
+
+用户Windows真实终端显示`E1E2_TASK_COMPLETE 151507 cum_L0_L1 seed 22911 ARI 0.384925 NMI 0.520652 fit_seconds 0.759`，与已核验L0(5D) ARI0.360282/NMI0.412568相比同片同seed分别增加0.024643、0.108084；**仅单片单seed，不归因为纯尺度效应或普遍改善**。10D结果目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1/seed_22911`，尚待后续统一文件汇总核验。经读取用户实际脚本：151507/cum_L0_L1_L2/seed22911对应已审计历史15D A组，脚本自动显示LEGACY_RESULT_EXISTS并不重复拟合。因此**下一个需要新训练的任务为151507/cum_L0_L1_L2_L3(20D)/seed22911 --fit**。不要覆盖旧数据，不排查历史同seed差异；仍实施原建议1完整矩阵。
+
+
 ## 【2026-11-17 E2首个新结果文件复算通过，准备第二配置】
 
 用户Windows只读复算 `151507/cum_L0/seed22911`：Manifest completed、4221个有效参考标签、预测barcode及簇范围匹配、预测CSV SHA256匹配、重新计算ARI=**0.360282**和NMI=**0.412568**，终端`E2_FIRST_RESULT_AUDIT_PASS`。这是已执行结果，与前次训练输出一致；无新训练。**下一步只运行一个新任务**：`151507/cum_L0_L1/seed22911 --fit`，独立目录、不覆盖；不重跑已完成L0、不追查历史同seed不一致。完整建议1计划不变。
