@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17 E2 seed7449首个安全批次（max-new1）成功】
+
+用户Windows实际终端：`RUN_START 151507 cum_L0_L1 seed=7449`，`RUN_AUDIT_PASS cum_L0_L1 ARI=0.395767 NMI=0.537167`，`BATCH_RUN_COMPLETE new_tasks=1`，批次报告`results/e1e2_batch_reports_v1/151507/seed_7449/20261117T092249Z_804730c20c/summary.json`。此seed已有L0(0.319646/0.414585)和L0+L1(0.395767/0.537167) **2/10通过独立文件与指标自动复算**；相同seed从5D到10D的变化ARI+0.076121/NMI+0.122582，仅单片种子。seed22911原10/10已人工只读全量验收，故151507当前已知总计12/100配置-种子格经审核；12张切片全计划1200格与独立供体统计仍待完成。**下一步仅给用户一条手动PowerShell命令，151507/seed7449 `e1e2_safe_batch_runner.py --run --max-new 5`**，脚本跳过已审计2项，只运行下一5项，逐项审计，任何异常停止不覆盖。用户原定建议1不改变，不因同seed差异停工。
+
+
 ## 【2026-11-17：151507/seed7449安全分批dry-run成功，待首批1任务】
 
 用户Windows运行`e1e2_safe_batch_runner.py --sample 151507 --seed 7449`只读核验通过：`CHECK cum_L0 NEW_AUDITED ARI=0.319646 NMI=0.414585`；其余9个冻结配置标记`MISSING`；输出`PLAN_OK sample=151507 seed=7449 verified=1 missing=9 max_new=1`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。无训练、无新增结果。已核对实际batch runner代码：必须显式`--run`训练，按预冻配置顺序先审计、只启动缺项、每项独立子进程和完成后的独立核验，默认最多一个，报错即停并保留报告。**下一步唯一用户命令：`D:\paper\CellCharter_reproduction\env_cellcharter\python.exe D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 1`**，预计启动缺项中第一个`cum_L0_L1`(10D)，不重跑L0。等待用户真实终端，不能预先声称完成。见[2026-11-17科研日记](RESEARCH_JOURNAL/2026-11-17.md)。
