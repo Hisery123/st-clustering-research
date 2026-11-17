@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17 E2首个新结果文件复算通过，准备第二配置】
+
+用户Windows只读复算 `151507/cum_L0/seed22911`：Manifest completed、4221个有效参考标签、预测barcode及簇范围匹配、预测CSV SHA256匹配、重新计算ARI=**0.360282**和NMI=**0.412568**，终端`E2_FIRST_RESULT_AUDIT_PASS`。这是已执行结果，与前次训练输出一致；无新训练。**下一步只运行一个新任务**：`151507/cum_L0_L1/seed22911 --fit`，独立目录、不覆盖；不重跑已完成L0、不追查历史同seed不一致。完整建议1计划不变。
+
+
 ## 【2026-11-13 E2首次正式GMM任务完成】
 
 用户Windows实测`151507 / cum_L0 (5D) / seed22911 / Oracle-K7`单任务：终端`E1E2_TASK_COMPLETE`，**参考标签ARI=0.360282、NMI=0.412568、fit+predict=0.958s**，输出目录`D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0\seed_22911`。此前同一`--fit`命令曾因目录已存在而防覆盖报错，之后用户重试成功；**不能推断中间目录处理方式**。这不是预测对预测的稳定性ARI；仅单配置，不预设尺度规律。完整E2仍按12片×10唯一配置×10seed推进，历史可复用任务仍不覆盖。**下一步只读核对新完成任务的manifest/metrics/predictions实际文件和条码哈希，然后151507的cum_L0_L1同seed单任务继续。** 详见[E0/E1/E2日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
