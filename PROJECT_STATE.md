@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17 seed7449/cum_L0现存结果目录显示completed，待独立复算】
+
+用户Windows只读清点`151507/cum_L0/seed7449`结果目录：Manifest标记`completed`，协议`E1E2_MULTISCALE_GMM_TASK_V1`，seed7449/5D/Oracle-K7，started_utc 2026-11-17 08:40:07.286420，finished_utc 08:40:08.652883；`manifest.json`、`metrics.json`、`predictions.csv`三文件均存在，输出文件修改时间约为当地16:40:08。先前新运行命令因此被防覆盖保护挡下，不能认定它发生了第二次拟合。**此刻不知seed7449实际ARI/NMI，未核查CSV或hash**。下一步唯一操作：用户执行一条只读Python复算与来源/条码/哈希核验，成功后才能把该seed视为已完成的已验收实验格；不删除、不重跑、不任意改seed。原seed22911/151507完整10/10已验收不变。
+
+
 ## 【2026-11-17 seed7449首次尝试被目录已存在保护拦截】
 
 用户执行`151507/cum_L0/seed7449 --fit`立即出现`FileExistsError`，目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0/seed_7449`已存在。根据任务脚本`main()`先判断`out.exists()`再进入`run_fit()`，故**这次命令没有启动训练、没有覆盖已有结果**。现有目录中的manifest/metrics/预测是否完整及其来源完全未知；**seed7449尚不能记为已完成**。下一步请用户执行一条只读本地目录审计，输出manifest状态和文件完整性/预测哈希/必要时复算指标；不得擅自删除、重跑、跳过或编造结果。151507/seed22911已验证的10配置结果不受影响。
