@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-17｜151507剩余8seed连续批次已全部正常返回，待统一100/100复核】
+
+用户Windows终端包含`SEED_COMPLETE 12815`、`ALL_8_SEEDS_COMPLETED`，完整本地session日志路径`results/e1e2_batch_reports_v1/151507/multi_seed_20261117_174307.txt`。末尾实际`RUN_AUDIT_PASS`：seed12815/fixed_L0_L2_L4=ARI0.476403,NMI0.635180；fixed_L0_L3_L4=ARI0.534144,NMI0.678811；`BATCH_RUN_COMPLETE new_tasks=10`。此前151507 seed22911与7449各10/10经核验，seed25842已核验5/10，8seed脚本最后显示所有剩余seed调用均成功，**预计全部100项已具结果资产，但尚未执行最终10seed×10配置统一只读审计**。下一步仅给用户一条PowerShell命令：循环10个冻结seed逐个调用`e1e2_safe_batch_runner.py --sample 151507 --seed <seed>`（无--run，纯只读），核对每个`PLAN_OK verified=10 missing=0`与退出码，最后打印`FINAL_151507_ALL_SEEDS_AUDITED 100/100`。不重训，不虚构未展示的其余seed统计/指标。之后再汇总完整CSV与mean/SD，进入后续11切片及E3–E6。
+
+
 ## 【2026-11-17最新：151507/seed25842前5项已审计，允许用户启动剩余8seed连续批次】
 
 用户Windows真实`RUN_AUDIT_PASS`：seed25842的cum_L0 0.360789/0.435997、cum_L0_L1 0.384524/0.523974、cum_L0_L1_L2 0.424493/0.594504、cum_L0_L1_L2_L3 0.491921/0.615256、cum_L0_L1_L2_L3_L4 0.482264/0.654713（值为ARI/NMI）；`BATCH_RUN_COMPLETE new_tasks=5`，报告`results/e1e2_batch_reports_v1/151507/seed_25842/20261117T093740Z_c2d2b056f9/summary.json`。因此151507目前已核验**25/100项**：22911(10/10)、7449(10/10)、25842(5/10)。用户询问能否运行之前提供的无人值守顺序PowerShell循环，助手核对现有runner可跳过5项，只跑缺项，每seed最多10项，失败停止；**已告知可按原脚本直接运行**（seed25842后剩5项，另7个seed最多70项，总最多75）。此循环**尚无用户实际执行/完成反馈，不得记为已完成或臆造额外指标**。下次接手重点：读取用户结束输出/可能的multi_seed日志，逐种子进行只读审计，确保最终151507 100/100再推进其他11片及E3–E6。
