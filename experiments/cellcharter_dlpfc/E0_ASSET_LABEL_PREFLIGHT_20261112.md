@@ -84,3 +84,18 @@
 按已审核的`e1e2_multiscale_gmm_task.py`代码，`--fit`一次仅训练指定单个GMM且先保存预测后才读取参考标签；metrics/manifest会写入独立目录，设置completed。根据终端可确认脚本报告完成，但本助手尚未直接读到Windows生成的manifest/预测文件字节；正式文件审计下一步可做一次只读核查。现值为**真实参考标签监督评价**ARI=0.360282、NMI=0.412568（终端按6位小数显示），与同seed或跨seed的预测互比ARI/NMI不是同一种指标。该配置=5D L0/Oracle-K7/22911，4226 spot中4221有有效标签（前次标签审计）。一个任务耗时0.958s，不等于能直接外推1200任务耗时。
 
 目前建议1全矩阵保留；不得基于这个单点推断尺度趋势、B优势或创新。不为历史same-seed问题停工。**唯一下步**：只读核查本次`manifest.json`、`metrics.json`和`predictions.csv`完整性（状态、标签数、文件SHA、4226唯一barcode、ARI/NMI等）；若通过，继续`151507/cum_L0_L1/seed22911`。
+
+## 2026-11-17：E2首个新结果文件独立复算通过（来自用户Windows实际终端）
+
+用户执行只读Python核验（`manifest.json`、`metrics.json`、`predictions.csv`、`spots_aligned.csv`与过滤至151507的人工层标签）。终端实际输出：
+```
+STATUS: completed
+VALID_LABELS: 4221
+ARI: 0.360282
+NMI: 0.412568
+PREDICTION_SHA_MATCH: True
+E2_FIRST_RESULT_AUDIT_PASS
+```
+由用户执行的断言已核实：K=7、GMM seed22911、5D L0、预测4226条且barcode唯一/顺序匹配、预测簇范围合法、4221有效标签、预测CSV SHA256与Manifest相符，重新计算ARI/NMI与保存的metrics JSON差异<1e-10。此处只读，未重新训练/修改结果。助手未直接读取Windows本地产物字节，记录以上由用户返回的真实程序输出。
+
+**下一个唯一任务**：151507、`cum_L0_L1`、seed22911，以已保存脚本运行一个`--fit`任务；必须独立目录保存、失败/覆盖保护保留。正式10seed×12片×10配置总矩阵仍按协议展开；现有L0首个新任务完成。
