@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17 151508/seed22911旧15D审计通过，下一步补齐8个缺项】
+
+用户Windows只读dry-run`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`返回`PLAN_OK verified=2 missing=8`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。已核验两个历史预测：15D A=`cum_L0_L1_L2` ARI0.462671 NMI0.613217；15D B=`fixed_L0_L1_L4` ARI0.460596 NMI0.569139，**B-A ARI=-0.002075，NMI=-0.044078**（负结果，不能挑选性省略）。8个缺失配置尚未训练。151507全部100格及10seed统计此前已完成、只是同片随机重复。下一步仅运行用户Windows单命令`e1e2_safe_batch_runner.py --sample 151508 --seed 22911 --run --max-new 8`，runner跳过并核验两个历史结果，独立训练其余8个，遇失败即停，不覆盖旧产物。若成功进入151508其他seed批次；全12片×10配置×10seed不变。
+
+
 ## 【2026-11-17 151507 100项统计汇总成功｜正式开始下一切片预检】
 
 用户Windows真实执行`e1e2_aggregate_multiseed.py --sample 151507`，10个seed各`AUDIT_SEED_OK verified=10/10`，`ALL_MATRIX_AUDIT_PASS tasks=100`和`SUMMARY_COMPLETE verified=100 conditions=10 paired_rows=50`，新输出目录`results/e1e2_multiseed_statistics_v1/151507/20261117T124154Z_75d68b68`，没有模型重训或改动原结果。**mean±sample-SD**最重要：25D累计 ARI0.504370±0.032078、NMI0.664849±0.019590；固定15D L0+L3+L4 ARI0.519286±0.048324、NMI0.655772±0.023636。固定15D L0+L1+L4相比对照15D L0+L1+L2均值差：ARI+0.049888、NMI+0.040173。完整十条件实数与证据等级见[E0/E1/E2日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)最后统计段。**统计只是单切片上的10个seed算法重复，不是独立生物重复；既非已验证创新，也不允许据此显著性结论。** 下一步唯一手动操作是`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`纯只读dry-run，以审核现有历史15D可复用结果及待训练缺项；预检通过后再扩展11张切片，其余E3–E6建议1不变。
