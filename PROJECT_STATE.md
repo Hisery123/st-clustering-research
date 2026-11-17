@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17：151507/seed7449安全分批dry-run成功，待首批1任务】
+
+用户Windows运行`e1e2_safe_batch_runner.py --sample 151507 --seed 7449`只读核验通过：`CHECK cum_L0 NEW_AUDITED ARI=0.319646 NMI=0.414585`；其余9个冻结配置标记`MISSING`；输出`PLAN_OK sample=151507 seed=7449 verified=1 missing=9 max_new=1`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。无训练、无新增结果。已核对实际batch runner代码：必须显式`--run`训练，按预冻配置顺序先审计、只启动缺项、每项独立子进程和完成后的独立核验，默认最多一个，报错即停并保留报告。**下一步唯一用户命令：`D:\paper\CellCharter_reproduction\env_cellcharter\python.exe D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 1`**，预计启动缺项中第一个`cum_L0_L1`(10D)，不重跑L0。等待用户真实终端，不能预先声称完成。见[2026-11-17科研日记](RESEARCH_JOURNAL/2026-11-17.md)。
+
+
 ## 【2026-11-17：151507 L0、第二随机种子7449独立验收通过】
 
 用户Windows只读审计`151507/cum_L0/seed7449`成功，终端`E2_SEED7449_L0_AUDIT_PASS`：**ARI=0.319646，NMI=0.414585，有效参考标签4221**，源/特征/标签/条码、预测SHA及复算指标均符合，Manifest completed。对比同片同配置seed22911 ARI0.360282/NMI0.412568，seed7449相对差ARI -0.040636/NMI +0.002017；目前只有两个seed，不能以其作统计显著性或独立供体结论。完整151507 seed22911十配置已验收，7449仅L0通过。用户先前seed7449的`--fit`因目录已存在中止，不视为新拟合。**下一步：已在ChatGPT生成`e1e2_safe_batch_runner.py`安全分批脚本（静态语法+合成数据检查通过，尚未在Windows执行/同步GitHub），用户仅下载并放至`D:\paper\CellCharter_reproduction\`，与现有单任务脚本同文件夹；之后一次只读`--sample 151507 --seed 7449`计划核对，通过才考虑`--run --max-new 1`训练。**不删除重跑已完成文件，保留失败记录；冻结12片×10配置×10seed计划不变。
