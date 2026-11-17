@@ -127,3 +127,11 @@ RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\1515
 此数值为程序终端报出的有标签ARI/NMI，尚未独立重新读取本地manifest/metrics/预测CSV复算；不虚称已复核源文件。
 已知用户终端同切片同GMM seed22911累计配置：5D(L0) ARI0.360282 NMI0.412568（已独立复算）；10D(L0+L1) ARI0.384925 NMI0.520652；20D(L0+L1+L2+L3) ARI0.475498 NMI0.588648；25D(L0+L1+L2+L3+L4) ARI0.514192 NMI0.641353。15D L0+L1+L2为已核验的旧预测，准确指标待从历史原始结果合并，**不可臆造15D数值**。25D相对20D：ARI+0.038694、NMI+0.052705。各累计配置维度与层数共同改变；不归因纯尺度、不能证明普适效果或新方法。
 **下一步单任务**：151507、`fixed_L0_L1_L3`（15D）seed22911，使用现有脚本`--fit`；避免重复已有`cum_L0_L1_L2`与`fixed_L0_L1_L4`历史seed22911结果。输出目录应新建且不可覆盖。仍保留原12片×10唯一配置×10冻结seed整体计划。训练未由助手执行。
+
+## 2026-11-17：E2固定15D L0+L1+L3，seed22911首个等维新任务成功
+
+**用户Windows真实终端**：`E1E2_TASK_COMPLETE 151507 fixed_L0_L1_L3 seed 22911 ARI 0.45633 NMI 0.652819 fit_seconds 0.662`；路径 `D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\fixed_L0_L1_L3\seed_22911`。这表示执行端报告一个新GMM任务完成；目前尚未单独重新读取其本地预测CSV/Manifest进行哈希与指标复算，不能说文件已独立核验。该固定15D配置块=[0,1,3]，Oracle-K7，CPU GMM，使用已审计25D源缓存（根据程序参数/历史预检协议）。
+
+**同一切片同一seed的已知监督指标比较**：该15D ARI=0.456330、NMI=0.652819；此前新25D(L0..L4) ARI=0.514192、NMI=0.641353，即15D比25D的ARI低0.057862，NMI高0.011466。不能说25D在当前已测配置两个指标均最优，也不能把等维候选单点上升概括为跨片改善。
+
+**当前151507/seed22911 E2格子盘点**：已出现完成终端的新5个配置为`cum_L0`, `cum_L0_L1`, `cum_L0_L1_L2_L3`, `cum_L0_L1_L2_L3_L4`, `fixed_L0_L1_L3`；历史经核实可复用`cum_L0_L1_L2`及`fixed_L0_L1_L4`两格（实际ARI/NMI待统一合并），合计7/10格已有完成资产、待统一总表。剩余3个新增固定15D配置：`fixed_L0_L2_L3`, `fixed_L0_L2_L4`, `fixed_L0_L3_L4`。下一步只运行第一个`fixed_L0_L2_L3`、seed22911新任务，无重新训练scVI、不修改既有结果。
