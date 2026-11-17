@@ -215,3 +215,15 @@ E2_SEED7449_L0_AUDIT_PASS
 同片同尺度已有冻结两个不同随机seed的真实指标：22911（ARI0.360282，NMI0.412568）、7449（ARI0.319646，NMI0.414585）；seed7449-22911差为ARI -0.040636、NMI +0.002017。仅两seed示例，不计算不稳健置信区间、不认为是独立生物学重复；全部10seed评估后统一统计。
 
 为减少未来大量手工命令，在ChatGPT工作容器**新编写但尚未在Windows运行**的`e1e2_safe_batch_runner.py`已通过Python静态语法和合成数据最小检查（验证已完成输出、文件SHA损坏拒绝、未完成清单）。使用规则：与`e1e2_multiscale_gmm_task.py`存同一Windows文件夹，指定1片+1seed，默认只读10配置审计及缺项清单；仅显式`--run`才启动新GMM，默认`--max-new 1`严格限制，每项独立进程，先验收原文件再启动下一个；保护历史/损坏结果和已存在目录，遇到异常中止并保留日志/报告，绝不删除或自动重试。**该脚本尚未同步GitHub脚本库，也未同步Windows**，需要用户下载并放置后再进行只读dry-run。下一步仅请用户保存脚本，随后再给一条不训练的PowerShell dry-run命令，等用户反馈后才决定训练开关。
+
+## 2026-11-17 151507/seed7449：首个安全受限批次成功（用户Windows终端）
+
+用户手动运行：`D:\paper\CellCharter_reproduction\env_cellcharter\python.exe D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 1`。终端先只读检查：`cum_L0`已是`NEW_AUDITED`（ARI0.319646/NMI0.414585），其余9配置均MISSING；`PLAN_OK sample=151507 seed=7449 verified=1 missing=9 max_new=1`。随后真实输出：
+```
+RUN_START 151507 cum_L0_L1 seed=7449
+RUN_AUDIT_PASS cum_L0_L1 ARI=0.395767 NMI=0.537167
+BATCH_RUN_COMPLETE new_tasks=1 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151507\seed_7449\20261117T092249Z_804730c20c\summary.json
+```
+结论：单任务新训练及**runner自动后验校验**成功，未覆盖已完成L0。当前seed7449 **2/10配置完成且自动验收、8/10仍未运行**；包含已核验历史/新全部种子组合时，151507 seed22911已有10/10，seed7449现在2/10。新任务监督指标ARI=0.395767、NMI=0.537167；与同seed7449 L0的0.319646/0.414585比，+0.076121/+0.122582。跨seed对比同配置L0+L1 seed22911 0.384925/0.520652，7449高0.010842/+0.016515。只两个seed/一个切片；不可推断显著性或跨切片稳定提升。
+
+用户希望减少手动步骤，batch runner实际工作正常；经静态审查`--max-new 5`是合法参数，循环只取当前缺项前5条，每条调用已确认的独立任务脚本并审计后才继续，遇错打印`BATCH_HALTED`保留报告；不触碰已有completed产物。下一步建议用户本人手动运行**同seed7449`--run --max-new 5`**：预计按冻结顺序尝试`cum_L0_L1_L2`(15D),`cum_L0_L1_L2_L3`(20D),`cum_L0_L1_L2_L3_L4`(25D),`fixed_L0_L1_L3`(15D),`fixed_L0_L1_L4`(15D)。这些是计划，**尚未执行**。保留Oracle-K及尺度-维度混杂的论文方法限制。
