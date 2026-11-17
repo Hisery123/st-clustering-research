@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-17：151507/seed7449 10/10审核完成；计划顺序批次8种子】
+
+用户Windows最新`PLAN_OK sample=151507 seed=7449 verified=10 missing=0`、`ALL_TASKS_AUDITED NO_TRAINING_NO_FILES_WRITTEN`，全部10个配置`NEW_AUDITED`，其中最新3项`fixed_L0_L2_L3`ARI0.467507/NMI0.598102、`fixed_L0_L2_L4`0.516643/0.639311、`fixed_L0_L3_L4`0.459927/0.633146。seed22911的10配置也已独立审核，故151507 **20/100项**。**用户现明确希望出门期间一条PowerShell循环按冻结顺序运行剩余8个seed（25842、10379、6690、26128、21059、22159、32389、12815），各seed调用既有安全runner `--run --max-new 10`；此为用户Windows将要执行的计划，未启动。**已读取真实runner源代码，遇已有完整结果自动核验跳过，遇损坏/不完整直接拒绝，遇训练失败返回非0停止，不删除重跑。循环必须`$LASTEXITCODE`非0后停止；可记录PowerShell transcript与runner内置summary.json。完成151507后再扩大11片、E3–E6；不把单片多seed当独立生物重复。
+
+
 ## 【2026-11-17 最新：151507/seed7449批次max-new5通过，共7/10配置】
 
 用户Windows实际输出`RUN_AUDIT_PASS`五项：cum_L0_L1_L2 ARI0.440005/NMI0.573425；cum_L0_L1_L2_L3 0.491921/0.615256；cum_L0_L1_L2_L3_L4 0.479119/0.653431；fixed_L0_L1_L3 0.489367/0.629702；fixed_L0_L1_L4 0.523749/0.616188；终端`BATCH_RUN_COMPLETE new_tasks=5`，报告`results/e1e2_batch_reports_v1/151507/seed_7449/20261117T092556Z_72c97ded79/summary.json`。该seed此前已有cum_L0(0.319646/0.414585)和cum_L0_L1(0.395767/0.537167)通过核验，**目前seed7449 7/10、seed22911 10/10，151507合计17/100已核验配置-seed格**。三项未跑：fixed_L0_L2_L3、fixed_L0_L2_L4、fixed_L0_L3_L4。仅此单片seed7449可观察25D vs20D ARI低0.012802、NMI高0.038175，不能当作普遍结论。**下一步仅给用户一条Windows命令`e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 3`**，跑完剩余三项并自动审计；出错保留现场。原完整建议1不变。
