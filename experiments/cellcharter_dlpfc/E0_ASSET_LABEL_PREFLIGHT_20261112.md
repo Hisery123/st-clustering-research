@@ -105,3 +105,14 @@ E2_FIRST_RESULT_AUDIT_PASS
 用户本人在Windows执行 `e1e2_multiscale_gmm_task.py --sample 151507 --condition cum_L0_L1 --seed 22911 --fit`；终端显示`E1E2_TASK_COMPLETE 151507 cum_L0_L1 seed 22911 ARI 0.384925 NMI 0.520652 fit_seconds 0.759`，输出目录`D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0_L1\seed_22911`。与先前已核验的151507/cum_L0/seed22911（ARI0.360282，NMI0.412568，0.958s）相比，**单切片单seed**差值：ARI+0.024643，NMI+0.108084；5D增加到10D同时改变邻域尺度和输入维度，不能归结为单独空间尺度因果效应。此轮10D指标仅有完成终端证据，**尚未独立复算metrics JSON/CSV/hash**；无新增跨片结论。
 
 **下一步**：根据已在GitHub检查的实际单任务脚本，`cum_L0_L1_L2`、seed22911的同源旧15D对照已由历史目录 `mvp_fixed15_block_swap_151507_seed22911_v1/control_L0_L1_L2_predictions.csv` 提供，`get_legacy_result()`将打印`LEGACY_RESULT_EXISTS`并拒绝重复拟合，后续统一汇总须对接历史预测及指标，而不是强制旧结果写入新路径。**下一个全新任务为151507/cum_L0_L1_L2_L3(20D)/seed22911**；按单命令执行，未执行前不得记录完成。
+
+## 2026-11-17：E2 151507累积20D新任务真实完成（用户Windows终端）
+
+用户返回 `e1e2_multiscale_gmm_task.py --sample 151507 --condition cum_L0_L1_L2_L3 --seed 22911 --fit` 的终端末尾；实际显示：
+```
+E1E2_TASK_COMPLETE 151507 cum_L0_L1_L2_L3 seed 22911 ARI 0.475498 NMI 0.588648 fit_seconds 0.755
+RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0_L1_L2_L3\seed_22911
+```
+按照已核查过的本地任务脚本，条件=块[0,1,2,3]、20维、GMM Oracle-K7、seed22911，指标为有有效参考标签Spot的ARI/NMI（151507共有4221条有效标签，文件级本次尚未单独复算），CPU运行。与之前新任务`cum_L0_L1`(10D)的ARI0.384925/NMI0.520652相比差值为+0.090573/+0.067996；与已独立复算的`cum_L0`(5D) ARI0.360282/NMI0.412568相比为+0.115216/+0.176080。**这些只是同片同seed的探索观察，尺度与维数混杂，15D结果尚未统一汇总，不可声称一般规律或验证创新。**
+
+已审查`e1e2_multiscale_gmm_task.py`：对`cum_L0_L1_L2_L3_L4`(25D)不会把历史CellCharter oracleK7结果自动视作同协议历史结果；旧25D基线GMM具体参数是否与本次满维方案一致尚未核验，故下一个正式统一协议的新任务可以是`151507 / cum_L0_L1_L2_L3_L4 / seed22911`，输出独立目录、不覆盖历史baseline。若目录已存在，防覆盖中止并需检查，不删除/重试。**新任务尚未执行。**
