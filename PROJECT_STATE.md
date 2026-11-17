@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17 最新：151507/seed7449批次max-new5通过，共7/10配置】
+
+用户Windows实际输出`RUN_AUDIT_PASS`五项：cum_L0_L1_L2 ARI0.440005/NMI0.573425；cum_L0_L1_L2_L3 0.491921/0.615256；cum_L0_L1_L2_L3_L4 0.479119/0.653431；fixed_L0_L1_L3 0.489367/0.629702；fixed_L0_L1_L4 0.523749/0.616188；终端`BATCH_RUN_COMPLETE new_tasks=5`，报告`results/e1e2_batch_reports_v1/151507/seed_7449/20261117T092556Z_72c97ded79/summary.json`。该seed此前已有cum_L0(0.319646/0.414585)和cum_L0_L1(0.395767/0.537167)通过核验，**目前seed7449 7/10、seed22911 10/10，151507合计17/100已核验配置-seed格**。三项未跑：fixed_L0_L2_L3、fixed_L0_L2_L4、fixed_L0_L3_L4。仅此单片seed7449可观察25D vs20D ARI低0.012802、NMI高0.038175，不能当作普遍结论。**下一步仅给用户一条Windows命令`e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 3`**，跑完剩余三项并自动审计；出错保留现场。原完整建议1不变。
+
+
 ## 【2026-11-17 E2 seed7449首个安全批次（max-new1）成功】
 
 用户Windows实际终端：`RUN_START 151507 cum_L0_L1 seed=7449`，`RUN_AUDIT_PASS cum_L0_L1 ARI=0.395767 NMI=0.537167`，`BATCH_RUN_COMPLETE new_tasks=1`，批次报告`results/e1e2_batch_reports_v1/151507/seed_7449/20261117T092249Z_804730c20c/summary.json`。此seed已有L0(0.319646/0.414585)和L0+L1(0.395767/0.537167) **2/10通过独立文件与指标自动复算**；相同seed从5D到10D的变化ARI+0.076121/NMI+0.122582，仅单片种子。seed22911原10/10已人工只读全量验收，故151507当前已知总计12/100配置-种子格经审核；12张切片全计划1200格与独立供体统计仍待完成。**下一步仅给用户一条手动PowerShell命令，151507/seed7449 `e1e2_safe_batch_runner.py --run --max-new 5`**，脚本跳过已审计2项，只运行下一5项，逐项审计，任何异常停止不覆盖。用户原定建议1不改变，不因同seed差异停工。
