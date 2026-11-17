@@ -135,3 +135,16 @@ RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\1515
 **同一切片同一seed的已知监督指标比较**：该15D ARI=0.456330、NMI=0.652819；此前新25D(L0..L4) ARI=0.514192、NMI=0.641353，即15D比25D的ARI低0.057862，NMI高0.011466。不能说25D在当前已测配置两个指标均最优，也不能把等维候选单点上升概括为跨片改善。
 
 **当前151507/seed22911 E2格子盘点**：已出现完成终端的新5个配置为`cum_L0`, `cum_L0_L1`, `cum_L0_L1_L2_L3`, `cum_L0_L1_L2_L3_L4`, `fixed_L0_L1_L3`；历史经核实可复用`cum_L0_L1_L2`及`fixed_L0_L1_L4`两格（实际ARI/NMI待统一合并），合计7/10格已有完成资产、待统一总表。剩余3个新增固定15D配置：`fixed_L0_L2_L3`, `fixed_L0_L2_L4`, `fixed_L0_L3_L4`。下一步只运行第一个`fixed_L0_L2_L3`、seed22911新任务，无重新训练scVI、不修改既有结果。
+
+## 2026-11-17：151507 fixed_L0_L2_L3/seed22911 新增等维15D任务完成（用户Windows终端）
+
+用户真实终端片段：
+```
+E1E2_TASK_COMPLETE 151507 fixed_L0_L2_L3 seed 22911 ARI 0.449927 NMI 0.610138 fit_seconds 0.649
+RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\fixed_L0_L2_L3\seed_22911
+```
+根据冻结配置，fixed_L0_L2_L3使用[0,2,3]三个5D块（共15D），同切片151507、Oracle-K7和GMM seed22911。与上一次fixed_L0_L1_L3（ARI0.456330/NMI0.652819）在相同15D条件下比较，新结果ARI低0.006403，NMI低0.042681；不可称单seed差异为跨片规律、显著性或新方法机制。
+
+此次训练终端报告成功，但尚未直接从用户Windows读到该任务的CSV/Manifest/metrics字节进行独立复算。CPU GMM训练期间的GPU available but not used提示与当前CPU协议一致；Trainer.fit的epochs状态仅为终端输出，不作为额外算法结论。
+
+**151507/seed22911进度：** 新跑已终端完成6项（cum_L0, cum_L0_L1, cum_L0_L1_L2_L3, cum_L0_L1_L2_L3_L4, fixed_L0_L1_L3, fixed_L0_L2_L3），可复用旧15D 2项（cum_L0_L1_L2, fixed_L0_L1_L4），故已有8/10格实验资产，但全部结果尚待后续一次性统一汇总/文件审核。剩下两个新任务fixed_L0_L2_L4、fixed_L0_L3_L4。**下一步只运行fixed_L0_L2_L4/seed22911**，不得重跑现有任务或覆盖结果。原12片×10独立配置×10预先固定seed计划保持不变。
