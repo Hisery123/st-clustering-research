@@ -116,3 +116,14 @@ RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\1515
 按照已核查过的本地任务脚本，条件=块[0,1,2,3]、20维、GMM Oracle-K7、seed22911，指标为有有效参考标签Spot的ARI/NMI（151507共有4221条有效标签，文件级本次尚未单独复算），CPU运行。与之前新任务`cum_L0_L1`(10D)的ARI0.384925/NMI0.520652相比差值为+0.090573/+0.067996；与已独立复算的`cum_L0`(5D) ARI0.360282/NMI0.412568相比为+0.115216/+0.176080。**这些只是同片同seed的探索观察，尺度与维数混杂，15D结果尚未统一汇总，不可声称一般规律或验证创新。**
 
 已审查`e1e2_multiscale_gmm_task.py`：对`cum_L0_L1_L2_L3_L4`(25D)不会把历史CellCharter oracleK7结果自动视作同协议历史结果；旧25D基线GMM具体参数是否与本次满维方案一致尚未核验，故下一个正式统一协议的新任务可以是`151507 / cum_L0_L1_L2_L3_L4 / seed22911`，输出独立目录、不覆盖历史baseline。若目录已存在，防覆盖中止并需检查，不删除/重试。**新任务尚未执行。**
+
+## 2026-11-17 E2第四个新增GMM任务：151507累计25D，用户Windows实测
+
+用户本人执行`D:\paper\CellCharter_reproduction\e1e2_multiscale_gmm_task.py --sample 151507 --condition cum_L0_L1_L2_L3_L4 --seed 22911 --fit`，终端显示：
+```
+E1E2_TASK_COMPLETE 151507 cum_L0_L1_L2_L3_L4 seed 22911 ARI 0.514192 NMI 0.641353 fit_seconds 0.737
+RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0_L1_L2_L3_L4\seed_22911
+```
+此数值为程序终端报出的有标签ARI/NMI，尚未独立重新读取本地manifest/metrics/预测CSV复算；不虚称已复核源文件。
+已知用户终端同切片同GMM seed22911累计配置：5D(L0) ARI0.360282 NMI0.412568（已独立复算）；10D(L0+L1) ARI0.384925 NMI0.520652；20D(L0+L1+L2+L3) ARI0.475498 NMI0.588648；25D(L0+L1+L2+L3+L4) ARI0.514192 NMI0.641353。15D L0+L1+L2为已核验的旧预测，准确指标待从历史原始结果合并，**不可臆造15D数值**。25D相对20D：ARI+0.038694、NMI+0.052705。各累计配置维度与层数共同改变；不归因纯尺度、不能证明普适效果或新方法。
+**下一步单任务**：151507、`fixed_L0_L1_L3`（15D）seed22911，使用现有脚本`--fit`；避免重复已有`cum_L0_L1_L2`与`fixed_L0_L1_L4`历史seed22911结果。输出目录应新建且不可覆盖。仍保留原12片×10唯一配置×10冻结seed整体计划。训练未由助手执行。
