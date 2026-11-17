@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17：151507全部100/100配置-种子格通过最终只读审计，进入统计汇总阶段】
+
+用户Windows运行完整10个冻结GMM seed的read-only审计，终端最后实际显示`AUDIT_PASS seed=10379 verified=10/10`、6690、26128、21059、22159、32389、12815及`FINAL_151507_ALL_SEEDS_AUDITED 100/100`。此前22911、7449、25842亦在同一脚本循环核验（最终标志仅在所有10个seed的退出码与`PLAN_OK verified=10 missing=0`断言均通过后打印），因此**151507的10唯一配置×10冻结seed=100个格子已获得用户Windows的完整结果和自动复算验收**。注意：这仍是**同一张组织切片**、10个GMM随机运行，不能写成独立生物重复；ARI/NMI的全100行数字与均值SD尚未送至助手，绝不编造统计量。
+
+**下一步唯一Windows操作（用户先下载保存脚本，再执行随附的一条命令）：** 在ChatGPT本地构建`e1e2_aggregate_multiseed.py`（SHA256 `04a1e52abb0ecae4fc800c06ddc0a4a6b11d999f68c8dd4f13555f4583595b19`，228行），脚本经过Python编译和纯合成表单元测试，**尚未在用户Windows运行、亦未提交至GitHub代码树**。用户放置于`D:\paper\CellCharter_reproduction\`，和现有`e1e2_multiscale_gmm_task.py`、`e1e2_safe_batch_runner.py`同目录，运行`--sample 151507`，严格只读复核100份原始预测和参考指标后才新建唯一`results/e1e2_multiseed_statistics_v1/151507/<UTC时间>_<随机ID>/`，输出100行追溯CSV、10配置跨seed均值/样本SD表、相同15D的50行逐seed配对差及5候选总结CSV、provenance.json；不训练、不覆盖原文件、不计算伪重复显著性P值。预期`ALL_MATRIX_AUDIT_PASS sample=151507 tasks=100 seeds=10 conditions=10`及`SUMMARY_COMPLETE sample=151507 verified=100 conditions=10 paired_rows=50`。如果失败，停止，保存错误输出。待回传统计表后判断不同种子稳定性，扩展剩余11张切片及后续建议1实验。
+
+
 ## 【2026-11-17｜151507剩余8seed连续批次已全部正常返回，待统一100/100复核】
 
 用户Windows终端包含`SEED_COMPLETE 12815`、`ALL_8_SEEDS_COMPLETED`，完整本地session日志路径`results/e1e2_batch_reports_v1/151507/multi_seed_20261117_174307.txt`。末尾实际`RUN_AUDIT_PASS`：seed12815/fixed_L0_L2_L4=ARI0.476403,NMI0.635180；fixed_L0_L3_L4=ARI0.534144,NMI0.678811；`BATCH_RUN_COMPLETE new_tasks=10`。此前151507 seed22911与7449各10/10经核验，seed25842已核验5/10，8seed脚本最后显示所有剩余seed调用均成功，**预计全部100项已具结果资产，但尚未执行最终10seed×10配置统一只读审计**。下一步仅给用户一条PowerShell命令：循环10个冻结seed逐个调用`e1e2_safe_batch_runner.py --sample 151507 --seed <seed>`（无--run，纯只读），核对每个`PLAN_OK verified=10 missing=0`与退出码，最后打印`FINAL_151507_ALL_SEEDS_AUDITED 100/100`。不重训，不虚构未展示的其余seed统计/指标。之后再汇总完整CSV与mean/SD，进入后续11切片及E3–E6。
