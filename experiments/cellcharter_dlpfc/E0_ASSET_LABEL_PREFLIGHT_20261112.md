@@ -99,3 +99,9 @@ E2_FIRST_RESULT_AUDIT_PASS
 由用户执行的断言已核实：K=7、GMM seed22911、5D L0、预测4226条且barcode唯一/顺序匹配、预测簇范围合法、4221有效标签、预测CSV SHA256与Manifest相符，重新计算ARI/NMI与保存的metrics JSON差异<1e-10。此处只读，未重新训练/修改结果。助手未直接读取Windows本地产物字节，记录以上由用户返回的真实程序输出。
 
 **下一个唯一任务**：151507、`cum_L0_L1`、seed22911，以已保存脚本运行一个`--fit`任务；必须独立目录保存、失败/覆盖保护保留。正式10seed×12片×10配置总矩阵仍按协议展开；现有L0首个新任务完成。
+
+## 2026-11-17 E2第二个新任务：151507/cum_L0_L1/seed22911（用户终端实测）
+
+用户本人在Windows执行 `e1e2_multiscale_gmm_task.py --sample 151507 --condition cum_L0_L1 --seed 22911 --fit`；终端显示`E1E2_TASK_COMPLETE 151507 cum_L0_L1 seed 22911 ARI 0.384925 NMI 0.520652 fit_seconds 0.759`，输出目录`D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0_L1\seed_22911`。与先前已核验的151507/cum_L0/seed22911（ARI0.360282，NMI0.412568，0.958s）相比，**单切片单seed**差值：ARI+0.024643，NMI+0.108084；5D增加到10D同时改变邻域尺度和输入维度，不能归结为单独空间尺度因果效应。此轮10D指标仅有完成终端证据，**尚未独立复算metrics JSON/CSV/hash**；无新增跨片结论。
+
+**下一步**：根据已在GitHub检查的实际单任务脚本，`cum_L0_L1_L2`、seed22911的同源旧15D对照已由历史目录 `mvp_fixed15_block_swap_151507_seed22911_v1/control_L0_L1_L2_predictions.csv` 提供，`get_legacy_result()`将打印`LEGACY_RESULT_EXISTS`并拒绝重复拟合，后续统一汇总须对接历史预测及指标，而不是强制旧结果写入新路径。**下一个全新任务为151507/cum_L0_L1_L2_L3(20D)/seed22911**；按单命令执行，未执行前不得记录完成。
