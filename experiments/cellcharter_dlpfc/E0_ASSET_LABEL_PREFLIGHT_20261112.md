@@ -227,3 +227,23 @@ BATCH_RUN_COMPLETE new_tasks=1 report=D:\paper\CellCharter_reproduction\results\
 结论：单任务新训练及**runner自动后验校验**成功，未覆盖已完成L0。当前seed7449 **2/10配置完成且自动验收、8/10仍未运行**；包含已核验历史/新全部种子组合时，151507 seed22911已有10/10，seed7449现在2/10。新任务监督指标ARI=0.395767、NMI=0.537167；与同seed7449 L0的0.319646/0.414585比，+0.076121/+0.122582。跨seed对比同配置L0+L1 seed22911 0.384925/0.520652，7449高0.010842/+0.016515。只两个seed/一个切片；不可推断显著性或跨切片稳定提升。
 
 用户希望减少手动步骤，batch runner实际工作正常；经静态审查`--max-new 5`是合法参数，循环只取当前缺项前5条，每条调用已确认的独立任务脚本并审计后才继续，遇错打印`BATCH_HALTED`保留报告；不触碰已有completed产物。下一步建议用户本人手动运行**同seed7449`--run --max-new 5`**：预计按冻结顺序尝试`cum_L0_L1_L2`(15D),`cum_L0_L1_L2_L3`(20D),`cum_L0_L1_L2_L3_L4`(25D),`fixed_L0_L1_L3`(15D),`fixed_L0_L1_L4`(15D)。这些是计划，**尚未执行**。保留Oracle-K及尺度-维度混杂的论文方法限制。
+
+## 2026-11-17 151507/seed7449：受限安全批次max-new5成功（用户真实Windows终端）
+
+用户运行上一回合给出的安全批次指令`e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 5`，终端显示`PLAN_OK sample=151507 seed=7449 verified=2 missing=8 max_new=5`，接着逐个训练与自动复算均`RUN_AUDIT_PASS`：
+
+| 配置 | 维数 | ARI | NMI | 批次状态 |
+|---|---:|---:|---:|---|
+| cum_L0_L1_L2 | 15 | 0.440005 | 0.573425 | RUN_AUDIT_PASS |
+| cum_L0_L1_L2_L3 | 20 | 0.491921 | 0.615256 | RUN_AUDIT_PASS |
+| cum_L0_L1_L2_L3_L4 | 25 | 0.479119 | 0.653431 | RUN_AUDIT_PASS |
+| fixed_L0_L1_L3 | 15 | 0.489367 | 0.629702 | RUN_AUDIT_PASS |
+| fixed_L0_L1_L4 | 15 | 0.523749 | 0.616188 | RUN_AUDIT_PASS |
+
+终端最后`BATCH_RUN_COMPLETE new_tasks=5 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151507\seed_7449\20261117T092556Z_72c97ded79\summary.json`；本地结果/批次报告由用户Windows程序生成，**助手未读取其文件字节**，以终端报告的逐项自动核验通过为证据。
+
+此前该seed`cum_L0`(ARI0.319646,NMI0.414585)与`cum_L0_L1`(0.395767,0.537167)均经过用户独立或runner复核，故当前**seed7449有7/10配置核验通过，剩余fixed_L0_L2_L3、fixed_L0_L2_L4、fixed_L0_L3_L4三项缺失**。该切片seed22911已有10/10完成且独立复算，故151507累计17/100配置-seed格；总体12片×10×10冻结计划不变。
+
+该seed累计25D相对20D，ARI=-0.012802，NMI=+0.038175；目前7项中ARI最大为fixed_L0_L1_L4(0.523749)，NMI最大为25D(0.653431)，但**三个配置未做、不可宣称全部10项最佳或跨seed规律**。不挑选性汇报，不把种子当生物学重复。
+
+**下一步唯一手动PowerShell操作**：继续用户自己的安全runner，同一切片/seed，指定`--run --max-new 3`；脚本应自动核验并跳过已有7项，只启动剩余三项，逐个复核后输出`BATCH_RUN_COMPLETE new_tasks=3`。异常立即停下并保留文件与报告，不重试、不覆盖、不重新训练scVI。
