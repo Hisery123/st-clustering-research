@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17：151507 fixed_L0_L2_L4 已完成；seed22911进度9/10】
+
+用户Windows实测终端：`E1E2_TASK_COMPLETE 151507 fixed_L0_L2_L4 seed 22911 ARI 0.516344 NMI 0.640627 fit_seconds 1.936`，输出`results/e1e2_multiscale_gmm_v1/151507/fixed_L0_L2_L4/seed_22911`。该15D结果与同片同seed25D(ARI0.514192/NMI0.641353)相比ARI仅高0.002152、NMI低0.000726，不作稳定性或创新性断言。当前151507/seed22911有**7个新增正式任务终端完成、2个经过早期核验的历史15D预测可复用，共9/10唯一配置格**。新增结果除5D外尚待集中做文件级审计，历史15D的参考ARI/NMI待原文件并入。**下一步仅运行剩余`fixed_L0_L3_L4`（15D）/seed22911单任务**，脚本经静态核对有此配置；不得覆盖或推断尚未运行结果。完成此任务后开展全10配置统一指标/哈希核验，再扩大样本/seed。原建议1完整范围不变。
+
+
 ## 【2026-11-17 E2最新：151507固定15D L0+L2+L3完成，下一项L0+L2+L4】
 
 用户Windows真实终端：`E1E2_TASK_COMPLETE 151507 fixed_L0_L2_L3 seed 22911 ARI 0.449927 NMI 0.610138 fit_seconds 0.649`，独立目录`results/e1e2_multiscale_gmm_v1/151507/fixed_L0_L2_L3/seed_22911`。本次15D结果与同切片同种子fixed_L0_L1_L3（0.456330/0.652819）相比，ARI低0.006403、NMI低0.042681；仅单个配置/seed，不是普遍尺度结论。151507/seed22911累计**6个本轮新任务完成终端+2个历史15D可复用=8/10唯一配置格**；尚未对全部新文件完成统一独立复算。**下一步只运行一个`fixed_L0_L2_L4`、seed22911 --fit**，之后为`fixed_L0_L3_L4`。不覆盖历史输出，不重训scVI，不因旧seed问题停工。原建议1仍按12片×10配置×10seed完整推进；最新结果详见[E0/E1/E2审计日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
