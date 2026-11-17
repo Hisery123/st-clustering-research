@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-17 151507 100项统计汇总成功｜正式开始下一切片预检】
+
+用户Windows真实执行`e1e2_aggregate_multiseed.py --sample 151507`，10个seed各`AUDIT_SEED_OK verified=10/10`，`ALL_MATRIX_AUDIT_PASS tasks=100`和`SUMMARY_COMPLETE verified=100 conditions=10 paired_rows=50`，新输出目录`results/e1e2_multiseed_statistics_v1/151507/20261117T124154Z_75d68b68`，没有模型重训或改动原结果。**mean±sample-SD**最重要：25D累计 ARI0.504370±0.032078、NMI0.664849±0.019590；固定15D L0+L3+L4 ARI0.519286±0.048324、NMI0.655772±0.023636。固定15D L0+L1+L4相比对照15D L0+L1+L2均值差：ARI+0.049888、NMI+0.040173。完整十条件实数与证据等级见[E0/E1/E2日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)最后统计段。**统计只是单切片上的10个seed算法重复，不是独立生物重复；既非已验证创新，也不允许据此显著性结论。** 下一步唯一手动操作是`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`纯只读dry-run，以审核现有历史15D可复用结果及待训练缺项；预检通过后再扩展11张切片，其余E3–E6建议1不变。
+
+
 ## 【2026-11-17：151507全部100/100配置-种子格通过最终只读审计，进入统计汇总阶段】
 
 用户Windows运行完整10个冻结GMM seed的read-only审计，终端最后实际显示`AUDIT_PASS seed=10379 verified=10/10`、6690、26128、21059、22159、32389、12815及`FINAL_151507_ALL_SEEDS_AUDITED 100/100`。此前22911、7449、25842亦在同一脚本循环核验（最终标志仅在所有10个seed的退出码与`PLAN_OK verified=10 missing=0`断言均通过后打印），因此**151507的10唯一配置×10冻结seed=100个格子已获得用户Windows的完整结果和自动复算验收**。注意：这仍是**同一张组织切片**、10个GMM随机运行，不能写成独立生物重复；ARI/NMI的全100行数字与均值SD尚未送至助手，绝不编造统计量。
