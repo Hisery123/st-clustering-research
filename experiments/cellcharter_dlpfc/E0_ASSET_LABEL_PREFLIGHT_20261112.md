@@ -159,3 +159,16 @@ RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\1515
 此为程序完成终端证据，并非助手直接读取Windows预测CSV/metrics/manifest或独立复算。按冻结设计这是15D的[0,2,4]块、Oracle-K=7、seed22911。比较已跑同片同seed其他15D：fixed_L0_L1_L3 ARI0.456330/NMI0.652819；fixed_L0_L2_L3 ARI0.449927/NMI0.610138；fixed_L0_L2_L4 ARI0.516344/NMI0.640627。与同片同seed25D(0.514192/0.641353)相比，ARI高0.002152、NMI低0.000726；差距微小，不能以单点宣称15D优于25D，也不能依据数值选择性筛除配置。拟合预测耗时1.936秒，高于此前同片几个任务，但不能据此估算跨片资源成本。
 
 **151507/seed22911当前资产共9/10项**：7个本轮新完成任务（cum_L0, cum_L0_L1, cum_L0_L1_L2_L3, cum_L0_L1_L2_L3_L4, fixed_L0_L1_L3, fixed_L0_L2_L3, fixed_L0_L2_L4），2个已核验历史15D预测可复用（cum_L0_L1_L2与fixed_L0_L1_L4；历史具体参考ARI/NMI待统一汇总），仅剩`fixed_L0_L3_L4`未执行。当前脚本静态确认有`fixed_L0_L3_L4`映射=(0,3,4)，故下一步只运行`151507 fixed_L0_L3_L4 seed22911 --fit`单任务，新目录不覆盖。完成后统一审计本轮各新任务的manifest/metrics/CSV/标签掩码，合并旧结果，不要凭终端就认定整张结果矩阵已独立核验。
+
+## 2026-11-17：151507/seed22911 最后一个新配置 fixed_L0_L3_L4（15D）成功（用户Windows终端）
+
+真实终端证据：
+```
+E1E2_TASK_COMPLETE 151507 fixed_L0_L3_L4 seed 22911 ARI 0.531983 NMI 0.645675 fit_seconds 1.758
+RESULT_DIR D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\fixed_L0_L3_L4\seed_22911
+```
+据任务脚本是15D块[0,3,4]、151507、Oracle-K7、GMM seed22911。与同片同seed 25D ARI0.514192/NMI0.641353 相比，ARI+0.017791、NMI+0.004322。这是已完成任务终端值，**尚未单独读取本地预测CSV/Manifest复算**；只是单片单seed，对不同配置的差异没有独立重复或统计显著性结论。
+
+**重要节点：** 151507/seed22911的10种预先冻结的唯一配置，目前**8项本轮新任务返回E1E2_TASK_COMPLETE** + **2项已核验历史15D预测资产**，故10/10存在可核验的结果来源；不能说已经完成统一文件级审核/形成正式总表。8项新配置：`cum_L0`,`cum_L0_L1`,`cum_L0_L1_L2_L3`,`cum_L0_L1_L2_L3_L4`,`fixed_L0_L1_L3`,`fixed_L0_L2_L3`,`fixed_L0_L2_L4`,`fixed_L0_L3_L4`；历史`cum_L0_L1_L2`及`fixed_L0_L1_L4`，后者旧预测路径由脚本`get_legacy_result`映射。
+
+**下一步唯一操作：** Windows运行一次**只读10项统一核验**，按冻结25D源文件/特征块SHA、spot barcode和4221个有效标签，独立复算ARI/NMI；对8项新Manifest、metrics、预测SHA与历史两个Manifest、results及预测逐项核验，打印10行数值与`FULL_151507_SEED22911_AUDIT_PASS 10/10`标志。之前5D已完成独立复算，其余不能提前声称审核通过。此步不训练、不写文件、不推断最优尺度结论。
