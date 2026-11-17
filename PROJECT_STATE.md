@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-17 E2 20D任务完成｜下一步25D】
+
+用户Windows实际输出`E1E2_TASK_COMPLETE 151507 cum_L0_L1_L2_L3 seed 22911 ARI 0.475498 NMI 0.588648 fit_seconds 0.755`，结果目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1_L2_L3/seed_22911`。同片同seed已知5D=ARI0.360282/NMI0.412568、10D=0.384925/0.520652；**仅三个实际点（5D/10D/20D），不填补15D与25D，尺度和输入维数同时变化，不得外推或断言新颖性**。20D终端完成，但尚未独立审计其新CSV/metrics文件字节。已审查用户脚本`get_legacy_result`，25D`cum_L0_L1_L2_L3_L4`不自动复用旧151507 baseline，而新统一GMM协议需要保持full/kmeans/100epochs等显式参数，因此下一步只运行一个新任务：`151507/cum_L0_L1_L2_L3_L4/seed22911 --fit`，不覆盖历史。详细档案见[E0/E1/E2记录](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
 ## 【2026-11-17 E2第2个任务完成：151507 L0+L1(10D)】
 
 用户Windows真实终端显示`E1E2_TASK_COMPLETE 151507 cum_L0_L1 seed 22911 ARI 0.384925 NMI 0.520652 fit_seconds 0.759`，与已核验L0(5D) ARI0.360282/NMI0.412568相比同片同seed分别增加0.024643、0.108084；**仅单片单seed，不归因为纯尺度效应或普遍改善**。10D结果目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1/seed_22911`，尚待后续统一文件汇总核验。经读取用户实际脚本：151507/cum_L0_L1_L2/seed22911对应已审计历史15D A组，脚本自动显示LEGACY_RESULT_EXISTS并不重复拟合。因此**下一个需要新训练的任务为151507/cum_L0_L1_L2_L3(20D)/seed22911 --fit**。不要覆盖旧数据，不排查历史同seed差异；仍实施原建议1完整矩阵。
