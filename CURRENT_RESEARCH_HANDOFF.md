@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18：151508 100项多seed统计实测完成；转151509预检】
+
+用户Windows实际运行`e1e2_aggregate_multiseed.py --sample 151508`，10seed各`AUDIT_SEED_OK verified=10/10`，`ALL_MATRIX_AUDIT_PASS tasks=100 seeds=10 conditions=10`和`SUMMARY_COMPLETE verified=100 conditions=10 paired_rows=50`，新独立目录`results/e1e2_multiseed_statistics_v1/151508/20261118T034428Z_fbd9289d`，未重训或覆盖。151508 10seed平均±样本SD：25D累计ARI=0.486451±0.038099、NMI=0.603826±0.024558（两指标均最高）；固定15D`L0,L1,L4`ARI=0.481651±0.028648/NMI=0.589889±0.027680，相对同维A`L0,L1,L2`ARI=0.456874/NMI=0.585482的均值差ARI+0.024777/NMI+0.004407；**这不同于此切片单seed22911 B-A双指标下降，应保留全部结果**。151507既有100/100与多seed统计也完成。当前**两片合计200/1200实验格已审计并生成各自统计**；不得将10种子当独立供体、两切片结论外推12片。完整十组原始均值SD和证据见[2026-11-18科研日记](RESEARCH_JOURNAL/2026-11-18.md)。下一步单条Windows只读预检：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner.py' --sample 151509 --seed 22911`；核实历史15D可复用与数据SHA后，再安排安全批次，未实际运行不能标记151509完成。保底硕士毕业论文章节与完整建议1/E3–E6计划不变。
+
+
 ## 【2026-11-18：151508/10seed×10配置完整只读最终验收100/100通过，下一步统计汇总】
 
 用户Windows真实输出依次`AUDIT_PASS seed=22911,7449,25842,10379,6690,26128,21059,22159,32389,12815 verified=10/10`，最终`FINAL_151508_ALL_SEEDS_AUDITED 100/100`。此审计是在已完成顺序批处理后执行的**只读**完整性/指标复算；没有新训练。故151508 **100/100已审核**，此前151507 **100/100已审核且10seed统计生成成功**，原E2计划1200格目前**200/1200已审核（两张切片，各10配置×10 GMM seed）**；另外10张尚未执行本轮完整矩阵。151508的10配置跨seed均值、SD及配对差**尚未生成或由用户提供**，不能凭单seed写统计结论。
