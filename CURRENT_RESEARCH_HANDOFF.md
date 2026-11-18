@@ -1,5 +1,21 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18｜151510的100/100多seed统计成功，终端只显示后6配置，先补读前4行再判断】
+
+用户Windows执行`e1e2_aggregate_multiseed_v2.py --sample 151510`，实际回传末尾6行10seed mean/sample SD指标及`SUMMARY_COMPLETE sample=151510 verified=100 conditions=10 paired_rows=50`，输出`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151510\20261118T151851Z_f72ad2af`，并输出`NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED`。此前`FINAL_151510_ALL_SEEDS_AUDITED 100/100`已实测。因此**151507、151508、151509、151510四张切片均100/100独立复核并成功生成跨10seed统计**，累积400/1200实验格(33.3%)。用户此次粘贴的汇总**只有后6行**，前4行 `cum_L0`、`cum_L0_L1`、`cum_L0_L1_L2`、`cum_L0_L1_L2_L3` 的151510跨seed均值SD**尚不在聊天证据中，不得填数或推断完整最优/同维B-A差值**。
+
+151510后6行mean ARI / SD ARI / mean NMI / SD NMI：
+`cum_L0_L1_L2_L3_L4` 0.462506/0.017132/0.615700/0.004785；
+`fixed_L0_L1_L3` 0.420079/0.036178/0.572641/0.010492；
+`fixed_L0_L1_L4` 0.431545/0.054732/0.595161/0.018831；
+`fixed_L0_L2_L3` 0.385374/0.047936/0.566726/0.009534；
+`fixed_L0_L2_L4` 0.458299/0.048919/0.602704/0.015699；
+`fixed_L0_L3_L4` 0.400181/0.044039/0.585223/0.023803。
+完整25D在**已展示的6项**中两指标均最高，但不能断言全10项的最高，也不能算A对照差值直至取得实际A行。GMM种子为技术随机重复，不是生物重复；保留seed22911 A/B ARI方向相反的观察，严禁选择性汇报。
+
+**下一步仅一个用户Windows只读操作**：`Import-Csv -LiteralPath 'D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151510\20261118T151851Z_f72ad2af\condition_mean_sd_10seeds.csv' | Select-Object -First 4 condition,ari_mean,ari_sd_across_gmm_seeds,nmi_mean,nmi_sd_across_gmm_seeds | Format-Table -AutoSize`，输出缺少的四条真实结果；不更改任何文件。失败需贴错误，不重训GMM。拿到后归档完整十条件并比较151510同维B-A；随后下一张151511 V2 dry-run预检，完整12片E2和E3–E6不变。
+
+
 ## 【2026-11-18：151510全部10seed×10配置最终只读核验通过；下一步V2多seed统计】
 
 用户Windows执行151510的`e1e2_safe_batch_runner_v2.py`只读10seed审计循环，对每个冻结seed检查退出码0、唯一`PLAN_OK verified=10 missing=0`。用户回传尾部 `AUDIT_PASS seed=10379,6690,26128,21059,22159,32389,12815 verified=10/10`，最终输出`FINAL_151510_ALL_SEEDS_AUDITED 100/100`。最终标志仅在**全部10个seed的全部10配置**通过循环验证后才打印，因此151510 **100/100已最终复审**；151507、151508、151509均已100/100最终复审且各有多seed统计。现在**4张切片×100=400/1200最终审计通过（33.3%）**；151510尚未生成跨seed统计（mean/SD与paired_rows）且用户未提供这100项明细，因此不得推断统计趋势或显著性。10seed只是GMM算法重复，不是独立供体。下一步用户只运行**一条**`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed_v2.py' --sample 151510`，V2兼容已验证的历史Manifest，先审计，再导出独立新目录100行记录/10行配置汇总/50行同维15D配对差，预计`ALL_MATRIX_AUDIT_PASS sample=151510 tasks=100 seeds=10 conditions=10`和`SUMMARY_COMPLETE sample=151510 verified=100 conditions=10 paired_rows=50`，不训练、不覆盖。待用户实际输出后再归档真实10seed统计，并启动151511预检。所有12片及E3–E6科研计划不变。
