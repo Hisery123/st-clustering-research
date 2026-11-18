@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-18｜151508/seed22911 十尺度实验已核验10/10，准备其余9个随机种子连续批次】
+
+用户Windows真实执行`e1e2_safe_batch_runner.py --sample 151508 --seed 22911 --run --max-new 8`，预检`PLAN_OK ... verified=2 missing=8`（历史两个15D预测均`LEGACY_AUDITED`），随后八个新任务均`RUN_AUDIT_PASS`并`BATCH_RUN_COMPLETE new_tasks=8`，报告`D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151508\seed_22911\20261118T014703Z_b405982e50\summary.json`。此次seed22911已有完整10/10格通过runner核验，叠加先前151507的100/100，DLPFC预冻1200格当前**110/1200有已核验结果**；151508仍缺其他九个GMM种子（每seed10项，最多新增90个任务）。历史A 15D = ARI0.462671/NMI0.613217，历史B 15D = 0.460596/0.569139；完整25D=0.531339/0.635565，当前单seed两指标均最优，但不可概括跨种子/片结论。下一步给用户一条PowerShell顺序循环，依预冻列表`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`调用已Windows验证的安全runner`--sample 151508 --seed <seed> --run --max-new 10`，按缺项执行，遇错误立即停止，日志Start-Transcript到151508已有`results/e1e2_batch_reports_v1/151508`目录，绝不覆盖原任务；**循环尚未运行，不能假设90项已完成**。完成后先全100只读核验，再统计CSV/mean-SD与配对差，随后剩余10片与E3–E6不变。
+
+
 ## 【2026-11-17 151508/seed22911旧15D审计通过，下一步补齐8个缺项】
 
 用户Windows只读dry-run`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`返回`PLAN_OK verified=2 missing=8`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。已核验两个历史预测：15D A=`cum_L0_L1_L2` ARI0.462671 NMI0.613217；15D B=`fixed_L0_L1_L4` ARI0.460596 NMI0.569139，**B-A ARI=-0.002075，NMI=-0.044078**（负结果，不能挑选性省略）。8个缺失配置尚未训练。151507全部100格及10seed统计此前已完成、只是同片随机重复。下一步仅运行用户Windows单命令`e1e2_safe_batch_runner.py --sample 151508 --seed 22911 --run --max-new 8`，runner跳过并核验两个历史结果，独立训练其余8个，遇失败即停，不覆盖旧产物。若成功进入151508其他seed批次；全12片×10配置×10seed不变。
