@@ -1,5 +1,14 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18：151509所有100个配置×seed格通过最终只读核验，V2统计脚本已交付、待Windows实际运行】
+
+用户Windows实际执行151509十个冻结seed的V2只读审核循环（对每个seed核查退出码0、`PLAN_OK verified=10 missing=0`），终端末尾显示种子6690、26128、21059、22159、32389、12815分别`AUDIT_PASS verified=10/10`，以及最终`FINAL_151509_ALL_SEEDS_AUDITED 100/100`。因为最终标志只有全部10个seed均通过循环断言后打印，**151509全100项已获得最终审核**。当前151507/151508/151509三张切片各100/100均已复验，**E2共300/1200最终核验=25%**；151507、151508已有正式10seed统计，**151509未生成统计，严禁编造均值/SD**。
+
+ChatGPT已在此会话容器**真实生成**`/mnt/data/e1e2_aggregate_multiseed_v2.py`（SHA256 `e8ef524c1cab24834c2160e1c06df1da94234c9c9ce72457b9d1d07defc9fce5`），由之前已成功用于151507/151508的`e1e2_aggregate_multiseed.py`轻量改编：把载入的批处理审计器改为在用户151509历史数据上已经实测通过的`e1e2_safe_batch_runner_v2.py`；历史耗时字段支持`elapsed_fit_predict_seconds`/早期`elapsed_fit_and_predict_seconds`；新输出根`results/e1e2_multiseed_statistics_v2/<sample>/<timestamp>_<id>`独立目录，protocol V2与三份代码SHA均写入provenance.json；其余十seed×十条件数据、mean/sample SD、50行等维15D配对差均保留，**绝不训练、不得修改原始预测**，不作将seed当独立生物重复的显著性检验。容器已运行`py_compile`、完整100项模拟矩阵（生成100行原始、10行汇总、50行配对、5行配对汇总）及缺失一格拒绝测试，全部通过；**没有用户Windows运行，不能声称151509统计已完成**。
+
+**下一步用户仅需下载脚本至**`D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed_v2.py`，**单条PowerShell**`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed_v2.py' --sample 151509`。成功应打印`ALL_MATRIX_AUDIT_PASS sample=151509 tasks=100 seeds=10 conditions=10`、10行均值/样本SD及`SUMMARY_COMPLETE sample=151509 verified=100 conditions=10 paired_rows=50`与`OUTPUT_DIR`；失败立刻停下不要覆盖原始文件。待用户回传真实数值后再归档与做三切片趋势分析；后续151510开始remaining9片、完整E3–E6原计划仍在。注：项目规则用户Windows自行执行，助手只提供单步命令。
+
+
 ## 【2026-11-18 151509其余9个冻结GMM种子完整批次成功返回，待统一100/100只读验收】
 
 用户Windows手动执行此前PowerShell顺序循环，以修正兼容的`e1e2_safe_batch_runner_v2.py`对151509依次运行冻结的9个seed（7449、25842、10379、6690、26128、21059、22159、32389、12815），每个runner有`$LASTEXITCODE -ne 0`立即停止保护。用户提供末尾实际终端：`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.439222 NMI=0.634390`，`RUN_START 151509 fixed_L0_L3_L4 seed=12815`，`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.460713 NMI=0.637268`；`BATCH_RUN_COMPLETE new_tasks=10 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151509\seed_12815\20261118T103742Z_779bec50f2\summary.json`；`SEED_COMPLETE 12815`；**`ALL_9_SEEDS_COMPLETED`**；`SESSION_LOG D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151509\multi_seed_20261118_181638.txt`。根据循环守卫，九个seed均正常退出且runner逐项核验，结合151509/seed22911已10/10，**151509预计100/100结果齐全，但还没有再次对全部100格统一只读复核，不能写成已完成最终验收或跨10seed统计**。151507与151508各100/100已最终核验并生成10seed统计；目前全1200格中已最终审计200，另151509预计100格就绪。
