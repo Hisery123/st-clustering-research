@@ -1,5 +1,19 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-18 更新：151510四项缺失统计已补齐；4/12片统计完毕；下一片应为151669（纠正此前151511错误）】
+
+用户Windows从已生成`results/e1e2_multiseed_statistics_v2/151510/20261118T151851Z_f72ad2af/condition_mean_sd_10seeds.csv`只读导出151510缺失的前四项均值/样本SD（列condition,ari_mean,ari_sd_across_gmm_seeds,nmi_mean,nmi_sd_across_gmm_seeds），实际终端：
+- `cum_L0` ARI0.328442168763 SD0.0265370964598 / NMI0.41199174582 SD0.00943528357797
+- `cum_L0_L1` ARI0.394669523811 SD0.0188381744613 / NMI0.517134565361 SD0.00270514151649
+- `cum_L0_L1_L2` (15D标准A) ARI0.387783103426 SD0.0373503588174 / NMI0.551844287663 SD0.00680149457206
+- `cum_L0_L1_L2_L3` ARI0.432654471199 SD0.0256589125747 / NMI0.597837372328 SD0.0183410470401。
+151510其余六行已在前一条日志据实归档：25D均值ARI0.462506/NMI0.615700均为本片十配置最高（打印精度6位）；fixed15D B=L0+L1+L4 均值ARI0.431545/NMI0.595161，所以B−A平均差约ARI **+0.043762**、NMI **+0.043317**，均据实数和已给六位小数计算。151510固定L0+L2+L4平均ARI0.458299/NMI0.602704也低于25D。对比前3片同维固定B−标准A，四片10seed均值差分别ARI[+0.049888,+0.024777,+0.038576,+0.043762]，NMI[+0.040173,+0.004407,+0.037645,+0.043317]；**方向均正，但四片不是独立供体n=4、seed不是生物重复；不许显著性或稳定泛化宣称，须保留151510单seed22911 ARI负结果与所有完整结果**。
+
+**关键纠错**：先前助手错误称第五张为151511。用户实际本地`e1e2_multiscale_gmm_task.py`的`SAMPLES`列表以及GitHub冻结协议`THIRD_PAPER_E1E2_FROZEN_GMM_PROTOCOL_20261113.md`只有`151507,151508,151509,151510,151669,151670,151671,151672,151673,151674,151675,151676`，**不存在151511**；正确下一片 **151669，Oracle-K=5**（151669–151672为K5，其余8片K7）。历史上下文中任何“下一步151511”均由本条纠正，不应执行对应命令。用户手动下一唯一PowerShell命令：
+`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151669 --seed 22911`
+是纯只读干运行，核对历史A/B资产、当前源和标签hash、缺失配置，预期PLAN_OK和DRY_RUN，不带--run；若失败保持原文件，贴完整错误。此后再决定运行8缺失项；K5不得混淆K7。151507–151510各100/100复审及跨10seed统计实际完成，总E2=400/1200=33.3%，剩余8片且需E3–E6完整建议1。
+
+
 ## 【2026-11-18｜151510的100/100多seed统计成功，终端只显示后6配置，先补读前4行再判断】
 
 用户Windows执行`e1e2_aggregate_multiseed_v2.py --sample 151510`，实际回传末尾6行10seed mean/sample SD指标及`SUMMARY_COMPLETE sample=151510 verified=100 conditions=10 paired_rows=50`，输出`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151510\20261118T151851Z_f72ad2af`，并输出`NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED`。此前`FINAL_151510_ALL_SEEDS_AUDITED 100/100`已实测。因此**151507、151508、151509、151510四张切片均100/100独立复核并成功生成跨10seed统计**，累积400/1200实验格(33.3%)。用户此次粘贴的汇总**只有后6行**，前4行 `cum_L0`、`cum_L0_L1`、`cum_L0_L1_L2`、`cum_L0_L1_L2_L3` 的151510跨seed均值SD**尚不在聊天证据中，不得填数或推断完整最优/同维B-A差值**。
