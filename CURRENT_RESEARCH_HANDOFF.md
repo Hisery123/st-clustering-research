@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18：151508/10seed×10配置完整只读最终验收100/100通过，下一步统计汇总】
+
+用户Windows真实输出依次`AUDIT_PASS seed=22911,7449,25842,10379,6690,26128,21059,22159,32389,12815 verified=10/10`，最终`FINAL_151508_ALL_SEEDS_AUDITED 100/100`。此审计是在已完成顺序批处理后执行的**只读**完整性/指标复算；没有新训练。故151508 **100/100已审核**，此前151507 **100/100已审核且10seed统计生成成功**，原E2计划1200格目前**200/1200已审核（两张切片，各10配置×10 GMM seed）**；另外10张尚未执行本轮完整矩阵。151508的10配置跨seed均值、SD及配对差**尚未生成或由用户提供**，不能凭单seed写统计结论。
+
+**下一步唯一用户Windows命令**：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed.py' --sample 151508`。已确认已交付脚本参数`--sample`接受151508，脚本逐项重新审计100格，生成唯一新统计目录（不修改原实验文件、不训练），预计输出`ALL_MATRIX_AUDIT_PASS sample=151508 tasks=100 seeds=10 conditions=10`、10种配置mean/sample SD及`SUMMARY_COMPLETE sample=151508 verified=100 conditions=10 paired_rows=50`，会显示OUTPUT_DIR。等用户终端真实返回后再归档151508统计，并比较151507/151508两个切片，检查分层/供体，随后开展剩余10片和E3–E6。原完整建议1未变。
+
+
 ## 【2026-11-18 最新：151508其余9个冻结seed顺序批次已全部正常返回，待全100只读审计】
 
 用户Windows手动运行此前提供的PowerShell顺序脚本：`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`，每个seed通过`e1e2_safe_batch_runner.py --sample 151508 --seed <seed> --run --max-new 10`依次拟合缺失配置并自动核验；用户提供末尾终端：`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.455476 NMI=0.566003`；`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.479041 NMI=0.609614`（seed12815）；`BATCH_RUN_COMPLETE new_tasks=10`，`SEED_COMPLETE 12815`，`ALL_9_SEEDS_COMPLETED`，`SESSION_LOG .../151508/multi_seed_20261118_100047.txt`。根据脚本`$LASTEXITCODE`检查，9个seed的runner均返回成功。结合此前seed22911的10/10，**151508预计100/100已存在可复算结果，尚未完成全部100格跨seed统一只读验收，也尚未计算该切片的10seed统计**。151507已经100/100审核及10seed统计。不能把预计200/1200写成全部已最终审计。
