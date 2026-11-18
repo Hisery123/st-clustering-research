@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-18 最新：151669 / Oracle-K=5 / seed22911 历史15D只读预检通过，8项待拟合】
+
+用户Windows真实执行`e1e2_safe_batch_runner_v2.py --sample 151669 --seed 22911`，返回`CHECK cum_L0_L1_L2 LEGACY_AUDITED ARI=0.404429 NMI=0.563346`，`CHECK fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.306170 NMI=0.509998`；其余8配置`MISSING`，末尾`PLAN_OK sample=151669 seed=22911 verified=2 missing=8 max_new=1`及`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。严格同维15D B−A**ARI=-0.098259、NMI=-0.053348**，属于此切片此单seed的双指标负结果，必须保留不能挑选性报告；**尚未有151669其他9个seed的结果，不可称稳定或跨供体负增益**。该片按照预冻结协议Oracle-K=5，不同于151507–151510的Oracle-K=7。此前四片分别100/100已正式核验并完成10seed统计，400/1200；151669仅2项历史资产已通过只读核验，8项尚未运行。
+
+**下一步仅一条Windows PowerShell命令**：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151669 --seed 22911 --run --max-new 8`，安全runner跳过旧2项、独立补8缺项并逐项审计，失败中止不覆盖、不改旧结果，成功`BATCH_RUN_COMPLETE new_tasks=8`，当前尚未实际运行。随后按原冻结9seed、安全批处理、最终100/100审计、V2跨seed统计顺序推进；供体独立性、所有负结果、E3–E6原计划不变。
+
+
 ## 【2026-11-18 更新：151510四项缺失统计已补齐；4/12片统计完毕；下一片应为151669（纠正此前151511错误）】
 
 用户Windows从已生成`results/e1e2_multiseed_statistics_v2/151510/20261118T151851Z_f72ad2af/condition_mean_sd_10seeds.csv`只读导出151510缺失的前四项均值/样本SD（列condition,ari_mean,ari_sd_across_gmm_seeds,nmi_mean,nmi_sd_across_gmm_seeds），实际终端：
