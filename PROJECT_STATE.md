@@ -1,5 +1,16 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+
+## 【2026-11-18 151509历史Manifest兼容性阻断：已定位字段名差异，待Windows验证修复】
+
+用户Windows三次运行原`e1e2_safe_batch_runner.py --sample 151509 --seed 22911`均输出`CHECK cum_L0 MISSING`、`CHECK cum_L0_L1 MISSING`，然后`RuntimeError: LEGACY_MANIFEST_MISMATCH: cum_L0_L1_L2`，位置在批次脚本check()约68行。**纯预检、无训练、无覆盖，三次重复错误相同。**
+
+ChatGPT直接读取用户实际交付的`e1e2_safe_batch_runner.py`源码（本项目挂载源）和GitHub历史`scripts/cellcharter/mvp_fixed15_dlpfc_10_sections.py`：旧十切片代码的Manifest源数组SHA字段是`source_feature_sha256`（另有`position_csv_sha256`、`reference_annotation_sha256`），原安全runner却只检查`source_file_sha256`，后者是早期151507/151508代码命名。这解释为何151509合法旧Manifest也会被拒绝；但实际151509旧Manifest其他字段/文件尚待新版本核查，**不能预先断言已经通过全部检查**。
+
+ChatGPT已在当前容器生成`/mnt/data/e1e2_safe_batch_runner_v2.py`，SHA256=`22ae7b4cd5b8b652f493168fb7b037eb886a466ab1bdba0c734aec912b2f37e4`，对原runner只做向后兼容修补：`source_file_sha256`与`source_feature_sha256`只要存在任一必须与当前25D源哈希一致，若两者存在则都要匹配；核对旧Manifest的sample、15D维数，且仅当历史位置/标签哈希字段存在时额外严格核对；其他seed/K/块SHA、预测顺序、ARI/NMI复核和训练/不覆盖保护保持原样。新脚本在ChatGPT容器`py_compile`成功，模拟新旧字段均可通过，而错误哈希/位置哈希/标签哈希/seed/维数均被正确拒绝；**还没有在用户Windows真实数据上执行**。脚本未覆盖旧runner，GitHub只归档此说明，没有提交脚本字节。
+
+**唯一下一步**：用户下载修正版并放于原runner同目录`D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py`，紧接着用一条不带--run的PowerShell命令`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151509 --seed 22911`，预期两个15D历史条件`LEGACY_AUDITED`、其余8项`MISSING`、`PLAN_OK verified=2 missing=8`；如果仍失败，请原样返回错误，不改动旧Manifest、不重跑已有GMM。151507与151508各100/100并各自多seed统计已完成，不受影响。
+
 ## 【2026-11-18：151508 100项多seed统计实测完成；转151509预检】
 
 用户Windows实际运行`e1e2_aggregate_multiseed.py --sample 151508`，10seed各`AUDIT_SEED_OK verified=10/10`，`ALL_MATRIX_AUDIT_PASS tasks=100 seeds=10 conditions=10`和`SUMMARY_COMPLETE verified=100 conditions=10 paired_rows=50`，新独立目录`results/e1e2_multiseed_statistics_v1/151508/20261118T034428Z_fbd9289d`，未重训或覆盖。151508 10seed平均±样本SD：25D累计ARI=0.486451±0.038099、NMI=0.603826±0.024558（两指标均最高）；固定15D`L0,L1,L4`ARI=0.481651±0.028648/NMI=0.589889±0.027680，相对同维A`L0,L1,L2`ARI=0.456874/NMI=0.585482的均值差ARI+0.024777/NMI+0.004407；**这不同于此切片单seed22911 B-A双指标下降，应保留全部结果**。151507既有100/100与多seed统计也完成。当前**两片合计200/1200实验格已审计并生成各自统计**；不得将10种子当独立供体、两切片结论外推12片。完整十组原始均值SD和证据见[2026-11-18科研日记](RESEARCH_JOURNAL/2026-11-18.md)。下一步单条Windows只读预检：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner.py' --sample 151509 --seed 22911`；核实历史15D可复用与数据SHA后，再安排安全批次，未实际运行不能标记151509完成。保底硕士毕业论文章节与完整建议1/E3–E6计划不变。
