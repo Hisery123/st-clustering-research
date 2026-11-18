@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18：151510 seed22911 V2只读预检通过，需补齐8个缺失配置】
+
+用户Windows实际运行`e1e2_safe_batch_runner_v2.py --sample 151510 --seed 22911`，显示`CHECK cum_L0_L1_L2 LEGACY_AUDITED ARI=0.430863 NMI=0.559271`、`CHECK fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.374885 NMI=0.569489`，其他8个配置`MISSING`，最终`PLAN_OK sample=151510 seed=22911 verified=2 missing=8 max_new=1`，`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。该片同一seed、同样15D的B-A：**ARI -0.055978（下降）、NMI +0.010218（上升）**，两个指标方向相反，应完整报告，不得只挑正向的NMI。目前151510只读检查通过**2/10**，8个新配置未拟合。151507、151508、151509分别100/100审核+10seed汇总完成，三片共300/1200已最终审核，另151510 2个旧格已验证。下一步用户Windows只运行`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151510 --seed 22911 --run --max-new 8`。保留2个历史资产、逐一训练和审核剩余8项、失败即停不覆盖。尚未运行，不得记新增8项完成。后续9seed与全100最终验收、统计仍按同一冻结协议。
+
+
 ## 【2026-11-18 最新：151509全部100格10seed统计真实完成；前3张切片均完成，下一步151510只读预检】
 
 用户Windows实际运行已交付的`e1e2_aggregate_multiseed_v2.py --sample 151509`，尾部`AUDIT_SEED_OK seed=22159,32389,12815 verified=10/10`，且`ALL_MATRIX_AUDIT_PASS sample=151509 tasks=100 seeds=10 conditions=10`、`SUMMARY_COMPLETE sample=151509 verified=100 conditions=10 paired_rows=50`，统计目录`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151509\20261118T124301Z_8f96ddff`，`NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED`。这是用户Windows真实结果，不是模拟或计划。151507、151508、151509三张切片均已最终核验100/100且分别完成10seed统计，**总300/1200格已复验=25%**；其余9片未完成。
