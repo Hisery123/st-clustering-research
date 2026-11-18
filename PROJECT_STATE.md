@@ -1,5 +1,14 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-18 最新：151509全部100格10seed统计真实完成；前3张切片均完成，下一步151510只读预检】
+
+用户Windows实际运行已交付的`e1e2_aggregate_multiseed_v2.py --sample 151509`，尾部`AUDIT_SEED_OK seed=22159,32389,12815 verified=10/10`，且`ALL_MATRIX_AUDIT_PASS sample=151509 tasks=100 seeds=10 conditions=10`、`SUMMARY_COMPLETE sample=151509 verified=100 conditions=10 paired_rows=50`，统计目录`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151509\20261118T124301Z_8f96ddff`，`NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED`。这是用户Windows真实结果，不是模拟或计划。151507、151508、151509三张切片均已最终核验100/100且分别完成10seed统计，**总300/1200格已复验=25%**；其余9片未完成。
+
+151509 frozen 10seed mean±sample SD：cum_L0 ARI0.356070±0.039312/NMI0.465603±0.017125；cum_L0_L1 0.394604±0.045299/0.567233±0.015261；cum_L0_L1_L2 0.422100±0.020413/0.595683±0.002836；cum_L0_L1_L2_L3 0.427857±0.017932/0.614925±0.011553；cum_L0_L1_L2_L3_L4 0.446735±0.017751/0.636819±0.012562；fixed_L0_L1_L3 0.441305±0.024988/0.611663±0.002266；fixed_L0_L1_L4 0.460676±0.032138/0.633328±0.009920；fixed_L0_L2_L3 0.421940±0.022669/0.608223±0.005920；fixed_L0_L2_L4 0.444440±0.026441/0.626235±0.008233；fixed_L0_L3_L4 0.442118±0.019153/0.627391±0.011365。**151509平均ARI最佳fixed L0+L1+L4=0.460676，NMI最佳25D=0.636819**；相同15D B相对标准A的10seed均值差ARI+0.038576/NMI+0.037645。此前151507同对照平均差+0.049888/+0.040173；151508+0.024777/+0.004407。**这仅是三张切片层级的描述性一致方向，不清楚供体独立关系；绝不可把30次随机seed当n=30供体、不得宣称已经统计显著或有新算法创新。** 用户报告的`paired_rows=50`代表配对文件已生成，未把其逐行字节交给助手，不能编造其方差/显著性。
+
+**下一步单条Windows命令，只读、不得训练**：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151510 --seed 22911`，先复审旧15D Manifest、哈希/条码、A/B，以及另外8项缺失；预期`PLAN_OK verified=2 missing=8`但要以终端为准，失败立即贴日志。确认后才分批拟合，不能偷跑，保留完整12片E2、E3–E6研究路线与所有负结果。
+
+
 ## 【2026-11-18：151509所有100个配置×seed格通过最终只读核验，V2统计脚本已交付、待Windows实际运行】
 
 用户Windows实际执行151509十个冻结seed的V2只读审核循环（对每个seed核查退出码0、`PLAN_OK verified=10 missing=0`），终端末尾显示种子6690、26128、21059、22159、32389、12815分别`AUDIT_PASS verified=10/10`，以及最终`FINAL_151509_ALL_SEEDS_AUDITED 100/100`。因为最终标志只有全部10个seed均通过循环断言后打印，**151509全100项已获得最终审核**。当前151507/151508/151509三张切片各100/100均已复验，**E2共300/1200最终核验=25%**；151507、151508已有正式10seed统计，**151509未生成统计，严禁编造均值/SD**。
