@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-18 最新：151508其余9个冻结seed顺序批次已全部正常返回，待全100只读审计】
+
+用户Windows手动运行此前提供的PowerShell顺序脚本：`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`，每个seed通过`e1e2_safe_batch_runner.py --sample 151508 --seed <seed> --run --max-new 10`依次拟合缺失配置并自动核验；用户提供末尾终端：`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.455476 NMI=0.566003`；`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.479041 NMI=0.609614`（seed12815）；`BATCH_RUN_COMPLETE new_tasks=10`，`SEED_COMPLETE 12815`，`ALL_9_SEEDS_COMPLETED`，`SESSION_LOG .../151508/multi_seed_20261118_100047.txt`。根据脚本`$LASTEXITCODE`检查，9个seed的runner均返回成功。结合此前seed22911的10/10，**151508预计100/100已存在可复算结果，尚未完成全部100格跨seed统一只读验收，也尚未计算该切片的10seed统计**。151507已经100/100审核及10seed统计。不能把预计200/1200写成全部已最终审计。
+
+**下一步唯一Windows命令**：复制先前用于151507的10seed只读PowerShell循环，把样本改为`151508`，逐seed调用`e1e2_safe_batch_runner.py --sample 151508 --seed $seed`，断言每个`PLAN_OK verified=10 missing=0`及返回码0；最后打印`FINAL_151508_ALL_SEEDS_AUDITED 100/100`。不重新训练、不写文件、不覆盖。若失败记录失败seed和最近30行日志；用户发送终端后再运行已保存的`e1e2_aggregate_multiseed.py --sample 151508`生成正式统计，之后才做跨切片对照并推进其余10张切片及E3–E6。
+
+
 ## 【2026-11-18｜151508/seed22911 十尺度实验已核验10/10，准备其余9个随机种子连续批次】
 
 用户Windows真实执行`e1e2_safe_batch_runner.py --sample 151508 --seed 22911 --run --max-new 8`，预检`PLAN_OK ... verified=2 missing=8`（历史两个15D预测均`LEGACY_AUDITED`），随后八个新任务均`RUN_AUDIT_PASS`并`BATCH_RUN_COMPLETE new_tasks=8`，报告`D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151508\seed_22911\20261118T014703Z_b405982e50\summary.json`。此次seed22911已有完整10/10格通过runner核验，叠加先前151507的100/100，DLPFC预冻1200格当前**110/1200有已核验结果**；151508仍缺其他九个GMM种子（每seed10项，最多新增90个任务）。历史A 15D = ARI0.462671/NMI0.613217，历史B 15D = 0.460596/0.569139；完整25D=0.531339/0.635565，当前单seed两指标均最优，但不可概括跨种子/片结论。下一步给用户一条PowerShell顺序循环，依预冻列表`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`调用已Windows验证的安全runner`--sample 151508 --seed <seed> --run --max-new 10`，按缺项执行，遇错误立即停止，日志Start-Transcript到151508已有`results/e1e2_batch_reports_v1/151508`目录，绝不覆盖原任务；**循环尚未运行，不能假设90项已完成**。完成后先全100只读核验，再统计CSV/mean-SD与配对差，随后剩余10片与E3–E6不变。
