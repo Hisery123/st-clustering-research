@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-18：151510其余9冻结GMM种子连续批次全部正常返回，下一步全100只读复验】
+
+用户Windows手动运行先前V2顺序PowerShell批次，依预冻结9seed（7449、25842、10379、6690、26128、21059、22159、32389、12815），逐seed调用`e1e2_safe_batch_runner_v2.py --sample 151510 --seed <seed> --run --max-new 10`并对退出码进行非零立即终止。用户终端末尾显示末seed12815的`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.433581 NMI=0.599585`、`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.367003 NMI=0.569511`、`BATCH_RUN_COMPLETE new_tasks=10 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151510\seed_12815\20261118T150429Z_031c4c8fb5\summary.json`、`SEED_COMPLETE 12815`、`ALL_9_SEEDS_COMPLETED`，会话日志`D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151510\multi_seed_20261118_223548.txt`。**九个seed批处理全部成功退出（源自循环退出码守卫）；只有末尾具体指标可据实引用，不能填造其他seed指标。** 结合151510先前seed22911的10项审核，当前151510预计100/100结果已就绪，但**尚未执行全100只读统一验收或10seed统计**。151507、151508、151509各100/100已统一复验并有10seed统计，总300/1200正式最终验收；本片另外100格预计就绪，不能宣称400全经最终审计。
+
+**下一步**：用户Windows仅执行一段PowerShell **V2**只读10seed统一验收循环：每个冻结seed`22911,7449,25842,10379,6690,26128,21059,22159,32389,12815`调用`e1e2_safe_batch_runner_v2.py --sample 151510 --seed $seed`，检查退出码0和唯一`PLAN_OK verified=10 missing=0`，再打印`FINAL_151510_ALL_SEEDS_AUDITED 100/100`。纯只读，不带`--run`，失败输出末30行并抛异常。之后才运行`e1e2_aggregate_multiseed_v2.py --sample 151510`，取得真实10seed统计和配对差；完整E2 12片×10配置×10seed冻结协议、E3–E6计划与所有负结果保留。
+
+
 ## 【2026-11-18｜151510/seed22911 新8项批处理成功，首seed已齐10/10；下一步9seed连续V2批次】
 
 用户Windows运行`e1e2_safe_batch_runner_v2.py --sample 151510 --seed 22911 --run --max-new 8`，终端尾部实测`RUN_AUDIT_PASS`包含25D `cum_L0_L1_L2_L3_L4` ARI0.511256/NMI0.629307、`fixed_L0_L1_L3` 0.376183/0.556720、`fixed_L0_L2_L3` 0.346866/0.554664、`fixed_L0_L2_L4` 0.372234/0.573326、`fixed_L0_L3_L4` 0.513001/0.624514，结尾`BATCH_RUN_COMPLETE new_tasks=8`、批次报告`results/e1e2_batch_reports_v1/151510/seed_22911/20261118T135651Z_9327124a7f/summary.json`。其余3项新运行指标没有在此回合用户提供的终端尾部完整显示，**不推测数字**。此前该seed下两项历史15D已`LEGACY_AUDITED`（标准A ARI0.430863/NMI0.559271；B ARI0.374885/NMI0.569489），因此151510/22911当前10/10任务已批量审核，暂无10seed整体统计。此前151507、151508、151509均100/100最终审计并统计，现E2计**310/1200格经runner审查**（其中前三片300经过最终10seed循环+完整统计，151510首seed10格经runner但尚未独立最终复审）。
