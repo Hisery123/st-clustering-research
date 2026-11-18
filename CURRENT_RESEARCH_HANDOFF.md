@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18｜151510/seed22911 新8项批处理成功，首seed已齐10/10；下一步9seed连续V2批次】
+
+用户Windows运行`e1e2_safe_batch_runner_v2.py --sample 151510 --seed 22911 --run --max-new 8`，终端尾部实测`RUN_AUDIT_PASS`包含25D `cum_L0_L1_L2_L3_L4` ARI0.511256/NMI0.629307、`fixed_L0_L1_L3` 0.376183/0.556720、`fixed_L0_L2_L3` 0.346866/0.554664、`fixed_L0_L2_L4` 0.372234/0.573326、`fixed_L0_L3_L4` 0.513001/0.624514，结尾`BATCH_RUN_COMPLETE new_tasks=8`、批次报告`results/e1e2_batch_reports_v1/151510/seed_22911/20261118T135651Z_9327124a7f/summary.json`。其余3项新运行指标没有在此回合用户提供的终端尾部完整显示，**不推测数字**。此前该seed下两项历史15D已`LEGACY_AUDITED`（标准A ARI0.430863/NMI0.559271；B ARI0.374885/NMI0.569489），因此151510/22911当前10/10任务已批量审核，暂无10seed整体统计。此前151507、151508、151509均100/100最终审计并统计，现E2计**310/1200格经runner审查**（其中前三片300经过最终10seed循环+完整统计，151510首seed10格经runner但尚未独立最终复审）。
+
+**下一步**：用户本地一次性PowerShell按冻结9seed`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`运行V2 runner`--sample 151510 --seed $seed --run --max-new 10`，每次检查退出码并Start-Transcript留记录；不并行，不覆盖历史文件，出错立即停止。成功标志`ALL_9_SEEDS_COMPLETED`（尚未执行）。随后执行151510全100只读审计→V2统计器`--sample 151510`→151511预检，保持完整12切片计划，保留随机种子非生物重复及正负结果。 
+
+
 ## 【2026-11-18：151510 seed22911 V2只读预检通过，需补齐8个缺失配置】
 
 用户Windows实际运行`e1e2_safe_batch_runner_v2.py --sample 151510 --seed 22911`，显示`CHECK cum_L0_L1_L2 LEGACY_AUDITED ARI=0.430863 NMI=0.559271`、`CHECK fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.374885 NMI=0.569489`，其他8个配置`MISSING`，最终`PLAN_OK sample=151510 seed=22911 verified=2 missing=8 max_new=1`，`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。该片同一seed、同样15D的B-A：**ARI -0.055978（下降）、NMI +0.010218（上升）**，两个指标方向相反，应完整报告，不得只挑正向的NMI。目前151510只读检查通过**2/10**，8个新配置未拟合。151507、151508、151509分别100/100审核+10seed汇总完成，三片共300/1200已最终审核，另151510 2个旧格已验证。下一步用户Windows只运行`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151510 --seed 22911 --run --max-new 8`。保留2个历史资产、逐一训练和审核剩余8项、失败即停不覆盖。尚未运行，不得记新增8项完成。后续9seed与全100最终验收、统计仍按同一冻结协议。
