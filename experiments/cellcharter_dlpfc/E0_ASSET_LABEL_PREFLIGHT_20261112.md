@@ -278,3 +278,24 @@ NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED
 - 这100格来自**同一张151507切片**，10个随机种子属于算法/技术重复，不是10个独立生物学重复；报告样本SD用于描述seed波动，不以seed冒充供体n=10。累计Hop与特征维度同时变化，尺度因果解释受限；不基于单切片选择最佳特征后把其他切片当作未污染的盲测，须坚持预冻全配置无选择性汇报。
 
 **下一步**：用户Windows仅运行一次`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`，默认纯只读，核验该切片既有两个seed22911历史15D资产与缓存/标签，再决定分批运行其他8个缺项；如有报错则停止不覆盖。随后继续12片×10配置×10seed完整建议1，并做后续E3-K敏感性、边界、成熟基线、外部数据集、统计/论文写作。
+
+## 2026-11-18｜151509 / GMM seed22911 完成并经runner核验10/10
+
+用户Windows真正执行V2兼容批处理 `e1e2_safe_batch_runner_v2.py --sample 151509 --seed 22911 --run --max-new 8`，先`PLAN_OK ... verified=2 missing=8 max_new=8`。此前两项历史`LEGACY_AUDITED`：A=`cum_L0_L1_L2` ARI0.437996/NMI0.595607，B=`fixed_L0_L1_L4` ARI0.488331/NMI0.639697。随后新增八项均`RUN_AUDIT_PASS`：
+
+| configuration | ARI | NMI | source |
+|---|---:|---:|---|
+| cum_L0 | 0.387247 | 0.485737 | NEW_AUDITED |
+| cum_L0_L1 | 0.340960 | 0.549806 | NEW_AUDITED |
+| cum_L0_L1_L2 | 0.437996 | 0.595607 | LEGACY_AUDITED |
+| cum_L0_L1_L2_L3 | 0.428478 | 0.625189 | NEW_AUDITED |
+| cum_L0_L1_L2_L3_L4 | 0.454121 | 0.643115 | NEW_AUDITED |
+| fixed_L0_L1_L3 | 0.413767 | 0.611459 | NEW_AUDITED |
+| fixed_L0_L1_L4 | 0.488331 | 0.639697 | LEGACY_AUDITED |
+| fixed_L0_L2_L3 | 0.446758 | 0.612274 | NEW_AUDITED |
+| fixed_L0_L2_L4 | 0.469782 | 0.630455 | NEW_AUDITED |
+| fixed_L0_L3_L4 | 0.423380 | 0.618612 | NEW_AUDITED |
+
+用户终端`BATCH_RUN_COMPLETE new_tasks=8 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151509\seed_22911\20261118T081214Z_cd19ec9e1b\summary.json`。当前151509 seed22911 **10/10有经runner已核验资产**，尚无其他9个seed、跨10seed统计；全12片E2累计151507(100)+151508(100)+151509(10)=**210/1200格**。目前本切片seed22911最高ARI为fixed_L0_L1_L4=0.488331，最高NMI为25D=0.643115，两个最高指标不在同一组合，**不可推断跨seed/跨片稳定获益**。B相对于同维A的单seed ARI+0.050335/NMI+0.044090；负结果在前两切片均保留。
+
+下一步由用户**亲自**在Windows执行一次PowerShell循环，其9个冻结种子顺序`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`，每seed调用**V2**`--sample 151509 --seed $seed --run --max-new 10`，独立验证/跳过旧文件、遇非0退出立即中止、保留Start-Transcript记录；不使用有旧Manifest兼容缺陷的V1。**尚未执行，最多可能产生90个新任务**。成功后做151509全100格纯只读验收和现成`e1e2_aggregate_multiseed.py --sample 151509`统计；不假设已经成功或填造统计数据。原定全12片×10配置×10seed、后续E3–E6完整计划不变。
