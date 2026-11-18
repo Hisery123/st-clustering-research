@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18：151510全部10seed×10配置最终只读核验通过；下一步V2多seed统计】
+
+用户Windows执行151510的`e1e2_safe_batch_runner_v2.py`只读10seed审计循环，对每个冻结seed检查退出码0、唯一`PLAN_OK verified=10 missing=0`。用户回传尾部 `AUDIT_PASS seed=10379,6690,26128,21059,22159,32389,12815 verified=10/10`，最终输出`FINAL_151510_ALL_SEEDS_AUDITED 100/100`。最终标志仅在**全部10个seed的全部10配置**通过循环验证后才打印，因此151510 **100/100已最终复审**；151507、151508、151509均已100/100最终复审且各有多seed统计。现在**4张切片×100=400/1200最终审计通过（33.3%）**；151510尚未生成跨seed统计（mean/SD与paired_rows）且用户未提供这100项明细，因此不得推断统计趋势或显著性。10seed只是GMM算法重复，不是独立供体。下一步用户只运行**一条**`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed_v2.py' --sample 151510`，V2兼容已验证的历史Manifest，先审计，再导出独立新目录100行记录/10行配置汇总/50行同维15D配对差，预计`ALL_MATRIX_AUDIT_PASS sample=151510 tasks=100 seeds=10 conditions=10`和`SUMMARY_COMPLETE sample=151510 verified=100 conditions=10 paired_rows=50`，不训练、不覆盖。待用户实际输出后再归档真实10seed统计，并启动151511预检。所有12片及E3–E6科研计划不变。
+
+
 ## 【2026-11-18：151510其余9冻结GMM种子连续批次全部正常返回，下一步全100只读复验】
 
 用户Windows手动运行先前V2顺序PowerShell批次，依预冻结9seed（7449、25842、10379、6690、26128、21059、22159、32389、12815），逐seed调用`e1e2_safe_batch_runner_v2.py --sample 151510 --seed <seed> --run --max-new 10`并对退出码进行非零立即终止。用户终端末尾显示末seed12815的`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.433581 NMI=0.599585`、`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.367003 NMI=0.569511`、`BATCH_RUN_COMPLETE new_tasks=10 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151510\seed_12815\20261118T150429Z_031c4c8fb5\summary.json`、`SEED_COMPLETE 12815`、`ALL_9_SEEDS_COMPLETED`，会话日志`D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151510\multi_seed_20261118_223548.txt`。**九个seed批处理全部成功退出（源自循环退出码守卫）；只有末尾具体指标可据实引用，不能填造其他seed指标。** 结合151510先前seed22911的10项审核，当前151510预计100/100结果已就绪，但**尚未执行全100只读统一验收或10seed统计**。151507、151508、151509各100/100已统一复验并有10seed统计，总300/1200正式最终验收；本片另外100格预计就绪，不能宣称400全经最终审计。
