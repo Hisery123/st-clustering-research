@@ -1,5 +1,14 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18：为用户创建可人工启动的八切片夜间安全顺序调度器，尚未在Windows执行】
+
+用户希望把未做的8张DLPFC切片（151669–151676）在睡觉时自动顺序完成，不再手动输入几十次命令。ChatGPT根据**已真实通过多片数据验收**的`e1e2_multiscale_gmm_task.py` + `e1e2_safe_batch_runner_v2.py` + `e1e2_aggregate_multiseed_v2.py`，已在容器**实际生成**`/mnt/data/e1e2_overnight_remaining_slices_v1.py`（SHA256 `4a9ee487308cc4f739326409568d9787208814c272c023ff85e57c7a386156dd`，仅此会话下载工件，**尚未上传GitHub代码树，也未运行用户Windows真数据**）。文件供用户下载后置于`D:\paper\CellCharter_reproduction\e1e2_overnight_remaining_slices_v1.py`，脚本使用绝对本地同目录路径。
+
+脚本**只运行冻结名单**`151669–151676`共8片（151669–151672 Oracle-K5，151673–151676 K7），每片10配置×10冻结seed=800格；seed22911历史15D A/B结果预计每片2格，可复用16格，若无其它已完成任务预计最多新增784格，**这只是计划上限，不是实际完成**。执行时必须显式`--run`，它会先对8片×10seed的**所有80个seed-group进行只读runner_v2预检**并检查完整10配置列表、哈希/条码/指标、历史A/B，任何一处出错都在开始训练**前**停止。然后按切片/seed顺序一次只运行一个V2安全runner，每轮`--run --max-new 10`，内部每GMM独立子进程并逐项审计，已完成项跳过，错误立即停止、不重试/不覆盖，正常每张片完工后用V2统计器完整复核100格、导出新的独立统计文件夹，额外核查100/10/50/5 CSV行数、任务ID完整性、provenance和输出SHA。记录唯一`results/e1e2_overnight_v1/<UTC时间>_<id>/session.log`和`session_status.json`，进程锁保护不同时启动第二个调度器；Windows SetThreadExecutionState防系统**空闲**睡眠，但合盖、电源断开、Windows系统策略仍可能令任务终止。中断后重启`--run`只读复核已完成项并继续缺项；若硬停留有incomplete/running目录则必须人工检查，**不会静默覆盖或自动重训**。脚本强制核对原三文件SHA，与计划不符即`CODE_SHA256_MISMATCH`停止；不提供绕过命令。
+
+容器中该脚本已`py_compile`和`--help`通过，并以**全模拟实验数据**验证了80个前检→80个顺序seed批次→8个统计出口、预计784项新任务的流程、禁止错误历史复用/任务数不一致/统计CSV被改动后的哈希检测。**模拟不等于真实完成**。用户Windows唯一手动动作：下载该新脚本并保存相同目录，在PowerShell运行`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_overnight_remaining_slices_v1.py' --run`。期待终端`PREFLIGHT_ALL_PASS ...`、逐片`SECTION_COMPLETE sample=... verified=100/100`和最终`OVERNIGHT_ALL_COMPLETE sections=8 audited_cells=800 ... summaries=8`；任何阻断`OVERNIGHT_HALTED`，用户将尾端错误/SESSION_LOG发回，不删改任何数据。**不保证一夜完成，估算具体用时须由真实任务测得**。这只覆盖冻结的GMM多尺度E2矩阵和每片统计，后续E3–E6仍未执行；随机seed不算独立生物重复，供体统计需后续核实。
+
+
 ## 【2026-11-18 最新：151669 / Oracle-K=5 / seed22911 历史15D只读预检通过，8项待拟合】
 
 用户Windows真实执行`e1e2_safe_batch_runner_v2.py --sample 151669 --seed 22911`，返回`CHECK cum_L0_L1_L2 LEGACY_AUDITED ARI=0.404429 NMI=0.563346`，`CHECK fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.306170 NMI=0.509998`；其余8配置`MISSING`，末尾`PLAN_OK sample=151669 seed=22911 verified=2 missing=8 max_new=1`及`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。严格同维15D B−A**ARI=-0.098259、NMI=-0.053348**，属于此切片此单seed的双指标负结果，必须保留不能挑选性报告；**尚未有151669其他9个seed的结果，不可称稳定或跨供体负增益**。该片按照预冻结协议Oracle-K=5，不同于151507–151510的Oracle-K=7。此前四片分别100/100已正式核验并完成10seed统计，400/1200；151669仅2项历史资产已通过只读核验，8项尚未运行。
