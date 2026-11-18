@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18 151509其余9个冻结GMM种子完整批次成功返回，待统一100/100只读验收】
+
+用户Windows手动执行此前PowerShell顺序循环，以修正兼容的`e1e2_safe_batch_runner_v2.py`对151509依次运行冻结的9个seed（7449、25842、10379、6690、26128、21059、22159、32389、12815），每个runner有`$LASTEXITCODE -ne 0`立即停止保护。用户提供末尾实际终端：`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.439222 NMI=0.634390`，`RUN_START 151509 fixed_L0_L3_L4 seed=12815`，`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.460713 NMI=0.637268`；`BATCH_RUN_COMPLETE new_tasks=10 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151509\seed_12815\20261118T103742Z_779bec50f2\summary.json`；`SEED_COMPLETE 12815`；**`ALL_9_SEEDS_COMPLETED`**；`SESSION_LOG D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151509\multi_seed_20261118_181638.txt`。根据循环守卫，九个seed均正常退出且runner逐项核验，结合151509/seed22911已10/10，**151509预计100/100结果齐全，但还没有再次对全部100格统一只读复核，不能写成已完成最终验收或跨10seed统计**。151507与151508各100/100已最终核验并生成10seed统计；目前全1200格中已最终审计200，另151509预计100格就绪。
+
+**下一步唯一用户本地动作：** PowerShell对151509使用**V2**的只读10seed审计循环（之前151508的审核模式，改sample151509和runner_v2），10次各`PLAN_OK verified=10 missing=0`且退出码0才打印`FINAL_151509_ALL_SEEDS_AUDITED 100/100`，不带`--run`，无训练、无写入。若失败自动输出30行停止。收到验收结果后才能用汇总脚本做151509 mean/SD/配对差；旧版汇总脚本可能内置调用V1（需核实，不能臆断），正式汇总前须核对来源并作兼容修复。保留12张切片完整计划和单片种子非独立生物重复限制。
+
+
 ## 【2026-11-18 最新：151509/seed22911已完成10/10，准备其余9seed安全连续批次】
 
 用户Windows使用**V2安全runner**，`--sample 151509 --seed 22911 --run --max-new 8`执行成功：8个新任务均`RUN_AUDIT_PASS`，2个历史15D此前`LEGACY_AUDITED`，最后`BATCH_RUN_COMPLETE new_tasks=8`，批次报告`results/e1e2_batch_reports_v1/151509/seed_22911/20261118T081214Z_cd19ec9e1b/summary.json`。其中25D ARI0.454121/NMI0.643115（本seed最高NMI），历史fixed L0,L1,L4 ARI0.488331/NMI0.639697（本seed最高ARI），15D标准A ARI0.437996/NMI0.595607；单seed不宣称稳定获益。151507与151508均100/100且跨10seed统计完成；151509 10/100。**累计E2 210/1200格经过用户Windows程序核验**。下一步给用户一段**单次复制执行的PowerShell顺序循环**，用`e1e2_safe_batch_runner_v2.py`（不得换回有历史Manifest字段兼容问题的V1），按9个剩余冻结seed 7449、25842、10379、6690、26128、21059、22159、32389、12815逐个运行`--run --max-new 10`，遇失败停止并记录transcript。该循环目前未执行，**不能把后90格计作完成**。之后需独立100/100验收及跨seed汇总，不将10seed当独立生物重复，E3–E6及剩余切片继续。
