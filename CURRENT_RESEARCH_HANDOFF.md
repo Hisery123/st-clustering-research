@@ -1,5 +1,10 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-18 最新：151509/seed22911已完成10/10，准备其余9seed安全连续批次】
+
+用户Windows使用**V2安全runner**，`--sample 151509 --seed 22911 --run --max-new 8`执行成功：8个新任务均`RUN_AUDIT_PASS`，2个历史15D此前`LEGACY_AUDITED`，最后`BATCH_RUN_COMPLETE new_tasks=8`，批次报告`results/e1e2_batch_reports_v1/151509/seed_22911/20261118T081214Z_cd19ec9e1b/summary.json`。其中25D ARI0.454121/NMI0.643115（本seed最高NMI），历史fixed L0,L1,L4 ARI0.488331/NMI0.639697（本seed最高ARI），15D标准A ARI0.437996/NMI0.595607；单seed不宣称稳定获益。151507与151508均100/100且跨10seed统计完成；151509 10/100。**累计E2 210/1200格经过用户Windows程序核验**。下一步给用户一段**单次复制执行的PowerShell顺序循环**，用`e1e2_safe_batch_runner_v2.py`（不得换回有历史Manifest字段兼容问题的V1），按9个剩余冻结seed 7449、25842、10379、6690、26128、21059、22159、32389、12815逐个运行`--run --max-new 10`，遇失败停止并记录transcript。该循环目前未执行，**不能把后90格计作完成**。之后需独立100/100验收及跨seed汇总，不将10seed当独立生物重复，E3–E6及剩余切片继续。
+
+
 ## 【2026-11-18：151509历史Manifest兼容修复V2经Windows实测通过】
 
 用户Windows执行 `e1e2_safe_batch_runner_v2.py --sample 151509 --seed 22911`，成功显示：
