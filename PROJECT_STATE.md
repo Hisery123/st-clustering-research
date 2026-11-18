@@ -1,5 +1,14 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-18：151509历史Manifest兼容修复V2经Windows实测通过】
+
+用户Windows执行 `e1e2_safe_batch_runner_v2.py --sample 151509 --seed 22911`，成功显示：
+`cum_L0_L1_L2 LEGACY_AUDITED ARI=0.437996 NMI=0.595607`、
+`fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.488331 NMI=0.639697`、
+`PLAN_OK sample=151509 seed=22911 verified=2 missing=8 max_new=1`、
+`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。其余8项为MISSING。**说明历史源哈希字段兼容修复已在151509实际通过完整旧A/B结果复算，并未训练或改文件**。同切片同seed的历史B−A差ARI=+0.050335、NMI=+0.044090；仅单seed观察、不能宣称稳定改善。151507和151508各100/100已完成全部核验和跨10seed统计，当前完整E2矩阵200/1200格，151509本seed只有2个可复用历史资产。下一步给用户单条Windows命令：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151509 --seed 22911 --run --max-new 8`，安全runner逐项拟合八个缺项，完成后核验，再扩展其他seed。遇错即停、不覆盖。
+
+
 
 ## 【2026-11-18 151509历史Manifest兼容性阻断：已定位字段名差异，待Windows验证修复】
 
