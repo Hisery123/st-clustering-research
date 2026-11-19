@@ -1,6 +1,19 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
 
+## 2026-11-19 E3c 151509 200/200 full independent read-only audit PASS
+用户手动在Windows上完成首个样本151509的134项新增训练之后，又按规定执行 `e3c_k_sensitivity_batch_runner_v1.py --sample 151509` （无`--run`），真实完整终端输出确认全部10个冻结seed均`PREFLIGHT_SEED_OK ... checked=20`；尾行如下：
+```text
+PREFLIGHT_SAMPLE_OK sample=151509 verified_reused=40 verified_existing=160 pending_new=0 total=200
+E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=160 NEW_TASK=0
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+```
+**意义**：151509的E3c全200个格（E1/E2旧40 + 新K160）已全部独立复核通过，可正式标记`SAMPLE_151509_E3C_COMPLETE_AND_AUDITED`。全局按先前已验证的480个旧格与这个样本160个新格推算，新增已完成160/1920，另外11个样本待新增1760；*本回合未重新执行12张全局只读汇总*，最终全局进度仍要以下一次全局审计确认。此阶段没有读取/改写其他STAGATE相关课题。
+
+当前真实v1 batch runner源代码支持`--sample 151510 --run --max-new 160`：会先对151510完整200格重新fail-closed预检，确认40个旧Oracle-K格再在独立`e3c_k_sensitivity_v1`目录最多运行160项新任务，每项新Python进程、CPU串行、输出单项审计及batch session日志、有600s单任务超时、文件已有即拒绝、任何失败停机，**不删除、不覆盖已完成结果**。由于151509的完整160项已走通，可以下一步对151510进行完整160项同协议运行，不需要再换K/seed/算法。运行成功的实际期望标志是`E3C_BATCH_COMPLETE new_audited=160`，失败则保持文件并返回`E3C_BATCH_HALTED ... summary=...`路径；绝不宣称151510已执行。即使151510完成，跨样本K结果和论文结论仍需12片完整汇总与E3d AutoK等后续条件。
+
+
+
 ## 2026-11-19｜E3c首个新K任务重复独立审计PASS；v1批量安全调度器已上传（尚未运行）
 用户Windows实际重跑**不带--fit**的只读审计：
 ```
