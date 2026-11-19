@@ -1,5 +1,9 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+
+## 2026-11-19｜E3a 元数据关键发现：TSV表头缺少首列行名，之前subject读取整体错位
+用户Windows首读`D:\paper\ST_Benchmark_Planning\mvp\data\<sid>\metadata_source.tsv`时151507、151508无文件，151509等十片把`subject`错误读为成千上万个数值。随后用户原文`HEADER_COLUMNS=73 DATA_COLUMNS=74`，151509第一行 index0 barcode=AAACA...、index1 sample_name=同条码、index2 tissue=151509、index12 subject=1117、index13 position=Br5292、index14 replicate=300，说明**源TSV的第一条数据额外含一个没有对应表头的行名spot barcode字段，导致用Import-Csv原header时全字段左错位一列**。真实`subject`在原始行 index13，其首行值Br5292；原 index12数值1117实际上为sum_gene。**此前十片的海量“subject”数字不代表多个供体，也不证明实验训练数据错误**。该文件读取需预先为实际第一列补`_source_rowname`的虚拟表头，再解析；要在所有切片检查列数一致、sample_name对应sid且barcode匹配，逐spot group真实subject。**151509首行Br5292已获观察但全片及其他10片的subject还没确认，151507/151508文件尚未找到**，供体分组E3a标记IN_PROGRESS，E3c不可提前启动。推荐PowerShell只读修复解析，不改变原TSV。实验历史E1/E2 1200任务与用户此元数据排查为不同层次，不能断言E1/E2已或未受影响，需对输入manifest对齐审计才能排除。
+
 ## 【2026-11-19：Claude独立评审已读；四区实证文章有条件GO，E3门槛规划已写入GitHub】
 
 用户上传`粘贴的文本 (1)(20261119-025503).txt`（Claude对本CellCharter DLPFC第三篇的独立评审全文），询问能否冲SCI四区实证论文并按步骤实施。已读原文246行，**硕士论文章节GO、SCI四区实证论文有条件GO、当前新自适应算法暂不主推**；所需K无标签策略、3–4公平强基线、外部独立数据，三者都尚未运行，不能保证任何期刊接受。最新冻结研究路径见新提交`experiments/cellcharter_dlpfc/E3_E6_Q4_EMPIRICAL_RESEARCH_GATE_20261119.md` (commit`978ef16`)；只限CellCharter，不读取其他STAGATE项目历史结果。
