@@ -1,0 +1,13 @@
+sample,donor,evidence,metadata_sample_rows,evidence_source
+151507,Br5292,published_supplementary_Case2,NA,https://academic.oup.com/bioinformatics/article/41/6/btaf350/8161564
+151508,Br5292,published_supplementary_Case2,NA,https://academic.oup.com/bioinformatics/article/41/6/btaf350/8161564
+151509,Br5292,local_metadata_corrected_header,4789,D:/paper/ST_Benchmark_Planning/mvp/data/151509/metadata_source.tsv
+151510,Br5292,local_metadata_corrected_header,4634,D:/paper/ST_Benchmark_Planning/mvp/data/151510/metadata_source.tsv
+151669,Br5595,local_metadata_corrected_header,3661,D:/paper/ST_Benchmark_Planning/mvp/data/151669/metadata_source.tsv
+151670,Br5595,local_metadata_corrected_header,3498,D:/paper/ST_Benchmark_Planning/mvp/data/151670/metadata_source.tsv
+151671,Br5595,local_metadata_corrected_header,4110,D:/paper/ST_Benchmark_Planning/mvp/data/151671/metadata_source.tsv
+151672,Br5595,local_metadata_corrected_header,4015,D:/paper/ST_Benchmark_Planning/mvp/data/151672/metadata_source.tsv
+151673,Br8100,local_metadata_corrected_header,3639,D:/paper/ST_Benchmark_Planning/mvp/data/151673/metadata_source.tsv
+151674,Br8100,local_metadata_corrected_header,3673,D:/paper/ST_Benchmark_Planning/mvp/data/151674/metadata_source.tsv
+151675,Br8100,local_metadata_corrected_header,3592,D:/paper/ST_Benchmark_Planning/mvp/data/151675/metadata_source.tsv
+151676,Br8100,local_metadata_corrected_header,3460,D:/paper/ST_Benchmark_Planning/mvp/data/151676/metadata_source.tsv
