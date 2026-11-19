@@ -1,0 +1,11 @@
+{
+  "zip": "e1e2_12slices_statistics_20261119_095251.zip",
+  "sha256": "446ad84a992a83c776ea768042ed198d6bdc794236c313c24f7d09ca8daef6ac",
+  "n_samples": 12,
+  "n_tasks": 1200,
+  "n_condition_summaries": 120,
+  "n_seed_pairs": 600,
+  "n_pair_summaries": 60,
+  "number_of_failures": 0,
+  "failures": []
+}
