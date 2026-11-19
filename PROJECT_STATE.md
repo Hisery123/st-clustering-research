@@ -1,5 +1,16 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-19｜CellCharter E1/E2全量资料已真正上传GitHub；限定Claude审查这一个实验】
+
+用户明确授权将统计ZIP、完整派生CSV、中文科研审查、版本可核对的本地实验脚本公开归档，不必强调隐私保密，并希望Claude提出后续实验方案和论文实验章节，但**严禁Claude研究仓库其他STAGATE等项目**。
+
+**此轮已通过GitHub实际提交并远程树独立核实：** `experiments/cellcharter_dlpfc/E1E2_20261119_RELEASE/` 目录下首批**24个文件，共1,483,679 bytes**，包括两份**原字节**ZIP（原始12切片统计包和完整审查/科研图包）、6个`e1e2_*.py`实验脚本快照、16个派生CSV/SVG/MD/Python文件。Git object SHA均等于本会话本地计算Git blob SHA，远程`git/trees/main?recursive=1`已返回24文件和大小一致。数据主提交 `0587e262d48cf4bb51cb3c4a3519ba75f2d61e07`。后来另建`README.md`和`CLAUDE_REVIEW_START_HERE.md`两个说明文档（提交`5d78e2f7`、`2efd4ee7`），**专门要求Claude只审查这篇CellCharter DLPFC研究的E1/E2及E3–E6/Experiments章节，其他STAGATE、CTW-RF、CARR等目录完全排除**。所有材料已经上传Github仓库主分支，无需用户手动重复上传ZIP；仓库Public是用户明确接受的公开状态。
+
+**真实性限制**：当前脚本是ChatGPT以前发给用户的版本快照，核心任务/auditor/statistics SHA与上传ZIP的provenance完全对应；未从用户Windows直接读取最新文件，如Windows做过未报告的本地编辑则需另行核对。仓库统计ZIP没有原始逐spot预测/人工标签/表达矩阵，派生统计审查不能冒充完全重算原始ARI/NMI。已核验完整1200任务统计一致；15D B−A ARI 7/12正且均差+0.003282、NMI9/12正且均差+0.010867，供体3负，必须保留负结果。只有3个独立供体，Oracle-K标签信息进入K，且K5和供体2混杂，不能伪重复或宣称普遍创新。
+
+**下一步不是再次运行训练或再次打包；而是用户向Claude粘贴该URL：** `https://github.com/Hisery123/st-clustering-research/blob/main/experiments/cellcharter_dlpfc/E1E2_20261119_RELEASE/CLAUDE_REVIEW_START_HERE.md`，请求其按该任务书直接基于GitHub文件提出独立E3–E6方案及论文章节，**禁止跨课题**。ChatGPT当前无可直接调用Claude的连通工具，不能声称已通知Claude/已有Claude回复。用户将Claude建议带回，ChatGPT再做代码和科研边界复核。
+
+
 ## 【2026-11-19：用户上传完整12片统计ZIP，ChatGPT独立重算审计通过，重要纠正：15D交换不稳健】
 
 **真实新附件**：`e1e2_12slices_statistics_20261119_095251.zip`，SHA256=`446ad84a992a83c776ea768042ed198d6bdc794236c313c24f7d09ca8daef6ac`（用户亲自于Windows打包上传）。ChatGPT当前会话直接解压读取**12×(4 CSV+1 JSON)=60份文件**，使用独立Python脚本逐项复核：1200条唯一(`sample,condition,gmm_seed`)任务、120条10seed条件统计、600条相同15D逐seed配对、60条配对统计，**所有60组provenance对应4CSV的字节SHA256相符，均值/样本SD(DDOF=1)/中位数/min/max/配对增量和正种子计数重算零不一致**。12片各10条件×10冻结seed，K5 4片/K7 8片；来源码1176 NEW_AUDITED +24 LEGACY_AUDITED，47,681 spots（其中参考标签有效47,329）。本会话审计的范围是上传统计包的一致性，**没有原始逐spot预测与参考文件，不能声称在云端重新重算1200份原始ARI/NMI**；先前用户Windows安全runner有逐spot级审计证据。
