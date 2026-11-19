@@ -1,5 +1,21 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 最新权威快照：2026-11-19 23:52（北京时间）｜151510新增K 160项批处理完成、尚待独立审计
+
+**实际完成**：用户Windows返回`E3C_BATCH_COMPLETE new_audited=160`，151510全部160项新K拟合由runner内部审核成功；之前200格dry-run复核过40旧格。**还未在完成后重新运行只读的`--sample 151510`或`--sample ALL`，不能冒充151510全200独立复审**。151509已独立复审200/200。全局为旧480+新增151509 160+新增151510 160=**推算800/2400**；剩余10片1600新拟合。下一步用户可使用一次PowerShell受控顺序任务：先`--sample ALL`预检，如失败不训练；成功才逐片运行其余10张，任一失败停机；最后`--sample ALL`复核。原始结果仍在用户Windows尚未上传GitHub。以下旧快照仅作历史。
+
+## 2026-11-19｜151510 E3c 160项新K批处理完成（待独立只读审计）
+
+【用户Windows末尾原始日志】：
+```text
+[2026-11-19T15:52:57+00:00] RUN_AUDIT_PASS 160/160 sample=151510 condition=cum_L0_L1_L2_L3_L4 k=9 seed=12815 ARI=0.354917 NMI=0.567188 wall_seconds=14.15
+[2026-11-19T15:52:57+00:00] E3C_BATCH_COMPLETE new_audited=160 summary=D:\paper\CellCharter_reproduction\results\e3c_k_sensitivity_batch_sessions_v1\20261119T151528Z_26fb78a1db\session_status.json
+```
+前文用户已真实通过151510全200格只读预检（40旧Oracle-K复用、0现存新K、160待新拟合），然后用户发回批处理尾部`RUN_AUDIT_PASS 156/160`至`160/160`与`E3C_BATCH_COMPLETE new_audited=160`，故**160项新K完成并通过安全运行器内部逐项审计**，并非仅计划。此轮仍**未**独立重新运行151510全200格只读审计；不可提前称为独立复核200/200。151509此前已200/200独立复核。现按前次全12片旧480格已复核、151509新160、151510新160计，E3c全局**推算**800/2400格、剩余10片新K1600项，最新全局`--sample ALL`审计尚未收到用户结果。
+
+**后续策略**：用户先前明确希望若151510顺利，今晚连续完成剩余1600项；可交付**一个**PowerShell分组操作，在任何训练前运行`--sample ALL`只读全局审计，以同时独立核实151510的200格及其余样本输入；只要预检PASS，顺序执行冻结剩余10片（151507、151508、151669–151676），每片调用已有`e3c_k_sensitivity_batch_runner_v1.py --sample <sid> --run --max-new 160`，严格检查`$LASTEXITCODE`非0立即停止，不删除不覆盖；末尾再`--sample ALL`只读最终审计，只有总计2400格且`NEW_TASK=0`才可标全局完成。程序已有每批次session原始日志、单任务超时和锁、默认不修改旧结果。此夜间完整工作**尚未执行**；程序实际性能/总耗时与成功率未保证。E3c原始新K结果只在Windows，GitHub文字记录不算备份。
+
+
 ## 最新权威快照：2026-11-19｜151510 E3c只读预检PASS，待运行新K
 
 **最新用户Windows输出**：`PREFLIGHT_SAMPLE_OK sample=151510 verified_reused=40 verified_existing=0 pending_new=160 total=200`；`E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160`；`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。**151510仅完成200格预检，160个新增K尚未拟合**。151509此前200/200已独立审核；E3c全局暂按历史480+已完成新K160=640/2400推算，但151509结束后`--sample ALL`尚未全局复核。下一个唯一操作为用户Windows手动显式`--sample 151510 --run --max-new 160`；成功再另行只读审计。本GitHub仓库**未备份**用户本地E3c新增预测/原始metrics。
