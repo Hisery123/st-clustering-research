@@ -1,5 +1,20 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+
+## 2026-11-19｜E3c首个新K任务重复独立审计PASS；v1批量安全调度器已上传（尚未运行）
+用户Windows实际重跑**不带--fit**的只读审计：
+```
+E3C_PRECHECK_SOURCE_OK sample=151509 condition=cum_L0_L1 feature_dim=10 K=6 seed=22911 original_oracle_K=7 source_sha256=1f29060473365c02d2c26b51a477d87ff2fb4ee6a4e7ae8e18193895c8dfc32e
+E3C_EXISTING_AUDITED sample=151509 condition=cum_L0_L1 K=6 seed=22911 ARI=0.440307 NMI=0.572330
+NO_TRAINING_NO_FILES_WRITTEN
+```
+这是**第二次独立读取已经落盘结果的审计通过**，不是第二次拟合；首个K6拟合`fit_seconds=0.683`之前真实成功。E3c冻结网格2400：480 Oracle-K原E1/E2复用，1920需要新拟合；目前**1/1920新拟合已完成且可重复审计**，余1919个尚未执行。原E1/E2的480格必须由新程序逐格现场审计后才标记为`REUSED_AUDITED`，不能直接把计划当成核验结果。
+
+ChatGPT依据已冻结`THIRD_PAPER_E3C_K_SENSITIVITY_FROZEN_PROTOCOL_20261119.md`开发并上传`experiments/cellcharter_dlpfc/e3c_k_sensitivity_batch_runner_v1.py`，GitHub commit`a000ae3`；本地源码SHA256=`58d88544b49c956aee915e46b426932434b8ba18ee860c71e499aa7154fefca0`。程序默认`--sample 151509`为**只读**，扫描4条件×5K×10seed=200格，预期40旧Oracle-K审计复用、1已完成K6审计、159待跑；该预期**尚未在用户真实Windows批量程序确认**。若`--sample ALL`则12片2400格一同扫描，预期480/1/1919。显式`--run`才启动训练，默认每次最多**1**个新任务、CPU串行、新Python子进程、超时中断、不覆盖已存在或坏的输出、不自动重试；整个请求扫描有异常就停止在启动训练前。
+
+批量脚本通过ChatGPT容器`py_compile`、CLI`--help`、模拟200格单切片审计（40/1/159）、损坏已有结果拒绝、错误Oracle-K重复输出拒绝、无写文件路径检查；另通过冻结源脚本导入核验；**尚未在用户Windows上真实运行**。下一次只提供**一条PowerShell命令**：从GitHub下载批量脚本到`D:\paper\CellCharter_reproduction\`（已存在则拒绝覆盖），核对SHA，然后执行无`--run`的`--sample 151509`只读预检，观察200格的真实状态。通过再执行全12片只读预检，然后再考虑限量批量拟合。论文所有数据贡献/三供体边界保持原状。
+
+
 ## 【2026-11-19：E3c 代码准备／Windows真实训练尚未开始】
 
 用户Windows PowerShell核对3个冻结E1/E2脚本SHA256全部与GitHub归档一致：
