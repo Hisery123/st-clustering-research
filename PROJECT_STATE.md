@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-19：E1/E2冻结12切片×10配置×10seed=1200/1200全部完成并分切片统计通过】
+
+**新用户Windows原始终端日志（2026-11-19北京时间凌晨）**：8片夜间脚本`e1e2_overnight_remaining_slices_v1.py --run`运行至最后151676/seed12815，`BATCH_RUN_COMPLETE new_tasks=10`，`COMMAND_OK RUN 151676 seed=12815`，`SEED_COMPLETE ... groups=80/80`，随后`SECTION_FULL_AUDIT_AND_SUMMARY_BEGIN sample=151676`、`COMMAND_OK SUMMARY 151676`、`SECTION_COMPLETE sample=151676 verified=100/100 summary=D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151676\20261118T185220Z_bde3aec9`，最终**`OVERNIGHT_ALL_COMPLETE sections=8 audited_cells=800 new_tasks=776 summaries=8`**，Session日志`D:\paper\CellCharter_reproduction\results\e1e2_overnight_v1\20261118T154858Z_52c4c93a0b\session.log`。调度器源码已检查：在执行前预检8片×10seed共80组；每组调用V2安全runner，结束检查退出码和任务计数；每片100格完成后调用V2统计脚本逐项复核100份预测和ARI/NMI，检查100/10/50/5四张CSV和SHA/来源文件，才计`SECTION_COMPLETE`；没有并行、无自动重试/覆盖。该日志支持**全部剩余8张切片各100/100审核并产生统计结果**；800格中有**776项本轮新训练+24项已有结果通过复审并复用**（涵盖151669最先单独跑的8项新结果），并非24项都为“历史”实验。此前151507–151510四张各100/100已用户独立核验和统计完成。**因此E1/E2总矩阵1200/1200配置-种子格已完成、12/12每片10seed统计已产生**。本次数字来自用户终端和已审核的控制脚本逻辑，助手**还未直接读取8片的CSV指标值/全面对照，不得虚构哪种特征在12片上胜出**。E1/E2完成不等于整篇论文结束：E3 K敏感性/空间边界、E4生物学/空间可视化、E5成熟公平基线/独立外部数据、E6候选增量与论文还待做。
+
+**下一步一条PowerShell本地命令**：将`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v1`（151507、151508）与`e1e2_multiseed_statistics_v2`（151509–151676）两目录**只读打包压缩成独立统计ZIP**，不含原始表达矩阵/预测文件、不覆盖。用户随后将ZIP上传到聊天，助手检查12片每个seed/条件、source/K、指标/负结果、基于样本维度的描述性排名与等维配对；必须先核实真实供体归属（仅3供体，seed≠独立重复），避免K5与K7混淆、把使用Oracle-K的实验宣称无监督泛化。若zip失败保留原目录回报错误。夜间程序状态已成功，**不应再让用户重跑800项或重新进行单片审计**。
+
+
 ## 【2026-11-18：为用户创建可人工启动的八切片夜间安全顺序调度器，尚未在Windows执行】
 
 用户希望把未做的8张DLPFC切片（151669–151676）在睡觉时自动顺序完成，不再手动输入几十次命令。ChatGPT根据**已真实通过多片数据验收**的`e1e2_multiscale_gmm_task.py` + `e1e2_safe_batch_runner_v2.py` + `e1e2_aggregate_multiseed_v2.py`，已在容器**实际生成**`/mnt/data/e1e2_overnight_remaining_slices_v1.py`（SHA256 `4a9ee487308cc4f739326409568d9787208814c272c023ff85e57c7a386156dd`，仅此会话下载工件，**尚未上传GitHub代码树，也未运行用户Windows真数据**）。文件供用户下载后置于`D:\paper\CellCharter_reproduction\e1e2_overnight_remaining_slices_v1.py`，脚本使用绝对本地同目录路径。
