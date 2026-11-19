@@ -1,5 +1,15 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-19｜E3a供体映射证据完整；冻结E3c K敏感性协议，尚未运行】
+
+用户Windows逐文件证据确认：`151507/metadata.tsv`全部3661行`sample_name=151669,subject=Br5595`，SHA256=`82CF728854BC30F534438E34BADF59C26CF07E08475F4BA2CE0368E56C572F79`，与`151669/metadata_source.tsv`**精确同SHA**，是误放的151669元数据副本，绝不能用来推导151507。10张切片的`subject`已经本地逐spot检查：151509/151510 Br5292；151669–151672 Br5595；151673–151676 Br8100，`Status=OK`。151507和151508没有可用于直接检查subject的本地正确metadata，但2025年Bioinformatics论文补充表S1明确`Case2 Br5292=151507,151508,151509,151510`、`Case3 Br5595=151669–151672`，正文https://academic.oup.com/bioinformatics/article/41/6/btaf350/8161564；故**全12张切片供体映射已由10张本地直读+2张同行评审文献证据组成，不能声称12张全部本地逐spot核验**。已提交映射表`experiments/cellcharter_dlpfc/E3a_DONOR_MAPPING_EVIDENCE_20261119.csv`（commit `68b4229`），E3a供体**映射级完成、2张需注明证据级别**。
+
+本轮已静态读取GitHub原样归档`E1E2_20261119_RELEASE/scripts/e1e2_multiscale_gmm_task.py`，preflight仅使用`spots_aligned.csv`、`manual_layer_annotations.csv`、`cellcharter_aggregated.npy`、spot_order和status，**没有直接读取误放metadata.tsv**；但未全盘核验缓存上游生成，不能因此断言上游不受影响或E1/E2所有代码都没有读过。原1200项仍为已核验结果，无需因错放metadata直接重跑。
+
+**E3c研究协议已在任何训练前独立提交GitHub**：`experiments/cellcharter_dlpfc/THIRD_PAPER_E3C_K_SENSITIVITY_FROZEN_PROTOCOL_20261119.md`，commit`2a3e47b`。12 slices × 4累计配置(10/15/20/25D) × K{5,6,7,8,9} × 10 frozen seeds=2400格；原E2固定OracleK相应格480已审核可核验复用，最多1920新拟合；新output`results/e3c_k_sensitivity_v1`不得覆盖E2。**固定K网格仅敏感性试验，不是无标签AutoK选择**；AUTO-K仍需单独E3d。只读检查Windows实际脚本SHA之后再开发新脚本的dry-run和一个新K冒烟，才可安全运行批量，不可承诺耗时；现在**E3尚未训练任何新模型**。下一回合用户手动唯一命令：用PowerShell`Get-FileHash`检查3个Windows关键脚本与冻结源码同一版本，回报哈希，若有差异先审核。所有研究只讨论CellCharter DLPFC，不跨其他STAGATE/CTW课题。
+
+
+
 ## 【2026-11-19 E3a真实供体元数据核对：10/12片确认，2片缺路径】
 用户在 Windows PowerShell 对 `D:\paper\ST_Benchmark_Planning\mvp\data\<sample>\metadata_source.tsv` **只读解析并修正首列无表头的1列错位**（原Header 73字段/首条数据74字段；临时补`_source_rowname`，所有行检查`sample_name==sample`且`barcode==_source_rowname`），终端真实输出：
 - **151509** 4789行 Br5292 OK；**151510** 4634行 Br5292 OK。
