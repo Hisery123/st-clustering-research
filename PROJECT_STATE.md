@@ -1,5 +1,19 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 【2026-11-19：E3c 代码准备／Windows真实训练尚未开始】
+
+用户Windows PowerShell核对3个冻结E1/E2脚本SHA256全部与GitHub归档一致：
+- `e1e2_multiscale_gmm_task.py` `d447dd2cc812616d3589c40f0fd586df3e78d89aec032ad4a82bb433465b958a`
+- `e1e2_safe_batch_runner_v2.py` `22ae7b4cd5b8b652f493168fb7b037eb886a466ab1bdba0c734aec912b2f37e4`
+- `e1e2_aggregate_multiseed_v2.py` `e8ef524c1cab24834c2160e1c06df1da94234c9c9ce72457b9d1d07defc9fce5`
+版本门槛PASS 3/3，依旧不代表E3已训练。
+
+ChatGPT依据既已提交的`experiments/cellcharter_dlpfc/THIRD_PAPER_E3C_K_SENSITIVITY_FROZEN_PROTOCOL_20261119.md`编写并上传**安全单任务新脚本**：`experiments/cellcharter_dlpfc/e3c_k_sensitivity_single_task_v1.py`，仓库最终提交`9c34f3c`（更正GitHub源文件末尾换行以保持与交付原文件逐字节一致），SHA256应为`c3bbe996e8bf5f13775a193061fc4b654d9317170e0dca14b7792c429cd77cca`。脚本启动时先强制校验冻结3脚本SHA和缓存特征/barcode/掩码来源，默认**只读预检、不写文件、不训练**；显式`--fit`才对一个已冻结样本/累计配置/K/seed **新K** 拟合。若K==该片原始Oracle-K，调用E1/E2的V2 auditor验证后`E3C_E1E2_REUSED_AUDITED`且**永不重拟合**；非原K写入独立`results/e3c_k_sensitivity_v1/`并保存manifest/predictions/metrics/哈希和失败traceback，保存预测后才首次读取参考标签并算ARI/NMI，防止标签用于拟合/选K。已经存在的E3输出只读重算审计，决不覆盖。每次仅1任务，**尚未提供批量调度，不能直接跑1920任务**。
+
+**本轮已在ChatGPT容器执行**`py_compile`、`--help`、核心SHA确认、一个合成8spot模拟审核及篡改哈希拒绝、一个模拟dry-run零写文件测试，结果全部PASS；**没有在用户Windows实际运行/训练，也没跑真实151509**。下一步请用户通过GitHub或ChatGPT文件将脚本放在`D:\paper\CellCharter_reproduction\`，单条PowerShell命令只读预检`--sample 151509 --condition cum_L0_L1 --k 6 --seed 22911`（该片Oracle-K7，K6为新任务）；预期`E3C_PREFLIGHT_PASS`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`，如失败保留报错，不开启`--fit`。预检真实通过后下一步仅一次`--fit`冒烟，再开发冻结全网格安全续跑程序并测成本。
+
+
+
 ## 【2026-11-19｜E3a供体映射证据完整；冻结E3c K敏感性协议，尚未运行】
 
 用户Windows逐文件证据确认：`151507/metadata.tsv`全部3661行`sample_name=151669,subject=Br5595`，SHA256=`82CF728854BC30F534438E34BADF59C26CF07E08475F4BA2CE0368E56C572F79`，与`151669/metadata_source.tsv`**精确同SHA**，是误放的151669元数据副本，绝不能用来推导151507。10张切片的`subject`已经本地逐spot检查：151509/151510 Br5292；151669–151672 Br5595；151673–151676 Br8100，`Status=OK`。151507和151508没有可用于直接检查subject的本地正确metadata，但2025年Bioinformatics论文补充表S1明确`Case2 Br5292=151507,151508,151509,151510`、`Case3 Br5595=151669–151672`，正文https://academic.oup.com/bioinformatics/article/41/6/btaf350/8161564；故**全12张切片供体映射已由10张本地直读+2张同行评审文献证据组成，不能声称12张全部本地逐spot核验**。已提交映射表`experiments/cellcharter_dlpfc/E3a_DONOR_MAPPING_EVIDENCE_20261119.csv`（commit `68b4229`），E3a供体**映射级完成、2张需注明证据级别**。
