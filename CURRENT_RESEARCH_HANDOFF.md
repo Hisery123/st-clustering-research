@@ -1,5 +1,16 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-19：Claude独立评审已读；四区实证文章有条件GO，E3门槛规划已写入GitHub】
+
+用户上传`粘贴的文本 (1)(20261119-025503).txt`（Claude对本CellCharter DLPFC第三篇的独立评审全文），询问能否冲SCI四区实证论文并按步骤实施。已读原文246行，**硕士论文章节GO、SCI四区实证论文有条件GO、当前新自适应算法暂不主推**；所需K无标签策略、3–4公平强基线、外部独立数据，三者都尚未运行，不能保证任何期刊接受。最新冻结研究路径见新提交`experiments/cellcharter_dlpfc/E3_E6_Q4_EMPIRICAL_RESEARCH_GATE_20261119.md` (commit`978ef16`)；只限CellCharter，不读取其他STAGATE项目历史结果。
+
+ChatGPT读取完整真实`E1E2_20261119_RELEASE/derived/all_1200_tasks.csv`与120条件汇总/600逐seed配对重新计算并核对Claude关键数：L0→L1平均ARI+0.103007 (12/12片为正)；L1→L2+0.021812 (10/12片正)；L2→L3 +0.008430，L3→L4 +0.003473；每片**后验选择**最佳配置 vs 固定A15D mean+0.030079、A的**后验选最好seed**比10seed mean+0.038882（两者都是使用参考标签的上界/幸运选择，不能用来证明所有自动选择方法理论上限）；平均10seed ARI极差0.076423，中位SD0.027629；B−A单seed方向与10seed平均反向33/120=27.5%。Claude主要数字基本一致，但“自适应算法最大只能+0.03”“seed噪声压倒可提升空间”过强，需要跨配置同seed配对/供体比较。3独立供体**精确双侧符号翻转检验**最小p=0.25，不可泛称任何统计检验不可能显著。Claude预估2400项K实验“约1小时”不可信：此前用户776项夜间顺序批次墙钟约3小时，等比例可能数小时至约9小时，须冒烟计时。
+
+**重大协议核对**：CellCharter官方教程`aggregate_neighbors(n_layers=3)`明确包括L0-L3，故在此项目单块5D对应20D，是官方示例；API的`n_layers`是必填而非有固定default 3，不能把本研究A15D叫“官方标准”。原CellCharter论文自身已有12张DLPFC benchmark，实证论文必须提出清晰不同的评价维度/协议和独立验证。Oracle-K是标签知情的benchmark，不等于特征拟合直接读真值，但并非无监督选K。未来需分别做K固定网格敏感性（并非解决无标签K选择）与AutoK（不看标签选K），注意K5与供体2完全共线。
+
+**下一步唯一Windows命令**：只读枚举`D:\paper\ST_Benchmark_Planning\mvp\data`下可能含donor/subject/sample_info/metadata的csv/tsv文件与首行列名，帮助确认原始供体标签是否有本地可核对来源；没有的话改查官方spatialLIBD原始metadata。请用户返回输出，不重跑E1/E2、不启动E3训练。之后冻结E3c协议并新建安全单任务runner；同时按论文结构把已完成E1/E2文本先成稿，其他内容TODO。不得声称新E3已执行。
+
+
 ## 【2026-11-19｜CellCharter E1/E2全量资料已真正上传GitHub；限定Claude审查这一个实验】
 
 用户明确授权将统计ZIP、完整派生CSV、中文科研审查、版本可核对的本地实验脚本公开归档，不必强调隐私保密，并希望Claude提出后续实验方案和论文实验章节，但**严禁Claude研究仓库其他STAGATE等项目**。
