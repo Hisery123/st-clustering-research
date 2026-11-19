@@ -1,5 +1,24 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 最新权威快照：2026-11-19｜151510 E3c只读预检PASS，待运行新K
+
+**最新用户Windows输出**：`PREFLIGHT_SAMPLE_OK sample=151510 verified_reused=40 verified_existing=0 pending_new=160 total=200`；`E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160`；`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。**151510仅完成200格预检，160个新增K尚未拟合**。151509此前200/200已独立审核；E3c全局暂按历史480+已完成新K160=640/2400推算，但151509结束后`--sample ALL`尚未全局复核。下一个唯一操作为用户Windows手动显式`--sample 151510 --run --max-new 160`；成功再另行只读审计。本GitHub仓库**未备份**用户本地E3c新增预测/原始metrics。
+
+见下方新增记录与[2026-11-19科研日记](RESEARCH_JOURNAL/2026-11-19.md)。**以下历史快照里的旧“下一步”以本节覆盖。**
+
+## 2026-11-19｜151510 E3c 200格只读预检PASS（尚未训练）
+
+【用户Windows终端原始记录摘录】```text
+PREFLIGHT_SAMPLE_OK sample=151510 verified_reused=40 verified_existing=0 pending_new=160 total=200
+E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+```
+
+用户在Windows手动执行`e3c_k_sensitivity_batch_runner_v1.py --sample 151510`，**没有`--run`**。末尾提供8个`PREFLIGHT_SEED_OK checked=20`及总计成功标记；总汇总来自脚本对指定样本全部200格的fail-closed预检。旧Oracle-K 40格重新审计可复用，新增E3c已有0项，待拟合160项，**没有训练、没有写文件、没有产生新的ARI/NMI**。151509此前200/200已审计完成；全局现有格数480历史复用+160新K为**按两次样本结果及先前全局预检推算640/2400**，151509结束后完整12片`--sample ALL`尚未重审，不得标为最新全局独立审计。
+
+**下一步唯一Windows手动操作（尚未执行）**：在用户确认使用本地已验证安全runner的前提下，单条PowerShell启动`--sample 151510 --run --max-new 160`，runner会先预检全部200格，再在独立E3c目录执行最多160个新K拟合。无成功日志不得声称已完成；成功应见`E3C_BATCH_COMPLETE new_audited=160`，失败保留`E3C_BATCH_HALTED`及session日志、不得删除/盲目重试。151509的160份原始E3c预测与本次任何151510本地结果仍未上传GitHub，文档归档不等于原始结果备份。
+
+
 ## 最新权威快照：2026-11-19 19:55（北京时间）｜E3c 151509全部完成并独立复核
 
 **已核实**：151509 已于 Windows 完成全部160项新K的GMM拟合（1+5+20+134），最后一次不含`--run`的独立只读审计明确返回：`PREFLIGHT_SAMPLE_OK sample=151509 verified_reused=40 verified_existing=160 pending_new=0 total=200`，`E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=160 NEW_TASK=0`，`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。因此**151509切片200/200 E3c格完成并审计通过**。原E1/E2的12片1200项已在之前核验；E3c全局最新推算480个原Oracle-K复用、160个新K完成、1760新K待做（计划总2400格），**但151509完结后的全局`--sample ALL`复核尚未执行**。不能将新GMM seeds或同供体切片当独立生物重复；K网格不能代替AutoK，且真实指标不可筛选性报告。
