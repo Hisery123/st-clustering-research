@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 最新权威快照：2026-11-19 19:55（北京时间）｜E3c 151509全部完成并独立复核
+
+**已核实**：151509 已于 Windows 完成全部160项新K的GMM拟合（1+5+20+134），最后一次不含`--run`的独立只读审计明确返回：`PREFLIGHT_SAMPLE_OK sample=151509 verified_reused=40 verified_existing=160 pending_new=0 total=200`，`E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=160 NEW_TASK=0`，`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。因此**151509切片200/200 E3c格完成并审计通过**。原E1/E2的12片1200项已在之前核验；E3c全局最新推算480个原Oracle-K复用、160个新K完成、1760新K待做（计划总2400格），**但151509完结后的全局`--sample ALL`复核尚未执行**。不能将新GMM seeds或同供体切片当独立生物重复；K网格不能代替AutoK，且真实指标不可筛选性报告。
+
+**接手唯一首要事项**：按冻结协议使用已通过151509验证的安全批处理器推进**151510**；下一回合可先只读`--sample 151510`检查200格，确认`REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160`后，再在下一回合显式`--run --max-new 160`。不得推定151510已训练。所有Windows新E3c预测、metrics和manifest仍在用户本机，**未同步到GitHub仓库**。严禁声称已备份。当天详细日志与交接文档见[专门权威存档](experiments/cellcharter_dlpfc/E3C_CHECKPOINT_20261119.md)；**本文件以下旧段落是历史快照，旧“下一步”均以本节覆盖**。GitHub文档已通过连接提交，不代表用户Windows仓库已拉取。
+
+
 
 ## 2026-11-19 E3c 151509 200/200 full independent read-only audit PASS
 用户手动在Windows上完成首个样本151509的134项新增训练之后，又按规定执行 `e3c_k_sensitivity_batch_runner_v1.py --sample 151509` （无`--run`），真实完整终端输出确认全部10个冻结seed均`PREFLIGHT_SEED_OK ... checked=20`；尾行如下：
