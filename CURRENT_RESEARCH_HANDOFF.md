@@ -1,5 +1,14 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-19 E3a真实供体元数据核对：10/12片确认，2片缺路径】
+用户在 Windows PowerShell 对 `D:\paper\ST_Benchmark_Planning\mvp\data\<sample>\metadata_source.tsv` **只读解析并修正首列无表头的1列错位**（原Header 73字段/首条数据74字段；临时补`_source_rowname`，所有行检查`sample_name==sample`且`barcode==_source_rowname`），终端真实输出：
+- **151509** 4789行 Br5292 OK；**151510** 4634行 Br5292 OK。
+- **151669** 3661行、**151670** 3498、**151671** 4110、**151672** 4015：全部 Br5595、OK。
+- **151673** 3639行、**151674** 3673、**151675** 3592、**151676** 3460：全部 Br8100、OK。
+- **151507与151508**：指定`metadata_source.tsv`路径不存在（`FILE_MISSING`），不代表样本/GMM数据不存在，也不能声称已经核实这两片为Br5292；需下一步查看两个切片目录是否有替代元数据源，然后才做12/12最终确认。
+这是用户本机真实元数据证据，比之前参考文献暂定D1/D2/D3分组更可靠。**E3a进度10/12、尚未完成；E3c K敏感性尚未启动，现有1200项E1/E2实验不得重新跑。** 不要把用户本次验证误写成ChatGPT直接读原metadata；Windows输出源自用户。
+
+
 ## 【2026-11-19：Claude独立评审已读；四区实证文章有条件GO，E3门槛规划已写入GitHub】
 
 用户上传`粘贴的文本 (1)(20261119-025503).txt`（Claude对本CellCharter DLPFC第三篇的独立评审全文），询问能否冲SCI四区实证论文并按步骤实施。已读原文246行，**硕士论文章节GO、SCI四区实证论文有条件GO、当前新自适应算法暂不主推**；所需K无标签策略、3–4公平强基线、外部独立数据，三者都尚未运行，不能保证任何期刊接受。最新冻结研究路径见新提交`experiments/cellcharter_dlpfc/E3_E6_Q4_EMPIRICAL_RESEARCH_GATE_20261119.md` (commit`978ef16`)；只限CellCharter，不读取其他STAGATE项目历史结果。
