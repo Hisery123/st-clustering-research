@@ -1,5 +1,21 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 最新权威快照：2026-11-19 23:52（北京时间）｜151510已完成160新拟合，待独立审计
+
+用户Windows真实`E3C_BATCH_COMPLETE new_audited=160`；151510的160个新K任务已由运行器内部审核，先前40旧格已只读审核，但**结束后还没有独立复审200格**。151509先前独立复审200/200。全局最新推算800/2400，未做最新全局只读复审。可按日志与既有安全runner安排剩余10张切片（1600新拟合）的受控夜间连续批处理：首先只读全局审核，错误停止；之后逐片，不覆盖；最后再独立`--sample ALL`。**未执行夜间剩余1600，原始Windows文件未上传GitHub**。以下旧交接为历史。
+
+## 2026-11-19｜151510 E3c 160项新K批处理完成（待独立只读审计）
+
+【用户Windows末尾原始日志】：
+```text
+[2026-11-19T15:52:57+00:00] RUN_AUDIT_PASS 160/160 sample=151510 condition=cum_L0_L1_L2_L3_L4 k=9 seed=12815 ARI=0.354917 NMI=0.567188 wall_seconds=14.15
+[2026-11-19T15:52:57+00:00] E3C_BATCH_COMPLETE new_audited=160 summary=D:\paper\CellCharter_reproduction\results\e3c_k_sensitivity_batch_sessions_v1\20261119T151528Z_26fb78a1db\session_status.json
+```
+前文用户已真实通过151510全200格只读预检（40旧Oracle-K复用、0现存新K、160待新拟合），然后用户发回批处理尾部`RUN_AUDIT_PASS 156/160`至`160/160`与`E3C_BATCH_COMPLETE new_audited=160`，故**160项新K完成并通过安全运行器内部逐项审计**，并非仅计划。此轮仍**未**独立重新运行151510全200格只读审计；不可提前称为独立复核200/200。151509此前已200/200独立复核。现按前次全12片旧480格已复核、151509新160、151510新160计，E3c全局**推算**800/2400格、剩余10片新K1600项，最新全局`--sample ALL`审计尚未收到用户结果。
+
+**后续策略**：用户先前明确希望若151510顺利，今晚连续完成剩余1600项；可交付**一个**PowerShell分组操作，在任何训练前运行`--sample ALL`只读全局审计，以同时独立核实151510的200格及其余样本输入；只要预检PASS，顺序执行冻结剩余10片（151507、151508、151669–151676），每片调用已有`e3c_k_sensitivity_batch_runner_v1.py --sample <sid> --run --max-new 160`，严格检查`$LASTEXITCODE`非0立即停止，不删除不覆盖；末尾再`--sample ALL`只读最终审计，只有总计2400格且`NEW_TASK=0`才可标全局完成。程序已有每批次session原始日志、单任务超时和锁、默认不修改旧结果。此夜间完整工作**尚未执行**；程序实际性能/总耗时与成功率未保证。E3c原始新K结果只在Windows，GitHub文字记录不算备份。
+
+
 ## 最新权威快照：2026-11-19｜151510 E3c dry-run PASS，准备首批160个新K
 
 用户Windows真实终端确认`151510` 200格只读预检通过：40历史Oracle-K格审计复用、0项新K现存、160项待拟合；尾部`E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。**151510尚未开展新拟合**；151509此前完成200/200审计，E3c全局仍以640/2400为待全局复核的推算。下一次只给用户一个明确操作：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e3c_k_sensitivity_batch_runner_v1.py' --sample 151510 --run --max-new 160`；运行器先fail-closed预检、再串行拟合，不覆盖失败/已有文件；须等待真实成功日志。相关证据详见[当日日记](RESEARCH_JOURNAL/2026-11-19.md)；**原始E3c结果仍在Windows未上传GitHub**。历史段落旧指令以本节覆盖。
