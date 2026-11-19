@@ -1,5 +1,18 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 【2026-11-19：用户上传完整12片统计ZIP，ChatGPT独立重算审计通过，重要纠正：15D交换不稳健】
+
+**真实新附件**：`e1e2_12slices_statistics_20261119_095251.zip`，SHA256=`446ad84a992a83c776ea768042ed198d6bdc794236c313c24f7d09ca8daef6ac`（用户亲自于Windows打包上传）。ChatGPT当前会话直接解压读取**12×(4 CSV+1 JSON)=60份文件**，使用独立Python脚本逐项复核：1200条唯一(`sample,condition,gmm_seed`)任务、120条10seed条件统计、600条相同15D逐seed配对、60条配对统计，**所有60组provenance对应4CSV的字节SHA256相符，均值/样本SD(DDOF=1)/中位数/min/max/配对增量和正种子计数重算零不一致**。12片各10条件×10冻结seed，K5 4片/K7 8片；来源码1176 NEW_AUDITED +24 LEGACY_AUDITED，47,681 spots（其中参考标签有效47,329）。本会话审计的范围是上传统计包的一致性，**没有原始逐spot预测与参考文件，不能声称在云端重新重算1200份原始ARI/NMI**；先前用户Windows安全runner有逐spot级审计证据。
+
+**核心结果（描述性、非独立推断）**：同样15D的候选B=`fixed_L0_L1_L4` vs A=`cum_L0_L1_L2`，12片的10seed均值差ARI**7/12正、5/12负、切片不加权平均+0.003282**；NMI**9/12正、3/12负、平均+0.010867**。151674 ARI-0.060879/NMI-0.035787；151675 ARI-0.063314/NMI-0.024986，前四片均正的乐观印象被全样本推翻。其他4组同维15D的正切片数：L0L1L3 ARI6/12 NMI8/12；L0L2L3 5/12与6/12；L0L2L4 5/12与8/12；L0L3L4 6/12与6/12；**没有任何固定15D交换在全部12片、两指标都正向**。
+
+按公开附录ICLR2026 LMRL Workshop Table2的供体标签（用户ZIP本身无donor_id，**须最终与原始spatialLIBD metadata核对**）：D1 151507–151510 K7，D2 151669–151672 K5，D3 151673–151676 K7。同维B−A的4切片均值：D1 ARI+0.039251/NMI+0.031386；D2 +0.003412/+0.014683；D3 **-0.032818/-0.013468**。独立供体n=3，K5与donor2完全对应，不能分离K/供体，不能进行基于12片或120seed的伪重复显著性检验；D1和D3都K7但符号不同，无法仅归因于K。25D累计在全12片**mean ARI最佳2/12、mean NMI最佳7/12**，vs标准15D ARI增益正6/12且均差+0.011903，NMI正9/12且均差+0.020186（注意维数同时变化）。仅全12片的**描述性异质性/鲁棒性问题**已获数据支持，不能叫方法创新。
+
+审计提醒：两组不同GMM seed得到完全相同逐spot预测文件SHA：151669/fixed_L0_L1_L4 seeds6690和22159；151672/fixed_L0_L2_L4 seeds10379和6690，可能同解收敛，不能据此判断错误或独立性。当前没有E3 K敏感性、边界F1、E4空间/marker、E5公平成熟基线/外部数据；**全面设计尚需执行**。既有12片已用于探索，不能再当未见测试；外部独立验证及供体留组验证必须冻结决策、防泄漏。Oracle-K来自参考标签类别数，不能写纯无监督估计K。
+
+**ChatGPT本地完整审计工件（未推入GitHub）**：`/mnt/data/E1E2_12切片_统计审查报告与矢量图_20261119.zip`（7.2KB中文审查报告、可重复审计/Matplotlib脚本、CSV整合、SVG图），当前会话生成并复测脚本，最终以用户实际上传ZIP为唯一统计证据。GitHub只归档摘要，不上传其他代码或原始数据。下一步先冻结E3/后续比较协议并核实原始供体元数据，按用户手动Windows步骤执行，禁止后验单片最优配置选择性汇报。
+
+
 ## 【2026-11-19：E1/E2冻结12切片×10配置×10seed=1200/1200全部完成并分切片统计通过】
 
 **新用户Windows原始终端日志（2026-11-19北京时间凌晨）**：8片夜间脚本`e1e2_overnight_remaining_slices_v1.py --run`运行至最后151676/seed12815，`BATCH_RUN_COMPLETE new_tasks=10`，`COMMAND_OK RUN 151676 seed=12815`，`SEED_COMPLETE ... groups=80/80`，随后`SECTION_FULL_AUDIT_AND_SUMMARY_BEGIN sample=151676`、`COMMAND_OK SUMMARY 151676`、`SECTION_COMPLETE sample=151676 verified=100/100 summary=D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151676\20261118T185220Z_bde3aec9`，最终**`OVERNIGHT_ALL_COMPLETE sections=8 audited_cells=800 new_tasks=776 summaries=8`**，Session日志`D:\paper\CellCharter_reproduction\results\e1e2_overnight_v1\20261118T154858Z_52c4c93a0b\session.log`。调度器源码已检查：在执行前预检8片×10seed共80组；每组调用V2安全runner，结束检查退出码和任务计数；每片100格完成后调用V2统计脚本逐项复核100份预测和ARI/NMI，检查100/10/50/5四张CSV和SHA/来源文件，才计`SECTION_COMPLETE`；没有并行、无自动重试/覆盖。该日志支持**全部剩余8张切片各100/100审核并产生统计结果**；800格中有**776项本轮新训练+24项已有结果通过复审并复用**（涵盖151669最先单独跑的8项新结果），并非24项都为“历史”实验。此前151507–151510四张各100/100已用户独立核验和统计完成。**因此E1/E2总矩阵1200/1200配置-种子格已完成、12/12每片10seed统计已产生**。本次数字来自用户终端和已审核的控制脚本逻辑，助手**还未直接读取8片的CSV指标值/全面对照，不得虚构哪种特征在12片上胜出**。E1/E2完成不等于整篇论文结束：E3 K敏感性/空间边界、E4生物学/空间可视化、E5成熟公平基线/独立外部数据、E6候选增量与论文还待做。
