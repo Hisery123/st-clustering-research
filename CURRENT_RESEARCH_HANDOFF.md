@@ -1,5 +1,22 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d完整48配置批量运行已结束（终端PASS，统一文件审计待执行）
+
+**用户Windows批量任务真实终端原文末尾**：
+```text
+E3D_BATCH_PASS task=43/48 sample=151675 dim=20 selected_k=10 seconds=58.847
+E3D_BATCH_PASS task=44/48 sample=151675 dim=25 selected_k=4 seconds=64.592
+E3D_BATCH_PASS task=45/48 sample=151676 dim=10 selected_k=8 seconds=50.942
+E3D_BATCH_PASS task=46/48 sample=151676 dim=15 selected_k=2 seconds=57.425
+E3D_BATCH_PASS task=47/48 sample=151676 dim=20 selected_k=6 seconds=58.954
+E3D_BATCH_PASS task=48/48 sample=151676 dim=25 selected_k=6 seconds=61.764
+E3D_BATCH_FINAL status=completed completed=46 existing=2 problem_tasks=0 pending=0 summary=D:\paper\CellCharter_reproduction\results\e3d_autok_batch_sessions_v1\20261120T061725Z_16624\session_status.json
+E3D_BATCH_EXIT_CODE=0
+```
+**严格可报告：** E3d批量程序真实完成，46配置新计算成功、2配置复用既有训练（151509 15D与25D），总48/48配置有`completed`状态，报表为`problem_tasks=0 pending=0 exit_code=0`；但这还是runner返回的完成状态，**尚未进行全48配置文件级独立审计，也未独立读取用户Windows的原始manifest/CSV/NPZ及session JSON**。按冻结E3d方案每配置11内部K×5次，完整48配置**计划总2640 GMM fits**，实际完整性需集中审计验证后才能说2640次标签档案齐全。已知用户日志尾部K可变包括K=2、K=10，不据此改变冻参、增加实验或挑结果；用户要求**阶段结束一次性审计、之后由Claude集中审查**。
+**接下来唯一工作**：准备/运行E3d全48配置的统一只读验证（可在隔离输出目录保存汇总CSV/JSON）、将结果及协议整理给Claude，不再启动新的E3d训练或逐项审查；随后按既定计划进入E4/E5。历史旧的“25D先单项审计”建议已被用户新规则覆盖。
+
+
 ## 2026-11-20｜按用户执行优先新规，E3d剩余46配置批量runner已提交，Windows待下载
 
 - 当前**真实训练完成2/48**：151509/15D（已经单项产物审核）、151509/25D（终端训练完成、集中审计待全阶段结束）；不能称其他46项已运行。
