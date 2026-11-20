@@ -1,5 +1,11 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E4全部12片事前输入预检真实通过，批量SVG真实表达绘图脚本GitHub已发布
+
+用户Windows真实输入预检：12张DLPFC每片`E4_PREFLIGHT_PASS`；spots/人工层标签/两份历史Oracle-K 15D A (`cum_L0_L1_L2`)与B (`fixed_L0_L1_L4`)预测路径齐全，每片`A_k=B_k=7`（151669–151672为5）；核验预期各片spot与有标注数；`E4_PREFLIGHT_SUMMARY total=12 MOBP=12/12 PCP4=12/12 SNAP25=12/12`、`E4_PREFLIGHT_EXIT_CODE=0`。发现每片原`filtered_feature_bc_matrix.h5`含三个marker基因名称。**只说明基因名字存在，不代表实际基因表达值/10x barcode对齐已做；这些步骤交由E4批量脚本运行时核对。** 用户本机既有`e4_spatial_visualization_v1.py`是输入预检脚本，并非真正的--run绘图器；它曾写入`results/e4_spatial_visualization_v1/e4_preflight_summary.json`，已知存在不清理。
+
+已在GitHub新增`experiments/cellcharter_dlpfc/e4_spatial_visualization_batch_v1.py`，SHA256=`78adf071e00ac2da33a8cb98d3254ffc05a787d9047bd39b44785640571d8d3c`。只读取用户现有preflight模块及真实10x CSC稀疏原始counts（匹配barcode）、真实spot坐标/标签、真实A/B seed22911 原始ID预测；每片产出三种SVG：参考层+A/B空间三联、MOBP/PCP4/SNAP25真实表达三联、A/B对参考层混淆矩阵，以及3份CSV原值表；计算表达`log1p(1e4 * raw UMI / spot UMI total)`，SVG统一vmin0 vmax6，超过6只剪裁显示，原表保留未经裁切强度。12片都做，正文3个展示例子依据**已存在E1E2汇总**预冻：151507（D1 deltaARI最大正）、151671（D2接近0）、151675（D3最负），每个供体一片，剩余全部附录展示；标签/簇颜色**不做监督式匹配**，保留独立原始ID。位置坐标`pxl_col_in_fullres`为x、`pxl_row_in_fullres`为y并向下。全部输出写入新唯一`results/e4_spatial_visualization_v1/batch_<UTC>_<PID>`，每片input/output SHA、文件状态与失败日志；不覆盖或重训E1/E2/E3c/E3d，失败保留并继续其他片，最后给明确`E4_BATCH_FINAL`。**新绘图脚本未由用户Windows下载/验收/运行；代码提交不意味着E4图已生成。** 当前下一步直接用户Windows下载SHA检查并执行`--run`全12，完成后集中审计，不再逐片核对。
+
 ## 2026-11-20｜E3d全48配置阶段末统一只读审计真实PASS（退出码0），进入E4
 
 **用户Windows真实最终结果**：
