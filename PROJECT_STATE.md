@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E5a环境真实清点完成，已建立基线选择记录，尚未训练
+
+用户Windows真实输出：Python3.10.22、`torch2.1.2+cu121`、CUDA=True RTX4070Laptop 8GB；`leidenalg0.12.0`、`igraph1.0.0`可用，scanpy/anndata/scvi/cellcharter模块可找到；`banksy`/`GraphST`/`torch_geometric`/`rpy2`缺失，`Rscript`未在PATH。未运行任一E5a实验。已查官方BANKSY Python `pybanksy1.3.5`支持Python3.10，R在其默认Leiden方案不是必要项；GraphST官方旧Python+R且以Linux完整支持为主，BayesSpace R包，均不当作当前可运行。事前候选方案与各方法数据/K/seed公平门槛见`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。接下来Windows唯一一步是在**独立目录**用`pip --target --no-deps`安装并导入测试pybanksy1.3.5，绝不升级已验证CellCharter原环境；确认后再准备空间方法环境、冻结E5a全量，连续运行，阶段结束后审计/计划完成后Claude终审。
+
+
 ## 2026-11-20｜E4统一最终审计真实PASS、E4正式结束；E5a环境预检待运行
 
 用户Windows真实返回：`E4_PHASE_AUDIT_FINAL status=passed verified=12/12 svg=36/36 csv=36/36 errors=0`；`E4_PHASE_AUDIT_EXIT_CODE=0`。这是E4全部12片、36SVG与36CSV的单阶段独立自动文件验收通过，真实报告仍在用户Windows `D:\paper\CellCharter_reproduction\results\e4_spatial_visualization_v1\phase_audit_v1\20261120T082135Z_29612\e4_phase_audit_report.json`；**助手未实际读取文件字节，用户终端报告是当前可信原始证据**。统一日志已归档`experiments/cellcharter_dlpfc/E4_FINAL_AUDIT_PASS_20261120.md`；E4关闭、不新增绘图。按照`EXECUTION_FIRST_CLAUDE_FINAL_REVIEW_DECISION_20261120.md`立刻进入既有E5a成熟基线3–4项的**事前环境/可行性清点**，用一条只读Windows PowerShell命令报告当前CellCharter Python环境中的scanpy/leidenalg/igraph/torch/torch-geometric/GraphST/BANKSY相关包版本与PyTorch GPU可用性，检查Rscript/BayesSpace可用性；无包不能假定安装成功，不能擅自安装，也不可承诺E5已运行。根据真实清点一次性冻结候选基线及Oracle-K与标签独立选K两套不混淆的比较规则，然后连续开展E5a。最终Claude审核安排在整个计划末。
