@@ -1,5 +1,16 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d正式协议151509/15D首个CPU单配置拟合终端PASS（待本地文件审计）
+
+**用户Windows原始控制台证据**（已实际执行`e3d_autok_single_config_v1.py --sample 151509 --condition cum_L0_L1_L2 --run`）：
+```text
+100%|...| 11/11 [00:09<00:00, 1.11it/s]
+GPU available: True (cuda), used: False
+E3D_FIXED_TASK_COMPLETE sample=151509 condition=cum_L0_L1_L2 selected_k=3 seconds=55.91 output=D:\paper\CellCharter_reproduction\results\e3d_autok_fixed_v1\151509\cum_L0_L1_L2
+```
+软件打印`GPU available but not used`为预先冻结的**CPU正式主方案所预期**，并非错误；仅本样本本尺度完成，**48个slice×scale配置中的1个**，程序预设K候选2..10（内部K1..11）、每K5次=>55次GMM；完整次数需要后续从`autok_summary.json`及`all_k_run_labels.npz`核验，不能单凭进度条说全量数据已验收。本正式配置`selected_k=3`（与先前探索pilot K4不同；候选K范围和重启预算已变，不能推断不稳定或优劣）；本次耗时终端为55.91s（归档精确值待JSON）。**尚无本地JSON/NPZ/预测CSV校验或有标签后验ARI/NMI，正式全量E3d还未执行。**
+唯一下一步：用户Windows一条只读审计命令检查输出目录的`manifest.json`、`autok_summary.json`、`predictions.csv`、`all_k_run_labels.npz`，校验文件SHA、4789barcode、K1..11每K5次、稳定性有限、chosen K、各K模型收敛记录；任何失败不清空/重跑。完成后再决定是否启动其余47配置，仍需分批和严格审核。旧E1/E2/E3c、pilot不可修改。
+
 ## 2026-11-20｜E3d开发试点GPU/CPU预测分区一致性PASS，正式E3d前瞻协议已建立
 
 **用户Windows真实只读验证输出**：
