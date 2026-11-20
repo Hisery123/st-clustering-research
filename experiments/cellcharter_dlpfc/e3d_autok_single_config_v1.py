@@ -191,7 +191,8 @@ def run_one(sample, condition, e1, info, data):
             "all_model_runs": {str(k): len(model.labels[k]) for k in manifest["internal_K"]},
             "best_models": {str(k): {
                 "converged": bool(getattr(model.best_models[k], "converged_", False)),
-                "num_iter": int(getattr(model.best_models[k], "num_iter_", -1)),
+                "num_iter": (None if getattr(model.best_models[k], "num_iter_", None) is None
+                             else int(model.best_models[k].num_iter_)),
                 "nll": float(getattr(model.best_models[k], "nll_", float("nan"))),
             } for k in manifest["internal_K"]},
             "fit_predict_seconds": round(time.perf_counter()-start, 6),
