@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜按用户执行优先新规，E3d剩余46配置批量runner已提交，Windows待下载
+
+- 当前**真实训练完成2/48**：151509/15D（已经单项产物审核）、151509/25D（终端训练完成、集中审计待全阶段结束）；不能称其他46项已运行。
+- 依据用户最新“**按既定计划连续执行、结束交Claude统一审查**”指令，已在GitHub新增`experiments/cellcharter_dlpfc/e3d_autok_batch_runner_v1.py`（SHA256 `c9fc65275638a1627a1c836198e8804ecfa866938377448e0de40346d9d01191`）和`experiments/cellcharter_dlpfc/E3D_BATCH_EXECUTION_PLAN_20261120.md`。严格保留E3d frozen CPU/K2..10/5 seeds，枚举12×4=48个配置，跳过已有两个且不覆盖；原始日志/状态记录在独立批次会话目录。单样本故障跳过其后该样本任务，跨两样本/疑似全局错误停止，不静默重跑。
+- **仅助手侧Python语法及模拟任务列表测试通过；尚未由用户Windows下载/运行batch脚本**。下一只需用户Windows**一条PowerShell**：下载并验证固定SHA，随后一次性显示只读计划`E3D_BATCH_PLAN completed=2 pending=46 blocked=0`。收到计划通过后直接执行runner `--run` 让46项连续运行；中途不再逐项做科学审核。全48项完成后统一审计并组织Claude审查。
+
+
 ## 2026-11-20｜用户新指令：严格执行冻结计划，禁止执行中临时审计，结束后由Claude集中审核
 
 **用户最新明确策略，高于旧交接文件中“25D单独审计后才能继续”的临时意见**：事前一次性审核并冻结计划；执行期间连续完成，除非真实错误/覆盖/泄漏/损坏等阻断，否则不再中途插入审计、猜想、扩展任务或改参数；整阶段完成后统一打包证据、让Claude集中审核补漏。科研诚信、真实状态、无标签选K、失败记录不放松。规则见`AGENTS.md`和`experiments/cellcharter_dlpfc/EXECUTION_FIRST_CLAUDE_FINAL_REVIEW_DECISION_20261120.md`。
