@@ -1,5 +1,9 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d正式CPU单配置脚本Windows下载SHA256校验成功
+
+用户真实Windows PowerShell输出：`E3D_FIXED_SCRIPT_READY sha256=79188c06fbf54aa19b385e606a42f6223551217b710d703a80021a9cf98e8670`。仅能确认`D:\paper\CellCharter_reproduction\e3d_autok_single_config_v1.py`下载完毕，且文件SHA256与GitHub已发布脚本完全匹配；**当前未运行正式E3d只读预检、未运行正式E3d拟合，也没有新AutoK正式结果**。新脚本冻结K候选2–10、每配置5次受控初始化、CPU方案；E3c和既往pilot结果不改。下一唯一用户Windows操作：直接使用本机`env_cellcharter\python.exe`运行`e3d_autok_single_config_v1.py` **不加--run**，期望`E3D_FIXED_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 spots=4789 dim=15 ...`与`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`，任何失败停止并提供原始输出。
+
 ## 2026-11-20｜E3d开发试点GPU/CPU预测分区一致性PASS，正式E3d前瞻协议已建立
 
 **用户Windows真实只读验证输出**：
