@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E5a BANKSY 72/72真实通过，BayesSpace第三子批72项R脚本待用户Windows执行
+
+用户Windows真实`E5A_BANKSY_FINAL status=completed completed=72/72 failed=0 summary=D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\banksy_20261120T101256Z_26540\batch_status.json`和`E5A_BANKSY_EXIT_CODE=0`。已冻结的BANKSY同seed/邻域/K臂运行成功；个别Oracle-K实际簇数未恰命中K5/7属预冻resolution网格允许现象，**不据此改参数**。此前非空间GMM+Leiden144/144通过，E5a当前累计216/288项真实报告成功、0失败，阶段末尚未统一独立落盘核验。
+
+第三子批BayesSpace72项（12片×3seed×Oracle-K/无标签K2..10）R脚本已GitHub提交`experiments/cellcharter_dlpfc/e5a_bayesspace_baselines_batch_v1.R`，SHA256=`8b40062723cd67cf6c3aa23fcfb51eba6535a34276126c7defa0fdc8db452752`，R4.5.1 `D:\R\R-4.5.1\bin\Rscript.exe`、BayesSpace1.20.2隔离R包库和真实10xH5/阵列坐标输入；`qTune(qs=2:10,nrep=1000,burn.in=100)`按平均伪对数似然最大选K，正式每臂`spatialCluster(nrep=10000,burn.in=1000)`、mclust初始化、t model。两臂原始预测CSV先保存，之后才按barcode读取真实层标签评价ARI/NMI；全部独立新会话、状态和SHA。**R脚本尚未在用户Windows真实数据中启动**；本会话仅审查官方文档和静态脚本，无R运行环境，不能声称本地模拟测试通过。计划见`experiments/cellcharter_dlpfc/E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`第六节。下一唯一Windows操作：SHA下载`e5a_bayesspace_baselines_batch_v1.R`，以`D:\R\R-4.5.1\bin\Rscript.exe --vanilla script.R --run`运行，若阻断最小修复保留日志目录，不在E5a中途审查BIC/ARI或补跑BANKSY。成功末尾应`E5A_BAYESSPACE_FINAL status=completed completed=72/72 failed=0`及`E5A_BAYESSPACE_EXIT_CODE=0`。后E5a全量统一审计→E5b独立数据→E6可选→Claude总审。
+
+
 ## 2026-11-20｜E5a非空间144/144真实完成，BANKSY第二子批72项脚本已冻结待Windows运行
 
 **用户Windows真实结果**：`E5A_NONSPATIAL_FINAL status=completed completed=144/144 failed=0 summary=D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\nonspatial_20261120T095303Z_15120\batch_status.json`，`E5A_NONSPATIAL_EXIT_CODE=0`；12片×GMM/Leiden×oracle_k/k_blind×3seed=144项按已冻协议完成，未做全E5a汇总审计。末尾Leiden K-blind fixed resolution1.0 K=17不等于参考K5/7，但符合冻结的Kblind规则，不因后验结果改参数。用户Windows上完成产物不等于GitHub已保存其原始CSV/manifest。
