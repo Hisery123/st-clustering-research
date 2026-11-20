@@ -1,5 +1,17 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d AutoK CPU/GPU试点完成标记（GPU 19.78秒，CPU详细数值待核对）
+
+**用户本轮上传本机终端日志摘录文件** `粘贴的文本 (1)(20261120-024342).txt`（助手实际读取781行），其最终明确输出：
+```text
+E3D_PILOT_DEVICE_PASS device=gpu chosen_k=4 wall_seconds=19.78 predictions_sha256=20aa22a7da099ccf339521ef400dd0b078f8f71b0735162da55aeabfb3147a92
+E3D_PILOT_COMPLETE CPU_GPU success summary=D:\paper\CellCharter_reproduction\results\e3d_autok_seeded_pilot_v1\20261120T023802Z_28068\summary.json
+```
+**可确定的事实**：E3d探索性`e3d_autok_seeded_pilot_v1.py --run`在用户Windows已实际运行且给出`CPU_GPU success`终止标志；151509样本15D、K候选4–10（内部拟合3和11）、3次重复、显式播种试运行；GPU使用RTX4070、设备级耗时19.78秒、当前`chosen_k=4`。上传文本只含GPU末尾大量Trainer输出，**没有CPU设备PASS行和CPU wall_seconds/选K**；不能凭尾段计算加速倍数，也不能确认CPU/GPU选择一致，需直接读取本机`summary.json`。部分拟合显示`max_epochs=100 reached`，需后续检查收敛性；PyTorch Tensor Cores precision提示为性能建议，不宜无预注册更改计算精度。该试点非正式E3d结果、不用于选择最终超参，不代表最优K或最终科研结论；E1/E2/E3c冻结结果保持不变。
+
+**下一唯一用户Windows只读操作（未执行）**：`Get-Content -LiteralPath 'D:\paper\CellCharter_reproduction\results\e3d_autok_seeded_pilot_v1\20261120T023802Z_28068\summary.json' -Raw`。核对CPU与GPU`chosen_k`、`wall_seconds`、`actual_runs`、稳定性序列、预测SHA以及status，再确定是否继续抽查种子/收敛性、如何冻结正式E3d。用户尚未上传summary原文件，GitHub仅归档这份日志中的可信摘录，不是Windows原始结果备份。
+
+
 ## 2026-11-20 10:35｜E3d seeded AutoK pilot 151509 15D只读预检通过
 
 **证据：用户Windows真实PowerShell输出**：
