@@ -1,5 +1,9 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜BayesSpace首批0/72因10x CSC无序索引阻断，修复v1.1待运行
+
+用户Windows真实`E5A_BAYESSPACE_HALTED completed=0/72 error=类别为"dgCMatrix"的对象无效: 'i' slot is not increasing within columns`，`E5A_BAYESSPACE_EXIT_CODE=2`。0/72说明**未运行任何BayesSpace聚类任务**；失败阶段在读取151507的10x HDF5稀疏CSC矩阵，`methods::new('dgCMatrix',...)`要求每列非零行索引升序，H5原`indices`可以无序；不据此宣称原数据坏或模型失败。原失败结果和日志保留在`D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\bayesspace_20261120T102925Z_30592\batch_status.json`。已提交独立最小修复`experiments/cellcharter_dlpfc/e5a_bayesspace_baselines_batch_v1_1.R`，Git SHA256 `fed1f66c87a186104c60727d1bd27791a6dd9d389096b06305aac40fc97ccfbe`。仅将CSC原0基行索引+每列ptr恢复的列索引通过`Matrix::sparseMatrix`规范排序，原始H5完全只读；不改变冻结的BayesSpace模型/K2..10、seed、MCMC参数或评价mask。该修复**尚未在用户Windows运行/验收**。下一Windows**唯一**步骤下载SHA校验v1.1并运行全部72任务，旧v1原地保留、不覆盖失败会话，不加额外实验。详见`E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`第七节。原非空间144/144与BANKSY72/72已完成无变化。
+
 ## 2026-11-20｜E5a BANKSY 72/72真实通过，BayesSpace第三子批72项R脚本待用户Windows执行
 
 用户Windows真实`E5A_BANKSY_FINAL status=completed completed=72/72 failed=0 summary=D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\banksy_20261120T101256Z_26540\batch_status.json`和`E5A_BANKSY_EXIT_CODE=0`。已冻结的BANKSY同seed/邻域/K臂运行成功；个别Oracle-K实际簇数未恰命中K5/7属预冻resolution网格允许现象，**不据此改参数**。此前非空间GMM+Leiden144/144通过，E5a当前累计216/288项真实报告成功、0失败，阶段末尚未统一独立落盘核验。
