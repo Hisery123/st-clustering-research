@@ -1,5 +1,9 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E5a BANKSY 已安装；R位于D盘且Clash代理7897，待Rscript只读验证
+
+**用户最新真实终端**：`pybanksy==1.3.5`到隔离`D:\paper\CellCharter_reproduction\third_party\e5a_banksy_libs`后`E5A_BANKSY_IMPORT_PASS version=1.3.5`，`E5A_TORCH_VERSION 2.1.2+cu121`，`E5A_CUDA_AVAILABLE True`，`E5A_BANKSY_SETUP_COMPLETE`。唯一警告`rpy2`不存在，BANKSY默认Leiden可运行，只有mclust不可用。**用户截图**：`D:\R\R-4.5.1`真实目录，Clash Verge系统HTTP代理`127.0.0.1:7897`（混合端口7897）。此前`Rscript NOT_FOUND_IN_PATH`是PATH问题，**不能说电脑没R**。尚未实际调用Rscript；也未确认BayesSpace是否安装。事前安装/选择记录在`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。**用户下一Windows唯一操作**：明确Rscript路径优先`D:\R\R-4.5.1\bin\Rscript.exe`或`bin\x64\Rscript.exe`，只读查R版本和BayesSpace/BiocManager是否安装；显式仅在本次进程设置HTTP_PROXY/HTTPS_PROXY为127.0.0.1:7897并于结束恢复，不直接安装R包。E5a尚未训练；下一阶段预冻结公平基线后批量执行。
+
 ## 2026-11-20｜E5a环境真实清点完成，已建立基线选择记录，尚未训练
 
 用户Windows真实输出：Python3.10.22、`torch2.1.2+cu121`、CUDA=True RTX4070Laptop 8GB；`leidenalg0.12.0`、`igraph1.0.0`可用，scanpy/anndata/scvi/cellcharter模块可找到；`banksy`/`GraphST`/`torch_geometric`/`rpy2`缺失，`Rscript`未在PATH。未运行任一E5a实验。已查官方BANKSY Python `pybanksy1.3.5`支持Python3.10，R在其默认Leiden方案不是必要项；GraphST官方旧Python+R且以Linux完整支持为主，BayesSpace R包，均不当作当前可运行。事前候选方案与各方法数据/K/seed公平门槛见`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。接下来Windows唯一一步是在**独立目录**用`pip --target --no-deps`安装并导入测试pybanksy1.3.5，绝不升级已验证CellCharter原环境；确认后再准备空间方法环境、冻结E5a全量，连续运行，阶段结束后审计/计划完成后Claude终审。
