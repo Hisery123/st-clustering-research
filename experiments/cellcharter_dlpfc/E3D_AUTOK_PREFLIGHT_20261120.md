@@ -21,3 +21,21 @@
 ## 下一步唯一Windows只读操作
 
 在冻结E3d算法前，用项目现有Python环境执行一次版本/API/GPU预检，打印`cellcharter`、`torchgmm`、`torch`版本、`ClusterAutoK`签名、`GaussianMixture`签名、`torch.cuda.is_available()`与GPU名称（有GPU时）。**不调用.fit、不读取参考标签、不写任何本地输出文件、不改依赖**。取得终端真实输出后再决定：先隔离环境修复随机状态，还是制定CPU/GPU公平测时实验。不得声称E3d已经运行。
+
+## 2026-11-20｜E3d AutoK Windows软件版本/API/GPU只读预检已执行
+
+**用户Windows真实终端**（调用`env_cellcharter/python.exe`，未调用拟合）：
+```text
+CELLCHARTER_VERSION= 0.3.2
+TORCHGMM_VERSION= 0.1.2
+TORCH_VERSION= 2.1.2+cu121
+AUTOK_SIGNATURE= (n_clusters: 'tuple[int, int] | list[int]', max_runs: 'int' = 10, convergence_tol: 'float' = 0.01, model_class: 'type' = None, model_params: 'dict' = None, similarity_function: 'callable' = None)
+GMM_SIGNATURE= (n_clusters: 'int' = 1, *, covariance_type: 'str' = 'full', init_strategy: 'str' = 'kmeans', init_means: 'torch.Tensor' = None, convergence_tolerance: 'float' = 0.001, covariance_regularization: 'float' = 1e-06, batch_size: 'int' = None, trainer_params: 'dict' = None, random_state: 'AnyRandom' = 0)
+AUTOK_SOURCE= D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\cellcharter\tl\_autok.py
+CUDA_AVAILABLE= True
+GPU_NAME= NVIDIA GeForce RTX 4070 Laptop GPU
+```
+首行另有`xarray_schema`提示`pkg_resources is deprecated`，**仅warning，未导致本次导入失败**。确认GPU可见并不等于AutoK已采用CUDA或GPU性能已验收。版本0.3.2仍未升级。
+**上游实现已直接读取**GitHub `CSOgroup/cellcharter` **tag v0.3.2**`src/cellcharter/tl/_autok.py`（blob `a0eeca0ffaab6f98317eac0721ca9ce173fc90f6`）和`src/cellcharter/tl/_gmm.py`（blob `d7205846df88d9ff1847bc27ee59e9eaf81fb062`）：AutoK通过`random_state = self.model_params.pop('random_state',0)`及`random_state=i+random_state`传入不同数值；同版本GaussianMixture的`__init__`只是保存`self.random_state`，未见在该类直接调用`torch.manual_seed`。是否由继承的TorchGMM内部实际使用该属性**需进一步核验本机安装实现**，不可直接认定随机种子正确生效。E3c单任务有自己的显式`torch.manual_seed(info['seed'])`，E3c结果仍冻结，**不重跑或从此推翻其完成审计**。AutoK v0.3.2传入tuple K范围会额外算两侧邻近K；具体范围、max_runs/提前停、CPU/GPU、随机可复现、独立输出与评价隔离均**未最终冻结**。**未启动E3d训练，没有产生best_k/ARI/NMI**。
+**唯一下一步**：Windows只读查看本机ClusterAutoK.fit和GaussianMixture.__init__中random_state处理及其源文件sha256，确定与上游版本一致后再讨论独立环境随机播种修补和单片CPU/GPU冒烟。不要自动升级现有E1/E2/E3c环境。
+
