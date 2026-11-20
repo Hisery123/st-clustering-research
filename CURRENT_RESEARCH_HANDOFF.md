@@ -1,5 +1,15 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E5a非空间144/144真实完成，BANKSY第二子批72项脚本已冻结待Windows运行
+
+**用户Windows真实结果**：`E5A_NONSPATIAL_FINAL status=completed completed=144/144 failed=0 summary=D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\nonspatial_20261120T095303Z_15120\batch_status.json`，`E5A_NONSPATIAL_EXIT_CODE=0`；12片×GMM/Leiden×oracle_k/k_blind×3seed=144项按已冻协议完成，未做全E5a汇总审计。末尾Leiden K-blind fixed resolution1.0 K=17不等于参考K5/7，但符合冻结的Kblind规则，不因后验结果改参数。用户Windows上完成产物不等于GitHub已保存其原始CSV/manifest。
+
+正式BANKSY子批冻结方案在`experiments/cellcharter_dlpfc/E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`新增第5节（在**首次BANKSY拟合前**）：raw10x按barcode匹配→Scanpy normalize1e4→log1p→2000 HVG（seurat）、BANKSY核心`initialize_banksy(15 neighbours,max_m1)`→`generate_banksy_matrix(lambda0.2)`→PCA20D→BANKSY自带Leiden `run_Leiden_partition(num_nn=50)`，16预定Leiden resolutions、三seed22911/7449/25842、Oracle-K按K差距最近与Kblind固定1.0两臂。省略`run_banksy_multiparam`纯粹自动逐项PNG绘图包装层，保留官方核心算法、不加载人工层作为annotation；人工层仅在两个臂predictions.csv落盘后评价。
+
+BANKSY GitHub实现脚本`experiments/cellcharter_dlpfc/e5a_banksy_baselines_batch_v1.py`，SHA256=`2ff7cb5f71b58973986f82863f474c28d02032c5715926e23af8df08468860da`，Git blob=`8e55a7ca9a19ca7b6678e295b0271bd3e9cccb40`。**尚未用户Windows运行/验证依赖完整适配**；用户下一Windows唯一命令为SHA下载+执行`--run`72项预测，结果独立在`results/e5a_baselines_v1/banksy_<UTC>_<PID>`，每sample/seed所有resolution原label NPZ，双臂CSV/manifest和原始输入SHA及日志。若脚本遇真数据错误则`E5A_BANKSY_HALTED`保留原件，不盲目重启。成功预期`E5A_BANKSY_FINAL status=completed completed=72/72 failed=0`，然后执行原第三子批BayesSpace，不插入中途审核；完整E5a阶段结束统一审计，Claude在计划结束统一审查。
+
+注意Python BANKSY包是纯CPU路径，已安装的PyTorch GPU仍正常，但不应在此代码谎称使用GPU训练。
+
 ## 2026-11-20｜E5a四方法双K策略协议已冻结；非空间GMM+Leiden 144任务脚本待Windows执行
 
 **本阶段尚无任何真实E5a基线拟合结果**。用户Windows`E5A_PY_API_PASS`、`E5A_R_API_PASS`、`E5A_METHOD_INTERFACE_CHECK_COMPLETE`确认Leiden/GMM/BANKSY/BayesSpace方法函数签名可用；BANKSY可忽略rpy2/mclust可选警告，BayesSpace已在R4.5.1隔离库安装并通过导入。已在首次拟合前GitHub提交`experiments/cellcharter_dlpfc/E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`：固定12DLPFC切片、4方法（非空间GMM与Leiden、空间BANKSY与BayesSpace）、Oracle-K/标签不参与选K双臂、统一3技术seed22911/7449/25842、训练后的同一mask ARI/NMI；先非空间、再BANKSY、再BayesSpace三子批；不因后验分数改方法/调参。GMM和Leiden复用原25D缓存中的L0 scVI5D，Oracle-K分别固定K5/7或Leiden固定resolution grid靠近K，K-blind GMM-BIC K2..10，Leiden固定resolution1.0；真实K差距不得隐藏。BayesSpace原生10x、HVG/PCA、qTune2..10和正式MCMC，BANKSY原生邻域特征及Leiden；第三方保留各原生预处理，不谎称全四法严格同5D。
