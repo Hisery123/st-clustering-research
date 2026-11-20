@@ -1,5 +1,18 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d全48配置阶段末统一只读审计真实PASS（退出码0），进入E4
+
+**用户Windows真实最终结果**：
+
+```text
+E3D_PHASE_AUDIT_SUMMARY status=passed verified=48/48 errors=0 label_fit_archives=2640/2640 boundary_hits=10 best_converged=528/528
+E3D_PHASE_AUDIT_K_COUNTS {'2': 9, '3': 5, '4': 5, '5': 4, '6': 11, '7': 3, '8': 7, '9': 3, '10': 1}
+E3D_PHASE_AUDIT_REPORT path=D:\paper\CellCharter_reproduction\results\e3d_autok_phase_audit_v1\20261120T072220Z_24992\audit_report.json
+E3D_PHASE_AUDIT_EXIT_CODE=0
+```
+
+48/48配置逐项显示`E3D_PHASE_AUDIT_PASS`，已执行统一文件完整性审计，合计每K/每run标签数组2640/2640，全部11内部K各最佳GMM共528/528标记收敛，**不代表2640次全部独立收敛**。10项边界命中(9项K2、1项K10)，已知边界不得据此事后改搜索范围。正式E3d训练与阶段末审计**全部完成**，不再训练、不临时延伸；尚未做E3d人工标注的后验ARI/NMI或Claude论文级方法审查。原审计JSON/CSV及全量48实验原始预测和NPZ仍在用户Windows，没有上传GitHub。详细K选择12×4表及路径见`experiments/cellcharter_dlpfc/E3D_FINAL_AUDIT_PASS_20261120.md`。**下一阶段E4**：按`THIRD_PAPER_FULL_EXPERIMENT_EXPANSION_DECISION_20261112.md`以及`E3_E6_Q4_EMPIRICAL_RESEARCH_GATE_20261119.md`，做全12切片空间真值/A/B聚类分区及marker表达定性空间图，优先SVG、可重复不造图、不再训练，E5a/b与E6依次执行；遵守用户《先执行后Claude集中审查》新规。
+
 ## 2026-11-20｜E3d训练48/48批量终端完成；阶段末统一文件核对脚本已备齐，Windows尚未执行
 
 **用户最后的实际Windows日志**：`E3D_BATCH_FINAL status=completed completed=46 existing=2 problem_tasks=0 pending=0 summary=D:\paper\CellCharter_reproduction\results\e3d_autok_batch_sessions_v1\20261120T061725Z_16624\session_status.json`、`E3D_BATCH_EXIT_CODE=0`。累计48/48配置runner状态为completed、46本批新任务成功、2既有任务跳过；仍待**阶段末一次性独立文件核对**，不能冒充所有原件已被助手读取。已有15D单项独立审计通过，另25D此前终端完成；保留本次K分布原值，勿因见到K2/10擅自改参数。
