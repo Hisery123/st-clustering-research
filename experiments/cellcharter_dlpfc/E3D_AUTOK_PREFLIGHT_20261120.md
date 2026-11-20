@@ -86,4 +86,14 @@ GPU_CLUSTER_SIZES= {0: 418, 1: 1728, 2: 1460, 3: 1183}
 
 **新协议与代码（计划，不是正式数据）**：GitHub新增`experiments/cellcharter_dlpfc/E3D_AUTOK_FROZEN_PROTOCOL_20261120.md`及`e3d_autok_single_config_v1.py`，定稿前瞻**CPU主方案**，K候选2..10（v0.3.2内部辅助K1/11），每切片×尺度5次显式播种、最大100 GMM epochs、无AutoK稳定性早停；全12切片×4尺度×11内部K×5次预计2640次GMM。原边界K4试点之后才扩展到K2，已经看过E3c参考标签表现，因此不能冒充完全独立的历史预注册或最终外部盲测。正式K选择不使用人工标签，所有ARI/NMI仅在产物冻结后评价。源码当前**仅在GitHub生成，未由用户Windows下载/运行/验证**；正式任务尚未开始。下一Windows唯一步骤先下载新脚本并校验SHA256，其后单独只读dry-run，再允许一张切片一尺度冒烟，防止长批量误运行。不得更改任何旧E1/E2/E3c/PILOT输出。此次未上传Windows`summary.json`和预测CSV原始文件到GitHub，仅归档用户终端报告数值。
 
+## 2026-11-20｜E3d单配置dry-run输入校验通过但退出码错误已发现并修复
 
+用户真实Windows终端：
+```text
+E3D_FIXED_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 spots=4789 dim=15 cuda=True feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+E3D_FIXED_PREFLIGHT_ABORTED error=SystemExit(0)
+```
+**结论**：输入/冻结特征/CPU/GPU可见性检查通过，dry-run没有训练或产出结果；但GitHub首发单配置脚本的`if __name__ == '__main__': try: sys.exit(main()) except BaseException`错误地捕获正常`SystemExit(0)`并以错误状态码退出，属于**助手提供代码错误**，不可认定整个脚本退出正常。`--run`也受此退出包装错误影响；**不得直接启动正式拟合直到修复版安装并验证退出码**。
+
+已在GitHub同路径`e3d_autok_single_config_v1.py`仅将最末尾`except BaseException as e`改为`except Exception as e`（不改变数据、算法、实验参数、旧输出），GitHub提交`32c48d77679e022d4cce18f966ef0d385714cc33`；新文件SHA256=`24f500a953e73055d44bfbe3b68e2301f3aeab7e9046035fe31bc2ca81ed8da2`，此前本地旧文件SHA256=`79188c06fbf54aa19b385e606a42f6223551217b710d703a80021a9cf98e8670`。**尚未由用户Windows下载新文件**；下一唯一Windows小步骤先对已验证旧文件做条件检查、备份、下载新文件到临时路径、校验新版SHA256然后替换。成功后再次只读运行并观察`$LASTEXITCODE=0`，不能与下载更新命令合并成一次拟合。E3d主方案仍未产生正式结果；E1/E2/E3c冻结产物不变。
