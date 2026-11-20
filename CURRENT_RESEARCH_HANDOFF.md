@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d独立试验脚本已由用户Windows下载并完成SHA256校验
+
+**真实Windows终端回报**：`E3D_PILOT_SCRIPT_READY sha256=830563658a0dacb1bd63652fcccf741fea18edf9c48f480debfec7b4a1254656`。这证明用户本机`D:\paper\CellCharter_reproduction\e3d_autok_seeded_pilot_v1.py`已按GitHub发布内容下载并SHA256检查通过。助手另直接读取GitHub已冻结`e3c_k_sensitivity_single_task_v1.py`计算SHA256=`c3bbe996e8bf5f13775a193061fc4b654d9317170e0dca14b7792c429cd77cca`，与pilot硬编码依赖一致。**截至本回合用户尚未执行E3d预检、更未运行AutoK CPU/GPU拟合或产生best_k，不能认为E3d已经开始正式实验。**
+
+**下一唯一Windows步骤（未执行）**：用原本`env_cellcharter\python.exe`执行`e3d_autok_seeded_pilot_v1.py`，不加`--run`，按脚本验证151509 15D特征与冻结脚本、CUDA，要求看到`E3D_PILOT_PREFLIGHT_PASS`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`；如错误提供真实终端全文并停止。预检通过后再另一步决定受控播种CPU/GPU测时，正式E3d网格和统计尚未冻结。E1/E2/E3c全部冻结结果不得修改。
+
+
 ## 2026-11-20｜E3d本机v0.3.2源码哈希核验及已知AutoK随机种子缺陷
 
 用户Windows本机原始终端：`AUTOK_RANDOM_LINES= ['random_state = self.model_params.pop("random_state", 0)', 'clustering = self.model_class(n_clusters=k, random_state=i + random_state, **self.model_params)']`；`GMM_INIT_RANDOM_LINES=['random_state: AnyRandom = 0,', 'self.random_state = random_state']`；`GMM_FIT_SEED_LINES=[]`。本地源文件SHA256：`_autok.py=7c2596df24b81472c7518436a6e4f0fb3b031bcf189ea6d9a307c84e562e29f8`、`_gmm.py=bed1a6e897ed662aca2a3642d1cebcfe0a4c1d733d918faeea8671841841243b`。**SHA256与Git blob SHA-1不可直接比值判等**，但检测到的代码语义与上游v0.3.2一致。
