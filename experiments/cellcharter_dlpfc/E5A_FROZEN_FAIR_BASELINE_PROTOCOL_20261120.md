@@ -52,3 +52,10 @@ BANKSY尚未开始运行；经查官方BANKSY Python `src/banksy/`代码（https
 4. PCA表示阶段固定`np.random.seed(22911)`用于基线可复现特征生成，与Leiden聚类的三技术seed22911/7449/25842区分。实际CPU/GPU、库版本、矩阵输入SHA、候选K和最终K以及执行耗时全部保存；默认BANKSY的Leiden/矩阵构造是CPU，不强行宣称使用GPU。12×3×2=72份输出，输出隔离`results/e5a_baselines_v1/banksy_<UTC>_<PID>`。
 5. 上述补充在BANKSY首次运行前确定，不更改已运行的第一子批结果及最初四基线/K/seed/空间邻域设计。
 
+## 六、BayesSpace子批前冻结执行补充（2026-11-20）
+
+- 用户Windows真实报告`E5A_BANKSY_FINAL status=completed completed=72/72 failed=0 summary=D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\banksy_20261120T101256Z_26540\batch_status.json`以及`E5A_BANKSY_EXIT_CODE=0`。BANKSY非全部K准确命中Oracle的单项是已冻结16项resolution网格允许结果，不能据此改协议。E5a已真实做完第一非空间144+第二BANKSY72=216/288项，剩余第三BayesSpace72项；未做全阶段独立审计。
+- BayesSpace第三子批R脚本在**首次BayesSpace正式拟合前**冻结于`experiments/cellcharter_dlpfc/e5a_bayesspace_baselines_batch_v1.R`。软件R4.5.1、BayesSpace1.20.2、Bioconductor3.22，读取真实`filtered_feature_bc_matrix.h5` CSC原计数、以`barcode`对齐真实`spots_aligned.csv`。使用`array_row,array_col` Visium六角网格坐标而不是像素；官方`spatialPreprocess(platform='Visium',n.PCs=15,n.HVGs=2000,log.normalize=TRUE)`；固定PCA前`set.seed(22911)`，可复现。每个切片×3 seed=36个无标签`qTune(qs=2:10,burn.in=100,nrep=1000,cores=1)`，**最大`attr(sce,'q.logliks')$loglik`，并列选最小q**，独立保存全K曲线。Oracle-K固定参考类别数5或7；两臂均`spatialCluster(platform='Visium',q=选定K,d=15,init.method='mclust',model='t',precision='equal',nrep=10000,burn.in=1000,thin=100,save.chain=FALSE)`，两臂全部`predictions.csv`先落盘，后才读取参考层计算同mask ARI（R mclust调整Rand）及NMI（与sklearn arithmetic mean entropy相同的公式）。原始各输入和预测SHA256与决策轨迹写入JSON，**本实现纯CPU**。从未在标签上拟合或根据ARI挑K；12片×3seed×2臂=72份预测，存放在独立`results/e5a_baselines_v1/bayesspace_<UTC>_<PID>`。qTune候选K全部保留。
+- **运行前真实性边界**：仅官方当前函数签名在用户R中预检通过；GitHub R脚本未在Windows完整执行、此环境无Rscript静态运行器；如真实算法API/本机HDF5发生阻断，请停止并保持原会话文件，不重复启动或修改先前完成两子批、仅修复程序问题而非方法规则。按既定顺序先完成第三子批，再统一E5a全量文件验收，最终Claude审稿于计划末。
+- 来源：BayesSpace3.22 vignette https://bioconductor.posit.co/packages/3.22/bioc/vignettes/BayesSpace/inst/doc/BayesSpace.html 说明Visium的array_row/array_col、qTune返回q.logliks和建议正式至少1万MCMC迭代；实际版本R API已由用户真实反馈。
+
