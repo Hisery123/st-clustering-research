@@ -40,3 +40,15 @@
 - 这不是无偏“独立新数据测试”，DLPFC 12片已有历史探索；独立外部验证在E5b单独冻结。
 - 不因本阶段方法K-blind选K值（含边界K）而重设已有E3d冻结K2..10，也不把E3d5次AutoK重复和E5a3seed种子当成同一配对重复。
 - 论文方法贡献/创新性、增益与显著性要等真实结果和最终Claude审稿。
+
+## 五、BANKSY子批事前实现参数补充（子批首个拟合前冻结）
+
+第一子批非空间GMM+Leiden的144/144拟合已由用户Windows真实完成，`E5A_NONSPATIAL_FINAL status=completed completed=144/144 failed=0`、`E5A_NONSPATIAL_EXIT_CODE=0`，批次`D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\nonspatial_20261120T095303Z_15120\batch_status.json`。末尾Leiden固定无标签resolution=1.0实际K=17：**不是错误，不得后验改分辨率。** 任务文件目前仅Windows保存，未做全E5a阶段末审计。
+
+BANKSY尚未开始运行；经查官方BANKSY Python `src/banksy/`代码（https://github.com/prabhakarlab/Banksy_py）进一步事前固定：
+1. 独立使用10x`filtered_feature_bc_matrix.h5`的真实raw counts，按`barcode`匹配所有spots，`scanpy.pp.normalize_total(target_sum=10000)`→`log1p`→`scanpy.pp.highly_variable_genes(flavor="seurat",n_top_genes=2000)`，不因marker位置/人工层改变HVG；所有源spot保留，使用相同像素坐标`(pxl_col_in_fullres,pxl_row_in_fullres)`。
+2. `initialize_banksy(num_neighbours=15,nbr_weight_decay="scaled_gaussian",max_m=1)`，关闭仅QC用途的绘图；`generate_banksy_matrix(lambda_list=[0.2],max_m=1,variance_balance=False)`→`pca_umap(pca_dims=[20],add_umap=False,plt_remaining_var=False)`，再`run_Leiden_partition(num_nn=50,match_labels=False,annotations=None, max_labels=None, partition_seed=<fixed seed>)`直接生成Leiden原生结果，替代默认`run_banksy_multiparam`额外逐参数自动绘制PNG散点的**包装层**；空间加权、PCA、Leiden均使用同一个BANKSY官方Python包核心函数，算法没改，节省数百张重复无用临时图。禁止调用`match_labels=True`或加载参考层作为annotation。
+3. 预冻Leiden resolution grid 16个候选；每个切片×seed只生成一次16候选，Oracle-K臂按聚类个数距离K5/7最小并列取更低resolution；Kblind仅选固定1.0，一律不看ARI/NMI选择。共享相同候选分区是**同计算预算透明复用**，两个臂不构成彼此独立重复；每个seed输出候选K全轨迹及预测结果两套，各自参考层指标只在保存预测之后计算。
+4. PCA表示阶段固定`np.random.seed(22911)`用于基线可复现特征生成，与Leiden聚类的三技术seed22911/7449/25842区分。实际CPU/GPU、库版本、矩阵输入SHA、候选K和最终K以及执行耗时全部保存；默认BANKSY的Leiden/矩阵构造是CPU，不强行宣称使用GPU。12×3×2=72份输出，输出隔离`results/e5a_baselines_v1/banksy_<UTC>_<PID>`。
+5. 上述补充在BANKSY首次运行前确定，不更改已运行的第一子批结果及最初四基线/K/seed/空间邻域设计。
+
