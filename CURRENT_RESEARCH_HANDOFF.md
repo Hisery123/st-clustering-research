@@ -1,5 +1,14 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3c本地1920行指标导出成功，原CSV待上传
+
+**证据为用户Windows PowerShell真实终端最后一行**：
+```text
+E3C_NEWK_EXPORT_PASS rows=1920 path=D:\paper\CellCharter_reproduction\results\e3c_newK_metrics_1920.csv
+```
+用户执行前一轮提供的只读来源/新CSV导出操作（读取`results/e3c_k_sensitivity_v1`中1920个`manifest.json`及相邻`metrics.json`，校验 completed/protocol/固定非Oracle-K/未以人工标签拟合、ARI/NMI取值范围、sample×condition×k×seed键唯一、每12片160行，以及基本来源hash字段，然后导出新表）。终端返回`PASS`；因此可以记录**用户Windows已报告生成1920行CSV**；助手本轮尚未收到/读取该CSV，不能声称已独立重算内容、确认数据分布或科学结论。此前E3c全局2400格只读审计PASS、旧480格复用均维持不变，不重复训练。当前CSV仅在Windows本地，GitHub**未备份**。**下一步唯一事项：用户直接上传`e3c_newK_metrics_1920.csv`到当前对话**（无需再次执行命令）；收到后实际读取、独立验收并结合GitHub E1/E2归档中的Oracle-K 480行，形成2400行完整分析表，再开展E3c统计及真实SVG。E3d/E3b/E4/E5/E6仍未开始。
+
+
 ## 最新权威交接：2026-11-20 09:34（北京时间，按用户会话时间）｜E3c全部2400格审计PASS，切换到数据汇总
 
 用户提交的Windows完整尾部显示`E3C_GRID_PREFLIGHT_PASS total=2400 REUSED_AUDITED=480 EXISTING_AUDITED=1920 NEW_TASK=0`和`E3C_ALL_2400_AUDITED_PASS`，说明12片×4配置×K5–9×10种子共2400格均已通过**全网格只读复审**；本次夜间10片`COMPLETED_SAMPLES`齐全、`FAILED_SAMPLES`空。E3c新拟合1920项完成（另480旧Oracle-K格经审核复用），当前没有必要重训。请**不要再根据旧快照重启151509或151510**。现在唯一优先事是**提取、验收、归档E3c真实新K逐任务数据**（原始文件在Windows），与GitHub E1/E2归档的Oracle-K480项按键合并生成2400行统计分析集，随后做跨K/尺度/供体可重复统计与SVG；不能把固定K敏感性说成无标签AutoK。E3d/E3b/E4/E5/E6未完成，论文结论需等实际指标。Windows路径`D:\paper\CellCharter_reproduction\results\e3c_overnight_20261120_001819.txt`为真实用户提供日志位置，助手尚未直接读本地完整日志或1920原始metrics。下方旧记录均为历史；以本段与[科研日记](RESEARCH_JOURNAL/2026-11-20.md)为准。
