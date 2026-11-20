@@ -63,3 +63,13 @@ DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
 
 先前用户Windows已完成`e3d_autok_seeded_pilot_v1.py`下载SHA256核查（`830563658a0dacb1bd63652fcccf741fea18edf9c48f480debfec7b4a1254656`），此次不带`--run`的程序成功通过源码、数据与CUDA预检；已读取151509的冻结15D缓存，4789spots，特征SHA256如上，与E1/E2已归档一致。另有`xarray_schema`关于`pkg_resources`的弃用UserWarning，当前未阻断执行。**此轮无训练、无拟合、无AutoK best_k、无CPU/GPU测时，也未写入实验文件。** E3c仍冻结，2400/2400完成并已审计。下一唯一建议为Windows单条显式命令运行`e3d_autok_seeded_pilot_v1.py --run`（在隔离目录输出、151509开发样本、15D、K候选4..10，内部包含3与11、3次重复，CPU再GPU；仅探索测时，不用于最终论文结果），保留全部真实输出；若报错停止、留存独立session的`summary.json`和终端日志，先排错，不自动升级软件、不修改冻结E3c。正式E3d盲标签K搜索与运行预算仍未冻结。
 
+## 2026-11-20｜E3d AutoK pilot summary.json CPU/GPU完整结果已从用户终端核对
+
+用户Windows在会话直接粘贴`D:\paper\CellCharter_reproduction\results\e3d_autok_seeded_pilot_v1\20261120T023802Z_28068\summary.json`全文（**仅对话原始文本，助手尚未直接获取本机JSON文件字节或两份预测CSV**）。内容包含`status=completed`、`protocol=E3D_AUTOK_SEEDED_CPU_GPU_PILOT_V1_NOT_PAPER_RESULT`、`sample=151509`、`condition=cum_L0_L1_L2`、`feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f`、`references_used_for_K_selection=false`、`K_candidate_bounds=[4,10]`、`max_runs=3`、`seed_policy=explicit_before_each_GMM_fit`。CPU和GPU均在K=3..11每K完成3次（27次拟合/设备），`chosen_k=4`。
+
+**真实运行时间**：CPU `wall_seconds=25.341`，GPU `19.777`，GPU/CPU加速为`25.341/19.777≈1.281×`，墙钟节省`5.564秒≈21.96%`。这是一张151509切片15D、CPU先GPU后的**单次试运行**，有启动/缓存/顺序影响，不能宣布一般性GPU加速效果。
+
+**CPU稳定性K4..10**：`[0.7986341020,0.7662414500,0.7596862129,0.7675760238,0.7687324854,0.7054318168,0.6938588927]`；**GPU**：`[0.7781916657,0.7444835573,0.7086581291,0.7403812213,0.7382208174,0.7025690473,0.6456510033]`。CPU预测SHA256=`d4eb5f460bfffc7f29b79d5700b1dfe3f76cd126d1e8f271979285ccc7de3779`；GPU预测SHA256=`20aa22a7da099ccf339521ef400dd0b078f8f71b0735162da55aeabfb3147a92`，哈希不同，**不能推断预测相同或不同到何程度**；需直接比较按相同barcode排列的`cpu_predictions.csv`与`gpu_predictions.csv`，用ARI/NMI评价**两预测之间**的一致性，而非与人工参考标签比较。最优K落在候选下边界K4：主方案正式冻结前须有不依赖人工标签的搜索边界规则，避免根据ARI调K范围。
+
+**下一步唯一Windows只读操作**：校验CPU/GPU`predictions.csv`文件SHA256、barcode行数/顺序、聚类标签合法性，计算**设备间**ARI/NMI；不修改数据/不启动训练/不读取人工参考标签。此pilot仅可用于方法/性能可行性，不得作为正式E3d生物学结果；3独立生物供体、E1/E2/E3c冻结结果不变。
+
