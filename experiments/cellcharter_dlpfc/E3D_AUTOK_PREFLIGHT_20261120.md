@@ -73,3 +73,17 @@ DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
 
 **下一步唯一Windows只读操作**：校验CPU/GPU`predictions.csv`文件SHA256、barcode行数/顺序、聚类标签合法性，计算**设备间**ARI/NMI；不修改数据/不启动训练/不读取人工参考标签。此pilot仅可用于方法/性能可行性，不得作为正式E3d生物学结果；3独立生物供体、E1/E2/E3c冻结结果不变。
 
+## 2026-11-20｜E3d开发试点GPU/CPU预测分区一致性PASS，正式E3d前瞻协议已建立
+
+**用户Windows真实只读验证输出**：
+```text
+E3D_DEVICE_COMPARISON_PASS n= 4789 ARI= 1.0 NMI= 1.0
+CPU_CLUSTER_SIZES= {0: 1183, 1: 1460, 2: 1728, 3: 418}
+GPU_CLUSTER_SIZES= {0: 418, 1: 1728, 2: 1460, 3: 1183}
+```
+
+用户已根据本机试点`summary.json`中CPU/GPU预测路径和SHA256做只读核对：两文件SHA匹配各自摘要，barcode行数/顺序一致，簇标签为0..3、有效spot数4789、设备间`ARI=NMI=1`。故**在该151509/15D/三次AutoK pilot上**CPU/GPU分区完全一致，仅簇编号交换（按簇大小CPU 0→GPU 3、1→2、2→1、3→0）；**两份预测文件SHA256不同不构成设备结果冲突**。但每K稳定性分值CPU/GPU不完全一样（例如K4 CPU0.798634、GPU0.778192），不能推断其他切片/随机性完全一致。CPU25.341s、GPU19.777s，GPU约1.28倍，只是单次技术试验，非全面性能基准。
+
+**新协议与代码（计划，不是正式数据）**：GitHub新增`experiments/cellcharter_dlpfc/E3D_AUTOK_FROZEN_PROTOCOL_20261120.md`及`e3d_autok_single_config_v1.py`，定稿前瞻**CPU主方案**，K候选2..10（v0.3.2内部辅助K1/11），每切片×尺度5次显式播种、最大100 GMM epochs、无AutoK稳定性早停；全12切片×4尺度×11内部K×5次预计2640次GMM。原边界K4试点之后才扩展到K2，已经看过E3c参考标签表现，因此不能冒充完全独立的历史预注册或最终外部盲测。正式K选择不使用人工标签，所有ARI/NMI仅在产物冻结后评价。源码当前**仅在GitHub生成，未由用户Windows下载/运行/验证**；正式任务尚未开始。下一Windows唯一步骤先下载新脚本并校验SHA256，其后单独只读dry-run，再允许一张切片一尺度冒烟，防止长批量误运行。不得更改任何旧E1/E2/E3c/PILOT输出。此次未上传Windows`summary.json`和预测CSV原始文件到GitHub，仅归档用户终端报告数值。
+
+
