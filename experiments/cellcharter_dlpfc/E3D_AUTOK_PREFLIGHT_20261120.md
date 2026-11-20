@@ -47,3 +47,9 @@ GPU_NAME= NVIDIA GeForce RTX 4070 Laptop GPU
 
 新增探索性`experiments/cellcharter_dlpfc/e3d_autok_seeded_pilot_v1.py`：采用在`GaussianMixture.fit`前显式`seed_everything(self.random_state)`的独立子类（**不升级或改写本地第三方包**），只用预定开发切片151509的15D缓存、K候选4..10（AutoK v0.3.2内部还拟合3、11）、仅3次重复用于试测，CPU与GPU顺序运行，无参考标签参与K选择，无ARI/NMI指标、不可纳入正式E3d结果。默认只读、只有显式`--run`启动，输出单独`results/e3d_autok_seeded_pilot_v1`，任何失败保留日志/JSON并停止。**脚本只已上传GitHub，尚未在用户Windows下载/运行，运行性能与正确性未验证；正式E3d的max_runs、设备、统计/复现协议仍未冻结**。下一唯一Windows步骤先只下载到本机独立文件并报告SHA256，后续确认后再执行默认只读/试点；不得现在运行正式全量。
 
+## 2026-11-20｜E3d独立试验脚本已由用户Windows下载并完成SHA256校验
+
+**真实Windows终端回报**：`E3D_PILOT_SCRIPT_READY sha256=830563658a0dacb1bd63652fcccf741fea18edf9c48f480debfec7b4a1254656`。这证明用户本机`D:\paper\CellCharter_reproduction\e3d_autok_seeded_pilot_v1.py`已按GitHub发布内容下载并SHA256检查通过。助手另直接读取GitHub已冻结`e3c_k_sensitivity_single_task_v1.py`计算SHA256=`c3bbe996e8bf5f13775a193061fc4b654d9317170e0dca14b7792c429cd77cca`，与pilot硬编码依赖一致。**截至本回合用户尚未执行E3d预检、更未运行AutoK CPU/GPU拟合或产生best_k，不能认为E3d已经开始正式实验。**
+
+**下一唯一Windows步骤（未执行）**：用原本`env_cellcharter\python.exe`执行`e3d_autok_seeded_pilot_v1.py`，不加`--run`，按脚本验证151509 15D特征与冻结脚本、CUDA，要求看到`E3D_PILOT_PREFLIGHT_PASS`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`；如错误提供真实终端全文并停止。预检通过后再另一步决定受控播种CPU/GPU测时，正式E3d网格和统计尚未冻结。E1/E2/E3c全部冻结结果不得修改。
+
