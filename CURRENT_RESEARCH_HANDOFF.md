@@ -1,5 +1,16 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20 10:35｜E3d seeded AutoK pilot 151509 15D只读预检通过
+
+**证据：用户Windows真实PowerShell输出**：
+```text
+E3D_PILOT_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 n=4789 dim=15 cuda=True original_feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+```
+
+先前用户Windows已完成`e3d_autok_seeded_pilot_v1.py`下载SHA256核查（`830563658a0dacb1bd63652fcccf741fea18edf9c48f480debfec7b4a1254656`），此次不带`--run`的程序成功通过源码、数据与CUDA预检；已读取151509的冻结15D缓存，4789spots，特征SHA256如上，与E1/E2已归档一致。另有`xarray_schema`关于`pkg_resources`的弃用UserWarning，当前未阻断执行。**此轮无训练、无拟合、无AutoK best_k、无CPU/GPU测时，也未写入实验文件。** E3c仍冻结，2400/2400完成并已审计。下一唯一建议为Windows单条显式命令运行`e3d_autok_seeded_pilot_v1.py --run`（在隔离目录输出、151509开发样本、15D、K候选4..10，内部包含3与11、3次重复，CPU再GPU；仅探索测时，不用于最终论文结果），保留全部真实输出；若报错停止、留存独立session的`summary.json`和终端日志，先排错，不自动升级软件、不修改冻结E3c。正式E3d盲标签K搜索与运行预算仍未冻结。
+
+
 ## 2026-11-20｜E3d独立试验脚本已由用户Windows下载并完成SHA256校验
 
 **真实Windows终端回报**：`E3D_PILOT_SCRIPT_READY sha256=830563658a0dacb1bd63652fcccf741fea18edf9c48f480debfec7b4a1254656`。这证明用户本机`D:\paper\CellCharter_reproduction\e3d_autok_seeded_pilot_v1.py`已按GitHub发布内容下载并SHA256检查通过。助手另直接读取GitHub已冻结`e3c_k_sensitivity_single_task_v1.py`计算SHA256=`c3bbe996e8bf5f13775a193061fc4b654d9317170e0dca14b7792c429cd77cca`，与pilot硬编码依赖一致。**截至本回合用户尚未执行E3d预检、更未运行AutoK CPU/GPU拟合或产生best_k，不能认为E3d已经开始正式实验。**
