@@ -1,5 +1,23 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d AutoK Windows软件版本/API/GPU只读预检已执行
+
+**用户Windows真实终端**（调用`env_cellcharter/python.exe`，未调用拟合）：
+```text
+CELLCHARTER_VERSION= 0.3.2
+TORCHGMM_VERSION= 0.1.2
+TORCH_VERSION= 2.1.2+cu121
+AUTOK_SIGNATURE= (n_clusters: 'tuple[int, int] | list[int]', max_runs: 'int' = 10, convergence_tol: 'float' = 0.01, model_class: 'type' = None, model_params: 'dict' = None, similarity_function: 'callable' = None)
+GMM_SIGNATURE= (n_clusters: 'int' = 1, *, covariance_type: 'str' = 'full', init_strategy: 'str' = 'kmeans', init_means: 'torch.Tensor' = None, convergence_tolerance: 'float' = 0.001, covariance_regularization: 'float' = 1e-06, batch_size: 'int' = None, trainer_params: 'dict' = None, random_state: 'AnyRandom' = 0)
+AUTOK_SOURCE= D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\cellcharter\tl\_autok.py
+CUDA_AVAILABLE= True
+GPU_NAME= NVIDIA GeForce RTX 4070 Laptop GPU
+```
+首行另有`xarray_schema`提示`pkg_resources is deprecated`，**仅warning，未导致本次导入失败**。确认GPU可见并不等于AutoK已采用CUDA或GPU性能已验收。版本0.3.2仍未升级。
+**上游实现已直接读取**GitHub `CSOgroup/cellcharter` **tag v0.3.2**`src/cellcharter/tl/_autok.py`（blob `a0eeca0ffaab6f98317eac0721ca9ce173fc90f6`）和`src/cellcharter/tl/_gmm.py`（blob `d7205846df88d9ff1847bc27ee59e9eaf81fb062`）：AutoK通过`random_state = self.model_params.pop('random_state',0)`及`random_state=i+random_state`传入不同数值；同版本GaussianMixture的`__init__`只是保存`self.random_state`，未见在该类直接调用`torch.manual_seed`。是否由继承的TorchGMM内部实际使用该属性**需进一步核验本机安装实现**，不可直接认定随机种子正确生效。E3c单任务有自己的显式`torch.manual_seed(info['seed'])`，E3c结果仍冻结，**不重跑或从此推翻其完成审计**。AutoK v0.3.2传入tuple K范围会额外算两侧邻近K；具体范围、max_runs/提前停、CPU/GPU、随机可复现、独立输出与评价隔离均**未最终冻结**。**未启动E3d训练，没有产生best_k/ARI/NMI**。
+**唯一下一步**：Windows只读查看本机ClusterAutoK.fit和GaussianMixture.__init__中random_state处理及其源文件sha256，确定与上游版本一致后再讨论独立环境随机播种修补和单片CPU/GPU冒烟。不要自动升级现有E1/E2/E3c环境。
+
+
 ## 2026-11-20｜E3c真实数据/分析图已入库；接下来E3d版本与GPU只读预检
 
 **GitHub已实际提交并按原文件Git blob逐项核对**：`experiments/cellcharter_dlpfc/E3C_20261120_RELEASE/`包含用户上传原始`e3c_newK_metrics_1920.csv`（SHA256 `50c624a9133d0ad885cd69d53929047f6398729699498771b20c86537bff92f2`）、六份派生统计CSV、三份可编辑SVG、`E3c_分析说明_20261120.md`、`build_e3c_review.py`、两份历史Oracle-K汇总/哈希前缀来源文件及`README.md`。源码`build_e3c_review.py`及依赖的两份文本均已核对与聊天离线包原件一致。旧Oracle-K真正的480行原记录继续存放在E1/E2归档；本E3c独立分析使用了6位小数组均值，**不是重新发布精准2400行原始逐任务合并CSV**。原聊天`E3c_K敏感性_初步统计与SVG_20261120.zip`二进制与其中的`e3c_summary_audit.txt`尚未上传GitHub，README明确了这个差异；公开内容足以运行已上传的`build_e3c_review.py`重算描述统计和生成SVG，但不含Windows全体逐spot预测/metrics/manifest原始目录，后者未备份到GitHub。**此前只有文字存档，现核心真实指标与科研图已经实际上传**，旧交接有关“新1920行未入库”的表述已过时。
