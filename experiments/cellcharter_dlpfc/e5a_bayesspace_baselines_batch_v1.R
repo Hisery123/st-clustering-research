@@ -21,7 +21,7 @@ if (!dir.exists(r_lib)) stop("E5A_R_THIRD_PARTY_LIBRARY_MISSING")
 .libPaths(c(r_lib, .libPaths()))
 
 needed <- c("BayesSpace", "SingleCellExperiment", "SummarizedExperiment",
-            "S4Vectors", "Matrix", "rhdf5", "digest", "jsonlite")
+            "S4Vectors", "Matrix", "rhdf5", "digest", "jsonlite", "mclust")
 for (pkg in needed) {
     if (!requireNamespace(pkg, quietly=TRUE)) {
         stop(paste("E5A_R_PACKAGE_NOT_INSTALLED",pkg))
@@ -209,16 +209,25 @@ reference_scores <- function(sample,barcodes,labels) {
            length(unique(true[valid]))==oracle_k[[sample]] &&
            length(labels)==length(barcodes),
            "REFERENCE_MASK_OR_K_INVALID")
-    # BayesSpace does not need external Python to compute these clustering metrics:
-    # mclust ARI and aricode NMI are not guaranteed installed. Metrics are logged
-    # in the separate, already frozen E5a phase-end Python evaluation, which
-    # uses exactly the same saved barcode and annotation masks as E1/E2/E5a.
-    # To avoid changing preprocessing or fetching packages, only save n here.
+    ari <- as.numeric(mclust::adjustedRandIndex(true[valid],labels[valid]))
+    ct <- table(true[valid], as.character(labels[valid]))
+    prob <- as.matrix(ct) / sum(ct)
+    px <- rowSums(prob)
+    py <- colSums(prob)
+    product <- outer(px,py)
+    nonzero <- prob > 0
+    mi <- sum(prob[nonzero] * log(prob[nonzero] / product[nonzero]))
+    hx <- -sum(px[px>0] * log(px[px>0]))
+    hy <- -sum(py[py>0] * log(py[py>0]))
+    nmi <- 2 * mi / (hx+hy)  # sklearn's arithmetic-mean NMI normalization
+    assert(is.finite(ari) && is.finite(nmi) &&
+           nmi >= -1e-9 && nmi <= 1+1e-9,
+           "BAYESSPACE_EVALUATION_METRIC_NONFINITE")
     list(evaluated_spots=sum(valid),
          unlabeled_spots=sum(!valid),
          reference_sha256=sha256(from),
-         ari=NULL,nmi=NULL,
-         metric_status="pending_frozen_cross_method_phase_end_evaluation")
+         ari=ari,nmi=as.numeric(nmi),
+         metric_status="post_saved_predictions_true_barcode_aligned")
 }
 
 start <- stamp()
@@ -246,7 +255,7 @@ state <- list(
     r_version=as.character(getRversion()),
     bayesspace_version=as.character(utils::packageVersion("BayesSpace")),
     compute_device="CPU",
-    evaluation="only_after_two_predictions_written; ARI/NMI later phase-end",
+    evaluation="only_after_both_predictions_saved; R mclust ARI and sklearn-equivalent NMI",
     tasks=list(),failure=NULL)
 save_json(state,status_file)
 completed <- 0L
@@ -262,7 +271,7 @@ execute_all <- function() {
         original <- load_real_sce(sample)
         sce <- make_preprocessed(original)
         save_json(original$source,file.path(dir,"input_manifest.json"))
-        rm(original$sce)
+        original$sce <- NULL  # avoid retaining duplicate raw SCE in R memory
         gc(verbose=FALSE)
         for (seed in seeds) {
             seed_start <- proc.time()[3]
