@@ -1,5 +1,9 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜BayesSpace 1.20.2 隔离R库真实安装成功，E5a四基线基础依赖齐备
+
+用户Windows真实日志：`E5A_BIOC_VERSION=3.22`、R4.5.1；`BiocManager::install('BayesSpace',lib='D:/paper/CellCharter_reproduction/third_party/e5a_r_libs',update=FALSE,type='binary')` 下载并校验BayesSpace和12项Windows二进制依赖，`E5A_BAYESSPACE_VERSION=1.20.2`、`E5A_BAYESSPACE_INSTALL_PASS`、`E5A_BAYESSPACE_EXIT_CODE=0`。Arrow报告缺tzdb仅时区警告，未有安装失败；不必因此追加依赖。BANKSY 1.3.5先前隔离安装、导入PASS，Leiden0.12.0和igraph1.0.0已可用，GMM/torch现有；四基线**基础安装**已经达到预期，**并非E5a训练跑过**。当前下一唯一步仅检查原Python/R训练API接口签名和模块导入，继而一次性冻结四法×12切片Oracle-K及K-blind设计，完成全量连续执行；Windows Rscript路径`D:\R\R-4.5.1\bin\Rscript.exe`，联网代理Clash`http://127.0.0.1:7897`，R隔离库`D:\paper\CellCharter_reproduction\third_party\e5a_r_libs`。决策文件`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。
+
 ## 2026-11-20｜E5a BANKSY 已安装；R位于D盘且Clash代理7897，待Rscript只读验证
 
 **用户最新真实终端**：`pybanksy==1.3.5`到隔离`D:\paper\CellCharter_reproduction\third_party\e5a_banksy_libs`后`E5A_BANKSY_IMPORT_PASS version=1.3.5`，`E5A_TORCH_VERSION 2.1.2+cu121`，`E5A_CUDA_AVAILABLE True`，`E5A_BANKSY_SETUP_COMPLETE`。唯一警告`rpy2`不存在，BANKSY默认Leiden可运行，只有mclust不可用。**用户截图**：`D:\R\R-4.5.1`真实目录，Clash Verge系统HTTP代理`127.0.0.1:7897`（混合端口7897）。此前`Rscript NOT_FOUND_IN_PATH`是PATH问题，**不能说电脑没R**。尚未实际调用Rscript；也未确认BayesSpace是否安装。事前安装/选择记录在`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。**用户下一Windows唯一操作**：明确Rscript路径优先`D:\R\R-4.5.1\bin\Rscript.exe`或`bin\x64\Rscript.exe`，只读查R版本和BayesSpace/BiocManager是否安装；显式仅在本次进程设置HTTP_PROXY/HTTPS_PROXY为127.0.0.1:7897并于结束恢复，不直接安装R包。E5a尚未训练；下一阶段预冻结公平基线后批量执行。
