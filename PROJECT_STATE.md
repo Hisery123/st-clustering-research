@@ -1,5 +1,14 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d训练48/48批量终端完成；阶段末统一文件核对脚本已备齐，Windows尚未执行
+
+**用户最后的实际Windows日志**：`E3D_BATCH_FINAL status=completed completed=46 existing=2 problem_tasks=0 pending=0 summary=D:\paper\CellCharter_reproduction\results\e3d_autok_batch_sessions_v1\20261120T061725Z_16624\session_status.json`、`E3D_BATCH_EXIT_CODE=0`。累计48/48配置runner状态为completed、46本批新任务成功、2既有任务跳过；仍待**阶段末一次性独立文件核对**，不能冒充所有原件已被助手读取。已有15D单项独立审计通过，另25D此前终端完成；保留本次K分布原值，勿因见到K2/10擅自改参数。
+
+已用GitHub仓库新增**统一终审（仅文件完整性，不是Claude科研方法学审查）**脚本`experiments/cellcharter_dlpfc/e3d_autok_final_audit_v1.py`，文件SHA256=`234de8245bb831c34cc24376711aa6ee5f16a4ac899e263b6a8a308af5031fb6`。它读取冻结runner会话、48个目录的manifest+summary+预测CSV+每K五次NPZ，校验运行协议、文件SHA、spot/barcode、K数/稳定性有限、11内部K各五次标签档案、样本内4尺度barcode顺序；不加载人工层标签、不训练、不修改原实验。仅在新`results/e3d_autok_phase_audit_v1/<UTC>_<PID>/`目录输出`audit_report.json`和`all_48_autok_audit.csv`，供随后论文/Claude统一审查。**脚本尚未由用户在Windows下载或执行验收**，若报错保留所有结果并以实际回报为准。
+
+**用户下一唯一Windows操作**：下载该审核脚本到`D:\paper\CellCharter_reproduction\e3d_autok_final_audit_v1.py`，核对上面的SHA256，然后运行一次，期望`E3D_PHASE_AUDIT_SUMMARY status=passed verified=48/48 errors=0 label_fit_archives=2640/2640`与`E3D_PHASE_AUDIT_REPORT`；审核通过后直接推进原计划E4/E5/E6，无新增E3d计算。**完整科研方法学批评由Claude在用户约定的计划结束后集中处理**，中途不加审稿工作。
+
+
 ## 2026-11-20｜E3d完整48配置批量运行已结束（终端PASS，统一文件审计待执行）
 
 **用户Windows批量任务真实终端原文末尾**：
