@@ -1,5 +1,17 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d单配置修复版Windows只读预检及退出码0验收通过
+
+**用户Windows真实终端回报**：
+```text
+E3D_FIXED_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 spots=4789 dim=15 cuda=True feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+E3D_FIXED_EXIT_CODE=0
+```
+
+已先成功执行旧脚本退出处理bug的安全更新，返回`E3D_FIXED_EXIT_BUG_PATCH_PASS`（修复版`e3d_autok_single_config_v1.py` GitHub SHA256 `24f500a953e73055d44bfbe3b68e2301f3aeab7e9046035fe31bc2ca81ed8da2`）；此次真实只读预检通过且退出码**确实为0**。该预检没有启动训练、没有写入正式实验结果。151509/15D输入n=4789，特征来源哈希如上。**批准的下一唯一步骤**：用户Windows独立执行`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e3d_autok_single_config_v1.py' --sample 151509 --condition cum_L0_L1_L2 --run`；只运行1配置、CPU、11个内部K(1..11)×5 runs=55次GMM；写入隔离目录`results/e3d_autok_fixed_v1/151509/cum_L0_L1_L2`，若该目录已经存在则 fail-closed 不覆盖。需观察`E3D_FIXED_TASK_COMPLETE`及退出码0，或`E3D_FIXED_TASK_FAILED`异常并原样保留manifest/traceback；不因报错自行删目录重跑。正式E3d尚未提供拟合完成证据，E1/E2/E3c及旧pilot保持冻结，人工标签没有用于K选择。
+
+
 ## 2026-11-20｜E3d单配置dry-run输入校验通过但退出码错误已发现并修复
 
 用户真实Windows终端：
