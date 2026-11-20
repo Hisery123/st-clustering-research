@@ -1,5 +1,18 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d首项正式CPU拟合的本机落盘数据审计通过（151509、15D，K3，55格）
+
+用户Windows真实只读审计回报：
+```text
+E3D_ARTIFACT_AUDIT_PASS sample=151509 dim=15 fits=55 selected_k=3
+STABILITY_BY_K= {2: 0.745067, 3: 0.800295, 4: 0.798525, 5: 0.738262, 6: 0.722156, 7: 0.729765, 8: 0.728879, 9: 0.680207, 10: 0.674636}
+BEST_MODEL_CONVERGENCE= {1: True, 2: True, 3: True, 4: True, 5: True, 6: True, 7: True, 8: True, 9: True, 10: True, 11: True}
+BEST_MODEL_ITERATIONS= {1: 2, 2: 5, 3: 8, 4: 16, 5: 16, 6: 22, 7: 43, 8: 21, 9: 44, 10: 24, 11: 50}
+WALL_SECONDS= 55.909676
+```
+正式协议1/48配置审计通过：预测CSV、所有K的5次随机运行标签NPZ、配置和结果JSON的本机SHA256一致、barcode4789、K1..11各5次。**仅11个“最佳模型”收敛状态全True，不足以推出全部55次拟合都收敛**。K3与K4的稳定性仅差0.001770；先前pilot的K4与当前正式K3不是同参数协议的重复试验，不能推论不稳定或后验ARI优劣。**本次没有上传Windows原JSON/CSV/NPZ到GitHub，也没有对真实标签评价ARI/NMI。** 详情见`experiments/cellcharter_dlpfc/E3D_151509_15D_FIRST_RESULT_AUDIT_20261120.md`。暂时只允许下一项151509/25D高维冒烟，待审计后再设计批量runner，禁止凭1项结果直接宣布剩余47项完成。计划中的CPU K2..10×5次、无标签选K等保持冻结。
+
+
 ## 2026-11-20｜E3d正式协议151509/15D首个CPU单配置拟合终端PASS（待本地文件审计）
 
 **用户Windows原始控制台证据**（已实际执行`e3d_autok_single_config_v1.py --sample 151509 --condition cum_L0_L1_L2 --run`）：
