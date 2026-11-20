@@ -1,5 +1,11 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E4真实绘图12/12批量完成（自动阶段末审计尚未运行）
+
+用户Windows真实终端：`E4_BATCH_FINAL status=completed passed=12/12 failed=0 session=D:\paper\CellCharter_reproduction\results\e4_spatial_visualization_v1\batch_20261120T080609Z_4732`和`E4_BATCH_EXIT_CODE=0`。单片输出规定3SVG+3CSV（参考层/A/B空间图，三marker表达，A/B混淆矩阵），按成功任务12片**应形成**36SVG+36CSV，但原文件还没有独立验收/上传GitHub；不可把runner通过与所有图形内容审计通过混同。完整原计划`E4_SPATIAL_VISUALIZATION_EXECUTION_PLAN_20261120.md`。
+
+已完成GitHub真实脚本提交`e4_phase_final_audit_v1.py` SHA256=`ce2bd25ea3683984bf8701e4e85e7b9ce634096d4776e17ae7fca0773e4138ff`。脚本隔离模拟输入PASS，用户Windows**尚未运行**。新审计一次性只读核对全12个文件清单/SHA、SVG XML及原10x H5复算MOBP/PCP4/SNAP25归一化值、A/B混淆矩阵，不重画、不重训，仅新的audit目录输出JSON。下一唯一Windows操作：下载脚本并核验准确SHA，执行一次，预期`E4_PHASE_AUDIT_FINAL status=passed verified=12/12 svg=36/36 csv=36/36 errors=0`；成功后直接按计划启动E5a公平成熟方法比较。Claude论文级评审安排在整个E4/E5/E6计划末，勿再逐配置审查。详见`E4_BATCH_COMPLETE_PRE_AUDIT_20261120.md`。
+
 ## 2026-11-20｜E4全部12片事前输入预检真实通过，批量SVG真实表达绘图脚本GitHub已发布
 
 用户Windows真实输入预检：12张DLPFC每片`E4_PREFLIGHT_PASS`；spots/人工层标签/两份历史Oracle-K 15D A (`cum_L0_L1_L2`)与B (`fixed_L0_L1_L4`)预测路径齐全，每片`A_k=B_k=7`（151669–151672为5）；核验预期各片spot与有标注数；`E4_PREFLIGHT_SUMMARY total=12 MOBP=12/12 PCP4=12/12 SNAP25=12/12`、`E4_PREFLIGHT_EXIT_CODE=0`。发现每片原`filtered_feature_bc_matrix.h5`含三个marker基因名称。**只说明基因名字存在，不代表实际基因表达值/10x barcode对齐已做；这些步骤交由E4批量脚本运行时核对。** 用户本机既有`e4_spatial_visualization_v1.py`是输入预检脚本，并非真正的--run绘图器；它曾写入`results/e4_spatial_visualization_v1/e4_preflight_summary.json`，已知存在不清理。
