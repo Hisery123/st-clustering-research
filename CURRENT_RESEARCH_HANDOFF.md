@@ -1,5 +1,31 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 最新权威交接：2026-11-20 09:34（北京时间，按用户会话时间）｜E3c全部2400格审计PASS，切换到数据汇总
+
+用户提交的Windows完整尾部显示`E3C_GRID_PREFLIGHT_PASS total=2400 REUSED_AUDITED=480 EXISTING_AUDITED=1920 NEW_TASK=0`和`E3C_ALL_2400_AUDITED_PASS`，说明12片×4配置×K5–9×10种子共2400格均已通过**全网格只读复审**；本次夜间10片`COMPLETED_SAMPLES`齐全、`FAILED_SAMPLES`空。E3c新拟合1920项完成（另480旧Oracle-K格经审核复用），当前没有必要重训。请**不要再根据旧快照重启151509或151510**。现在唯一优先事是**提取、验收、归档E3c真实新K逐任务数据**（原始文件在Windows），与GitHub E1/E2归档的Oracle-K480项按键合并生成2400行统计分析集，随后做跨K/尺度/供体可重复统计与SVG；不能把固定K敏感性说成无标签AutoK。E3d/E3b/E4/E5/E6未完成，论文结论需等实际指标。Windows路径`D:\paper\CellCharter_reproduction\results\e3c_overnight_20261120_001819.txt`为真实用户提供日志位置，助手尚未直接读本地完整日志或1920原始metrics。下方旧记录均为历史；以本段与[科研日记](RESEARCH_JOURNAL/2026-11-20.md)为准。
+
+## 2026-11-20 09:34（北京时间，按用户会话时间）｜E3c全12切片K网格2400/2400独立只读审计PASS（正式验收）
+
+**用户Windows真实终端末尾输出**：
+```text
+PREFLIGHT_SAMPLE_OK sample=151675 verified_reused=40 verified_existing=160 pending_new=0 total=200
+PREFLIGHT_SAMPLE_OK sample=151676 verified_reused=40 verified_existing=160 pending_new=0 total=200
+E3C_GRID_PREFLIGHT_PASS total=2400 REUSED_AUDITED=480 EXISTING_AUDITED=1920 NEW_TASK=0
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+COMPLETED_SAMPLES 151507,151508,151669,151670,151671,151672,151673,151674,151675,151676
+FAILED_SAMPLES
+E3C_ALL_2400_AUDITED_PASS
+SESSION_LOG D:\paper\CellCharter_reproduction\results\e3c_overnight_20261120_001819.txt
+```
+
+**本次关键进展**：前次151509全200格已独立复核、151510新160项已runner内部审核；此次新`--sample ALL`只读复核覆盖全部12切片×4累计尺度×5固定K×10种子=2400格，480旧Oracle-K格审计复用、1920新增K格审计确认为existing，**NEW_TASK=0**。因此现在可标记`E3C_ALL_2400_AUDITED_PASS`，E3c**实验运行及全网格产物审计完结**；夜间其余10片均被PowerShell包装脚本列为完成、`FAILED_SAMPLES`为空。仅据用户贴出的终端而非助手直接打开全部原始Windows文件、session日志；不能将`FAILED_SAMPLES`空行推断为所有历史批次从未出过任何错误。输出总数不等于已经完成E3c跨K/尺度/供体统计、可视化或科学解释；这些尚待进行。
+
+**研究约束**：冻结E3c为CPU TorchGMM 4累计尺度10/15/20/25D×K{5,6,7,8,9}×10 GMM种子；历史Oracle-K参考人工标签类别数，仅作为有标签知情条件；K网格对照不是无标签AutoK。3位供体才是生物学来源，切片和种子不能伪作独立生物学重复。所有K和seed均须完整报告；不得事后以ARI最大K当成独立无标签方法。E3d AutoK、E3b边界指标、E4空间/marker、E5公平基线/独立外部验证、E6可选候选改进仍未完成。
+
+**下一步唯一优先事项**：停止E3c拟合；只读从Windows完整E3c任务输出导出规范化新K逐任务表（1920行）并联合GitHub已有E1/E2真值知情Oracle-K480行构成2400行分析集；逐格核验键唯一、ARI/NMI数值范围、标签mask、供体嵌套和来源哈希，产出跨K稳定性及敏感性汇总、真实SVG。用户尚未上传本地新E3c原始预测CSV/metrics/manifest，GitHub更新仅是文档存档，**不等于原始训练结果备份**。执行前还应实际核查要运行的统计汇总脚本，勿修改冻结原结果。夜间SESSION_LOG在用户Windows本机，助手未直接读取。
+
+
+
 ## 最新交接（2026-11-20 00:18（北京时间，按本次会话时间））｜E3c容错夜间策略已确定但未经运行证实
 
 E1/E2 1200/1200已完成，E3c 151509 已独立审计200/200；151510 已由Windows批量runner完成160个新K并内部审核，待独立只读200格复查。全局当前为**推算800/2400格**（旧480+新320），尚未获取剩余10片1600新K的夜间执行结果。用户批准夜间**失败单片跳过、连续2片失败或共享/未知错误停止**的PowerShell包装方案；只在聊天提供候选代码，**未验证用户运行，未修改Python runner，不能声称已实现或已完成**。下一回合优先核查用户夜间日志/SESSION_LOG与完整`--sample ALL`只读审计，随后仅补做缺失项。原始Windows新K产物未上传GitHub，文档不等于备份；E3d/E3b/E4/E5/E6仍待开展。详情参见 [2026-11-20日记](RESEARCH_JOURNAL/2026-11-20.md)；下方旧“下一步”均被本节覆盖。
