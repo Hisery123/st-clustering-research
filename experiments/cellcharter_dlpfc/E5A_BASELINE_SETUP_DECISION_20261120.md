@@ -30,3 +30,13 @@
 
 ## 唯一下一步
 **先仅安装、导入测试官方Python BANKSY包`pybanksy==1.3.5`到一个新独立`third_party/e5a_banksy_libs`目录（`pip --target ... --no-deps`），不改原env，未训练、未改E1–E4。** 此后安装/验证另一个空间基线，再冻结完整批量参数与脚本并一口气执行E5a，阶段末统一审计；最终Claude在全部预定研究计划结束后审查。
+
+## 补充：2026-11-20 用户证实BANKSY安装成功、提供R和Clash路径
+
+> 以下为**用户真实Windows终端和两张截图**，发生在E5a正式基线实验训练之前，覆盖本文早先“Rscript未在PATH因此R可能不可用”的推断。具体Rscript.exe路径与BayesSpace是否安装仍**未独立验证**。
+
+- BANKSY 通过`pip --no-deps --target D:\paper\CellCharter_reproduction\third_party\e5a_banksy_libs pybanksy==1.3.5`安装成功，用户实际`E5A_BANKSY_IMPORT_PASS version=1.3.5`、`E5A_TORCH_VERSION 2.1.2+cu121`、`E5A_CUDA_AVAILABLE True`、`E5A_BANKSY_SETUP_COMPLETE`。提示没有`rpy2`，明确警告只影响`mclust`、不妨碍默认`leiden`聚类；后续禁止错误称BANKSY失败或必须安装rpy2。
+- **用户R路径截图**：`D:\R\R-4.5.1`目录真实存在，截图中未直接显示`Rscript.exe`文件，必须在Windows下一步检查`D:\R\R-4.5.1\bin\Rscript.exe`或`bin\x64\Rscript.exe`。此前`Get-Command Rscript`没找到只是PATH不可访问，不能推断R不存在。BayesSpace真实安装状态未知，不能声称已就绪。
+- **Clash Verge截图**：Windows本地**混合代理端口7897**、系统代理`127.0.0.1:7897`；未来从R/Bioconductor、pip/GitHub下载安装依赖时可在**单次PowerShell进程/调用期间**显式设`HTTP_PROXY=http://127.0.0.1:7897`和`HTTPS_PROXY=http://127.0.0.1:7897`并恢复原环境，**不要永久改系统设置**。代理设置是连接配置，真实可用性必须以实际网络输出为准。
+- 接下来仅一条Windows**只读验证Rscript路径、R自身版本、BayesSpace/BiocManager命名空间**的PowerShell指令；之后在正式冻结E5a前一次性决定使用哪些成熟空间基线，不因中途ARI/NMI换方法。
+
