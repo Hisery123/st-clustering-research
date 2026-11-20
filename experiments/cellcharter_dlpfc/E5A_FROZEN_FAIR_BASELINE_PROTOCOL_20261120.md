@@ -59,3 +59,11 @@ BANKSY尚未开始运行；经查官方BANKSY Python `src/banksy/`代码（https
 - **运行前真实性边界**：仅官方当前函数签名在用户R中预检通过；GitHub R脚本未在Windows完整执行、此环境无Rscript静态运行器；如真实算法API/本机HDF5发生阻断，请停止并保持原会话文件，不重复启动或修改先前完成两子批、仅修复程序问题而非方法规则。按既定顺序先完成第三子批，再统一E5a全量文件验收，最终Claude审稿于计划末。
 - 来源：BayesSpace3.22 vignette https://bioconductor.posit.co/packages/3.22/bioc/vignettes/BayesSpace/inst/doc/BayesSpace.html 说明Visium的array_row/array_col、qTune返回q.logliks和建议正式至少1万MCMC迭代；实际版本R API已由用户真实反馈。
 
+## 七、BayesSpace首次运行0/72阻断的最小代码修复（2026-11-20）
+
+**真实Windows失败日志：** 原v1脚本SHA与GitHub匹配，`E5A_BAYESSPACE_SAMPLE_START sample=151507 expected=6`后立即`E5A_BAYESSPACE_HALTED completed=0/72 error=类别为"dgCMatrix"的对象无效: 'i' slot is not increasing within columns`，exit2，保留只读输入与原失败会话`D:/paper/CellCharter_reproduction/results/e5a_baselines_v1/bayesspace_20261120T102925Z_30592/batch_status.json`。本错误发生于**拟合前的10x CSC稀疏矩阵导入**，没有任何BayesSpace拟合/选择K结果可用；不应误判BayesSpace算法失败或数据损坏。
+
+**根因：** 十倍空间H5的CSC`indices`每列未必按升序排列，而R `Matrix::dgCMatrix` S4对象构造时要求每列内行索引严格递增。原脚本直接通过`methods::new("dgCMatrix", i=ind,p=ptr,x=val,Dim=dims)`，未规范排序。**修复仅限读取层**：新文件`experiments/cellcharter_dlpfc/e5a_bayesspace_baselines_batch_v1_1.R`利用CSC`indptr`向量恢复列序列，采用`Matrix::sparseMatrix(i=ind+1L,j=rep.int(seq_len(dims[2]),diff(ptr)),x=val,dims=dims,index1=TRUE,giveCsparse=TRUE)`，R Matrix据此按列规范排序（若极少数重复坐标则求和）；加强指针与行索引合法性断言。**未更改**10x源文件、barcode对齐、HVG/PCA、seed表、qTune K2..10判据、正式1万次MCMC、双臂、输出策略或评价mask。原v1保留原样，新v1.1新文件；SHA256=`fed1f66c87a186104c60727d1bd27791a6dd9d389096b06305aac40fc97ccfbe`。尚未在用户Windows运行修复版；GitHub新文件已提交，不能称修复成功。依已冻阶段执行纪律只解决硬阻断，不中途审查分数。
+
+**下一Windows唯一任务**：下载v1.1新文件、核SHA并执行`Rscript.exe --vanilla ...v1_1.R --run`。新会话必须与失败的0/72老目录隔离。若再阻断，原样报告末尾错误与会话路径；绝不盲目重启或修改方法学协议。
+
