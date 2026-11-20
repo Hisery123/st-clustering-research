@@ -1,5 +1,9 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E4统一最终审计真实PASS、E4正式结束；E5a环境预检待运行
+
+用户Windows真实返回：`E4_PHASE_AUDIT_FINAL status=passed verified=12/12 svg=36/36 csv=36/36 errors=0`；`E4_PHASE_AUDIT_EXIT_CODE=0`。这是E4全部12片、36SVG与36CSV的单阶段独立自动文件验收通过，真实报告仍在用户Windows `D:\paper\CellCharter_reproduction\results\e4_spatial_visualization_v1\phase_audit_v1\20261120T082135Z_29612\e4_phase_audit_report.json`；**助手未实际读取文件字节，用户终端报告是当前可信原始证据**。统一日志已归档`experiments/cellcharter_dlpfc/E4_FINAL_AUDIT_PASS_20261120.md`；E4关闭、不新增绘图。按照`EXECUTION_FIRST_CLAUDE_FINAL_REVIEW_DECISION_20261120.md`立刻进入既有E5a成熟基线3–4项的**事前环境/可行性清点**，用一条只读Windows PowerShell命令报告当前CellCharter Python环境中的scanpy/leidenalg/igraph/torch/torch-geometric/GraphST/BANKSY相关包版本与PyTorch GPU可用性，检查Rscript/BayesSpace可用性；无包不能假定安装成功，不能擅自安装，也不可承诺E5已运行。根据真实清点一次性冻结候选基线及Oracle-K与标签独立选K两套不混淆的比较规则，然后连续开展E5a。最终Claude审核安排在整个计划末。
+
 ## 2026-11-20｜E4真实绘图12/12批量完成（自动阶段末审计尚未运行）
 
 用户Windows真实终端：`E4_BATCH_FINAL status=completed passed=12/12 failed=0 session=D:\paper\CellCharter_reproduction\results\e4_spatial_visualization_v1\batch_20261120T080609Z_4732`和`E4_BATCH_EXIT_CODE=0`。单片输出规定3SVG+3CSV（参考层/A/B空间图，三marker表达，A/B混淆矩阵），按成功任务12片**应形成**36SVG+36CSV，但原文件还没有独立验收/上传GitHub；不可把runner通过与所有图形内容审计通过混同。完整原计划`E4_SPATIAL_VISUALIZATION_EXECUTION_PLAN_20261120.md`。
