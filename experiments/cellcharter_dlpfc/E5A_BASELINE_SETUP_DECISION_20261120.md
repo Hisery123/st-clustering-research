@@ -40,3 +40,10 @@
 - **Clash Verge截图**：Windows本地**混合代理端口7897**、系统代理`127.0.0.1:7897`；未来从R/Bioconductor、pip/GitHub下载安装依赖时可在**单次PowerShell进程/调用期间**显式设`HTTP_PROXY=http://127.0.0.1:7897`和`HTTPS_PROXY=http://127.0.0.1:7897`并恢复原环境，**不要永久改系统设置**。代理设置是连接配置，真实可用性必须以实际网络输出为准。
 - 接下来仅一条Windows**只读验证Rscript路径、R自身版本、BayesSpace/BiocManager命名空间**的PowerShell指令；之后在正式冻结E5a前一次性决定使用哪些成熟空间基线，不因中途ARI/NMI换方法。
 
+## 更新：BayesSpace 1.20.2 已在隔离R库安装通过（2026-11-20）
+
+- 用户原始Windows结果：`E5A_BIOC_VERSION=3.22`、R 4.5.1；`BiocManager::install("BayesSpace",lib="D:/paper/CellCharter_reproduction/third_party/e5a_r_libs",ask=FALSE,update=FALSE,type="binary")` 下载 BayesSpace 和12个依赖的Windows二进制包，显示全部MD5通过。`E5A_BAYESSPACE_VERSION=1.20.2`、`E5A_BAYESSPACE_INSTALL_PASS`、`E5A_BAYESSPACE_EXIT_CODE=0`。其中Arrow的`tzdb`时区警告不是安装失败；不因无关warning追装。实际Python BANKSY1.3.5导入已通过。**这意味着四种候选Leiden、GMM、BANKSY、BayesSpace目前已具备基础导入条件，不代表全部正式训练接口已通过验证。**
+- 经官方文档核对，BayesSpace（Bioc3.22）支持从`SingleCellExperiment` counts矩阵及Visium阵列行列坐标预处理，`spatialPreprocess(...,platform="Visium",n.PCs=...,n.HVGs=...)`，`spatialCluster(...,q=...,nrep=...,burn.in=...)`；K-blind可按`qTune(qs=seq(2,10))`和固定无监督判据事前实现。官方vignette推荐正式MCMC使用至少1万迭代，但若因资源采用较少迭代必须如实记录为预算受限实现，不能称原文默认。文档：https://bioconductor.posit.co/packages/3.22/bioc/vignettes/BayesSpace/inst/doc/BayesSpace.html
+- BANKSY官方Python默认Leiden，无`rpy2`也能工作，核心函数为`initialize_banksy(...)`和`run_banksy_multiparam(...)`；需核实依赖与参数、输入preprocessing之后才可以冻参。文档：https://github.com/prabhakarlab/Banksy_py
+- 原计划中四基线已具备初步环境基础，因此**当前不额外安装SpaGCN/GraphST**；二者在事前保留为候选备选，但不能因后验指标换方法。下一唯一动作做一次本机**无训练API/输入预冻结检查**，之后提交正式E5a公平对照参数与全量runner，连续跑完12片四方法；末尾一次产物验收，集中Claude方法审查在总计划末。
+
