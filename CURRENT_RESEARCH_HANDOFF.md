@@ -1,5 +1,17 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3c真实数据/分析图已入库；接下来E3d版本与GPU只读预检
+
+**GitHub已实际提交并按原文件Git blob逐项核对**：`experiments/cellcharter_dlpfc/E3C_20261120_RELEASE/`包含用户上传原始`e3c_newK_metrics_1920.csv`（SHA256 `50c624a9133d0ad885cd69d53929047f6398729699498771b20c86537bff92f2`）、六份派生统计CSV、三份可编辑SVG、`E3c_分析说明_20261120.md`、`build_e3c_review.py`、两份历史Oracle-K汇总/哈希前缀来源文件及`README.md`。源码`build_e3c_review.py`及依赖的两份文本均已核对与聊天离线包原件一致。旧Oracle-K真正的480行原记录继续存放在E1/E2归档；本E3c独立分析使用了6位小数组均值，**不是重新发布精准2400行原始逐任务合并CSV**。原聊天`E3c_K敏感性_初步统计与SVG_20261120.zip`二进制与其中的`e3c_summary_audit.txt`尚未上传GitHub，README明确了这个差异；公开内容足以运行已上传的`build_e3c_review.py`重算描述统计和生成SVG，但不含Windows全体逐spot预测/metrics/manifest原始目录，后者未备份到GitHub。**此前只有文字存档，现核心真实指标与科研图已经实际上传**，旧交接有关“新1920行未入库”的表述已过时。
+
+**E3c**：Windows独立审计`E3C_ALL_2400_AUDITED_PASS`已确认，12片×4尺度×5固定K×10seed的2400格均完整；E1/E2另已完成1200格。后验结果K敏感性与供体反向趋势可用，但无标签AutoK尚未做，3供体独立重复，不能按spot/seed扩大n。
+
+**E3d**：2026-11-20实际查阅[官方ClusterAutoK API](https://cellcharter.readthedocs.io/en/latest/generated/cellcharter.tl.ClusterAutoK.html)、CellCharter`v0.3.2`源文件`tl/_autok.py`、[随机状态问题#122](https://github.com/CSOgroup/cellcharter/issues/122)和版本发布；新增 [E3d预检计划](experiments/cellcharter_dlpfc/E3D_AUTOK_PREFLIGHT_20261120.md)，**不是已运行/已冻结K搜索实验**。发现部分早期版本可能未真正执行所传随机种子，官方于2026-10-15修复；用户Windows目前安装版本/torchgmm/GPU仍需实际查验，不应自动更新旧环境或改写冻结E3c。
+
+**下一步唯一操作（未运行）**：用户Windows在`env_cellcharter`执行一条PowerShell只读命令打印`cellcharter`、`torchgmm`、`torch`版本、ClusterAutoK/GaussianMixture函数签名、CUDA可用性、GPU名称、实际模块源路径。收到结果后再冻结E3d搜索范围/重复预算、随机状态控制、CPU/GPU选择和单片测时。不给用户直接启动全12片AutoK拟合。GitHub主分支新增提交不等于Windows本地已同步。
+
+
+
 ## 2026-11-20｜E3c新1920行CSV已由ChatGPT独立读取验收并完成初步统计
 
 用户真实上传`e3c_newK_metrics_1920.csv`（SHA256 `50c624a9133d0ad885cd69d53929047f6398729699498771b20c86537bff92f2`），助手对1920行全量键、非Oracle-K、每片160行、样本/条件/种子/固定K、指标范围及哈希格式核查通过。再从本库E1/E2历史1200行真实提取480条Oracle-K并计算48组10seed均值/SD，按样本、n_evaluated、K、旧新输入SHA256前16位跨来源校验无冲突。获得**12切片×4尺度×K5..9 =240组10seed汇总，覆盖2400已验证任务**（旧480仅在本回合按48组汇总，未声称全精度2400原始任务CSV已经创建）。初步描述性结果：15D−10D的12片等权均值ΔARI在K5–9皆正（+0.0112至+0.0229）；25D−15D Br5292供体五个K均正、Br8100五个K均负；K与供体/Oracle-K混杂，不能宣称K5为无标签最佳K或广泛普适改善。原始新增1920的逐任务指标本轮上传并进入用户会话分析包，**未公开上传GitHub且Windows全部原始预测未备份**。图表/数据审查包已在用户对话生成并经重新运行脚本检验，详见 [E3c结果审查记录](experiments/cellcharter_dlpfc/E3C_K_SENSITIVITY_ANALYSIS_20261120.md)。下一优先事项：E3d无标签AutoK的冻结协议与小范围测时，或按用户意愿先组织E3c论文章节；E3b/E4/E5/E6仍待执行。下文旧进度/任务按本节覆盖。
