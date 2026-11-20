@@ -1,5 +1,21 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-20｜E3d正式CPU 151509/25D高维冒烟终端COMPLETE，文件审计待执行
+
+**用户Windows实际训练终端摘录**（非模拟、非工具在助手环境运行）：
+
+```text
+100%|...| 11/11 [00:11<00:00, 1.05s/it]
+GPU available: True (cuda), used: False
+E3D_FIXED_TASK_COMPLETE sample=151509 condition=cum_L0_L1_L2_L3_L4 selected_k=3 seconds=57.55 output=D:\paper\CellCharter_reproduction\results\e3d_autok_fixed_v1\151509\cum_L0_L1_L2_L3_L4
+```
+
+- **新真实状态**：E3d正式配置运行完成 **2/48（151509的15D和25D）**，其中已完成文件级审计 **1/48（15D）**，本次25D需审计`manifest.json`/`autok_summary.json`/`predictions.csv`/`all_k_run_labels.npz`后才可升级为审计通过。
+- CPU是正式协议选定的设备；GPU可见但不使用的PyTorch Lightning提示符合预期。终端称耗时57.55s，正式精确耗时待JSON。报告K3，但不代表最符合真实层数，未计算任何标签参考ARI/NMI。
+- 正式协议v1 K候选2..10，辅助K1..11，每K5次，预计本项55次GMM；终端`TASK_COMPLETE`显示程序报告完成，但仍须核查完整产物、每K重复次数和文件哈希。上次15D结果K3、55.909676s，不能仅据同一切片两配置选相同K，推断跨供体稳健性。
+- **下一唯一Windows操作**：只读审计25D输出目录，核对预测行数4789、唯一barcode、合法K簇、55次NPZ形状、模型收敛摘要、稳定性有限与全部SHA256一致；失败时保留完整报错且不删除、不重跑、不启动其他46项。15D/25D之后才考虑设计全量安全批处理（待另行冻结和审查），不能擅自把“终端成功”说成全量验收。
+
+
 ## 2026-11-20｜E3d首项正式CPU拟合的本机落盘数据审计通过（151509、15D，K3，55格）
 
 用户Windows真实只读审计回报：
