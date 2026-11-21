@@ -162,3 +162,9 @@ E5B_BANKSY_EXIT_CODE=0
 
 Windows脚本按六例×3技术种子×双K臂给出**36/36份BANKSY预测完成，失败0，退出码0**。脚本成功行≠尚未执行的阶段末独立产物审计。观察CID4535 Kblind实际K8、7、8，Oracle预测实际K6；CID44971 Oracle目标K6而实际K5，属于固定16档Leiden分辨率最接近K的原生合法输出，不得因此事后调整resolution。累计CellCharter216 + GMM/Leiden72 + BANKSY36=**324/360份预测**，独立患者仍6名、全部ARI/NMI未计算。BANKSY批次原始状态仅保存在用户Windows路径，未上传大文件到GitHub。接下来按预冻计划最后子批BayesSpace36，之后仅进行整阶段统一数据/指标审计与Claude独立方法预审。
 
+## 15. E5b最后BayesSpace36份预测脚本已提交，尚未Windows运行
+
+E5b六患者外部实验当前唯一未完成的原定成熟基线是**BayesSpace**：此前CellCharter216+GMM/Leiden72+BANKSY36=324/360份预测均由真实Windows程序最终状态行报告完成，BayesSpace本队列目前0/36，所有ARI/NMI尚未执行。E5b已公开冻结BayesSpace 1.20.2的原生完整方法不允许事后调节预算：6患者×3技术seed×Kblind/Oracle共36份预测；各患者各自基于同一输入的raw counts与Visium array_row/array_col、HVG2000、PCA15，预处理固定seed22911；每个seed `qTune(qs=2:10,burn.in=100,nrep=1000,cores=1,model=t,precision=equal)`无标签选择最大平均q.loglik，平手选择较小q，Oracle直接使用预冻类别数5/7/3/3/6/6；两个正式模型分别`spatialCluster(nrep=10000,burn.in=1000,thin=100,model=t,precision=equal,init.method=mclust)`，原R BayesSpace CPU执行。保留全部K2..10的调参轨迹和双臂原始完整spot-barcode预测，不提前读取标签或计算ARI/NMI。适配层沿用E5a v1.1的稀疏矩阵CSC规范化经验，将**已在Windows验证的**MatrixMarket `matrix.mtx` plain文本读取为合法feature×spot稀疏矩阵、按冻结barcode联表选`in_tissue=1` spot；不修改原始文件或K规则。每患者单独R进程以防内存累积，结果独立session/attempt，失败停下且保留已有样本成功结果，只有用户另行显式`--resume`才继续。
+
+已在GitHub创建代码`experiments/cellcharter_dlpfc/e5b_bayesspace_baselines_batch_v1.R`，**正式最新版**commit`637d47493f2762a9f4c824a0d3af8b2bac445050`，SHA256=`7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`；初始创建commit`4603b0f7b21e7227c81856775a0dfee96b723964`在首次Windows执行前已修正Windows绝对路径尝试目录中不应移除`D:`盘符的问题（仅修执行层，原科学设置未改）。代码目前未在用户Windows用真实数据执行，也未在本助手环境通过Rscript语法执行验证。**下一Windows唯一行动**：从该commit SHA固定下载、核SHA、由R4.5.1 Rscript仅parse检查再`--run`一次性处理六患者；成功标记应为`E5B_BS_FINAL status=completed completed=36/36 failed=0`及退出码0，若发生R输入/API故障保留完整失败状态和日志，不重跑已完成CellCharter、非空间及BANKSY阶段。全360预测真正完成后再集中独立审计预测与标签mask、K策略，并计算ARI/NMI/交Claude末审。
+
