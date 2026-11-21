@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-21｜E5b六组metadata、spatial、counts条码一致性真实PASS，正式冻结前
+
+用户Windows实测已完成E5b公开Wu 2021六例乳腺癌Visium原始归档完整性和结构预检：metadata MD5`1d0b34ead70635c094ac74ac58a88d68`；spatial MD5`29b02ae433d459d19dc52b75a529e8e9`；counts MD5`ea1220f0606c4d4e9307468fb2d5427a`。三方barcode逐样本交集均完整，counts header尺寸与barcodes/features数相符，6/6均`E5B_COUNTS_MATCH ... status=PASS`，末尾`E5B_COUNTS_BARCODE_ALIGNMENT_PASS samples=6`。各样本spatial网格4992、metadata合计15611；其中10个元数据spot `in_tissue=0`待预冻结排除政策。6个CSV`patientid`不同，标签`Classification`含Artefact、NA、Uncertain、空值，应预先区分输入spot和评价mask。两组genes=28402、其余四组genes=19237，每组counts内层.gz实际上为plain文本；需要读取时侦测内容，不能套标准gzip解码。矩阵nnz由MatrixMarket尺寸头读取，未完整校验数据值。尚无E5b任何模型训练或评分；E5a审计288/288 PASS不变。下一只读操作建议：三归档联表计算每例`in_tissue=1` spot、有效标签mask和真实类别数K，检查极小类别，**暂不做K盲选择的标签使用**；核实后一次性冻结数据筛选、CellCharter/基线对照、K策略、种子预算，再开始训练。详情见`experiments/cellcharter_dlpfc/E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`。
+
+
 ## 2026-11-21｜E5a独立统一审计真实PASS 288/288；E5b优先候选Wu 2021人乳腺癌Visium6样本
 
 **已执行（用户Windows终端原始报告）**：`E5A_PHASE_AUDIT_FINAL status=passed verified=288/288 errors=0 report=D:\paper\CellCharter_reproduction\results\e5a_phase_audit_v1\audit_20261121T035302Z_5292\e5a_phase_audit_report.json`、`E5A_PHASE_AUDIT_EXIT_CODE=0`；288个任务的实物/MD5(SHA256)/barcodes/Oracle-K与K-blind规则/同mask ARI/NMI均由冻结只读审计脚本报告通过。**本助手尚未直接读取本地结果数值/JSON警告，不得虚构性能结论。** 已归档`experiments/cellcharter_dlpfc/E5A_FINAL_AUDIT_PASS_20261121.md`。E5a正式关闭，E5b现在只在方案与数据前期核查状态，未训练。
