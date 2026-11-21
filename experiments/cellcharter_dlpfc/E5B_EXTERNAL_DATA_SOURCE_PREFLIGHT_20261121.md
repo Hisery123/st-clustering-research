@@ -52,3 +52,21 @@ E5B_METADATA_ARCHIVE_LIST_PASS
 | CID4535_metadata.csv | 1127 | 同字段 |
 
 合计`15611`行原始元数据（仅原始行数，尚不能称有效标注spot数）。此前字段自动筛选仅匹配`subtype`，逐文件`subtype`均非空但只1个唯一值，是样本属性，**不能将其当空间域真值**；本次脚本遗漏了未含关键词的`Classification`列。最左列CSV表头为空，**推测**可能承载barcode但尚未验证。下一次只读核查应枚举6文件`Classification`的类别频数和缺失占比、最左列非空/重复情况、`patientid`一致性/跨文件独立性线索、核对样本级`subtype`。注意未核实`Classification`是否确为病理学家原始区域标签、是否包含unknown或排除类别，不能在实验前凭预测分数筛标签或样本。此后需下载原始count/spatial对应条码/坐标并核验；目前E5b无模型训练，样本与实验预算未冻结。
+
+## 第三次Windows只读Classification与患者ID检查真实通过（2026-11-21）
+
+**用户Windows实测终端（非训练）**：`E5B_CLASSIFICATION_PREFLIGHT_PASS files=6`、`NO_TRAINING_NO_DATA_MODIFICATION`；六CSV最左索引列非空且每份内无重复；每CSV `patientid`各1唯一值，跨六CSV共6种不同ID，0个跨CSV共享。注意ID互异是元数据内部的患者独立性支持，**不等价于我们已经核实了临床真实独立受试者身份或技术重复关系**。`Classification`确实存在逐spot类别，且每片分布极不均衡：本阶段应保留全样本，不能根据后验模型成绩筛选。
+
+| 样本 | 行数 | Classification真实观察 |
+|---|---:|---|
+| 1142243F | 4784 | 6类：Invasive cancer + stroma + lymphocytes 3627; Necrosis 568; Stroma 445; Artefact 119; Lymphocytes 15; TLS 10 |
+| 1160920F | 4895 | 9值：Invasive cancer + stroma + lymphocytes 3146; Stroma 1132; Normal glands + lymphocytes 278; Lymphocytes 186; Adipose tissue 83; Artefact 48; DCIS 12; Cancer trapped in lymphocyte aggregation 9; 空字符串 1 |
+| CID4290 | 2432 | 5值：Invasive cancer + stroma 2082; Invasive cancer + stroma + lymphocytes 215; Stroma 122; Artefact 7; 字面NA 6 |
+| CID4465 | 1211 | 4值：Invasive cancer + stroma + lymphocytes 1131; Stroma 73; Artefact 4; Normal duct 3 |
+| CID44971 | 1162 | 8值：Invasive cancer + lymphocytes 317; DCIS 273; Normal + stroma + lymphocytes 240; Stroma 134; Stroma + adipose tissue 114; Lymphocytes 81; 字面NA 2; Artefact 1 |
+| CID4535 | 1127 | 10值：Invasive cancer 418; Invasive cancer + lymphocytes 361; Stroma 169; Uncertain 73; Lymphocytes 69; Artefact 23; Adipose tissue 8; Invasive cancer + adipose tissue + lymphocytes 3; 字面NA 2; 空字符串 1 |
+
+六CSV共有**15611行**。原生病理区域标签为组合型类别（如`Invasive cancer + stroma + lymphocytes`），不应当作单一细胞类型或与DLPFC层级同语义真值。候选主评价mask应事前排除`Artefact`、`NA`、空字符串、`Uncertain`；是否排除这些类别、缺失/定位处置和各方法输入spot处理须在首次外部拟合**之前**公开冻结，且不能据任何ARI/NMI或方法排名修改。切勿把`Uncertain`合并成任意有利类别。极少类别及严重失衡需完整披露，统计单位为样本患者而非15611个独立生物观测。
+
+**仍未完成**：raw counts与spatial对应元数据的文件结构和barcode精准交集检查、病理标签真实来源核验、独立患者/原论文是否预先训练使用的边界核对、主配置与K策略+预算及外部协议冻结。下一只读步骤下载原始`spatial.tar.gz`（来源Zenodo，约54.3MB，预记录MD5 `29b02ae433d459d19dc52b75a529e8e9`）校验后仅列目录，不解压覆盖/不训练；之后核查raw count压缩包，避免无来源匹配就拟合。
+
