@@ -99,3 +99,8 @@ E5B_FEATURE_EXIT_CODE=0
 这证明六个患者的**特征准备/表征训练批次**由Windows脚本报告全部完成，按脚本内定义各自从外部counts重新训练scVI5D并生成CellCharter 25D空间邻域聚合，completed=6/6 failed=0、进程退出码0。显示的400轮及耗时55.709秒**仅针对最后一个CID4535样本**，不得据此推断六样本各自epoch/用时、也不能据训练loss推断聚类质量。此处尚未由本助手读取本地batch_status.json和每个模型文件进行独立审计；实际存储证明在本机报告上，不能声称GitHub已备份二进制特征。**E5b已完成6次scVI表征训练，正式CellCharter GMM聚类/无标签AutoK/四成熟基线以及ARI/NMI均尚未运行**；论文不能将feature success当外部验证性能。
 
 正式feature结果路径：D:\paper\CellCharter_reproduction\results\e5b_external_v1\features_20261121T090400Z_28460，其SHA/状态需后续批量聚类程序验证；**不得重新拟合scVI或用DLPFC权重代替**。下一计划阶段按原冻结36组CellCharter 6尺度×6样本、每组1次AutoK及2 K臂×3seed=216预测，后4对照144预测；先落盘未经人工标签的预测及轨迹，最后统一评价。遵守阶段连续执行、末尾集中审计。
+
+## 9. E5b原定CellCharter聚类脚本已提交，Windows尚未执行
+
+按本协议第3节事前冻结的六例×六种特征配置×K-blind/Oracle-K×三seed，已在GitHub创建`experiments/cellcharter_dlpfc/e5b_cellcharter_cluster_batch_v1.py`，创建commit `eeb309918dee5c97f15f864134b4178da49cc82f`，内容SHA256 `d8df95cd86116a2a4aec2a6f0b4cf2f63e2a1425956198bb1afe6c1baf91c1aa`。脚本只引用已经完成的特征批次`features_20261121T090400Z_28460`，按来源SHA验证后从其25D缓存抽取固定6个特征组合。每患者×组合运行唯一一次CellCharter 0.3.2原生AutoK稳定性无标签选K（候选2..10，辅助1..11，每K5次显式seed，CPU），再将选定的Kblind K和原冻结标签类别数知情Oracle-K**分别**用于三个技术seed的原生CellCharter GaussianMixture拟合，计划36次AutoK与216份预测。`ClusterAutoK`的5次播种使用E3d的SeededGMM子类，不在AutoK期间读取Oracle-K常数或reference_only文件；新GMM拟合显式播种。所有预测在隔离新目录、以完整barcode保存并记录SHA；配置完成/失败和阶段总进度由manifest记录。每次失败自动停止，用户明确`--resume`可继续此前已完成配置之外的未完成任务，新尝试保留旧失败目录，禁止覆盖。**脚本尚未在Windows跑过，所有216个预测仍是计划、不能称完成**。阶段后还有E5a四成熟基线144预测及统一后验评价（禁在阶段中根据ARI/NMI改K/尺度/seed）。当前源数据准备和scVI6例特征已通过，但聚类AutoK0项/GMM0份、ARI/NMI未知。该阶段唯一下一Windows行动为SHA校验下载、Python语法检查和`--run`一次性运行36配置，若兼容性故障保留原始报错和批次状态。
+
