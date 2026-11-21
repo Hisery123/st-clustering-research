@@ -1,5 +1,11 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-21｜E5a独立统一审计真实PASS 288/288；E5b优先候选Wu 2021人乳腺癌Visium6样本
+
+**已执行（用户Windows终端原始报告）**：`E5A_PHASE_AUDIT_FINAL status=passed verified=288/288 errors=0 report=D:\paper\CellCharter_reproduction\results\e5a_phase_audit_v1\audit_20261121T035302Z_5292\e5a_phase_audit_report.json`、`E5A_PHASE_AUDIT_EXIT_CODE=0`；288个任务的实物/MD5(SHA256)/barcodes/Oracle-K与K-blind规则/同mask ARI/NMI均由冻结只读审计脚本报告通过。**本助手尚未直接读取本地结果数值/JSON警告，不得虚构性能结论。** 已归档`experiments/cellcharter_dlpfc/E5A_FINAL_AUDIT_PASS_20261121.md`。E5a正式关闭，E5b现在只在方案与数据前期核查状态，未训练。
+
+**外部集候选（非已完成）**：经联网查证，Wu et al., *Nature Genetics* 2021 (DOI `10.1038/s41588-021-00911-1`)和Zenodo原研究数据 `10.5281/zenodo.4739739` 包含6例人乳腺癌Visium切片，论文正文说spots由专科乳腺病理医师通过Loupe4.0标注。元数据归档约217.5kB，MD5 `1d0b34ead70635c094ac74ac58a88d68`，拥有逐spot病理标签；这是与DLPFC不同组织/来源但仍同Visium技术的优先候选。项目GitHub新`experiments/cellcharter_dlpfc/E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`已保留来源、证据等级、条件/备选与资源规则。正式E5b样本/模型/预算**尚未冻结**，需要先只读盘点公开metadata压缩包内的标签文件结构，再选择患者样本和公平任务矩阵。下一唯一Windows命令：下载该`metadata.tar.gz`小文件、比对上述MD5、`tar -tzf`只读列出目录；不下载大文件、不训练、不变更E5a。根据返回继续制定E5b方案。E6仍可选，最终Claude总审遵循原计划。
+
 ## 2026-11-21｜BayesSpace v1.1 Windows完成72/72；E5a三子批报告288/288执行成功，统一产物审计待运行
 
 真实Windows结果：`E5A_BAYESSPACE_PASS 71/72 ... seed=25842 q=7 actual_k=7`和`PASS 72/72 ... q=10 actual_k=10`；`E5A_BAYESSPACE_FINAL status=completed completed=72/72 failed=0 summary=D:/paper/CellCharter_reproduction/results/e5a_baselines_v1/bayesspace_20261120T103557Z_11440/batch_status.json`，`E5A_BAYESSPACE_V11_EXIT_CODE=0`。其中151676 `Neighbors were identified for 3456 out of 3460 spots`，孤立4 spot需阶段末记录，但不据此改协议；151676末个K-blind种子q=10属于预冻K2..10边界选择。原BayesSpace v1在151507输入CSC无序导致0/72阻断，保留原失败状态；独立修复v1.1真实跑完72项，原始数据只读。
