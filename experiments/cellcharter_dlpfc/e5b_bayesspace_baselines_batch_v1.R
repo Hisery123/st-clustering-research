@@ -231,8 +231,6 @@ check_finished_attempt <- function(dir,sample) {
             identical(m$sample,sample) &&
             length(m$tasks)==6L,
             "E5B_BS_SAMPLE_MANIFEST_NOT_COMPLETED")
-    expected <- as.character(as.vector(t(outer(as.character(seeds),
-                                               arms,paste,sep=":"))))
     actual <- vapply(m$tasks, function(x)
         paste(x$seed,x$arm,sep=":"), character(1))
     # The exact canonical order: seed 22911, both arms; seed 7449, both arms; etc.
@@ -260,10 +258,10 @@ run_sample <- function(sample,session,stage) {
         require(dir.create(parent,recursive=FALSE,showWarnings=FALSE),
                 "E5B_BS_PATIENT_DIRECTORY_CREATE_FAILED")
     }
-    run_dir <- file.path(parent,paste0(
-        "attempt_",format(Sys.time(),"%Y%m%dT%H%M%OS6Z",tz="UTC"),
-        "_",Sys.getpid()))
-    run_dir <- gsub(":", "", run_dir, fixed=TRUE)
+    attempt_stamp <- gsub("[^0-9A-Za-z_]", "",
+                          format(Sys.time(),"%Y%m%dT%H%M%OS6Z",tz="UTC"))
+    run_dir <- file.path(
+        parent,paste0("attempt_",attempt_stamp,"_",Sys.getpid()))
     new_dir(run_dir)
     mf <- file.path(run_dir,"sample_manifest.json")
     state <- list(
