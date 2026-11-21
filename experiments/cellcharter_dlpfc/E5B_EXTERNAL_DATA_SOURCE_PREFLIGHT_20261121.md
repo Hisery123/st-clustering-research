@@ -37,3 +37,18 @@ metadata/CID4535_metadata.csv
 E5B_METADATA_ARCHIVE_LIST_PASS
 ```
 这说明公开的metadata.tar.gz包哈希与预检记录一致，归档目录中有六份不同名字的样本CSV。**不能仅凭文件名或压缩包目录断言每个CSV具备可靠病理标签、barcode唯一性、坐标一一对应或6个患者独立**，更不代表已经开始E5b训练。下一步用Python标准库对tar.gz内六个CSV做只读列名/样本行数/字段缺失率/潜在标签类别计数，保留明细并先判断方法学有效性；不提取至原始数据目录、不看任何算法表现、不调参。按E5b预冻纪律在了解元数据与表达矩阵真实结构后再锁定样本与预算。
+
+## 第二次Windows只读CSV结构检查真实通过（2026-11-21）
+
+用户Windows终端完整回报`E5B_METADATA_STRUCTURE_PASS files=6`、`NO_TRAINING_NO_EXTRACTION`，压缩包内六个CSV的行数与列名实查如下（**不是训练结果**）：
+
+| CSV | 元数据CSV行数 | 实际列名 |
+|---|---:|---|
+| 1142243F_metadata.csv | 4784 | 空标题索引列、nCount_RNA、nFeature_RNA、patientid、subtype、Classification |
+| 1160920F_metadata.csv | 4895 | 同字段 |
+| CID4290_metadata.csv | 2432 | 空标题索引列、nCount_RNA、nFeature_RNA、subtype、patientid、Classification |
+| CID4465_metadata.csv | 1211 | 同字段 |
+| CID44971_metadata.csv | 1162 | 同字段 |
+| CID4535_metadata.csv | 1127 | 同字段 |
+
+合计`15611`行原始元数据（仅原始行数，尚不能称有效标注spot数）。此前字段自动筛选仅匹配`subtype`，逐文件`subtype`均非空但只1个唯一值，是样本属性，**不能将其当空间域真值**；本次脚本遗漏了未含关键词的`Classification`列。最左列CSV表头为空，**推测**可能承载barcode但尚未验证。下一次只读核查应枚举6文件`Classification`的类别频数和缺失占比、最左列非空/重复情况、`patientid`一致性/跨文件独立性线索、核对样本级`subtype`。注意未核实`Classification`是否确为病理学家原始区域标签、是否包含unknown或排除类别，不能在实验前凭预测分数筛标签或样本。此后需下载原始count/spatial对应条码/坐标并核验；目前E5b无模型训练，样本与实验预算未冻结。
