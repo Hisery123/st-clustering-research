@@ -26,7 +26,7 @@
 | CID4535 | 1125 | 1028 | 97 | 6 | 3 | 40.66% |
 | 总计 | **15601** | **15324** | **277** | 各例分别计算 | — | — |
 
-- 6个已在metadata中标`NA`的? 真实情况：CID4290有6个、CID44971有2个、CID4535有2个**共10个`NA`正好均属于`in_tissue=0`**（依据此前QC各列表、in_tissue剔除后有效mask分布推得），因此不得重复减掉这些条码。验证时以真实barcode联表输出为准，不凭数字猜行号。
+- 10个在metadata中标为`NA`的spot的关系：CID4290有6个、CID44971有2个、CID4535有2个**共10个`NA`正好均属于`in_tissue=0`**（依据此前QC各列表、in_tissue剔除后有效mask分布推得），因此不得重复减掉这些条码。验证时以真实barcode联表输出为准，不凭数字猜行号。
 - **轻微风险的实证义务：** CID4465只3个`Normal duct` spot；CID4535只3个`Invasive cancer + adipose tissue + lymphocytes` spot。维持真实类别，不事后去除；ARI和NMI均报告每位患者并附混淆/类别表，严重失衡须明确披露。
 
 ## 3. 模型表示、对照及计算预算：预先全部确定
@@ -58,3 +58,7 @@
 - **已完成：** 6样本三归档MD5、barcode与spatial、count矩阵头、病理标签字段/样本patientid和mask QC；全部由用户Windows原始日志确认，索引见`E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`。
 - **尚未完成/不可声称：** E5b输入标准化及逐元素count/features检查、六样本scVI、CellCharter/BANKSY/BayesSpace/GMM/Leiden新外部拟合、360预测/ARI/NMI、任何外部性能结论；GitHub存在本协议**不等于Windows同步或代码已实际跑通**。
 - **下一执行动作：** 在GitHub先制作只读源归档验证及单独输出位置的`e5b_prepare_inputs_v1.py`，核对数据读取与所有选样/评价掩码；用户Windows手动运行一次，若通过再按冻结规则制作连续GPU表示及基线批量执行脚本。预检不得计算任何ARI/NMI。用户每次只接收一个PowerShell步骤，失败保留原件。
+
+## 6. 实际代码提交信息（此处仅证明GitHub存在，不等于运行）
+
+输入标准化脚本：`experiments/cellcharter_dlpfc/e5b_prepare_inputs_v1.py`（Git提交`b75ae81095ed54c03acdeed2d9ddb2bdd6f4ad20`；SHA256 `c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52`）；默认无写入许可，必须显式`--stage`才把源归档内容流式校验、规范化输出到独立`results/e5b_external_v1/input_stage_<UTC>_<PID>`。不会运行训练或计算任何ARI/NMI。**代码尚未在Windows或本助手环境中用真实文件运行验证**；若真实读取报错保留新状态目录，仅修复工程读入且不改变以上冻结的科学方法设置。
