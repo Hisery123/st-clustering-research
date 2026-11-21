@@ -82,3 +82,20 @@ NO_TRAINING_NO_EXTRACTION
 
 下一Windows唯一步骤：使用Python标准库直接读取两个现有归档内的metadata CSV和每份`tissue_positions_list.csv`，按对应barcode原样做set交叉，报告每样本metadata条码总数、空间条码数、匹配数/差集数、位置重复数、in_tissue值分布、是否具备合法Visium阵列/像素坐标；不解压、下载或拟合。必须明确是否位置CSV带头、顺序是否一致。若交集不足则停止在预检，找原因且不可按行盲拼。下一阶段对counts和barcode继续审查，所有6样本仍是前期候选。
 
+## 第五次Windows条码与Visium空间坐标精确一致性检查（2026-11-21）
+
+**用户Windows原始终端报告**：`E5B_SPATIAL_BARCODE_ALIGNMENT_PASS samples=6`和`NO_TRAINING_NO_EXTRACTION`。已从两个原始.tar.gz里直接只读提取CSV流并按barcode查交集，全部6张样本的metadata各spot都在对应空间tissue_positions_list.csv中发现，且重复条码0、坏坐标0，原始空间CSV均无header。原脚本的`PASS`条件是每个metadata barcode均在spatial出现、无重复/坏坐标；**不强制metadata in_tissue全为1**，需分开披露这项。
+
+| sample | metadata | spatial full grid | matched | spatial not in metadata | matched in_tissue=0 |
+|---|---:|---:|---:|---:|---:|
+| 1142243F | 4784 | 4992 | 4784 | 208 | 0 |
+| 1160920F | 4895 | 4992 | 4895 | 97 | 0 |
+| CID4290 | 2432 | 4992 | 2432 | 2560 | 6 |
+| CID4465 | 1211 | 4992 | 1211 | 3781 | 0 |
+| CID44971 | 1162 | 4992 | 1162 | 3830 | 2 |
+| CID4535 | 1127 | 4992 | 1127 | 3865 | 2 |
+
+合计metadata=15611、精确matched=15611、metadata中有**10个标记为组织外**：CID4290 6、CID44971 2、CID4535 2；其他3例0。原空间文件每片4992个阵列位置，未列入metadata的位置不是CSV丢失；组织外标志须在方法学文稿中单独说明。**后续正式拟合前预先统一固定处理**：优先考虑在所有方法拟合及评价中统一排除`in_tissue=0`的spot，再与分类为Artefact/NA/Uncertain/空标签的评价mask区分；不能悄悄把标签为unknown的spot硬转成人工真值或按ARI决定阈值。
+
+当前还未读取raw expression archive。接下来只做公开`filtered_count_matrices.tar.gz`下载、MD5与archive路径列表，核实6份count矩阵文件存在；再做counts<->metadata/barcode/spatial对齐，**之后**才冻结E5b最终样本、label mask和预算。E5a原件封存无改动。
+
