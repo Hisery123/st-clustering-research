@@ -1250,3 +1250,8 @@ L3 首次运行聚合及 GMM 预测已完成，但边界代码误把 `Layer 5/La
 先按顶部顺序读取三个记忆文件。若 `PROJECT_STATE.md` 与本文件不一致，以**最新可核实的原始证据**为准并报告冲突；不要从旧 README 中取代当前状态。读取任务相关的 `manifest.json`、脚本、日志与指标，再给用户一条 Windows 手动操作；目前不需重建环境、重跑 L3、L0–L4、跨深度边界审计。
 
 每次归档都同步更新 `PROJECT_STATE.md`、本文件与当天 `RESEARCH_JOURNAL/YYYY-MM-DD.md`，区分已执行、转录日志、待验证假设和计划。
+
+## 2026-11-21｜E5b六组metadata、spatial、counts条码一致性真实PASS，正式冻结前
+
+用户Windows实测已完成E5b公开Wu 2021六例乳腺癌Visium原始归档完整性和结构预检：metadata MD5`1d0b34ead70635c094ac74ac58a88d68`；spatial MD5`29b02ae433d459d19dc52b75a529e8e9`；counts MD5`ea1220f0606c4d4e9307468fb2d5427a`。三方barcode逐样本交集均完整，counts header尺寸与barcodes/features数相符，6/6均`E5B_COUNTS_MATCH ... status=PASS`，末尾`E5B_COUNTS_BARCODE_ALIGNMENT_PASS samples=6`。各样本spatial网格4992、metadata合计15611；其中10个元数据spot `in_tissue=0`待预冻结排除政策。6个CSV`patientid`不同，标签`Classification`含Artefact、NA、Uncertain、空值，应预先区分输入spot和评价mask。两组genes=28402、其余四组genes=19237，每组counts内层.gz实际上为plain文本；需要读取时侦测内容，不能套标准gzip解码。矩阵nnz由MatrixMarket尺寸头读取，未完整校验数据值。尚无E5b任何模型训练或评分；E5a审计288/288 PASS不变。下一只读操作建议：三归档联表计算每例`in_tissue=1` spot、有效标签mask和真实类别数K，检查极小类别，**暂不做K盲选择的标签使用**；核实后一次性冻结数据筛选、CellCharter/基线对照、K策略、种子预算，再开始训练。详情见`experiments/cellcharter_dlpfc/E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`。
+
