@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-21｜E5b原始六例输入标准化Windows PASS，准备按冻结方案正式训练scVI特征
+
+**用户Windows真实日志（最新）**：`E5B_STAGE_SCRIPT_SHA_PASS c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52`、`E5B_STAGE_SOURCE_INTEGRITY_PASS archives=3`、六条`E5B_STAGE_SAMPLE_PASS`、`E5B_STAGE_FINAL status=completed samples=6 model=15601 eval=15324 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\input_stage_20261121T083911Z_14272\batch_status.json`、`NO_TRAINING_NO_ARI_NMI`、`E5B_STAGE_EXIT_CODE=0`。真正的Windows输入准备完成6/6，来源归档只读；本助手未直接访问本地报告内容。E5b拟合仍0项，不得虚构外部指标。
+
+**GitHub新冻结脚本与下一步**：已在`E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`确定6独立患者、输入15,601、评价15,324、Kblind主+Oracle对照、6种CellCharter尺度/4成熟方法3seed，总360计划预测。源数据全量准备PASS后创建`experiments/cellcharter_dlpfc/e5b_scvi_feature_batch_v1.py` Git commit`3fc8acc903cbe0f06ff70fa3b756e7b9f2461880`、SHA256 `28f792587a54ac8cb436d82f888dc9a39a2cff204168021ff8591a3f05a2b558`；六例分别在GPU scVI无监督训练一次5D latent和CellCharter 25D空间聚合，独立子进程/新结果目录/日志/源SHA，不读reference_only/不计算ARI/NMI。该脚本**尚未用户Windows执行**，程序兼容性待真实日志判定。唯一下一步为用户手动SHA验证下载并执行该`--run`全六患者feature batch；继续严格遵循阶段前冻结、执行中不新增审计、结果末集中审核原则。旧E5a 288/288 PASS保持封存。
+
+
 ## 2026-11-21｜E5b六例mask实测PASS、正式协议在首次拟合前冻结、输入适配脚本待Windows执行
 
 **用户真实Windows实验预检**：`E5B_MASK_QC_PASS samples=6 total_model_spots=15601 total_eval_spots=15324`、`NO_TRAINING_NO_DATA_MODIFICATION`。六名不同patientid对应六例全部保留，按in_tissue=1筛训练输入；额外277个组织内但Artefact/Uncertain/NA/空标签者仅排除评价而**不从无监督拟合中删除**。Oracle-K各例固定5/7/3/3/6/6；CID4465/CID4535合法病理类别最少3spot，极度不平衡需披露，不能凭评价分数调整。既有metadata/spatial/count三归档MD5与条码集合全6例PASS，counts内层.gz实际为未再次压缩的plain文本，源数据仍只读。
