@@ -70,3 +70,15 @@ E5B_METADATA_ARCHIVE_LIST_PASS
 
 **仍未完成**：raw counts与spatial对应元数据的文件结构和barcode精准交集检查、病理标签真实来源核验、独立患者/原论文是否预先训练使用的边界核对、主配置与K策略+预算及外部协议冻结。下一只读步骤下载原始`spatial.tar.gz`（来源Zenodo，约54.3MB，预记录MD5 `29b02ae433d459d19dc52b75a529e8e9`）校验后仅列目录，不解压覆盖/不训练；之后核查raw count压缩包，避免无来源匹配就拟合。
 
+## 第四次Windows只读spatial原始归档完整性检查真实通过（2026-11-21）
+
+**用户Windows原始终端**：
+```text
+E5B_SPATIAL_INTEGRITY_PASS md5=29b02ae433d459d19dc52b75a529e8e9
+E5B_SPATIAL_ARCHIVE_LIST_PASS entries=43
+NO_TRAINING_NO_EXTRACTION
+```
+原公开Zenodo空间归档经MD5校验与预检资料一致，内含六个与metadata匹配**名称**的样本目录（1142243F、1160920F、CID4290、CID4465、CID44971、CID4535）。每样本目录可见`tissue_positions_list.csv`、`scalefactors_json.json`及组织图像文件（tissue_hires_image.png、tissue_lowres_image.png、detected_tissue_image.jpg、aligned_fiducials.jpg）；43项包含目录项。**仅文件存在与压缩包校验成功，不代表已经检查内部坐标值、barcode交集或in_tissue标志、完整文件内容**，更不代表训练完成。
+
+下一Windows唯一步骤：使用Python标准库直接读取两个现有归档内的metadata CSV和每份`tissue_positions_list.csv`，按对应barcode原样做set交叉，报告每样本metadata条码总数、空间条码数、匹配数/差集数、位置重复数、in_tissue值分布、是否具备合法Visium阵列/像素坐标；不解压、下载或拟合。必须明确是否位置CSV带头、顺序是否一致。若交集不足则停止在预检，找原因且不可按行盲拼。下一阶段对counts和barcode继续审查，所有6样本仍是前期候选。
+
