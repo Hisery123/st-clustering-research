@@ -135,3 +135,8 @@ E5B_NONSPATIAL_SCRIPT_ALREADY_EXISTS
 ```
 
 前3行证明按原冻结非空间GMM与Leiden六例×两种K臂×三seed合计72个预测由用户Windows脚本报告全部成功、失败0、退出0。最后一行是随后重复执行相同PowerShell下载命令时被其`Test-Path $dest`主动拒绝，**不是模型运行失败，不应清理已完成会话或重复训练**。非空间结果本地目录`D:\paper\CellCharter_reproduction\results\e5b_external_v1\nonspatial_20261121T104630Z_22052`。与先前CellCharter 216项相加已完成288/360项**预测任务**（非360独立患者）；未做任何独立全量产物审计、病理标签ARI/NMI或方法优越性统计。接下来按冻结方案BANKSY36、BayesSpace36，均先落盘预测，最后统一评价。
+
+## 13. E5b BANKSY36项预测脚本已提交（尚未Windows执行）
+
+E5b当前Windows实际完成CellCharter216 + 非空间GMM/Leiden72=288份聚类预测，BAN​KSY仍**0/36**，BayesSpace仍**0/36**，所有ARI/NMI尚未计算。为按第3节完整冻结对照，已创建`experiments/cellcharter_dlpfc/e5b_banksy_baselines_batch_v1.py`，commit`26e125a8ff1bc9c0ea0248b871dbf3e8437be6f3`，SHA256=`c80a1e7c97d563c8b9e7a83e97c83d7b8c021f583c6b82b91225b9be69ade927`。延续已审计E5a官方BANKSY核心，来自E5b标准化原始counts的6例`in_tissue=1`唯一barcode spot、pixel XY坐标，sc.pp.normalize_total(target_sum=1e4)→log1p→HVG2000 seurat→BANKSY 15空间近邻/decay scaled_gaussian/m1/lambda0.2/PC20、Leiden 50NN及16档预定resolution；嵌入seed22911，聚类seed22911、7449、25842；每seed全部16档拟合，Kblind固定resolution1.0，Oracle使用病理标签**类数**知情挑最接近真实K的原生分辨率（平局取较小resolution），两臂均不读取病理标签文件，预定6患者×3seed×2臂=36份输出预测。不计算ARI/NMI。每例隔离子进程与attempt目录，保留原始BANKSY内部日志和所有候选预测、原始来源哈希、任务manifest，出错停下不覆盖旧成果，人工显式`--resume`需另指令。源代码还未在用户Windows执行，下一单一步骤SHA校验下载+py_compile+`--run`，真实通过标志`E5B_BANKSY_FINAL status=completed completed=36/36 failed=0`及退出0，若失败保留现场最小修复，不调研究预冻规则。随后按计划BayesSpace36，阶段末集中评价及Claude科研审核。
+
