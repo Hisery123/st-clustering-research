@@ -67,3 +67,14 @@ BANKSY尚未开始运行；经查官方BANKSY Python `src/banksy/`代码（https
 
 **下一Windows唯一任务**：下载v1.1新文件、核SHA并执行`Rscript.exe --vanilla ...v1_1.R --run`。新会话必须与失败的0/72老目录隔离。若再阻断，原样报告末尾错误与会话路径；绝不盲目重启或修改方法学协议。
 
+## 八、阶段末独立只读验收方案（2026-11-21，288项训练完成后）
+
+当前三子批Windows真实日志均为PASS：nonspatial 144/144 `20261120T095303Z_15120`、BANKSY72/72 `20261120T101256Z_26540`、BayesSpace v1.1 72/72 `20261120T103557Z_11440`，无失败任务。**成功日志不是审计**，必须对真实产物进行统一复查。
+
+已经在GitHub提交只读审计脚本`experiments/cellcharter_dlpfc/e5a_phase_audit_v1.py`，SHA256=`715922fc8a7ffe4757176396ef5e5d5e22330182e7e06db187b4d6778eb80278`，Git blob=`0b2fbaf5caa9c47aa5bc2faf61901c9ff5baf99d`。使用原Windows Python环境，明确三历史会话目录及版本SHA，无模型训练、不执行环境安装、不覆盖任何原任务。冻结审计：
+- 三批`batch_status.json`全部状态completed且144/72/72，实物CSV数量144/72/72，任务4法×12片×双K×3seed精确288种唯一组合，任务元数据一致。
+- 逐项读取`manifest.json`、`predictions.csv`，按对应SHA256与原始源文件复核，要求文件行数、barcode顺序、标签非空与固定`spots_aligned.csv`一一对应；12片相同人工标注mask（label count）与Oracle-K先验，按原raw标签重算全部288个ARI/NMI并和原记录数值对照（容差1e-7）；BIC K2..10最小值，Leiden固定16候选分辨率或盲1.0，BANKSY官方16候选原始标签NPZ和双臂选定分区一致，BayesSpace每种子qTune2..10曲线和K最大平均伪对数似然+小K并列规则；原批脚本在用户Windows本机的SHA固定且未改变。
+- 非空间批原25D文件和spot订单SHA；BANKSY/BayesSpace raw10x及坐标各自SHA、且两者同一原始H5/坐标；BANKSY20D嵌入SHA、BayesSpace全九K轨迹SHA。阶段末脚本只向独立`results/e5a_phase_audit_v1/audit_<UTC>_<PID>/`写审计JSON与3张可复算CSV，**不把观察到的分数用于重新调参**。
+- BayesSpace Kblind有K10边界的任务数，仅作事先列出的限制提示（不得事后扩K）；不把3seed当独立供体、不把原生空间方法与非空间5D方法宣称相同特征输入。除审计确认的结果外不虚构数值/性能优势。
+- 若首次运行审计代码因方法输出版本差异或脚本自身错误停在`status=failed`，保留全部失败轨迹，仅审计工具最小代码修复**不重新训练任何方法**。只有用户Windows真实看到`E5A_PHASE_AUDIT_FINAL status=passed verified=288/288 errors=0`和退出0才标记阶段通过；之后进入E5b方案冻结。
+
