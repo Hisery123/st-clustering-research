@@ -99,3 +99,9 @@ NO_TRAINING_NO_EXTRACTION
 
 当前还未读取raw expression archive。接下来只做公开`filtered_count_matrices.tar.gz`下载、MD5与archive路径列表，核实6份count矩阵文件存在；再做counts<->metadata/barcode/spatial对齐，**之后**才冻结E5b最终样本、label mask和预算。E5a原件封存无改动。
 
+## 第六次Windows raw count压缩包完整性检查真实通过（2026-11-21）
+
+用户Windows终端真实输出：`E5B_COUNTS_INTEGRITY_PASS md5=ea1220f0606c4d4e9307468fb2d5427a`及`E5B_COUNTS_ARCHIVE_LIST_PASS entries=25`、`NO_TRAINING_NO_EXTRACTION`。这是公开Zenodo原始`filtered_count_matrices.tar.gz`，MD5与此前来源记录一致，25项含1根目录、6个样本目录以及每样本3个核心计数成员：`matrix.mtx.gz`、`features.tsv.gz`、`barcodes.tsv.gz`；样本分别为1142243F、1160920F、CID4290、CID4465、CID44971、CID4535。**目前没有读取任何内部矩阵/条码，不能推断维度和一一对齐，也尚未训练。**
+
+下一Windows唯一只读步骤：直接用Python标准库读取归档中的6份`barcodes.tsv.gz`和`matrix.mtx.gz`的MatrixMarket尺寸头（不加载全矩阵），和已校验`metadata.tar.gz`的最左列spot条码逐样本精确做集合交叉，核对6样本matrix列数等于barcodes行数、记录metadata完全匹配情况及额外barcodes、重复/空条码、MatrixMarket banner和features行数（不修改原数据）。**不做模糊条码修正、不按行盲拼**。成功后仍需数据工程/最终标签mask与样本K方案预先冻结，才可称E5b可正式拟合。
+
