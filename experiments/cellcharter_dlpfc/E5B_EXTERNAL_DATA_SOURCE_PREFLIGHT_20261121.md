@@ -105,3 +105,14 @@ NO_TRAINING_NO_EXTRACTION
 
 下一Windows唯一只读步骤：直接用Python标准库读取归档中的6份`barcodes.tsv.gz`和`matrix.mtx.gz`的MatrixMarket尺寸头（不加载全矩阵），和已校验`metadata.tar.gz`的最左列spot条码逐样本精确做集合交叉，核对6样本matrix列数等于barcodes行数、记录metadata完全匹配情况及额外barcodes、重复/空条码、MatrixMarket banner和features行数（不修改原数据）。**不做模糊条码修正、不按行盲拼**。成功后仍需数据工程/最终标签mask与样本K方案预先冻结，才可称E5b可正式拟合。
 
+## 第七次Windows raw count内部格式预检错误（用户真实失败，2026-11-21）
+
+**实际Windows预检失败，不是模型训练失败**：在先前`filtered_count_matrices.tar.gz`包MD5已验证、25归档条目齐备后，旧只读对齐脚本首次读取`barcodes.tsv.gz`即报错：
+```text
+gzip.BadGzipFile: Not a gzipped file (b'TA')
+E5B_COUNTS_ALIGNMENT_FAILED exit_code=1
+```
+本错误发生在内层成员文件读取阶段，未输出任何逐样本`E5B_COUNTS_MATCH`，**不能声称6份count/barcode已对齐**。外层tar.gz完整性与六份目录仍按先前真日志成立。内层文件虽然以`.gz`命名，读取的前两字节却不是Gzip魔数`1f8b`；原因尚需确认（可能是归档内原始未压缩文本），不应在未核验前断言源数据损坏。旧脚本无文件写入/模型训练。
+
+唯一修复：新只读命令依据内部文件头gzip magic自动选择`gzip.GzipFile`或原样文本流，对`barcodes.tsv.gz`、`features.tsv.gz`、`matrix.mtx.gz`分别记录实际内容格式；验证MatrixMarket banner/维度/非零项、特征行数、metadata精确barcode交集/重复与额外项。不能仅凭文件扩展名决定解码方式，不能修改归档本身。若非gzip文件实际不是合法TSV/MatrixMarket，需原样报错停止并调查；不要盲改扩展名或过滤不匹配barcode。正式E5b数据/模型预算均未冻结，训练0项。
+
