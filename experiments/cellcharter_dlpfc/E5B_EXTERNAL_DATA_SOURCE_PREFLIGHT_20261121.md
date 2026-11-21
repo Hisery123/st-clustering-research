@@ -116,3 +116,21 @@ E5B_COUNTS_ALIGNMENT_FAILED exit_code=1
 
 唯一修复：新只读命令依据内部文件头gzip magic自动选择`gzip.GzipFile`或原样文本流，对`barcodes.tsv.gz`、`features.tsv.gz`、`matrix.mtx.gz`分别记录实际内容格式；验证MatrixMarket banner/维度/非零项、特征行数、metadata精确barcode交集/重复与额外项。不能仅凭文件扩展名决定解码方式，不能修改归档本身。若非gzip文件实际不是合法TSV/MatrixMarket，需原样报错停止并调查；不要盲改扩展名或过滤不匹配barcode。正式E5b数据/模型预算均未冻结，训练0项。
 
+## 第八次Windows raw count条码、维度、内层文件格式实测通过（2026-11-21）
+
+**用户Windows终端原始结果：**
+```text
+E5B_COUNTS_MATCH sample=1142243F genes=28402 matrix_spots=4784 metadata=4784 matched=4784 missing=0 extra=0 duplicates=0 nnz=12821166 formats=(plain,plain,plain) status=PASS
+E5B_COUNTS_MATCH sample=1160920F genes=28402 matrix_spots=4895 metadata=4895 matched=4895 missing=0 extra=0 duplicates=0 nnz=17183978 formats=(plain,plain,plain) status=PASS
+E5B_COUNTS_MATCH sample=CID4290 genes=19237 matrix_spots=2432 metadata=2432 matched=2432 missing=0 extra=0 duplicates=0 nnz=7582285 formats=(plain,plain,plain) status=PASS
+E5B_COUNTS_MATCH sample=CID4465 genes=19237 matrix_spots=1211 metadata=1211 matched=1211 missing=0 extra=0 duplicates=0 nnz=5066468 formats=(plain,plain,plain) status=PASS
+E5B_COUNTS_MATCH sample=CID44971 genes=19237 matrix_spots=1162 metadata=1162 matched=1162 missing=0 extra=0 duplicates=0 nnz=4282534 formats=(plain,plain,plain) status=PASS
+E5B_COUNTS_MATCH sample=CID4535 genes=19237 matrix_spots=1127 metadata=1127 matched=1127 missing=0 extra=0 duplicates=0 nnz=4914742 formats=(plain,plain,plain) status=PASS
+E5B_COUNTS_BARCODE_ALIGNMENT_PASS samples=6
+NO_TRAINING_NO_EXTRACTION
+```
+
+六份外部样本计数MatrixMarket维度头与features/barcodes条目数相符；counts barcode与metadata左侧索引集合一致，缺失0、额外0、重复0，总15611 spots；此前metadata与spatial条码也已逐样本匹配，因此**可以证明三类归档间的spot barcode集合吻合**。实际matrix非零项数合计51851173为其MatrixMarket文件尺寸头自报，尚未逐项审计值与基因ID重复、非负整数。归档外层MD5早先已与Zenodo原文件相符。内层六份MatrixMarket、features、barcodes文件虽以.gz命名，但其实均为plain文本（magic非Gzip），读取后端必须按内容判断，不可直接用scipy/scanpy的.gz自动解压假设。两种gene dimension 28402/19237应逐样本处理，不能未经基因ID核对直接合并。
+
+**剩余正式拟合前验证要点（不再重复已完成下载）：** ①冻结`in_tissue=1`模型spot范围、`Artefact`/`NA`/空/`Uncertain`仅评价mask排除策略及真实逐样本有效类别K；②指定6名不同patientid样本的完整方法任务矩阵（CellCharter与已固定成熟对照）、Kblind主分析与Oracle-K知情敏感性、预处理和seed/预算；③MatrixMarket实际值与基因ID/表达格式的预训练质量门槛（可以在准备输入时一次检查），确保scVI/HVG等无标签泄漏。不能以当前成功日志声称已经读取完整表达矩阵或训练E5b。E5a仍完整封存。
+
