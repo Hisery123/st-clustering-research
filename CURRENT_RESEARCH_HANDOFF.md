@@ -1,5 +1,11 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-21｜BayesSpace v1.1 Windows完成72/72；E5a三子批报告288/288执行成功，统一产物审计待运行
+
+真实Windows结果：`E5A_BAYESSPACE_PASS 71/72 ... seed=25842 q=7 actual_k=7`和`PASS 72/72 ... q=10 actual_k=10`；`E5A_BAYESSPACE_FINAL status=completed completed=72/72 failed=0 summary=D:/paper/CellCharter_reproduction/results/e5a_baselines_v1/bayesspace_20261120T103557Z_11440/batch_status.json`，`E5A_BAYESSPACE_V11_EXIT_CODE=0`。其中151676 `Neighbors were identified for 3456 out of 3460 spots`，孤立4 spot需阶段末记录，但不据此改协议；151676末个K-blind种子q=10属于预冻K2..10边界选择。原BayesSpace v1在151507输入CSC无序导致0/72阻断，保留原失败状态；独立修复v1.1真实跑完72项，原始数据只读。
+
+E5a原定12片×(非空间GMM、Leiden、BANKSY、BayesSpace)×(oracle_k、k_blind)×3seed=288项**批处理成功日志**目前已齐备：`nonspatial_20261120T095303Z_15120`144/144、`banksy_20261120T101256Z_26540`72/72、`bayesspace_20261120T103557Z_11440`72/72，三批均exit0、无报告失败。**目前尚未运行独立阶段末实物审计、未读取三会话CSV/manifest或重算ARI/NMI**，不能把成功日志当已审计结论或论文效果。下一唯一Windows步骤：下载GitHub冻结E5a阶段末只读审计脚本、核SHA、运行并保留报告（288份CSV的行数、barcode/空间对齐、SHA、参数/K轨迹、每份manifest与重算ARI/NMI同mask等）；审计通过后再按原计划进入E5b（独立外部集），E6仍可选，Claude总审在E5b/E6结束集中处理。
+
 ## 2026-11-20｜BayesSpace首批0/72因10x CSC无序索引阻断，修复v1.1待运行
 
 用户Windows真实`E5A_BAYESSPACE_HALTED completed=0/72 error=类别为"dgCMatrix"的对象无效: 'i' slot is not increasing within columns`，`E5A_BAYESSPACE_EXIT_CODE=2`。0/72说明**未运行任何BayesSpace聚类任务**；失败阶段在读取151507的10x HDF5稀疏CSC矩阵，`methods::new('dgCMatrix',...)`要求每列非零行索引升序，H5原`indices`可以无序；不据此宣称原数据坏或模型失败。原失败结果和日志保留在`D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\bayesspace_20261120T102925Z_30592\batch_status.json`。已提交独立最小修复`experiments/cellcharter_dlpfc/e5a_bayesspace_baselines_batch_v1_1.R`，Git SHA256 `fed1f66c87a186104c60727d1bd27791a6dd9d389096b06305aac40fc97ccfbe`。仅将CSC原0基行索引+每列ptr恢复的列索引通过`Matrix::sparseMatrix`规范排序，原始H5完全只读；不改变冻结的BayesSpace模型/K2..10、seed、MCMC参数或评价mask。该修复**尚未在用户Windows运行/验收**。下一Windows**唯一**步骤下载SHA校验v1.1并运行全部72任务，旧v1原地保留、不覆盖失败会话，不加额外实验。详见`E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`第七节。原非空间144/144与BANKSY72/72已完成无变化。
