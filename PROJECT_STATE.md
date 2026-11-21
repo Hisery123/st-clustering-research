@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-21｜E5b BayesSpace首条命令在Rscript -e转义处中止（尚未启动R批次）
+
+实际Windows日志：`E5B_BS_SCRIPT_SHA_PASS 7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`；紧接着Rscript `-e`语法检查片段发生`错误: 意外的'\\'在" cat(E5B_BS_SYNTAX_PASS\"里`，PowerShell抛出`E5B_BS_SYNTAX_FAILED`。这是**调用端引号转义问题，尚未执行R脚本--run，非BayesSpace拟合失败**。此前CellCharter216/216+GMM/Leiden72/72+BANKSY36/36依旧共324/360预测任务完成，E5b BayesSpace仍0/36。下一唯一Windows步骤只校验本地已经下载的R脚本固定SHA，不再Invoke-WebRequest或Rscript `-e`，改用`D:\R\R-4.5.1\bin\Rscript.exe --vanilla D:\paper\CellCharter_reproduction\e5b_bayesspace_baselines_batch_v1.R --run`正式启动BayesSpace六患者；若真实失败保留日志/会话原样返回。冻结方法和预算未更改，正式阶段全量审计和ARI/NMI尚未开始。
+
+
 ## 2026-11-21｜E5b BANKSY外部预测36/36 Windows PASS，324/360完成；BayesSpace36已备脚本待执行
 
 用户Windows确证：`E5B_BANKSY_FINAL status=completed completed=36/36 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\banksy_20261121T133058Z_31292\batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI`、`E5B_BANKSY_EXIT_CODE=0`。末例CID4535 Kblind res1.0三seed实际K8/7/8、Oracle-K=6固定res0.8，CID44971有Oracle-K target6但实际K5，这些是预冻算法允许的真实失败命中情况，不因结果调参。E5b已在Windows完成CellCharter216+非空间GMM/Leiden72+BANKSY36=324份预测，BayesSpace仍0/36，尚无全量独立审计或ARI/NMI。
