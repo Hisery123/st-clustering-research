@@ -168,3 +168,7 @@ E5b六患者外部实验当前唯一未完成的原定成熟基线是**BayesSpac
 
 已在GitHub创建代码`experiments/cellcharter_dlpfc/e5b_bayesspace_baselines_batch_v1.R`，**正式最新版**commit`637d47493f2762a9f4c824a0d3af8b2bac445050`，SHA256=`7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`；初始创建commit`4603b0f7b21e7227c81856775a0dfee96b723964`在首次Windows执行前已修正Windows绝对路径尝试目录中不应移除`D:`盘符的问题（仅修执行层，原科学设置未改）。代码目前未在用户Windows用真实数据执行，也未在本助手环境通过Rscript语法执行验证。**下一Windows唯一行动**：从该commit SHA固定下载、核SHA、由R4.5.1 Rscript仅parse检查再`--run`一次性处理六患者；成功标记应为`E5B_BS_FINAL status=completed completed=36/36 failed=0`及退出码0，若发生R输入/API故障保留完整失败状态和日志，不重跑已完成CellCharter、非空间及BANKSY阶段。全360预测真正完成后再集中独立审计预测与标签mask、K策略，并计算ARI/NMI/交Claude末审。
 
+## 16. E5b BayesSpace首个Windows命令阻断：Rscript -e引用参数解析，未运行模型（2026-11-21）
+
+**用户真实Windows终端反馈**：`E5B_BS_SCRIPT_SHA_PASS 7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`，紧接着Rscript检查步骤`-e`执行时报错`错误: 意外的'\\'在" cat(E5B_BS_SYNTAX_PASS\"里`、`E5B_BS_SYNTAX_FAILED`。发生在前一个PowerShell命令内**Rscript -e 语法检查片段传参/引号转义**，不是已有`e5b_bayesspace_baselines_batch_v1.R`脚本经过parse后报语法错误；完整原始R脚本没有被执行`--run`，BayesSpace本队列仍**0/36**，先前CellCharter216/216、GMM+Leiden72/72、BANKSY36/36未受影响，仍累计324/360份预测完成。修复为**仅改用户Windows调用命令**：直接`D:\R\R-4.5.1\bin\Rscript.exe --vanilla D:\paper\CellCharter_reproduction\e5b_bayesspace_baselines_batch_v1.R --run`，R自身先解析R源文件（无需使用`Rscript -e`与易坏的`cat("...")`转义）；执行前仍校验本地R脚本SHA256等于上述GitHub固定SHA；如失败，保留BayesSpace新session真实日志并只进行最小工程修复。**不重下载已经验证的脚本、不重新运行已经成功的BANKSY或任何前面任务、不修改冻结方法或预算。**
+
