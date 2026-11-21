@@ -1,0 +1,60 @@
+# E5b：独立来源六患者乳腺癌Visium外部验证 · 正式事前冻结协议 v1
+日期：2026-11-21（Asia/Taipei）；**在E5b所有模型首次拟合之前冻结。** 本文是任务计划/规则锁，不是训练完成证据；完整执行脚本尚待适配、Windows尚未运行。
+
+## 1. 研究目的与数据使用边界
+
+- **RQ3：** 在DLPFC 12片开发/探索后，冻结CellCharter多尺度及K选择规则，迁移至另一研究队列、另一组织（人乳腺癌）后，邻域收益递减、15D同维置换差异及K选择敏感性是否具有相同或相反趋势？全六例均须报告，不根据新数据ARI/NMI选择有利样本/配置。
+- 这里只验证**分析流程在独立外部队列中的可重复性/可转移性**；每个外部样本从自身RNA counts重新无监督训练scVI，**不是训练好的DLPFC模型直接泛化到癌症**，也不是临床诊断验证。Wu 2021的病理组织区域标签与DLPFC的皮层层级语义不一致；跨组织ARI绝对值不直接比较。
+- 来源：Wu et al. *Nature Genetics* 2021, DOI `10.1038/s41588-021-00911-1`；Zenodo `10.5281/zenodo.4739739`。原始归档哈希：metadata `1d0b34ead70635c094ac74ac58a88d68`，spatial `29b02ae433d459d19dc52b75a529e8e9`，filtered count `ea1220f0606c4d4e9307468fb2d5427a`（均MD5，已由用户Windows验证）。`metadata.tar.gz`、`spatial.tar.gz`、`filtered_count_matrices.tar.gz`均位于`D:\paper\CellCharter_reproduction\third_party\e5b_source_preflight_20261121`，**不会上传原始大文件到GitHub**。
+- 六个CSV的`patientid`均不同，支持六患者独立来源；按论文及公开元数据记录为**六名不同患者，n=6**，不能把15,611 spots、多个聚类种子或每病人的多个尺度当独立生物学重复。不得为样本量扩大而将每片/seed视为独立患者。
+- 六例**全部纳入**，按固定顺序：`1142243F,1160920F,CID4290,CID4465,CID44971,CID4535`。没有因类别不平衡或可预期的效果选样；E5b前尚未计算任一方法在本队列上的ARI/NMI。
+
+## 2. 训练spot范围与独立评价mask：先冻结、后拟合
+
+- 六例外层原始矩阵含15,611列spot，metadata的无标题索引列为barcode，与counts`barcodes.tsv.gz`集合严格相等；同样与空间`tissue_positions_list.csv`内barcode交集完整。实际matrix/features尺寸头2例28,402基因、4例19,237基因，不能在不核实基因ID下跨患者合并表达矩阵。
+- **训练输入：** 精确barcode联表，仅保留`in_tissue=1`的spot，**不看Classification内容筛训练spot**；六例模型输入合计15,601 spots。所有方法的训练/拟合使用这一同一spot集合（各原生预处理/特征生成有所不同）。那10个`in_tissue=0`条码不是表达矩阵错位，明示排除。
+- **评价标签掩码：** 仅在模型预测及K-blind选择全部落盘之后读取`Classification`评估。空间组织内但标签为`Artefact`、`NA`、`Uncertain`或空值的spot依然保留无监督训练输入，只在计算ARI/NMI时从评价中排除；严格按`str.strip().casefold()`相等判断，不使用任何按ARI最优的标签清洗；保留其原始预测。所有合法的组合组织名称各自为一类，**不折叠任何原始合法类别**。这些类别的语义是病理区域组合，并非单细胞真值。
+- **Oracle-K只作“标签类别数知情”对照**，只采用该样本有效人工病理标签的类别数固定K，不可称为无监督K选择；K-blind是主分析，不允许读取这些标签或其类别数来设定/搜索聚类K、选择尺度、早停或挑选模型。人工标签可以先单独静态保存评价真值/Oracle-K的只读对照，但K-blind拟合流程代码不得在拟合/模型选择阶段读取该文件。
+
+| 样本ID | 模型输入in_tissue | 评价有效spot | 仅评价排除 | Oracle-K | 最小合法类spot数 | 主导类占比 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1142243F | 4784 | 4665 | 119 | 5 | 10 | 77.75% |
+| 1160920F | 4895 | 4846 | 49 | 7 | 9 | 64.92% |
+| CID4290 | 2426 | 2419 | 7 | 3 | 122 | 86.07% |
+| CID4465 | 1211 | 1207 | 4 | 3 | 3 | 93.70% |
+| CID44971 | 1160 | 1159 | 1 | 6 | 81 | 27.35% |
+| CID4535 | 1125 | 1028 | 97 | 6 | 3 | 40.66% |
+| 总计 | **15601** | **15324** | **277** | 各例分别计算 | — | — |
+
+- 6个已在metadata中标`NA`的? 真实情况：CID4290有6个、CID44971有2个、CID4535有2个**共10个`NA`正好均属于`in_tissue=0`**（依据此前QC各列表、in_tissue剔除后有效mask分布推得），因此不得重复减掉这些条码。验证时以真实barcode联表输出为准，不凭数字猜行号。
+- **轻微风险的实证义务：** CID4465只3个`Normal duct` spot；CID4535只3个`Invasive cancer + adipose tissue + lymphocytes` spot。维持真实类别，不事后去除；ARI和NMI均报告每位患者并附混淆/类别表，严重失衡须明确披露。
+
+## 3. 模型表示、对照及计算预算：预先全部确定
+
+**共同设置：** 外部六例逐样本独立处理，不使用DLPFC scVI权重、PCA/HVG缓存或患者间人工标签。仍使用研究已固定的CellCharter adapted预处理方案：raw counts→去低表达基因(`min_counts=3`)，spot低总count阈值3为预先数据完整性门槛（若会删掉任何已在in_tissue范围的spot，程序应STOP并保存失败原因、不得静默少报）→raw counts层→normalize_total(1e6)与log1p→HVG5000/`seurat_v3`基于counts层→scVI latent5D、固定representation训练seed22911、GPU、max_epochs400、early_stopping=True、optimizer AdamW、reduce_lr_on_plateau=True→六角Visium grid几何核验（固定Six Neighbors，坐标变换`(array_col,sqrt(3)*array_row)`）→`cc.gr.aggregate_neighbors(n_layers=4)`生成L0-L4的25D。不得用病理标签来做基因选择或调整epochs。固定表示每患者训练一次，后续全部seed/配置复用，记录GPU日志/包版本/模型及表征SHA。若现有CellCharter依赖不兼容或输入内容不合格，只修执行层且保留原失败，不根据效果调方案。
+- 原始文件实际`matrix.mtx.gz`、`features.tsv.gz`、`barcodes.tsv.gz`**内容是普通文本，不是二次gzip**。输入适配器必须依据实际魔数读取，并在独立新输出目录中规范化为10x可读文件，原始归档只读；支持不同样本28,402/19,237 genes。首次数据准备期间必须核验数值非负、有限、计数有效、features ID/条码合法和MatrixMarket行列数；失败为真实性阻断，不静默修正。
+- **CellCharter六个预定义特征组合：** `L0 (5D)`、`L0+L1 (10D)`、`A=L0+L1+L2 (15D)`、`L0+L1+L2+L3 (20D)`、`L0+L1+L2+L3+L4 (25D)`、`B=L0+L1+L4 (15D)`。A是**本研究固定15D参考**，20D为官方教程示例层数对应；不得称A是CellCharter API默认。所有特征从相同原生25D缓存提取。
+- **CellCharter聚类：** CellCharter v0.3.2原生TorchGMM full covariance、kmeans初始化、convergence_tol0.001、regularization1e-6、CPU max_epochs100，技术seed`22911,7449,25842`显式播种（继承此前E3d修复random_state的实现策略）。两K臂：
+  - Oracle-K：每患者固定K如第2节表；
+  - **K-blind主臂：** 每患者×每配置仅一次以E3d冻结的CellCharter `ClusterAutoK(n_clusters=(2,10),max_runs=5,convergence_tol=0)`、辅助K1..11、内部5次随机播种22911..22915，使用无标签稳定性选K；然后在所选K下按三正式技术seed拟合/输出GMM预测。报告单独AutoK搜K额外耗时，不把三技术seed说成三次独立K选择。边界K=2/10也照实保留，不事后扩K搜索。
+- **E5a既有4对照全部保留，不因效果/成本事后删：**
+  1. 非空间GMM：同患者scVI-L0 5D、sklearn full covariance，Oracle固定K；Kblind最小BIC搜索K2..10。
+  2. 非空间Leiden：同scVI-L0 5D、15NN图、Leiden；Oracle按预冻16个resolution网格最接近K取最小resolution，Kblind固定res1.0。
+  3. BANKSY 1.3.5：同患者raw10x counts，经自身normalize1e4/log1p/HVG2000（seurat）、15空间邻居、`max_m=1`、lambda0.2、20PC、Leiden50NN；Oracle使用同16-resolution网格逼近K，Kblind固定res1.0。
+  4. BayesSpace 1.20.2：同患者raw10x counts和`array_row/array_col`，R SpatialPreprocess Visium、HVG2000、PCA15、t模型MCMC正式10000/burn-in1000、mclust init；Oracle q=预定真实类别数，Kblind原`qTune(q=2..10,nrep1000,burn.in100)`按最大平均伪loglik，并列取小q。旧v1.1的CSC规范读入层修复应重用，原失败和差异记录保留。方法原生预处理**不等于四法相同输入特征**，科学讨论必须准确说明。
+- 技术seed对所有输出统一为`22911,7449,25842`；BANKSY/BS特征准备的固定上游seed依E5a为22911，与聚类3seed区分。两K臂所有方法均不根据ARI挑最优seed。正式输出计划：CellCharter `6患者×6配置×2K臂×3seed=216`份预测；4对照`6×4方法×2K臂×3seed=144`份预测；合计**360份预测（计划，不代表执行）**。另外6个scVI表示训练、36组CellCharter无标签AutoK选K运算和各基线预冻K选择轨迹；这并非360个独立患者或等预算的自适应搜索次数。
+- **资源取舍：** 6例全部进入，BS可耗时长，不因此减少任何预定方法/样本/seed。若存在GPU OOM/磁盘不足/输入非法才停止并保留真实日志，禁止事后依模型表现缩减设计；必要新协议必须单独版本、在新实验前公开，不能冒充本计划完成。
+
+## 4. 指标、独立分析单位、报告和阶段验收
+
+- 主要指标ARI（Adjusted Rand Index），次要NMI（sklearn normalized_mutual_info_score，`average_method='arithmetic'`，与E5a一致），两者均仅在所有无监督预测文件落盘后用第2节完全固定的样本级评价mask计算。保留每份原始全spot prediction及真实实际clusterK；未恰得Oracle-K不得伪称命中。病理类别名用于后验打分，不进入K-blind分辨率或K选择。
+- **主表**K-blind：六个患者逐一展示全部六CellCharter配置的ARI/NMI（3技术seed均值、离散程度、完整原点）；对4基线另按相同K臂展示完整预测和性能。Oracle-K作为明确的标签知情上界/敏感性补充表（只是一种知情K条件，**不保证效果是真正的数学上界**）。主要比较均按同患者配对并以患者n=6为生物学层级，允许描述性平均/中位数、每位患者变化和不确定性；三seed和spots不能伪重复为n=18/n=15324。不能因为六患者就自动断言显著性。
+- 预先定义观察目标：L0→10D→15D→20D→25D逐段效应、B15D−A15D、技术seed方向不稳定性、Oracle-K vs Kblind结果差异、异质性/负结果；在观察外部结果前**不挑选最优模型/尺度/类别、也不因负结果追加K或seed范围**。
+- 无监督训练/预测阶段与读取评价标签分离。正式批量独立会话`D:\paper\CellCharter_reproduction\results\e5b_external_v1\...`；输出原始预测、每阶段完整状态、源档哈希/脚本SHA/软件版本/固定seed/计算预算/K选择轨迹及失败信息，全部不覆盖E5a和旧DLPFC数据。预测先写后读标注、评价单独脚本。禁止将公开数据或用户原始结果大文件自动推GitHub。
+- 软件或数据真实性阻断可最小修复，保留原失败和补丁记录；阶段连续执行、**全部360项或明示未完成**后一次统一数据/预测审计，再汇总所有正负结果，并按用户原定流程交Claude作整阶段独立方法审核。E6仅在后续另行决定，不作为E5b训练途中分支。
+
+## 5. 执行状态和启动前验证
+
+- **已完成：** 6样本三归档MD5、barcode与spatial、count矩阵头、病理标签字段/样本patientid和mask QC；全部由用户Windows原始日志确认，索引见`E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`。
+- **尚未完成/不可声称：** E5b输入标准化及逐元素count/features检查、六样本scVI、CellCharter/BANKSY/BayesSpace/GMM/Leiden新外部拟合、360预测/ARI/NMI、任何外部性能结论；GitHub存在本协议**不等于Windows同步或代码已实际跑通**。
+- **下一执行动作：** 在GitHub先制作只读源归档验证及单独输出位置的`e5b_prepare_inputs_v1.py`，核对数据读取与所有选样/评价掩码；用户Windows手动运行一次，若通过再按冻结规则制作连续GPU表示及基线批量执行脚本。预检不得计算任何ARI/NMI。用户每次只接收一个PowerShell步骤，失败保留原件。
