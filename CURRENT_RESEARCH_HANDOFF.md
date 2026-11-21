@@ -1269,3 +1269,9 @@ L3 首次运行聚合及 GMM 预测已完成，但边界代码误把 `Layer 5/La
 
 **GitHub新冻结脚本与下一步**：已在`E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`确定6独立患者、输入15,601、评价15,324、Kblind主+Oracle对照、6种CellCharter尺度/4成熟方法3seed，总360计划预测。源数据全量准备PASS后创建`experiments/cellcharter_dlpfc/e5b_scvi_feature_batch_v1.py` Git commit`3fc8acc903cbe0f06ff70fa3b756e7b9f2461880`、SHA256 `28f792587a54ac8cb436d82f888dc9a39a2cff204168021ff8591a3f05a2b558`；六例分别在GPU scVI无监督训练一次5D latent和CellCharter 25D空间聚合，独立子进程/新结果目录/日志/源SHA，不读reference_only/不计算ARI/NMI。该脚本**尚未用户Windows执行**，程序兼容性待真实日志判定。唯一下一步为用户手动SHA验证下载并执行该`--run`全六患者feature batch；继续严格遵循阶段前冻结、执行中不新增审计、结果末集中审核原则。旧E5a 288/288 PASS保持封存。
 
+## 2026-11-21｜E5b六患者外部scVI5D+CellCharter25D特征正式训练6/6通过，216预测脚本待Windows
+
+**实际Windows终端**：`E5B_FEATURE_SAMPLE_PASS sample=CID4535 spots=1125 latent=5D aggregated=25D seconds=55.709`、`E5B_FEATURE_PROGRESS completed=6/6`、`E5B_FEATURE_FINAL status=completed completed=6/6 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\features_20261121T090400Z_28460\batch_status.json`、`NO_GMM_NO_ARI_NMI`、`E5B_FEATURE_EXIT_CODE=0`。这证明六例scVI/CellCharter空间聚合特征批次确实跑完，不能把它误记为聚类预测或独立外部指标完成；最后一例CID4535训练到400/400轮，该轮数不代表其他五例均400轮。本助手未直接审计该Windows路径二进制结果。
+
+**下一冻结操作**：已在GitHub创建`experiments/cellcharter_dlpfc/e5b_cellcharter_cluster_batch_v1.py`，commit`eeb309918dee5c97f15f864134b4178da49cc82f`，SHA256=`d8df95cd86116a2a4aec2a6f0b4cf2f63e2a1425956198bb1afe6c1baf91c1aa`。沿用已冻结E5b六患者6尺度、36独立AutoK无标签选K、Kblind+Oracle知情各三seed=216份GMM预测，使用已生成的25D缓存且代码不读取参考标签/不打分。脚本尚未在用户Windows运行，36/216均计划数，需按单一PowerShell动作下载+SHA+py_compile+显式`--run`；失败时保留新目录支持人工显式resume，不因结果修改实验设定。之后按原计划接四成熟基线144预测、末端统一评价及Claude独立审查。完整协议及日志`experiments/cellcharter_dlpfc/E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`。
+
