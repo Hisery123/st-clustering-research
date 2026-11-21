@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-21｜E5b六患者外部scVI5D+CellCharter25D特征正式训练6/6通过，216预测脚本待Windows
+
+**实际Windows终端**：`E5B_FEATURE_SAMPLE_PASS sample=CID4535 spots=1125 latent=5D aggregated=25D seconds=55.709`、`E5B_FEATURE_PROGRESS completed=6/6`、`E5B_FEATURE_FINAL status=completed completed=6/6 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\features_20261121T090400Z_28460\batch_status.json`、`NO_GMM_NO_ARI_NMI`、`E5B_FEATURE_EXIT_CODE=0`。这证明六例scVI/CellCharter空间聚合特征批次确实跑完，不能把它误记为聚类预测或独立外部指标完成；最后一例CID4535训练到400/400轮，该轮数不代表其他五例均400轮。本助手未直接审计该Windows路径二进制结果。
+
+**下一冻结操作**：已在GitHub创建`experiments/cellcharter_dlpfc/e5b_cellcharter_cluster_batch_v1.py`，commit`eeb309918dee5c97f15f864134b4178da49cc82f`，SHA256=`d8df95cd86116a2a4aec2a6f0b4cf2f63e2a1425956198bb1afe6c1baf91c1aa`。沿用已冻结E5b六患者6尺度、36独立AutoK无标签选K、Kblind+Oracle知情各三seed=216份GMM预测，使用已生成的25D缓存且代码不读取参考标签/不打分。脚本尚未在用户Windows运行，36/216均计划数，需按单一PowerShell动作下载+SHA+py_compile+显式`--run`；失败时保留新目录支持人工显式resume，不因结果修改实验设定。之后按原计划接四成熟基线144预测、末端统一评价及Claude独立审查。完整协议及日志`experiments/cellcharter_dlpfc/E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`。
+
+
 ## 2026-11-21｜E5b原始六例输入标准化Windows PASS，准备按冻结方案正式训练scVI特征
 
 **用户Windows真实日志（最新）**：`E5B_STAGE_SCRIPT_SHA_PASS c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52`、`E5B_STAGE_SOURCE_INTEGRITY_PASS archives=3`、六条`E5B_STAGE_SAMPLE_PASS`、`E5B_STAGE_FINAL status=completed samples=6 model=15601 eval=15324 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\input_stage_20261121T083911Z_14272\batch_status.json`、`NO_TRAINING_NO_ARI_NMI`、`E5B_STAGE_EXIT_CODE=0`。真正的Windows输入准备完成6/6，来源归档只读；本助手未直接访问本地报告内容。E5b拟合仍0项，不得虚构外部指标。
