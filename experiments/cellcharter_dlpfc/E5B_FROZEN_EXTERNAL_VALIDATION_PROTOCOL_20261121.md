@@ -140,3 +140,25 @@ E5B_NONSPATIAL_SCRIPT_ALREADY_EXISTS
 
 E5b当前Windows实际完成CellCharter216 + 非空间GMM/Leiden72=288份聚类预测，BAN​KSY仍**0/36**，BayesSpace仍**0/36**，所有ARI/NMI尚未计算。为按第3节完整冻结对照，已创建`experiments/cellcharter_dlpfc/e5b_banksy_baselines_batch_v1.py`，commit`26e125a8ff1bc9c0ea0248b871dbf3e8437be6f3`，SHA256=`c80a1e7c97d563c8b9e7a83e97c83d7b8c021f583c6b82b91225b9be69ade927`。延续已审计E5a官方BANKSY核心，来自E5b标准化原始counts的6例`in_tissue=1`唯一barcode spot、pixel XY坐标，sc.pp.normalize_total(target_sum=1e4)→log1p→HVG2000 seurat→BANKSY 15空间近邻/decay scaled_gaussian/m1/lambda0.2/PC20、Leiden 50NN及16档预定resolution；嵌入seed22911，聚类seed22911、7449、25842；每seed全部16档拟合，Kblind固定resolution1.0，Oracle使用病理标签**类数**知情挑最接近真实K的原生分辨率（平局取较小resolution），两臂均不读取病理标签文件，预定6患者×3seed×2臂=36份输出预测。不计算ARI/NMI。每例隔离子进程与attempt目录，保留原始BANKSY内部日志和所有候选预测、原始来源哈希、任务manifest，出错停下不覆盖旧成果，人工显式`--resume`需另指令。源代码还未在用户Windows执行，下一单一步骤SHA校验下载+py_compile+`--run`，真实通过标志`E5B_BANKSY_FINAL status=completed completed=36/36 failed=0`及退出0，若失败保留现场最小修复，不调研究预冻规则。随后按计划BayesSpace36，阶段末集中评价及Claude科研审核。
 
+## 14. Windows E5b BANKSY36/36通过，成熟基线仅剩BayesSpace36（2026-11-21）
+
+**用户Windows真实终端（不是计划）**：
+```text
+E5B_BANKSY_PREDICTION_PASS sample=CID44971 seed=25842 arm=oracle_k resolution=0.65 actual_k=5
+E5B_BANKSY_SAMPLE_PASS sample=CID44971 tasks=6 seconds=26.780713
+E5B_BANKSY_PROGRESS completed=30/36
+E5B_BANKSY_PREDICTION_PASS sample=CID4535 seed=22911 arm=k_blind resolution=1.0 actual_k=8
+E5B_BANKSY_PREDICTION_PASS sample=CID4535 seed=22911 arm=oracle_k resolution=0.8 actual_k=6
+E5B_BANKSY_PREDICTION_PASS sample=CID4535 seed=7449 arm=k_blind resolution=1.0 actual_k=7
+E5B_BANKSY_PREDICTION_PASS sample=CID4535 seed=7449 arm=oracle_k resolution=0.8 actual_k=6
+E5B_BANKSY_PREDICTION_PASS sample=CID4535 seed=25842 arm=k_blind resolution=1.0 actual_k=8
+E5B_BANKSY_PREDICTION_PASS sample=CID4535 seed=25842 arm=oracle_k resolution=0.8 actual_k=6
+E5B_BANKSY_SAMPLE_PASS sample=CID4535 tasks=6 seconds=27.772644
+E5B_BANKSY_PROGRESS completed=36/36
+E5B_BANKSY_FINAL status=completed completed=36/36 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\banksy_20261121T133058Z_31292\batch_status.json
+NO_REFERENCE_LABELS_NO_ARI_NMI
+E5B_BANKSY_EXIT_CODE=0
+```
+
+Windows脚本按六例×3技术种子×双K臂给出**36/36份BANKSY预测完成，失败0，退出码0**。脚本成功行≠尚未执行的阶段末独立产物审计。观察CID4535 Kblind实际K8、7、8，Oracle预测实际K6；CID44971 Oracle目标K6而实际K5，属于固定16档Leiden分辨率最接近K的原生合法输出，不得因此事后调整resolution。累计CellCharter216 + GMM/Leiden72 + BANKSY36=**324/360份预测**，独立患者仍6名、全部ARI/NMI未计算。BANKSY批次原始状态仅保存在用户Windows路径，未上传大文件到GitHub。接下来按预冻计划最后子批BayesSpace36，之后仅进行整阶段统一数据/指标审计与Claude独立方法预审。
+
