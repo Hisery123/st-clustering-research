@@ -104,3 +104,17 @@ E5B_FEATURE_EXIT_CODE=0
 
 按本协议第3节事前冻结的六例×六种特征配置×K-blind/Oracle-K×三seed，已在GitHub创建`experiments/cellcharter_dlpfc/e5b_cellcharter_cluster_batch_v1.py`，创建commit `eeb309918dee5c97f15f864134b4178da49cc82f`，内容SHA256 `d8df95cd86116a2a4aec2a6f0b4cf2f63e2a1425956198bb1afe6c1baf91c1aa`。脚本只引用已经完成的特征批次`features_20261121T090400Z_28460`，按来源SHA验证后从其25D缓存抽取固定6个特征组合。每患者×组合运行唯一一次CellCharter 0.3.2原生AutoK稳定性无标签选K（候选2..10，辅助1..11，每K5次显式seed，CPU），再将选定的Kblind K和原冻结标签类别数知情Oracle-K**分别**用于三个技术seed的原生CellCharter GaussianMixture拟合，计划36次AutoK与216份预测。`ClusterAutoK`的5次播种使用E3d的SeededGMM子类，不在AutoK期间读取Oracle-K常数或reference_only文件；新GMM拟合显式播种。所有预测在隔离新目录、以完整barcode保存并记录SHA；配置完成/失败和阶段总进度由manifest记录。每次失败自动停止，用户明确`--resume`可继续此前已完成配置之外的未完成任务，新尝试保留旧失败目录，禁止覆盖。**脚本尚未在Windows跑过，所有216个预测仍是计划、不能称完成**。阶段后还有E5a四成熟基线144预测及统一后验评价（禁在阶段中根据ARI/NMI改K/尺度/seed）。当前源数据准备和scVI6例特征已通过，但聚类AutoK0项/GMM0份、ARI/NMI未知。该阶段唯一下一Windows行动为SHA校验下载、Python语法检查和`--run`一次性运行36配置，若兼容性故障保留原始报错和批次状态。
 
+## 10. Windows E5b CellCharter 36/36 AutoK配置和216/216 GMM预测正式完成（2026-11-21）
+
+用户真实Windows运行终端结尾日志（与第9节计划状态时间先后明确区分）：
+```text
+GPU available: True (cuda), used: False
+E5B_CC_PREDICTION_PASS sample=CID4535 condition=B_L0L1L4_15D arm=oracle_k seed=25842 k=6 actual_k=6
+E5B_CC_CONFIG_PASS sample=CID4535 condition=B_L0L1L4_15D predictions=6 autok_k=3 seconds=36.487858 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\cellcharter_cluster_20261121T100504Z_29172\CID4535\B_L0L1L4_15D\attempt_20261121T104018501249Z_11236
+E5B_CC_PROGRESS configs=36/36 predictions=216/216
+E5B_CC_FINAL status=completed configs=36/36 predictions=216/216 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\cellcharter_cluster_20261121T100504Z_29172\batch_status.json
+NO_REFERENCE_LABELS_NO_ARI_NMI_NO_SCVI_RETRAIN
+E5B_CC_EXIT_CODE=0
+```
+
+真实结论：按冻结第3节规则，36组六患者×六尺度的AutoK选择及两K臂每臂3seed总**216份CellCharter聚类预测**均由用户Windows脚本报告完成、无失败、退出码0；GMM在CPU上运行（GPU可用但used=False与协议一致）；当前**没有计算任何E5b病理区域ARI/NMI**，也未在此阶段重复scVI训练。末例CID4535 B15D选AutoK=3、Oracle-K=6，合法的预冻双臂差异，不允许按oracle调整blind。原始状态/预测及SHA位于上述本地batch_status.json和各配置attempt目录，GitHub归档仅记录终端日志，未经本助手直接读取本地输出或独立全量审计。第5/8/9节里关于尚未执行的句子是历史时点事实，应以本节为最新状态。**下一按计划执行四成熟基线共144预测**：优先非空间GMM+Leiden 72，之后BANKSY36、BayesSpace36；全部基线拟合和预测完成后再进行统一后验评价/阶段审计与Claude总审，不能因AutoK K或预期指标改变样本/算法/预算。
