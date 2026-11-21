@@ -118,3 +118,8 @@ E5B_CC_EXIT_CODE=0
 ```
 
 真实结论：按冻结第3节规则，36组六患者×六尺度的AutoK选择及两K臂每臂3seed总**216份CellCharter聚类预测**均由用户Windows脚本报告完成、无失败、退出码0；GMM在CPU上运行（GPU可用但used=False与协议一致）；当前**没有计算任何E5b病理区域ARI/NMI**，也未在此阶段重复scVI训练。末例CID4535 B15D选AutoK=3、Oracle-K=6，合法的预冻双臂差异，不允许按oracle调整blind。原始状态/预测及SHA位于上述本地batch_status.json和各配置attempt目录，GitHub归档仅记录终端日志，未经本助手直接读取本地输出或独立全量审计。第5/8/9节里关于尚未执行的句子是历史时点事实，应以本节为最新状态。**下一按计划执行四成熟基线共144预测**：优先非空间GMM+Leiden 72，之后BANKSY36、BayesSpace36；全部基线拟合和预测完成后再进行统一后验评价/阶段审计与Claude总审，不能因AutoK K或预期指标改变样本/算法/预算。
+
+## 11. 非空间GMM+Leiden六例72预测脚本已冻结提交（尚未Windows执行）
+
+依据本协议第3节既定四成熟基线方案，第一批**非空间GMM及Leiden**共六例×二方法×二K臂×三技术seed=**72份计划预测**，复用已经在Windows正式完成且SHA校验的独立乳腺癌scVI-L0 5D潜在表示，完全不重复训练scVI、不用DLPFC表征、不访问`reference_only`病理标签。GMM sklearn full covariance/kmeans/n_init1/tol0.001/reg1e-6/max_iter100，Kblind=K2..10最低BIC，Oracle=原冻结类别数K；Leiden scanpy邻居15/Leidenalg无空间坐标，Kblind固定resolution1.0，Oracle用原固定16档resolution最接近Oracle-K（平局取更小resolution），仅分隔Oracle支路会引用预先冻结的类别数。批处理每任务预测全model_spots barcode+cluster，保存明细/每项原始SHA、失败状态，失败则STOP并保留完成任务，`--resume`为显式独立动作，不会自动隐式重跑。此处不计算ARI/NMI。GitHub代码`experiments/cellcharter_dlpfc/e5b_nonspatial_baselines_batch_v1.py`创建提交`777c90ca32ee1a2db25fc240109648ff652f5abb`，SHA256=`2defb2821370a4c8e60ad6450276a6cd695b5bd26f6a26d6c3cd5c7cc02ec7f1`。**代码提交不是用户Windows执行，72任务尚无真实执行日志，不可称成功**。待用户手动SHA验证下载、py_compile和`--run`；该子阶段通过后按已冻结计划继续BANKSY36、BayesSpace36，再统一评价/审计及Claude总审。
+
