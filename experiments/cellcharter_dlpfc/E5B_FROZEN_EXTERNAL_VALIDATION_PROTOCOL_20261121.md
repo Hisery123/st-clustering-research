@@ -62,3 +62,24 @@
 ## 6. 实际代码提交信息（此处仅证明GitHub存在，不等于运行）
 
 输入标准化脚本：`experiments/cellcharter_dlpfc/e5b_prepare_inputs_v1.py`（Git提交`b75ae81095ed54c03acdeed2d9ddb2bdd6f4ad20`；SHA256 `c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52`）；默认无写入许可，必须显式`--stage`才把源归档内容流式校验、规范化输出到独立`results/e5b_external_v1/input_stage_<UTC>_<PID>`。不会运行训练或计算任何ARI/NMI。**代码尚未在Windows或本助手环境中用真实文件运行验证**；若真实读取报错保留新状态目录，仅修复工程读入且不改变以上冻结的科学方法设置。
+
+## 7. Windows staged inputs verification passed; six-patient feature script prepared (2026-11-21)
+
+**用户Windows真实实验日志**：
+```text
+E5B_STAGE_SCRIPT_SHA_PASS c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52
+E5B_STAGE_SOURCE_INTEGRITY_PASS archives=3
+E5B_STAGE_SAMPLE_PASS sample=1142243F model=4784 eval=4665 genes=28402
+E5B_STAGE_SAMPLE_PASS sample=1160920F model=4895 eval=4846 genes=28402
+E5B_STAGE_SAMPLE_PASS sample=CID4290 model=2426 eval=2419 genes=19237
+E5B_STAGE_SAMPLE_PASS sample=CID4465 model=1211 eval=1207 genes=19237
+E5B_STAGE_SAMPLE_PASS sample=CID44971 model=1160 eval=1159 genes=19237
+E5B_STAGE_SAMPLE_PASS sample=CID4535 model=1125 eval=1028 genes=19237
+E5B_STAGE_FINAL status=completed samples=6 model=15601 eval=15324 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\input_stage_20261121T083911Z_14272\batch_status.json
+NO_TRAINING_NO_ARI_NMI
+E5B_STAGE_EXIT_CODE=0
+```
+这说明在用户Windows上来源完整性与标准化输入准备已真实完成，6/6源文件全量非负整数计数检查、MatrixMarket行/列/nnz、unique gene ID与barcode、预冻结in_tissue mask和有效评价mask在冻结输入脚本内均已通过；但本助手未直接读取完整本地batch_status.json或其生成的每份SHA明细，不把用户Windows未上传的文件称为GitHub备份。**仍没有任何E5b模型训练结果或ARI/NMI**。
+
+已准备下一子阶段的脚本：`experiments/cellcharter_dlpfc/e5b_scvi_feature_batch_v1.py`，GitHub创建提交`3fc8acc903cbe0f06ff70fa3b756e7b9f2461880`，SHA256 `28f792587a54ac8cb436d82f888dc9a39a2cff204168021ff8591a3f05a2b558`，只读来源为上述`input_stage_20261121T083911Z_14272`，冻结预处理/scVI400 epoch/5D与CellCharter4-hop25D，seed22911、GPU每患者单独子进程、6例连续训练（`--run`显式授权）、每例独立保存model/caches/SHA、父批次状态；绝不访问`reference_only`标签和计算ARI/NMI。该源脚本**未在用户Windows运行或完整语法/真实数据测试**，不能称模型适配成功。下一唯一Windows操作为SHA验证下载脚本并执行六患者连续feature-batch；阶段结束或真实阻断才审计/修复，不能每片穿插新探究或因分数改规则。
+
