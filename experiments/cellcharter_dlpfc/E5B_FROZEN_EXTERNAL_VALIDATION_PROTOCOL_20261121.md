@@ -83,3 +83,19 @@ E5B_STAGE_EXIT_CODE=0
 
 已准备下一子阶段的脚本：`experiments/cellcharter_dlpfc/e5b_scvi_feature_batch_v1.py`，GitHub创建提交`3fc8acc903cbe0f06ff70fa3b756e7b9f2461880`，SHA256 `28f792587a54ac8cb436d82f888dc9a39a2cff204168021ff8591a3f05a2b558`，只读来源为上述`input_stage_20261121T083911Z_14272`，冻结预处理/scVI400 epoch/5D与CellCharter4-hop25D，seed22911、GPU每患者单独子进程、6例连续训练（`--run`显式授权）、每例独立保存model/caches/SHA、父批次状态；绝不访问`reference_only`标签和计算ARI/NMI。该源脚本**未在用户Windows运行或完整语法/真实数据测试**，不能称模型适配成功。下一唯一Windows操作为SHA验证下载脚本并执行六患者连续feature-batch；阶段结束或真实阻断才审计/修复，不能每片穿插新探究或因分数改规则。
 
+## 8. Windows E5b六患者scVI特征正式训练6/6通过（2026-11-21）
+
+**来自用户实际Windows批次结尾终端原始记录（不是计划）**：
+```text
+Trainer.fit stopped: max_epochs=400 reached.
+Epoch 400/400: 100% ... 400/400 [00:55<00:00, 7.23it/s, loss=2.93e+03, v_num=1]
+E5B_FEATURE_SAMPLE_PASS sample=CID4535 spots=1125 latent=5D aggregated=25D seconds=55.709
+E5B_FEATURE_PROGRESS completed=6/6
+E5B_FEATURE_FINAL status=completed completed=6/6 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\features_20261121T090400Z_28460\batch_status.json
+NO_GMM_NO_ARI_NMI
+E5B_FEATURE_EXIT_CODE=0
+```
+
+这证明六个患者的**特征准备/表征训练批次**由Windows脚本报告全部完成，按脚本内定义各自从外部counts重新训练scVI5D并生成CellCharter 25D空间邻域聚合，completed=6/6 failed=0、进程退出码0。显示的400轮及耗时55.709秒**仅针对最后一个CID4535样本**，不得据此推断六样本各自epoch/用时、也不能据训练loss推断聚类质量。此处尚未由本助手读取本地batch_status.json和每个模型文件进行独立审计；实际存储证明在本机报告上，不能声称GitHub已备份二进制特征。**E5b已完成6次scVI表征训练，正式CellCharter GMM聚类/无标签AutoK/四成熟基线以及ARI/NMI均尚未运行**；论文不能将feature success当外部验证性能。
+
+正式feature结果路径：D:\paper\CellCharter_reproduction\results\e5b_external_v1\features_20261121T090400Z_28460，其SHA/状态需后续批量聚类程序验证；**不得重新拟合scVI或用DLPFC权重代替**。下一计划阶段按原冻结36组CellCharter 6尺度×6样本、每组1次AutoK及2 K臂×3seed=216预测，后4对照144预测；先落盘未经人工标签的预测及轨迹，最后统一评价。遵守阶段连续执行、末尾集中审计。
