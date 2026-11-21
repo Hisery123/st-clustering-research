@@ -21,3 +21,19 @@
 3. **算法与算力**：先选数据与方法集再冻结；CellCharter表示缓存不可偷用DLPFC模型，必须重新根据原始外部数据走同等预处理/表达表示训练与空间邻域聚合；对照保持既定原生定义。BayesSpace若保留全qTune+正式10k MCMC，需以E5a首片约2405s的真实时间评估预算；一切改少seed/K/样本的决定**在首次外部拟合前**公开写清、避免与E5a混为严格同计算预算/同重复。
 4. **文献和科研伦理**：归档原DOI、公开许可、文件checksum、下载时间、匿名样本、标签来源及作者使用声明，报告所有选样及负结果。术语E5b为“external dataset validation”，不是临床外部诊断验证，也不是独立样本泛化的因果证明。
 5. **流程纪律**：只做必要预冻核查→连续执行所冻结E5b任务→末尾一次审计→若符合GO条件考虑E6→整阶段交Claude做方法/SCI论文总审；中途不得因ARI/K值多加实验。
+
+## Windows首次公开元数据归档完整性检验（2026-11-21）
+
+**来自用户当次Windows终端原始记录，已执行**：
+```text
+E5B_METADATA_INTEGRITY_PASS md5=1d0b34ead70635c094ac74ac58a88d68
+metadata/
+metadata/1142243F_metadata.csv
+metadata/1160920F_metadata.csv
+metadata/CID4290_metadata.csv
+metadata/CID4465_metadata.csv
+metadata/CID44971_metadata.csv
+metadata/CID4535_metadata.csv
+E5B_METADATA_ARCHIVE_LIST_PASS
+```
+这说明公开的metadata.tar.gz包哈希与预检记录一致，归档目录中有六份不同名字的样本CSV。**不能仅凭文件名或压缩包目录断言每个CSV具备可靠病理标签、barcode唯一性、坐标一一对应或6个患者独立**，更不代表已经开始E5b训练。下一步用Python标准库对tar.gz内六个CSV做只读列名/样本行数/字段缺失率/潜在标签类别计数，保留明细并先判断方法学有效性；不提取至原始数据目录、不看任何算法表现、不调参。按E5b预冻纪律在了解元数据与表达矩阵真实结构后再锁定样本与预算。
