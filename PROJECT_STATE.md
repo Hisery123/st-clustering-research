@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-21｜E5b外部预测288/360完成：GMM+Leiden72/72Windows通过，BANKSY36脚本已提交
+
+用户真实Windows结果：`E5B_NONSPATIAL_FINAL status=completed completed=72/72 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\nonspatial_20261121T104630Z_22052\batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI_NO_SCVI_RETRAIN`、`E5B_NONSPATIAL_EXIT_CODE=0`。此后`E5B_NONSPATIAL_SCRIPT_ALREADY_EXISTS`为重复触发下载脚本时本地文件存在的保护阻断，**不能当作非空间72任务失败**，不重跑。加上已由用户Windows报告完成的CellCharter216/216，目前**288/360份预测任务脚本完成（待阶段末独立全量审计）**。真实ARI/NMI暂未计算。GitHub新建`experiments/cellcharter_dlpfc/e5b_banksy_baselines_batch_v1.py`，commit`26e125a8ff1bc9c0ea0248b871dbf3e8437be6f3`，SHA256=`c80a1e7c97d563c8b9e7a83e97c83d7b8c021f583c6b82b91225b9be69ade927`；官方BANKSY核心+E5a冻结16分辨率/原生HVG2000/空间15邻居/PC20/Leiden50NN、3seed双K臂，严格用六例E5b输入与已固定in_tissue训练mask，不读参考标签/不打分。**尚未Windows执行BANKSY这36项**，下一唯一PowerShell操作SHA验证下载/语法检查/`--run`；之后BayesSpace36、阶段末统一评价/Claude审稿。完整历史和先验规则在`experiments/cellcharter_dlpfc/E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`。
+
+
 ## 2026-11-21｜E5b CellCharter外部聚类全36配置216预测Windows PASS，下一非空间基线72项
 
 用户Windows终端实测：`E5B_CC_PROGRESS configs=36/36 predictions=216/216`、`E5B_CC_FINAL status=completed configs=36/36 predictions=216/216 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\cellcharter_cluster_20261121T100504Z_29172\batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI_NO_SCVI_RETRAIN`、`E5B_CC_EXIT_CODE=0`。最后一例CID4535/B_L0L1L4_15D AutoK=3而OracleK=6，必须保留双K臂区别、不可事后调盲选K。聚类在CPU运行符合冻结协议。到此**E5b外部scVI六例表示训练+CellCharter36个无标签AutoK+216份预测均已由Windows报告真实完成**，但完整本地预测还没有独立末尾审计，ARI/NMI没有执行，不能据此声称性能优越。
