@@ -134,3 +134,21 @@ NO_TRAINING_NO_EXTRACTION
 
 **剩余正式拟合前验证要点（不再重复已完成下载）：** ①冻结`in_tissue=1`模型spot范围、`Artefact`/`NA`/空/`Uncertain`仅评价mask排除策略及真实逐样本有效类别K；②指定6名不同patientid样本的完整方法任务矩阵（CellCharter与已固定成熟对照）、Kblind主分析与Oracle-K知情敏感性、预处理和seed/预算；③MatrixMarket实际值与基因ID/表达格式的预训练质量门槛（可以在准备输入时一次检查），确保scVI/HVG等无标签泄漏。不能以当前成功日志声称已经读取完整表达矩阵或训练E5b。E5a仍完整封存。
 
+## 第九次Windows模型spot与评价mask QC真实通过（2026-11-21）
+
+**用户本地终端真实结果**：`E5B_MASK_QC_PASS samples=6 total_model_spots=15601 total_eval_spots=15324`、`NO_TRAINING_NO_DATA_MODIFICATION`。根据预先定义候选mask：训练模型输入先选空间`in_tissue=1`，以`Classification`名值`Artefact`、`NA`、空字符串、`Uncertain`仅从评价时去掉，其余类别维持原始完整组合文本不合并；这份QC没有任何模型训练/ARI/NMI。可供正式冻结的各项真实样本级结果：
+
+| 样本 | model input spots (in_tissue=1) | eval spots | excluded from eval | oracle K候选 (评价有效类别数) | 最少类n | 最大类占比 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1142243F | 4784 | 4665 | 119 | 5 | 10 | 0.7775 |
+| 1160920F | 4895 | 4846 | 49 | 7 | 9 | 0.6492 |
+| CID4290 | 2426 | 2419 | 7 | 3 | 122 | 0.8607 |
+| CID4465 | 1211 | 1207 | 4 | 3 | 3 | 0.9370 |
+| CID44971 | 1160 | 1159 | 1 | 6 | 81 | 0.2735 |
+| CID4535 | 1125 | 1028 | 97 | 6 | 3 | 0.4066 |
+| **合计** | **15601** | **15324** | **277** | 不合并类别数 | — | — |
+
+六份metadata原始总行数15611；其中10个`in_tissue=0`spot不进入模型与评价（CID4290=6、CID44971=2、CID4535=2），余15601作为模型输入。此后因不良或无参考标签而从**评价mask单独排除277**，但这277可依`in_tissue=1`保留在**无监督拟合输入**中，任何方法都按这一点执行，不得只让CellCharter看不同spot集合。CID4290的6个`NA`和CID44971的2个`NA`与CID4535的2个`NA`已通过`in_tissue=0`排除，**不能再从15601重复扣减**。原类名包括组合病理组织类别，不是单细胞类型真值。
+
+拟议事前门槛：6名不同patientid全部纳入，不以严重失衡或微小类别挑掉CID4465等；主评价ARI、次NMI，固定评价掩码和每个样本原生类别，输出真实K，不能以事后ARI挑K或改过滤。还须注意源文件MD5、matrix数据实际数值及features ID、输入spot维度、软件API、可重复日志的适配；事前正式冻结协议另见`E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`，其是否真正已提交、执行脚本是否在Windows运行需分别查证。
+
