@@ -123,3 +123,15 @@ E5B_CC_EXIT_CODE=0
 
 依据本协议第3节既定四成熟基线方案，第一批**非空间GMM及Leiden**共六例×二方法×二K臂×三技术seed=**72份计划预测**，复用已经在Windows正式完成且SHA校验的独立乳腺癌scVI-L0 5D潜在表示，完全不重复训练scVI、不用DLPFC表征、不访问`reference_only`病理标签。GMM sklearn full covariance/kmeans/n_init1/tol0.001/reg1e-6/max_iter100，Kblind=K2..10最低BIC，Oracle=原冻结类别数K；Leiden scanpy邻居15/Leidenalg无空间坐标，Kblind固定resolution1.0，Oracle用原固定16档resolution最接近Oracle-K（平局取更小resolution），仅分隔Oracle支路会引用预先冻结的类别数。批处理每任务预测全model_spots barcode+cluster，保存明细/每项原始SHA、失败状态，失败则STOP并保留完成任务，`--resume`为显式独立动作，不会自动隐式重跑。此处不计算ARI/NMI。GitHub代码`experiments/cellcharter_dlpfc/e5b_nonspatial_baselines_batch_v1.py`创建提交`777c90ca32ee1a2db25fc240109648ff652f5abb`，SHA256=`2defb2821370a4c8e60ad6450276a6cd695b5bd26f6a26d6c3cd5c7cc02ec7f1`。**代码提交不是用户Windows执行，72任务尚无真实执行日志，不可称成功**。待用户手动SHA验证下载、py_compile和`--run`；该子阶段通过后按已冻结计划继续BANKSY36、BayesSpace36，再统一评价/审计及Claude总审。
 
+## 12. Windows E5b非空间GMM+Leiden 72/72预测通过；重复执行保护为预期阻断（2026-11-21）
+
+**用户Windows终端真实日志**：
+```text
+E5B_NONSPATIAL_FINAL status=completed completed=72/72 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\nonspatial_20261121T104630Z_22052\batch_status.json
+NO_REFERENCE_LABELS_NO_ARI_NMI_NO_SCVI_RETRAIN
+E5B_NONSPATIAL_EXIT_CODE=0
+E5B_NONSPATIAL_SCRIPT_ALREADY_EXISTS
+```
+```
+
+前3行证明按原冻结非空间GMM与Leiden六例×两种K臂×三seed合计72个预测由用户Windows脚本报告全部成功、失败0、退出0。最后一行是随后重复执行相同PowerShell下载命令时被其`Test-Path $dest`主动拒绝，**不是模型运行失败，不应清理已完成会话或重复训练**。非空间结果本地目录`D:\paper\CellCharter_reproduction\results\e5b_external_v1\nonspatial_20261121T104630Z_22052`。与先前CellCharter 216项相加已完成288/360项**预测任务**（非360独立患者）；未做任何独立全量产物审计、病理标签ARI/NMI或方法优越性统计。接下来按冻结方案BANKSY36、BayesSpace36，均先落盘预测，最后统一评价。
