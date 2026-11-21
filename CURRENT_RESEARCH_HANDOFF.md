@@ -1275,3 +1275,9 @@ L3 首次运行聚合及 GMM 预测已完成，但边界代码误把 `Layer 5/La
 
 **下一冻结操作**：已在GitHub创建`experiments/cellcharter_dlpfc/e5b_cellcharter_cluster_batch_v1.py`，commit`eeb309918dee5c97f15f864134b4178da49cc82f`，SHA256=`d8df95cd86116a2a4aec2a6f0b4cf2f63e2a1425956198bb1afe6c1baf91c1aa`。沿用已冻结E5b六患者6尺度、36独立AutoK无标签选K、Kblind+Oracle知情各三seed=216份GMM预测，使用已生成的25D缓存且代码不读取参考标签/不打分。脚本尚未在用户Windows运行，36/216均计划数，需按单一PowerShell动作下载+SHA+py_compile+显式`--run`；失败时保留新目录支持人工显式resume，不因结果修改实验设定。之后按原计划接四成熟基线144预测、末端统一评价及Claude独立审查。完整协议及日志`experiments/cellcharter_dlpfc/E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`。
 
+## 2026-11-21｜E5b CellCharter外部聚类全36配置216预测Windows PASS，下一非空间基线72项
+
+用户Windows终端实测：`E5B_CC_PROGRESS configs=36/36 predictions=216/216`、`E5B_CC_FINAL status=completed configs=36/36 predictions=216/216 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\cellcharter_cluster_20261121T100504Z_29172\batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI_NO_SCVI_RETRAIN`、`E5B_CC_EXIT_CODE=0`。最后一例CID4535/B_L0L1L4_15D AutoK=3而OracleK=6，必须保留双K臂区别、不可事后调盲选K。聚类在CPU运行符合冻结协议。到此**E5b外部scVI六例表示训练+CellCharter36个无标签AutoK+216份预测均已由Windows报告真实完成**，但完整本地预测还没有独立末尾审计，ARI/NMI没有执行，不能据此声称性能优越。
+
+GitHub已提交`experiments/cellcharter_dlpfc/e5b_nonspatial_baselines_batch_v1.py`，commit `777c90ca32ee1a2db25fc240109648ff652f5abb`，SHA256 `2defb2821370a4c8e60ad6450276a6cd695b5bd26f6a26d6c3cd5c7cc02ec7f1`，按E5a预冻参数用六患者已完成scVI-L0 5D缓存依次运行GMM与Leiden两K臂×三技术seed共72计划任务，无评价标签读取/无ARI。该脚本仍待Windows实际执行，不可标记72已完成。后续固定顺序BANKSY36+BayesSpace36、总144基线后一次性核验与评价并交Claude总审，不插入事后改K/seed/尺度。
+
