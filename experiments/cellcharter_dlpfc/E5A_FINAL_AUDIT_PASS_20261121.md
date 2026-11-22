@@ -1,5 +1,10 @@
 # E5a 正式阶段末统一审计 PASS（用户Windows真实结果，2026-11-21）
 
+## 2026-11-22 288条真实后验ARI/NMI及原审计JSON正式补传（晚于历史记录）
+
+用户后续提供Windows六审计文件ZIP，经SOURCE_SHA256逐份验证，**E5a原本缺失的288行指标CSV、8组method×K模式描述统计CSV、原audit_report.json已原字节归档**至[E5A_20261122_RELEASE](E5A_20261122_RELEASE/)；GitHub远端重读SHA256全部一致。旧正文“尚未直接读取任意E5a ARI/NMI”的说法仅代表当时状态，**最新仓库已提供全部288条真实指标，可供Claude独立审查**。真实JSON明确记录BayesSpace的K-blind在28/36任务中选择q=10冻结上界，且3供体/12嵌套切片、跨方法预处理不一致必须保留。
+
+
 ## 状态 / 证据等级
 
 **实际完成（不是计划）**：用户在Windows PowerShell返回了审计脚本的完整最终成功行：
