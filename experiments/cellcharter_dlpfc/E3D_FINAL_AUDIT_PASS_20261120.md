@@ -1,5 +1,10 @@
 # E3d 12切片×4尺度无标签AutoK — 阶段末统一文件审计PASS（2026-11-20）
 
+## 2026-11-22 原始审计CSV/JSON补传完成（晚于历史记录）
+
+用户后续提供Windows六审计文件ZIP，经SOURCE_SHA256逐份验证，**E3d原本缺失的48行all_48_autok_audit.csv与audit_report.json已经原字节归档**至[E3D_20261122_RELEASE](E3D_20261122_RELEASE/)；上传后GitHub远端重读SHA256全部一致。旧正文“原始JSON/CSV尚未取得”仅为2026-11-20时的真实历史记录，**现在不再成立**。仍然**没有E3d独立后验ARI/NMI**，此项并未由补传审计CSV自动完成。
+
+
 ## 证据等级与原件位置
 
 **真实用户Windows终端回报**；用户已运行冻结`e3d_autok_final_audit_v1.py`并提供48个逐项`E3D_PHASE_AUDIT_PASS`以及终审汇总与退出码。助手未取得或直接查看Windows原始JSON/CSV/NPZ字节，不能说原始结果已上传GitHub，也不能宣称Claude独立审查已完成。
