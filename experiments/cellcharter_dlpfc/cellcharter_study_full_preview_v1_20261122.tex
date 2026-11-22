@@ -23,6 +23,14 @@
 \clearpage
 \input{cellcharter_study_conclusion_module_v1_20261122}
 \clearpage
+% Full E4 appendix appears only after original SVGs have been checked and
+% converted to XeLaTeX-compatible vector PDFs. No image synthesis permitted.
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151507/151507_reference_A_B_spatial.pdf}{%
+\clearpage
+\appendix
+\input{appendix_e4_all12_figures_v1_20261122}
+}{}
+
 \bibliographystyle{unsrt}
 \bibliography{thesis_cellcharter_verified_references_20261122}
 \end{document}
