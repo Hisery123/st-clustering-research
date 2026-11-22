@@ -1,0 +1,83 @@
+{
+  "release": "E3B_E1E2_1200_POSTHOC_20261122_RELEASE",
+  "status": "passed",
+  "methodology": "posthoc boundary localization sensitivity analysis; NOT preregistered; original E1E2 1200 predictions frozen; zero model refits",
+  "source_export_zip": "e3b_e1e2_1200_export_20261122.zip",
+  "source_export_zip_sha256": "cfad75dbc35723c72e52f8906b07e1b81048ff70fcf04df709d41ae42bc1302b",
+  "source_export_zip_bytes": 28988158,
+  "source_manifest_original_sha256": "ce68164a50819e0ab4110db797752d7eff7cc3ebe03dcf2f8ba8212de2f5a2b7",
+  "e1e2_github_frozen_1200_ledger_sha256": "e021ca75958c3d5539dda1987e5031d13ce4fe161d9f0db7f03b5dcfb40e065e",
+  "e3d_reference_zip_sha256": "1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094",
+  "eval_scope": "12 DLPFC slices nested in 3 donors x 10 frozen E1/E2 configs x 10 technical GMM seeds, n=1200, three separately reported 0/1/2-hop threshold outcomes",
+  "n_biological_donors": 3,
+  "n_slices": 12,
+  "n_prediction_grids": 1200,
+  "n_metric_rows": 3600,
+  "n_configurations": 10,
+  "n_seed_technical": 10,
+  "k_selection": "E1/E2 label-count-informed Oracle-K; DO NOT present as K-blind",
+  "metrics": {
+    "strict": "Undirected valid Visium 6-neighbor edge; both endpoints have manual layer labels; reference positive iff endpoints differ; predicted positive iff original cluster IDs differ; same-edge TP for hop0",
+    "tolerant": "1 and 2 hops over the line graph of valid edges; maximum-cardinality one-to-one bipartite matching; no reuse of reference edges"
+  },
+  "independent_crosscheck": "Historical seed22911 strict boundary TP totals exactly matched for A15D=2103 and B15D=1999.",
+  "full_original_prediction_source_in_github": false,
+  "explanation": "GitHub contains all 3600 evaluation rows + complete hashes of 1200 prediction CSVs, not all 1200 original prediction CSV bytes or reference label bytes; original 28.99 MB ZIP remains on user's Windows and was uploaded to ChatGPT in this conversation. Recompute all metrics from full source ZIP and E3d reference ZIP using committed evaluation script.",
+  "files": {
+    "derived/all_3600_boundary_metric_rows.csv": {
+      "rows": 3600,
+      "bytes": 1169800,
+      "sha256": "51d19c08efc1e446eba68c58ba35251206a1d2be3d59baa81cb4f6069448d3b1"
+    },
+    "derived/all_1200_paired_strict_tolerance.csv": {
+      "rows": 1200,
+      "bytes": 149018,
+      "sha256": "d12142d9335ed66575e3171bf709a12331985156a12ec2a3784f82ad7c467ccb"
+    },
+    "derived/slice_mean_360.csv": {
+      "rows": 360,
+      "bytes": 24616,
+      "sha256": "5ae4299ae7c84aa1b9aab1ee2e40f5294969098431a859728d0230da6a94ee7c"
+    },
+    "derived/donor_mean_90.csv": {
+      "rows": 90,
+      "bytes": 3647,
+      "sha256": "1ff67a2478a0d8409c8de9087b87d8a65b36a7aca3357dc3eeec1b2854012b80"
+    },
+    "derived/macro_mean_30.csv": {
+      "rows": 30,
+      "bytes": 1803,
+      "sha256": "30f6923466660fc3910721b5f58859c54d82bca9f711f922bd09ba23368c8f24"
+    },
+    "derived/posthoc_boundary_audit_report.json": {
+      "rows": null,
+      "bytes": 7776,
+      "sha256": "ab8c02d19ddeb4a914b80c3ff876f4da2309fdd301514f5577f94f09c46eb161"
+    },
+    "derived/source_prediction_sha256_1200.csv": {
+      "rows": 1200,
+      "bytes": 332973,
+      "sha256": "ce68164a50819e0ab4110db797752d7eff7cc3ebe03dcf2f8ba8212de2f5a2b7"
+    },
+    "derived/E3B_E1E2_1200_all_config_0_1_2hop.svg": {
+      "rows": null,
+      "bytes": 21922,
+      "sha256": "f49a14776455beec645c14d97fc1ad4b31e03f00cc034f79600d1a6d7b36eadf"
+    },
+    "derived/E3B_E1E2_1200_donor_strict_f1.svg": {
+      "rows": null,
+      "bytes": 16053,
+      "sha256": "ab7de48bf5845a6a10bc6745b8d69fc9e55b7d0a99da51582a0df8b15cb82d1f"
+    },
+    "e3b_e1e2_1200_boundary_posthoc_v1.py": {
+      "rows": null,
+      "bytes": 16458,
+      "sha256": "088d7a6f90f5dfc50297fe6d3b7df7b8d1518aa48151a2ac1abd9231fec9502a"
+    },
+    "e3b_e1e2_1200_plot_v1.py": {
+      "rows": null,
+      "bytes": 2848,
+      "sha256": "661d406bd02501032283f8b759c5784bae156b431a160a634febb14238aeed53"
+    }
+  }
+}
