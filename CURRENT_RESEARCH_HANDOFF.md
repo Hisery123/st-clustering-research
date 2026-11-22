@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-22｜新增：E3d已完成48/48后验ARI/NMI；E3b已完成E3d K-blind 48配置边界分析（仅部分）
+
+**来自用户本轮真实上传ZIP的独立计算，而不是只读Windows日志**：`e3d_posthoc_inputs_20261122.zip` SHA256 `1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094`，含48份原E3d冻结预测、12张spot坐标、12张人工层标签与SHA清单共72份输入。72/72输入文件SHA、全部12份与E1/E2源标签/位置SHA、48/48预测SHA与条码顺序、AutoK原K稳定性argmax均PASS，**不重新训练、不重选K**。后验ARI/NMI（算术平均NMI）48/48均经独立列联表公式交叉验算PASS。真实12切片宏均值（ARI/NMI）：10D 0.379285/0.503341；15D 0.386114/0.535941；20D 0.431145/0.594212；25D 0.388976/0.543449。20D宏均值最好属于**结果后描述性观察**，各尺度K可变且生物学n=3供体，不能宣称新方法优势或显著性。完整48行、48切片配对、3供体×4尺度12行、审计报告和完全重算脚本已GitHub提交并远程重读校验于`experiments/cellcharter_dlpfc/E3D_POSTHOC_20261122_RELEASE/`。原ZIP未上传GitHub（SHA可核对），不要把派生数据当作原预测文件。
+
+同时基于**同一48份冻结E3d Kblind预测**和六邻接阵列坐标，执行了后验严格0-hop edge-F1、1-hop、2-hop容差F1，使用参考/预测边界一对一最大基数匹配避免重复命中；全部48×3=**144项**真实结果、48汇总、12宏描述、36供体汇总、审计报告和源码已归档`experiments/cellcharter_dlpfc/E3B_E3D48_POSTHOC_20261122_RELEASE/`且远端复核。12片均值0-hop F1按10/15/20/25D依次为0.159578、0.129871、0.133824、0.119033；容差分数另列，绝不取代严格F1。**这只是E3b的48项Kblind补充，不是原计划E1/E2 1200项全量E3b**；后者需要取得原1200个预测CSV，再依据原E1/E2任务账本逐项验证SHA后计算。如E3b未完成全量，写论文必须如实称“未做完整E1/E2边界容差”。所有新增E3d/E3b分析均为**2026-11-22观察既有结果之后才制定/执行的post-hoc**，不可伪装事前分析。独立论文新颖性仍待P0-1原CellCharter论文与Supplement精读。
+
+
 ## 2026-11-22｜E3d/E5a/E5b Windows六项原始审计CSV/JSON正式补传GitHub：远端SHA256校验7/7
 
 **用户已授权直接归档**，本轮上传`github_missing_derived_20261122.zip`，内含六份原始审计CSV/JSON及`SOURCE_SHA256.csv`。在本助手沙盒中对ZIP原字节和Windows来源清单逐一检查6/6通过；保留Windows UTF-8 BOM/CRLF、文件原始内容，提交GitHub后重新从远端逐份读取、重算SHA256，共**7/7完全一致**。跨阶段统一归档总表：[experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md](experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md)。Windows真实源路径、导出SHA256位于`experiments/cellcharter_dlpfc/AUDIT_EXPORT_20261122/SOURCE_SHA256.csv`；ZIP本体未重复入库。
