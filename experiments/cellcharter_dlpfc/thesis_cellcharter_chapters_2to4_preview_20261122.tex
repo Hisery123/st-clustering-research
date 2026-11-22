@@ -1,0 +1,35 @@
+% Standalone PREVIEW for the CellCharter research unit, not the user's full Master's thesis.
+% Compile example (only after local TeX installation and suitable Chinese fonts):
+% xelatex thesis_cellcharter_chapters_2to4_preview_20261122.tex
+% bibtex thesis_cellcharter_chapters_2to4_preview_20261122
+% xelatex thesis_cellcharter_chapters_2to4_preview_20261122.tex
+% xelatex thesis_cellcharter_chapters_2to4_preview_20261122.tex
+% No compilation has been performed by ChatGPT or the user's Windows machine.
+% Input files are chapter sections in the same directory; all references use a local bib.
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,longtable}
+\usepackage{graphicx,float}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.3em}
+\renewcommand{\arraystretch}{1.14}
+\setcounter{secnumdepth}{3}
+\setcounter{section}{1}
+\begin{document}
+
+% WARNING: This file previews the CellCharter third-paper unit only, with
+% sections numbered 2--4. It is NOT a finished full Master's dissertation.
+
+\input{chapter_02_background_rewrite_v1_20261122}
+\clearpage
+\input{chapter_03_methods_rewrite_v1_20261122}
+\clearpage
+\input{chapter_04_results_rewrite_v1_20261122}
+\clearpage
+
+\bibliographystyle{unsrt}
+\bibliography{thesis_cellcharter_verified_references_20261122}
+
+\end{document}
