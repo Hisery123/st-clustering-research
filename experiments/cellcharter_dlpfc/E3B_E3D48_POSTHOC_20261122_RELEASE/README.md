@@ -1,5 +1,10 @@
 # E3b spatial boundary tolerance: E3d K-blind 48-grid *partial* posthoc analysis
 
+## 2026-11-22 补充结果完成后状态更新
+
+在本文件最初撰写后，**E1/E2完整1200份Oracle-K冻结预测**也已使用相同图拓扑及一对一匹配法完成全量事后边界分析：1200个任务×严格0-hop/1-hop/2-hop＝3600项完整评价；全部源预测SHA校验PASS，独立历史A/B严格TP总数分别2103/1999完全吻合。GitHub完整结果见[ E3B_E1E2_1200_POSTHOC_20261122_RELEASE ](E3B_E1E2_1200_POSTHOC_20261122_RELEASE/)；前一阶段E3d48仅是**另一份K-blind补充评估**，不可把两者混为同一K选取设定。全部源28.99MB ZIP保留于Windows，仅derived完整指标和1200源文件SHA在GitHub；原文中的“尚未完成1200份”是历史状态。所有新增分析均为已见指标后的**post-hoc**，不是原实验预注册结果。
+
+
 **This is an actual completed analysis, but it is explicitly a partial (48 frozen E3d K-blind predictions) E3b supplement. It does NOT cover the originally planned E1/E2 1200 prediction files.** The 48 predictions were generated and audited on Windows before this analysis. This new evaluation reused unchanged outputs, selected K and reference annotations; **0 model refits**.
 
 ## Boundary definition, an important geometry point
