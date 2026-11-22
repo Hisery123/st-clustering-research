@@ -1,0 +1,81 @@
+{
+  "release": "E5B_20261122_RELEASE",
+  "repository": "Hisery123/st-clustering-research",
+  "provenance": "Exact bytes from user-uploaded E5b audit CSVs and prior ChatGPT-generated review/figures, verified locally and re-read from GitHub",
+  "audit_script": "experiments/cellcharter_dlpfc/e5b_phase_audit_and_evaluation_v1.py",
+  "windows_audit_status": "E5B_PHASE_AUDIT_FINAL status=passed verified=360/360 metrics=360/360 errors=0; EXIT_CODE=0",
+  "windows_audit_report_missing_in_repo": "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\phase_audit_v1\\audit_20261122T030849Z_17404\\audit_report.json",
+  "windows_source_directory": "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\phase_audit_v1\\audit_20261122T030849Z_17404",
+  "patients": [
+    "1142243F",
+    "1160920F",
+    "CID4290",
+    "CID4465",
+    "CID44971",
+    "CID4535"
+  ],
+  "biological_independent_n": 6,
+  "technical_seeds": [
+    22911,
+    7449,
+    25842
+  ],
+  "primary_metric": "ARI",
+  "secondary_metric": "arithmetic NMI",
+  "arms": [
+    "k_blind",
+    "oracle_k"
+  ],
+  "posthoc_analysis_not_preregistered": true,
+  "does_not_include_original_360_prediction_csv_or_reference_labels": true,
+  "files": {
+    "derived/all_360_prediction_metrics.csv": {
+      "sha256": "b41a492e53bc71ef1e3d2648643383f026735a77ef9c54912a7139839080709f",
+      "bytes": 121227,
+      "rows": 360,
+      "role": "original_audit_derived_csv"
+    },
+    "derived/patient_three_seed_summary.csv": {
+      "sha256": "318d54e0fa5c06998c38457eca21a3cd1de3a85c3c3f37acc412be3b36d9e278",
+      "bytes": 15214,
+      "rows": 120,
+      "role": "original_audit_derived_csv"
+    },
+    "derived/patient_paired_effects.csv": {
+      "sha256": "bf6868cdfa4c91960762a458ac71eeefe37ceaf4f23523f5c521002eafa7a078",
+      "bytes": 9785,
+      "rows": 144,
+      "role": "original_audit_derived_csv"
+    },
+    "derived/E5b_真实数据审查报告_20261122.md": {
+      "sha256": "88edb99f2f918afb7f69006acf3bd99bfa56145a65fbb1397fd6b63b8d021118",
+      "bytes": 7297,
+      "rows": null,
+      "role": "posthoc_review_snapshot"
+    },
+    "derived/E5b_reproduce_results.py": {
+      "sha256": "161ab227e3bc81ae11412261d511938b197b70dba352abfd834dc017199db337",
+      "bytes": 4372,
+      "rows": null,
+      "role": "figure_generation_source"
+    },
+    "derived/E5b_Kblind_PatientPaired_ARI.svg": {
+      "sha256": "74b60e3f498622dbca22b9621fd667c3af75591399942143353881b5f3e74dac",
+      "bytes": 64757,
+      "rows": null,
+      "role": "posthoc_descriptive_figure"
+    },
+    "derived/E5b_Kblind_PatientPaired_NMI.svg": {
+      "sha256": "b9428cef7cf779b51fa14403a6cdbcb1c620b06fddc05b5556d75af28255b773",
+      "bytes": 64365,
+      "rows": null,
+      "role": "posthoc_descriptive_figure"
+    },
+    "derived/E5b_Kblind_CumulativeScale_ARI.svg": {
+      "sha256": "7da2f958b21377c85560cb8779fb17757f1e48304f57c4d6db2abfa3b3be5203",
+      "bytes": 60699,
+      "rows": null,
+      "role": "posthoc_descriptive_figure"
+    }
+  }
+}
