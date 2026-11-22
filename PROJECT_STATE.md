@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-22补充｜E4正文选图规则统一、36图附录和原件发布准备
+
+本轮用户要求继续写作并边写边上传：对`experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex`新增完整E4结果解释、按原冻结E4规则将主文示例统一为**151507/151671/151675**（而非旧稿另一目的的151671/151676单seed边界案例），在LaTeX按真实矢量PDF可用性设置条件插图位，缺图时只显示待插入提示。新增`appendix_e4_all12_figures_v1_20261122.tex`：12切片×3类真实图，共36个源文件控制的附录插图位，已接入`cellcharter_study_full_preview_v1_20261122.tex`的条件入口。**这不是36张原SVG已上传，也不是36张PDF已转换。**
+
+GitHub新增`publish_e4_original_figures_v1.ps1` Windows手动一次性上传脚本；它使用用户2026-11-20原完成批次及审计JSON、按每样本manifest逐件核对36SVG+36CSV的SHA，计划提交原72产物、12manifest、原batch/audit及新来源清单/README共88 Git文件。当前**脚本已提交、尚未见用户Windows真实执行成功反馈**，不能称GitHub具有原E4图。来源、脚本、安全边界及上传后SVG→LaTeX矢量PDF转换分别详见`experiments/cellcharter_dlpfc/E4_SOURCE_PUBLICATION_AND_FIGURE_INTEGRATION_20261122.md`。下一唯一用户Windows操作是按固定Git SHA下载、SHA1核验并运行上传脚本；成功后需GitHub重新统计及原字节哈希复核。
+
+
 ## 2026-11-22｜毕业论文写作新增：第2/3/4节V1、专题引言与结论、BibTeX、独立预览入口均已推送
 
 本次用户明确要求**继续写作，并在写作过程中逐份提交GitHub**，已落实：先完成第三章方法新稿`experiments/cellcharter_dlpfc/chapter_03_methods_rewrite_v1_20261122.tex`（11,486字符）；随后完成第二章背景新稿`chapter_02_background_rewrite_v1_20261122.tex`（5,716字符），新增11条经项目先前证据矩阵或本轮期刊/PubMed核对DOI的BibTeX参考文献；另增CellCharter专题引言模块和研究结论/展望模块。原已有新版第四章`chapter_04_results_rewrite_v1_20261122.tex`（10,319字符）保留。为排版另创建**仅本研究专题**的`thesis_cellcharter_chapters_2to4_preview_20261122.tex` XeLaTeX预览入口，不将此误称完整硕士论文。全部正式文件、静态检查和后续任务详见`experiments/cellcharter_dlpfc/THESIS_WRITING_PROGRESS_20261122.md`。本轮GitHub远端读取检查：TeX各环境成对、全文件labels无重复、ref无悬空、cite在BibTeX有条目；**尚未执行Tex编译，也未逐图核对E4原SVG**，不能宣称定稿或导师通过。旧第2/3/4章未覆盖；不重训模型，不改原始CSV。
