@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "name": "E3B_POSTHOC_BOUNDARY_E3D48_ONLY_V1",
+  "source_zip_sha256": "1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094",
+  "e3d_frozen_audit_sha256": "f2560ec0cde25a9b09fcec8816ffac9e844faceb562756ec19f951cfe51fc821",
+  "analysis_scope": "48 E3d K-blind AutoK predictions ONLY; E1E2 1200 not assessed",
+  "selection_timing": "posthoc_after_prior_results_reviewed",
+  "independent_donors": 3,
+  "nested_slices": 12,
+  "n_prediction_grids": 48,
+  "n_metrics": 144,
+  "strict_reference": "tolerance=0",
+  "offsets_list": [
+    [
+      0,
+      -2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      -1,
+      -1
+    ],
+    [
+      -1,
+      1
+    ],
+    [
+      1,
+      -1
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "boundary_mask": "Both endpoints have human layer labels",
+  "tolerance": "0/1/2 hops in line graph of valid hex edges",
+  "matching": "one-to-one maximum-cardinality bipartite matching",
+  "no_model_fit": true,
+  "no_chosen_threshold": true,
+  "reference_files_sha_and_spatial_graph": {
+    "151507": {
+      "labels_sha": "00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428",
+      "spots_sha": "f90fcc5a38959d248da14b614afb96a647d1a7c82ea490f6e2634349b6cf017c",
+      "labeled_spots": 4221,
+      "valid_hex_edges": 12381,
+      "reference_boundary_edges": 950,
+      "median_hex_pixel_distance": 138.0
+    },
+    "151508": {
+      "labels_sha": "93e4458575b148891efa99ec2f1d233cc623125dfe9d8ea3f260912e1d1174ef",
+      "spots_sha": "c7008a34887d1af22721d185aa6123570cb11fcd0da9b98235c5f04330f105dc",
+      "labeled_spots": 4381,
+      "valid_hex_edges": 12846,
+      "reference_boundary_edges": 927,
+      "median_hex_pixel_distance": 138.0
+    },
+    "151509": {
+      "labels_sha": "52d802d5d54e6e1e63b7f2fce086b9bc9d1403b70bc4d6df19edcb2dc5326812",
+      "spots_sha": "98d8cbda6951a443288274ca5ece16597bf8984a539fe9d09ce0232f64bbc2ea",
+      "labeled_spots": 4788,
+      "valid_hex_edges": 14083,
+      "reference_boundary_edges": 1021,
+      "median_hex_pixel_distance": 139.29106216839614
+    },
+    "151510": {
+      "labels_sha": "3f328c4347e75383ecceba209a19ae46b7dfb5494f03766c36e1fc0a60ae2fc1",
+      "spots_sha": "7ff723d19deae2b15b67ed21c70f02cf76a1ad56312e1bdf17be17a6b31d89d9",
+      "labeled_spots": 4595,
+      "valid_hex_edges": 13497,
+      "reference_boundary_edges": 1002,
+      "median_hex_pixel_distance": 138.92443989449805
+    },
+    "151669": {
+      "labels_sha": "c1ea5b4d3fcc43ef7dcb7dd5001c922263013084391035dd1f71c32a13c39afb",
+      "spots_sha": "c0bf8e032b0643e68c5cd68523e2723d913a2d2d287340e671db13183b9011f3",
+      "labeled_spots": 3636,
+      "valid_hex_edges": 10566,
+      "reference_boundary_edges": 488,
+      "median_hex_pixel_distance": 138.0
+    },
+    "151670": {
+      "labels_sha": "66b2a1c28ae6cb547213835bc80f1179f1f549efa5551227b86d31e06a288c20",
+      "spots_sha": "131cf73c209eb3cc56d86e3eac4100a07ca988e4d58a205c46e4edad83a08fdf",
+      "labeled_spots": 3484,
+      "valid_hex_edges": 10170,
+      "reference_boundary_edges": 471,
+      "median_hex_pixel_distance": 138.0
+    },
+    "151671": {
+      "labels_sha": "de40372c82d30b1b5f97df3ea84c6856923b3d63028a45d9415369ec9e145824",
+      "spots_sha": "b8ed247edd53976bd0c1030006903a34e4990aebf5d2a73ee9509dd2e8ca11f0",
+      "labeled_spots": 4093,
+      "valid_hex_edges": 11985,
+      "reference_boundary_edges": 567,
+      "median_hex_pixel_distance": 138.0
+    },
+    "151672": {
+      "labels_sha": "ac92222b88058f2cbd8e2a1f0af1a14d3c1f235426d74d2fa1f87eec76fecbc0",
+      "spots_sha": "ae213db83e2e56d0c8c393673a66b9c8dd14db63c0f7180d7ba88adcc1950281",
+      "labeled_spots": 3888,
+      "valid_hex_edges": 11385,
+      "reference_boundary_edges": 554,
+      "median_hex_pixel_distance": 138.0
+    },
+    "151673": {
+      "labels_sha": "271538a67dd85092a797735a391657262f68b72d3470064271303d58e28ce0ed",
+      "spots_sha": "96bdbff316a547fa14f7c94eb5f1a7f5734ea913f2710e21af4a1d175affc36e",
+      "labeled_spots": 3611,
+      "valid_hex_edges": 10519,
+      "reference_boundary_edges": 995,
+      "median_hex_pixel_distance": 138.00362314084367
+    },
+    "151674": {
+      "labels_sha": "44e3c308f8251974222ab772f74c0f2eca2e2ab17ca9bd3338a5751b440eccbb",
+      "spots_sha": "a3c95069a93910772766681b6e02bd901e3f27fc56a49799fd7d43cdbd925ba8",
+      "labeled_spots": 3635,
+      "valid_hex_edges": 10567,
+      "reference_boundary_edges": 1006,
+      "median_hex_pixel_distance": 138.00362314084367
+    },
+    "151675": {
+      "labels_sha": "a111565746647185093d5ac6d1a3b5c403a02c88b0019428b3a1b58691c1117f",
+      "spots_sha": "d9ba6d5cee484a9962c2cdb87d87b3dad4293decf6afed88351af1cf2031777c",
+      "labeled_spots": 3566,
+      "valid_hex_edges": 10344,
+      "reference_boundary_edges": 1012,
+      "median_hex_pixel_distance": 138.00362314084367
+    },
+    "151676": {
+      "labels_sha": "7dae6c8eb72873e43ac88279b99f63bff483857e651d2641007a7fa53925f864",
+      "spots_sha": "1236cb9f78d2806c75404d0afcc615e023859bd75c628aec6d8dfaf34cbae89a",
+      "labeled_spots": 3431,
+      "valid_hex_edges": 9983,
+      "reference_boundary_edges": 972,
+      "median_hex_pixel_distance": 138.00362314084367
+    }
+  },
+  "output_shas": {
+    "all_144_tolerance_metric_rows.csv": "bf23df28c4a8a62d98d90f48e17aa3e1d2fa0a1bb6986574dddc4533d08544b8",
+    "all_48_strict_and_tolerant_f1.csv": "6c292cad67f50eca6d3e6cdcbc5b32a031209edb29828894d6fffe245649078e",
+    "twelve_slice_macro_descriptives.csv": "b765d7f625e674d3c5634936010febf456e81f9105348470b8cb2437e9e8d17e",
+    "donor_scale_tolerance_summary.csv": "e8f3ef0b16a4e2f40cf81ba0a68c09fa23baa04d9858d77d9a03b2904b05be72"
+  },
+  "caveat": "Tolerant matching is an exploratory leniency score, not evidence of exact localization. K varies with scale; no p-values (donors n=3)."
+}
