@@ -1,0 +1,49 @@
+{
+  "release": "E3B_E3D48_POSTHOC_20261122_RELEASE",
+  "scope": "only the existing 48 E3d K-blind predictions, NOT original E1/E2 1200-task E3b full cohort",
+  "source_zip": "e3d_posthoc_inputs_20261122.zip",
+  "source_zip_sha256": "1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094",
+  "frozen_e3d_audit_sha256": "f2560ec0cde25a9b09fcec8816ffac9e844faceb562756ec19f951cfe51fc821",
+  "methods": [
+    "strict 0-hop edge-F1",
+    "1-hop one-to-one maximum bipartite matching",
+    "2-hop one-to-one maximum bipartite matching"
+  ],
+  "graph": "Visium original array_row,array_col offsets: (0,+/-2),(+/-1,+/-1); only spots with reference labels; undirected unique edges",
+  "no_refitting": true,
+  "not_preregistered": true,
+  "n_slices": 12,
+  "independent_donors": 3,
+  "n_grids": 48,
+  "n_results": 144,
+  "files": {
+    "derived/all_144_tolerance_metric_rows.csv": {
+      "sha256": "bf23df28c4a8a62d98d90f48e17aa3e1d2fa0a1bb6986574dddc4533d08544b8",
+      "bytes": 26744,
+      "rows": 144
+    },
+    "derived/all_48_strict_and_tolerant_f1.csv": {
+      "sha256": "6c292cad67f50eca6d3e6cdcbc5b32a031209edb29828894d6fffe245649078e",
+      "bytes": 5959,
+      "rows": 48
+    },
+    "derived/donor_scale_tolerance_summary.csv": {
+      "sha256": "e8f3ef0b16a4e2f40cf81ba0a68c09fa23baa04d9858d77d9a03b2904b05be72",
+      "bytes": 1104,
+      "rows": 36
+    },
+    "derived/twelve_slice_macro_descriptives.csv": {
+      "sha256": "b765d7f625e674d3c5634936010febf456e81f9105348470b8cb2437e9e8d17e",
+      "bytes": 1097,
+      "rows": 12
+    },
+    "derived/posthoc_boundary_audit_report.json": {
+      "sha256": "2d3bd2cfabec6bd26b7240e154889ca9573d7850b67fa1057bd9e4c0487a2e1e",
+      "bytes": 5806
+    },
+    "e3b_e3d48_boundary_posthoc_v1.py": {
+      "sha256": "162577c48db57de6a903c4ebc659ba4f83b748ffc3553e1393624c23425a06eb",
+      "bytes": 13551
+    }
+  }
+}
