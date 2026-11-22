@@ -172,14 +172,66 @@ BayesSpace & 0.1600 & 0.2970\\
 
 E5b中BayesSpace的全部18项K-blind预测均选到冻结搜索上界$q=10$，因此该模式下与BayesSpace的对比应谨慎解读。Oracle-K作为标签类别数知情敏感性条件另行报告：A15D与BayesSpace的患者等权ARI均值分别约为0.1916和0.1981，NMI分别约为0.2728和0.2866；这些数值也不支持本研究方法在全部条件下占优。外部研究呈现的优势和不足均是当前六名患者与所选标签体系下的观察，不能直接声称适用于其他癌种、所有空间转录组平台或临床应用。
 
-\subsection{空间域示例及生物学标记表达的解释边界}
+\subsection{真实空间图、标记基因及参考层--预测簇对应关系（E4）}
 \label{subsec:cellcharter-e4-v1}
-% E4的Windows生成脚本及终审记录见e4_spatial_visualization_batch_v1.py、E4_FINAL_AUDIT_PASS_20261120.md。
-% TODO：原始12切片SVG及共表达图的GitHub归档尚未逐图验收；取得可编辑原图后按原图核实并插入。
+% E4原始生成和独立审计：e4_spatial_visualization_batch_v1.py，
+% E4_FINAL_AUDIT_PASS_20261120.md；所有图形均是实际计数与冻结预测的原生SVG。
+% 原文件存放在用户Windows batch_20261120T080609Z_4732 下；
+% 图路径指向将要保留原始字节的 E4_SOURCE_FIGURES_20261122_RELEASE/figures/。
+% 原文件未实际上传时，下面只呈现“待插入”，不使用伪造或新绘图代替。
 
-除了整体评价，本研究已经完成12张DLPFC切片的空间参考层、原始聚类域以及MOBP、PCP4、SNAP25等标记基因表达图的计算与审计流程。本文在定稿排版时应直接使用相应真实SVG原件，保留未标注spot和原预测簇编号；不因参考层与聚类显示颜色相似而认定二者严格一一对应，也不根据单个marker表达断言某个聚类是确定的解剖层。
+为避免聚类一致性指标掩盖空间分布差异，E4在12张DLPFC切片上对同一冻结预测进行只读空间可视化。每张切片采用E1/E2技术种子22911、Oracle-K条件下的A15D（$L_0+L_1+L_2$）和B15D（$L_0+L_1+L_4$）原始聚类编号，同时展示参考组织层。图面使用全分辨率像素坐标，以灰色标识缺失参考层标签的spot；不同配置中相同簇编号或颜色不表示其与同一组织层具有严格对应关系。图形仅由既有预测、固定参考标签和真实测序计数生成，不重新聚类，也不使用人工层标签改变任何原始簇编号。
 
-旧版A/B单种子案例中，151671与151676分别呈现边界F1不同方向的变化，但这两个说明性案例是观察数据后选取的，不能代替12张切片的系统评价。旧记录中的TP、FP、FN与局部层间召回率可作为辅助解释，正式排版前仍应逐张对照实际E4原图、文字标注和SVG源文件，避免描述与图件不对应。由于当前GitHub的E4原图全集尚未完成逐张验收，本节暂不作超出已公开审计材料的新图像发现主张。
+本研究在正式E4绘图前根据\textbf{已获得的E1/E2切片级B--A平均ARI差值}固定三个说明性切片：151507对应第一供体内较高的正向差值，151671对应第二供体内接近零的差值，151675对应第三供体内较低的负向差值。该规则旨在同时覆盖正向、中性附近和负向观察，属于\textbf{结果知情的说明性选图}，绝不是另行随机抽取的盲法验证。其余9张切片的原始空间图和数值表必须完整保留，用于检验是否存在图示选择造成的误导。
+
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151507/151507_reference_A_B_spatial.svg}{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151507/151507_reference_A_B_spatial.svg}
+\caption{DLPFC切片151507的参考组织层及冻结A15D、B15D原始聚类结果（E4真实SVG）。该切片按第一供体的B--A平均ARI正向代表规则选取；颜色不代表经过标签监督对齐的簇。}
+\label{fig:cc-e4-151507-v1}
+\end{figure}
+}{%
+\par\noindent\emph{[待插入E4原件：151507参考层/A15D/B15D空间三联图；目前GitHub尚未验收此SVG。]}\par
+}
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_reference_A_B_spatial.svg}{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_reference_A_B_spatial.svg}
+\caption{DLPFC切片151671的参考组织层及冻结A15D、B15D原始聚类结果（E4真实SVG）。该切片按第二供体的B--A平均ARI接近零的规则选取。}
+\label{fig:cc-e4-151671-v1}
+\end{figure}
+}{%
+\par\noindent\emph{[待插入E4原件：151671参考层/A15D/B15D空间三联图。]}\par
+}
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151675/151675_reference_A_B_spatial.svg}{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151675/151675_reference_A_B_spatial.svg}
+\caption{DLPFC切片151675的参考组织层及冻结A15D、B15D原始聚类结果（E4真实SVG）。该切片按第三供体的B--A平均ARI负向代表规则选取。}
+\label{fig:cc-e4-151675-v1}
+\end{figure}
+}{%
+\par\noindent\emph{[待插入E4原件：151675参考层/A15D/B15D空间三联图。]}\par
+}
+
+为辅助理解皮层标记表达与空间域的关系，E4对每张切片的MOBP、PCP4、SNAP25三个标记基因分别从原始10x表达计数重新计算\texttt{log1p(10000$\times$基因UMI/spot总UMI)}，绘制统一颜色刻度范围0至6的表达图；对应原始与标准化数值保存在逐spot CSV。统一色标便于在图内比较表达分布，但图中的单个高表达区域不能直接作为人工组织层的独立验证，更不能证明某个聚类簇属于唯一确定的细胞类型。
+
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_MOBP_PCP4_SNAP25_expression.svg}{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_MOBP_PCP4_SNAP25_expression.svg}
+\caption{DLPFC切片151671中MOBP、PCP4与SNAP25的原始计数归一化表达空间分布（E4真实SVG）。三图按相同归一化公式和0至6固定颜色范围展示。}
+\label{fig:cc-e4-markers-151671-v1}
+\end{figure}
+}{%
+\par\noindent\emph{[待插入E4原件：151671的MOBP、PCP4、SNAP25实际表达三联图。]}\par
+}
+
+此外，E4对每张切片分别生成参考组织层与A15D/B15D原始聚类编号的完整计数交叉表及可视化，保留未标注spot的排除数量。交叉表反映不同真实层对应的聚类标签构成，避免在无监督聚类编号之间强行建立没有证据的一一对应关系。原E4用户Windows独立审计报告12/12切片、36/36张SVG及36/36份CSV的产物完整性与输入SHA一致，并重新校核marker计数和交叉表；但\textbf{在这些源文件逐张上传GitHub并核对之前，本文不会新增对图上具体组织形态或局部marker模式的定量发现陈述}。
+
+早期旧稿曾用151671与151676举例说明单种子下边界F1正负方向的差异；此处新E4图示固定的三张代表切片遵循另一套已记录的切片级\textbf{平均ARI}代表规则，不应将这两套事后案例选择依据混同。
+ 
 
 \subsection{综合讨论及本章小结}
 \label{subsec:cellcharter-discussion-v1}
