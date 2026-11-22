@@ -1,0 +1,45 @@
+{
+  "release": "E5A_20261122_RELEASE",
+  "source": "user supplied ZIP github_missing_derived_20261122.zip, Windows-exported originals",
+  "script": "experiments/cellcharter_dlpfc/e5a_phase_audit_v1.py",
+  "windows_source": "D:\\paper\\CellCharter_reproduction\\results\\e5a_phase_audit_v1\\audit_20261121T035302Z_5292",
+  "audit_status": "passed",
+  "verified_predictions": 288,
+  "independent_donors": 3,
+  "nested_slices": 12,
+  "technical_seeds_per_slice": 3,
+  "methods": [
+    "GMM",
+    "Leiden",
+    "BANKSY",
+    "BayesSpace"
+  ],
+  "arms": [
+    "k_blind",
+    "oracle_k"
+  ],
+  "warnings_preserved": [
+    "BAYESSPACE_KBLIND_SELECTED_UPPER_BOUND: 28 of 36 K-blind tasks selected q=10",
+    "3 biological donors with 12 nested sections, not 288 independent cases",
+    "GMM/Leiden scVI 5D vs BANKSY/BayesSpace native counts and representations"
+  ],
+  "files": {
+    "derived/all_288_prediction_checks.csv": {
+      "source_export_filename": "E5A_all_288_prediction_checks.csv",
+      "sha256": "a276d76905e0ada862574a0fc60b2824890381502c932cb149013f005f0d7892",
+      "bytes": 84047,
+      "rows": 288
+    },
+    "derived/method_regime_descriptives.csv": {
+      "source_export_filename": "E5A_method_regime_descriptives.csv",
+      "sha256": "f392c8a9ce231fec5ac393cfda08dd2929134b0802ab1eccd567674c51a5384e",
+      "bytes": 892,
+      "rows": 8
+    },
+    "derived/e5a_phase_audit_report.json": {
+      "source_export_filename": "E5A_e5a_phase_audit_report.json",
+      "sha256": "bec975d85c8801c8f9c550ea34a36967eb85bea4c174b3b016a949074c920cae",
+      "bytes": 2542
+    }
+  }
+}
