@@ -1,0 +1,38 @@
+{
+  "release": "E3D_20261122_RELEASE",
+  "source": "user supplied ZIP github_missing_derived_20261122.zip, Windows-exported originals",
+  "script": "experiments/cellcharter_dlpfc/e3d_autok_final_audit_v1.py",
+  "windows_source": "D:\\paper\\CellCharter_reproduction\\results\\e3d_autok_phase_audit_v1\\20261120T072220Z_24992",
+  "audit_status": "passed",
+  "fully_audited_configs": 48,
+  "independent_donors": 3,
+  "nested_slices": 12,
+  "seed_treated_as_technical_repeat": true,
+  "verified_label_run_arrays": 2640,
+  "boundary_hits": 10,
+  "selected_k_distribution": {
+    "2": 9,
+    "3": 5,
+    "4": 5,
+    "5": 4,
+    "6": 11,
+    "7": 3,
+    "8": 7,
+    "9": 3,
+    "10": 1
+  },
+  "no_reference_based_ari_nmi_in_this_audit": true,
+  "files": {
+    "derived/all_48_autok_audit.csv": {
+      "source_export_filename": "E3D_all_48_autok_audit.csv",
+      "sha256": "f2560ec0cde25a9b09fcec8816ffac9e844faceb562756ec19f951cfe51fc821",
+      "bytes": 26495,
+      "rows": 48
+    },
+    "derived/audit_report.json": {
+      "source_export_filename": "E3D_audit_report.json",
+      "sha256": "20bd782a1dc83021fb7b4badabb4d83cd7bf61537219cfa31feb62a1a1423b4d",
+      "bytes": 54583
+    }
+  }
+}
