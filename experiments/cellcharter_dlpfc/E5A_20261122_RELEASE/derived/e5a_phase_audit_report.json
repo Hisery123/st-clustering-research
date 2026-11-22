@@ -1,0 +1,71 @@
+{
+  "protocol": "E5A_PHASE_INDEPENDENT_READONLY_AUDIT_V1",
+  "status": "passed",
+  "started_utc": "2026-11-21T03:53:02.320365+00:00",
+  "source_sessions": {
+    "nonspatial": "D:\\paper\\CellCharter_reproduction\\results\\e5a_baselines_v1\\nonspatial_20261120T095303Z_15120",
+    "banksy": "D:\\paper\\CellCharter_reproduction\\results\\e5a_baselines_v1\\banksy_20261120T101256Z_26540",
+    "bayesspace": "D:\\paper\\CellCharter_reproduction\\results\\e5a_baselines_v1\\bayesspace_20261120T103557Z_11440"
+  },
+  "expected_total": 288,
+  "checked": 288,
+  "errors": [],
+  "method_counts": {
+    "GMM": {
+      "oracle_k": 36,
+      "k_blind": 36
+    },
+    "Leiden": {
+      "oracle_k": 36,
+      "k_blind": 36
+    },
+    "BANKSY": {
+      "oracle_k": 36,
+      "k_blind": 36
+    },
+    "BayesSpace": {
+      "oracle_k": 36,
+      "k_blind": 36
+    }
+  },
+  "warnings": [
+    {
+      "code": "BAYESSPACE_KBLIND_SELECTED_UPPER_BOUND",
+      "observed_tasks": 28,
+      "denominator": 36,
+      "interpretation": "qTune maximizing pseudo-loglik chose q=10 for some tasks; report selection bias/boundary, do not enlarge search after outcomes."
+    },
+    {
+      "code": "BIOLOGICAL_REPLICATION_CAVEAT",
+      "text": "12 slices are nested in 3 donors; spots, slices, and seeds are not 288 independent biological samples."
+    },
+    {
+      "code": "NATIVE_REPRESENTATIONS_NOT_IDENTICAL",
+      "text": "GMM/Leiden use scVI L0 5D; BANKSY and BayesSpace use original counts with distinct native preprocessing; do not call same-feature equivalent benchmark."
+    }
+  ],
+  "audit_only": true,
+  "analysis_unit": "3 biological donors, 12 nested sections, 3 technical seeds",
+  "effect_claim_policy": "descriptive audit only; no significance or paper improvement claim",
+  "batch_statuses": {
+    "nonspatial": {
+      "reported": 144,
+      "prediction_files": 144
+    },
+    "banksy": {
+      "reported": 72,
+      "prediction_files": 72
+    },
+    "bayesspace": {
+      "reported": 72,
+      "prediction_files": 72
+    }
+  },
+  "script_sha256": {
+    "e5a_nonspatial_baselines_batch_v1.py": "4cf7b952452a2e52cbae615e7d949870017f3a418a40b77727aed7346b005266",
+    "e5a_banksy_baselines_batch_v1.py": "2ff7cb5f71b58973986f82863f474c28d02032c5715926e23af8df08468860da",
+    "e5a_bayesspace_baselines_batch_v1_1.R": "fed1f66c87a186104c60727d1bd27791a6dd9d389096b06305aac40fc97ccfbe"
+  },
+  "data_files_sha256_verified": 447,
+  "finished_utc": "2026-11-21T03:53:24.330240+00:00"
+}
