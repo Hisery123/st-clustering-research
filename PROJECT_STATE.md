@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-22｜E5b三份原始CSV和5份分析材料已完整归档GitHub（以本条为最新事实）
+
+**用户本轮明确授权直接GitHub归档**。E5b原360预测的后验ARI/NMI三份原始CSV已经从本聊天上传原件逐字节读取（Windows CRLF原样保留）、通过SHA256对照后提交，再由GitHub远端读取逐份重算SHA256全部PASS：`all_360_prediction_metrics.csv` 360行 SHA `b41a492e53bc71ef1e3d2648643383f026735a77ef9c54912a7139839080709f`；`patient_three_seed_summary.csv` 120行 SHA `318d54e0fa5c06998c38457eca21a3cd1de3a85c3c3f37acc412be3b36d9e278`；`patient_paired_effects.csv` 144行 SHA `bf6868cdfa4c91960762a458ac71eeefe37ceaf4f23523f5c521002eafa7a078`。此外SHA验证归档历史后验分析报告、Python可重现数据SVG脚本及3张SVG，**共8份文件**。来源与边界见`experiments/cellcharter_dlpfc/E5B_20261122_RELEASE/README.md`和`manifest.json`，总审查入口`experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md`。此前本项目日志中“尚未上传E5b CSV”的句子是历史状态，**现已失效**，不能据旧日志误判缺少外部定量结果。
+
+**已由本对话实际读到的E5b结果（均为后验描述，非新预注册）**：A15D与L0在K-blind六患者等权下ΔARI +0.0458、ΔNMI +0.0583，六患者均正向；相对BayesSpace的ΔARI +0.0404仅4/6患者正向、ΔNMI −0.0139，不能宣称全面优越。BayesSpace K-blind全部18/18命中K2..10的上界q10；六患者n=6、三个seed技术重复、跨方法输入表征不同。指标来自真实CSV，没有模型重训。仓库E5b目前仍**没有用户Windows上原audit_report.json和360份预测源CSV**，已归档的是后验派生表和复核图表，不可将其冒充原始预测再评分。E3d与E5a的审计派生CSV/JSON仍缺，下一步请用户提供本机原件，逐步按SHA补齐；旧第四章还没有更新E3d/E5a/E5b。正式综述/新颖性对比仍需CellCharter原论文及补充材料精读。
+
+
 ## 2026-11-22｜E5b末端独立审计正式PASS：360/360预测和360/360 ARI/NMI；真实数值尚待上传
 
 用户Windows真实终端：`E5B_AUDIT_PREDICTIONS_PASS verified=360/360 errors=0 labels_not_yet_read=True`、`E5B_PHASE_AUDIT_FINAL status=passed verified=360/360 metrics=360/360 errors=0 report=D:\paper\CellCharter_reproduction\results\e5b_external_v1\phase_audit_v1\audit_20261122T030849Z_17404\audit_report.json`、`NO_REFIT_NO_PARAM_CHANGE_PATIENT_N6`、`E5B_AUDIT_EXIT_CODE=0`，三文件`all_360_prediction_metrics.csv`、`patient_three_seed_summary.csv`、`patient_paired_effects.csv`均在该audit目录。独立只读脚本先完成全部文件/条码/固定K策略审计，然后**确实打开reference_only标签**计算ARI/NMI（`labels_not_yet_read=True`只代表第一阶段过关时的状态），不重训、不改任何方法学设置。六患者生物学独立n=6，360项任务不是360个生物重复。**这不是性能提升的证据**：用户尚未上传任何分数CSV，本助手尚未读取具体ARI/NMI、方法比较或数据图，不能宣称谁更优/有创新或显著。独立审计完整记录已新建`experiments/cellcharter_dlpfc/E5B_FINAL_AUDIT_PASS_20261122.md`（commit`af1cb214ff2845d3f1f1f6f47ea4a305643c6544`）。下一动作仅请用户上传上述3个CSV原件，读取后按患者比较全部Kblind/Oracle组与正负结果；再组装Claude独立方法审查材料，不再训练/调整K/seed/尺度。
