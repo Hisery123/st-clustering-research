@@ -1,5 +1,10 @@
 # E5b六患者外部验证：360项预测独立审计和ARI/NMI评价PASS（2026-11-22）
 
+## 2026-11-22 原始audit_report.json补传完成（晚于此前三CSV归档）
+
+用户后续提供Windows六审计文件ZIP，经SOURCE_SHA256逐份验证，**E5b原本缺失的原audit_report.json已原字节归档**至[E5B_20261122_RELEASE/derived/audit_report.json](E5B_20261122_RELEASE/derived/audit_report.json)，SHA256为`af4061f5072f2b976aee7edbbb73dfeb7704b58eb363f927e1949871eb4f17fb`。JSON中`phase1=passed`、`phase2=passed`、`verified_predictions=360`、`all_metrics_count=360`及3份CSV哈希均与已归档原指标吻合。GitHub远端重读验证PASS。原360份源预测、Reference-only标签、10x原矩阵**未随本次ZIP上传**；这不影响已归档指标的原件真实性，但仍限制第三方在GitHub上重做源级ARI/NMI。
+
+
 ## 2026-11-22补充归档更正（后于首份审计记录）
 
 先前正文写“用户尚未上传CSV”，那是**审计日志刚成功时**的历史状态。用户随后已在ChatGPT上传三份真实原始CSV，并授权将其提交GitHub；现在全部3份CSV、后验审查报告、3张SVG和绘图脚本（共8份原始字节已核SHA）已经在[**E5B_20261122_RELEASE**](E5B_20261122_RELEASE/)公开归档，见[manifest.json](E5B_20261122_RELEASE/manifest.json)。这一补充不更改旧实验状态和时间线；**audit_report.json及原360预测/标签文件仍仅在Windows**。后验结果审查不能反向称为实验前预注册分析。跨阶段总清单见[RESULTS_ARCHIVE_STATUS_20261122.md](RESULTS_ARCHIVE_STATUS_20261122.md)。
