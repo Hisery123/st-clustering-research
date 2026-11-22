@@ -177,37 +177,37 @@ E5b中BayesSpace的全部18项K-blind预测均选到冻结搜索上界$q=10$，�
 % E4原始生成和独立审计：e4_spatial_visualization_batch_v1.py，
 % E4_FINAL_AUDIT_PASS_20261120.md；所有图形均是实际计数与冻结预测的原生SVG。
 % 原文件存放在用户Windows batch_20261120T080609Z_4732 下；
-% 图路径指向将要保留原始字节的 E4_SOURCE_FIGURES_20261122_RELEASE/figures/。
+% 论文插图路径使用由原始SVG无更改转换得到的矢量PDF（figures_pdf/）；原始SVG仍单独保留在figures/，不得用生成式图像代替。
 % 原文件未实际上传时，下面只呈现“待插入”，不使用伪造或新绘图代替。
 
 为避免聚类一致性指标掩盖空间分布差异，E4在12张DLPFC切片上对同一冻结预测进行只读空间可视化。每张切片采用E1/E2技术种子22911、Oracle-K条件下的A15D（$L_0+L_1+L_2$）和B15D（$L_0+L_1+L_4$）原始聚类编号，同时展示参考组织层。图面使用全分辨率像素坐标，以灰色标识缺失参考层标签的spot；不同配置中相同簇编号或颜色不表示其与同一组织层具有严格对应关系。图形仅由既有预测、固定参考标签和真实测序计数生成，不重新聚类，也不使用人工层标签改变任何原始簇编号。
 
 本研究在正式E4绘图前根据\textbf{已获得的E1/E2切片级B--A平均ARI差值}固定三个说明性切片：151507对应第一供体内较高的正向差值，151671对应第二供体内接近零的差值，151675对应第三供体内较低的负向差值。该规则旨在同时覆盖正向、中性附近和负向观察，属于\textbf{结果知情的说明性选图}，绝不是另行随机抽取的盲法验证。其余9张切片的原始空间图和数值表必须完整保留，用于检验是否存在图示选择造成的误导。
 
-\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151507/151507_reference_A_B_spatial.svg}{%
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151507/151507_reference_A_B_spatial.pdf}{%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151507/151507_reference_A_B_spatial.svg}
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151507/151507_reference_A_B_spatial.pdf}
 \caption{DLPFC切片151507的参考组织层及冻结A15D、B15D原始聚类结果（E4真实SVG）。该切片按第一供体的B--A平均ARI正向代表规则选取；颜色不代表经过标签监督对齐的簇。}
 \label{fig:cc-e4-151507-v1}
 \end{figure}
 }{%
 \par\noindent\emph{[待插入E4原件：151507参考层/A15D/B15D空间三联图；目前GitHub尚未验收此SVG。]}\par
 }
-\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_reference_A_B_spatial.svg}{%
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151671/151671_reference_A_B_spatial.pdf}{%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_reference_A_B_spatial.svg}
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151671/151671_reference_A_B_spatial.pdf}
 \caption{DLPFC切片151671的参考组织层及冻结A15D、B15D原始聚类结果（E4真实SVG）。该切片按第二供体的B--A平均ARI接近零的规则选取。}
 \label{fig:cc-e4-151671-v1}
 \end{figure}
 }{%
 \par\noindent\emph{[待插入E4原件：151671参考层/A15D/B15D空间三联图。]}\par
 }
-\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151675/151675_reference_A_B_spatial.svg}{%
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151675/151675_reference_A_B_spatial.pdf}{%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151675/151675_reference_A_B_spatial.svg}
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151675/151675_reference_A_B_spatial.pdf}
 \caption{DLPFC切片151675的参考组织层及冻结A15D、B15D原始聚类结果（E4真实SVG）。该切片按第三供体的B--A平均ARI负向代表规则选取。}
 \label{fig:cc-e4-151675-v1}
 \end{figure}
@@ -217,10 +217,10 @@ E5b中BayesSpace的全部18项K-blind预测均选到冻结搜索上界$q=10$，�
 
 为辅助理解皮层标记表达与空间域的关系，E4对每张切片的MOBP、PCP4、SNAP25三个标记基因分别从原始10x表达计数重新计算\texttt{log1p(10000$\times$基因UMI/spot总UMI)}，绘制统一颜色刻度范围0至6的表达图；对应原始与标准化数值保存在逐spot CSV。统一色标便于在图内比较表达分布，但图中的单个高表达区域不能直接作为人工组织层的独立验证，更不能证明某个聚类簇属于唯一确定的细胞类型。
 
-\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_MOBP_PCP4_SNAP25_expression.svg}{%
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151671/151671_MOBP_PCP4_SNAP25_expression.pdf}{%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_MOBP_PCP4_SNAP25_expression.svg}
+\includegraphics[width=0.98\linewidth]{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151671/151671_MOBP_PCP4_SNAP25_expression.pdf}
 \caption{DLPFC切片151671中MOBP、PCP4与SNAP25的原始计数归一化表达空间分布（E4真实SVG）。三图按相同归一化公式和0至6固定颜色范围展示。}
 \label{fig:cc-e4-markers-151671-v1}
 \end{figure}
