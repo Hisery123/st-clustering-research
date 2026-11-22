@@ -172,3 +172,23 @@ E5b六患者外部实验当前唯一未完成的原定成熟基线是**BayesSpac
 
 **用户真实Windows终端反馈**：`E5B_BS_SCRIPT_SHA_PASS 7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`，紧接着Rscript检查步骤`-e`执行时报错`错误: 意外的'\\'在" cat(E5B_BS_SYNTAX_PASS\"里`、`E5B_BS_SYNTAX_FAILED`。发生在前一个PowerShell命令内**Rscript -e 语法检查片段传参/引号转义**，不是已有`e5b_bayesspace_baselines_batch_v1.R`脚本经过parse后报语法错误；完整原始R脚本没有被执行`--run`，BayesSpace本队列仍**0/36**，先前CellCharter216/216、GMM+Leiden72/72、BANKSY36/36未受影响，仍累计324/360份预测完成。修复为**仅改用户Windows调用命令**：直接`D:\R\R-4.5.1\bin\Rscript.exe --vanilla D:\paper\CellCharter_reproduction\e5b_bayesspace_baselines_batch_v1.R --run`，R自身先解析R源文件（无需使用`Rscript -e`与易坏的`cat("...")`转义）；执行前仍校验本地R脚本SHA256等于上述GitHub固定SHA；如失败，保留BayesSpace新session真实日志并只进行最小工程修复。**不重下载已经验证的脚本、不重新运行已经成功的BANKSY或任何前面任务、不修改冻结方法或预算。**
 
+## 17. E5b BayesSpace36/36 Windows通过，五方法360/360真实预测阶段完成（2026-11-22归档）
+
+用户本次Windows**真实终端**：
+```text
+Fitting model...
+Neighbors were identified for 1123 out of 1125 spots.
+Calculating labels using iterations 1001 through 10000.
+E5B_BS_PREDICTION_PASS sample=CID4535 arm=k_blind seed=25842 q=10 actual_k=10
+E5B_BS_PREDICTION_PASS sample=CID4535 arm=oracle_k seed=25842 q=6 actual_k=6
+E5B_BS_SAMPLE_PASS sample=CID4535 tasks=6 seconds=617.96 result=D:/paper/CellCharter_reproduction/results/e5b_external_v1/bayesspace_20261121T135133Z_25840/CID4535/attempt_20261121T163824417289Z_29480
+E5B_BS_PROGRESS completed=36/36
+E5B_BS_FINAL status=completed completed=36/36 failed=0 result=D:/paper/CellCharter_reproduction/results/e5b_external_v1/bayesspace_20261121T135133Z_25840/batch_status.json
+NO_REFERENCE_LABELS_NO_ARI_NMI
+E5B_BS_EXIT_CODE=0
+```
+
+据此**E5b六患者所有预冻360份预测在用户Windows实际运行完成**：CellCharter216/216、非空间GMM36/36、非空间Leiden36/36、BANKSY36/36、BayesSpace36/36；这是脚本报告的运行完成状态而非独立全量文件复核/性能结论。BayesSpace末例CID4535选Kblind=10（原冻结候选K2..10上边界，不能事后扩K），Oracle类别数知情K=6，实际6；`Neighbors identified for 1123 out of 1125`是本机真实算法输出，可能有两个邻居未被识别的spot，须将警告保留并审计解释，不得因此删除两个spot或事后改变输入。最后CID4535耗时617.96秒仅该样本，不冒充整个BayesSpace批次时间。脚本头中`-e`引号失效是训练前的旧工程阻断，使用固定SHA R脚本直接`--run`后已经完成，历史记录保留。所有模型/基线指标仍**完全未知**，本批日志明确未读取标签或计算ARI/NMI。
+
+**末端一次性独立审计/事后评价脚本已创建GitHub**：`experiments/cellcharter_dlpfc/e5b_phase_audit_and_evaluation_v1.py`，commit`57fe010d22258e54d080749c60fa57daf42b49d7`，SHA256=`a9a65171ba6631d07c2eb9f606140c6d3a37d40854bec03e14eeae223594940e`。只读取上述六个冻结阶段session与本地脚本/数据SHA；首先验证360项唯一格子、六例spot顺序、预测和manifest SHA、CellCharter 36组AutoK稳定性与五次初始化、非空间GMM-BIC和Leiden-resolution策略、BANKSY16档原生聚类分区、BayesSpace qTune K2..10决策轨迹，全部验证通过之后才会从`reference_only`读取固定有效病理标签mask，计算360个独立预测的ARI/NMI并汇总每患者×方法×K臂三技术seed均值和SD，以及患者层级配对差异；无模型拟合、无修改超参、无p值伪重复，输出于新建单独审计目录。**脚本仅已提交，用户Windows尚未执行，不能声称360已通过独立审计或得出外部性能结论。** 下一唯一用户Windows动作是核SHA下载脚本、`python -m py_compile`、执行`--run`；若审计工具因格式细节失败，保留原错误目录，只按真实manifest修复只读审核工具，不允许重跑或筛选已完成方法。阶段审计结束再分析全部真实结果和Claude科研方法总审。
+
