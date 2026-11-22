@@ -1,5 +1,12 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-22｜E5b全360/360真实预测执行完成，末端只读独立审计+固定mask评价脚本待跑
+
+**用户Windows真实BayesSpace最后批日志**：`E5B_BS_PREDICTION_PASS sample=CID4535 arm=k_blind seed=25842 q=10 actual_k=10`、`E5B_BS_PREDICTION_PASS sample=CID4535 arm=oracle_k seed=25842 q=6 actual_k=6`、`E5B_BS_SAMPLE_PASS sample=CID4535 tasks=6 seconds=617.96`、`E5B_BS_PROGRESS completed=36/36`、`E5B_BS_FINAL status=completed completed=36/36 failed=0 result=D:/paper/CellCharter_reproduction/results/e5b_external_v1/bayesspace_20261121T135133Z_25840/batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI`、`E5B_BS_EXIT_CODE=0`。总E5b的CellCharter216、非空间GMM36、Leiden36、BANKSY36、BayesSpace36，共**360/360正式预测均由Windows脚本报告成功运行**，**但尚未独立复查原始预测/选K轨迹和计算ARI/NMI**。六个独立患者n=6而非360独立生物样本。CID4535 BayesSpace Kblind q=10为预冻上边界，必须保留；算法显示`Neighbors were identified for 1123 out of 1125 spots`（影响解释待审核），不得删spot、扩K或改参数。最初PowerShell `Rscript -e`引号失败在拟合前，后续直接Rscript执行成功，故保留工程失败记录且不将其当训练失败。
+
+**阶段末一次性审计/评价代码**：已GitHub提交`experiments/cellcharter_dlpfc/e5b_phase_audit_and_evaluation_v1.py`，commit`57fe010d22258e54d080749c60fa57daf42b49d7`、SHA256`a9a65171ba6631d07c2eb9f606140c6d3a37d40854bec03e14eeae223594940e`。用户Windows**尚未运行**。预期先核本地六类源文件的SHA/完整任务唯一性/全spot-barcode一致、四成熟对照和CC冻结K决策以及360个原始预测，全部验证通过后才读取`reference_only`固定评价掩码重算AR​I/NMI与每患者3seed汇总、患者n=6配对描述（不生成伪独立seed的p值）。只写单独审计输出，绝不重新训练或覆写旧结果。下一唯一用户Windows指令下载固定GitHub脚本并SHA/语法校验、`--run`。审计PASS之后才根据真实结果写论文、制SVG和交Claude独立审查；目前不能声称方法更优或外部效果。
+
+
 ## 2026-11-21｜E5b BayesSpace首条命令在Rscript -e转义处中止（尚未启动R批次）
 
 实际Windows日志：`E5B_BS_SCRIPT_SHA_PASS 7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`；紧接着Rscript `-e`语法检查片段发生`错误: 意外的'\\'在" cat(E5B_BS_SYNTAX_PASS\"里`，PowerShell抛出`E5B_BS_SYNTAX_FAILED`。这是**调用端引号转义问题，尚未执行R脚本--run，非BayesSpace拟合失败**。此前CellCharter216/216+GMM/Leiden72/72+BANKSY36/36依旧共324/360预测任务完成，E5b BayesSpace仍0/36。下一唯一Windows步骤只校验本地已经下载的R脚本固定SHA，不再Invoke-WebRequest或Rscript `-e`，改用`D:\R\R-4.5.1\bin\Rscript.exe --vanilla D:\paper\CellCharter_reproduction\e5b_bayesspace_baselines_batch_v1.R --run`正式启动BayesSpace六患者；若真实失败保留日志/会话原样返回。冻结方法和预算未更改，正式阶段全量审计和ARI/NMI尚未开始。
