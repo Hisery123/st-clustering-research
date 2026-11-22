@@ -2,8 +2,10 @@
 
 ## 第三篇CellCharter：最新可复核结果索引（2026-11-22）
 
-第三篇科研主仓库证据入口：[**结果归档完整性总表**](experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md)；[**E5b六患者外部360项结果RELEASE**](experiments/cellcharter_dlpfc/E5B_20261122_RELEASE/)（3原始CSV+后验报告+绘图脚本+3张SVG，SHA256验证）；[**Claude独立审查入口**](experiments/cellcharter_dlpfc/CLAUDE_INDEPENDENT_REVIEW_BRIEF_20261122.md)。E1/E2与E3c历史数据包已在仓库；**E3d/E5a仍需从用户Windows补传审计派生CSV/JSON，E5b原audit_report.json也仍待补传**。归档不意味着新算法贡献或全面超越基线已成立；后验分析不得倒称预注册。
+**请从这里读最新正式实验状态，不要把下方旧STAGATE/冒烟记录当作第三篇现状：**
+[完整证据归档总表](experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md) · [E1/E2完整结果](experiments/cellcharter_dlpfc/E1E2_20261119_RELEASE/) · [E3c完整结果](experiments/cellcharter_dlpfc/E3C_20261120_RELEASE/) · [E3d无标签AutoK审计原件](experiments/cellcharter_dlpfc/E3D_20261122_RELEASE/) · [E5a四成熟基线288项原始ARI/NMI](experiments/cellcharter_dlpfc/E5A_20261122_RELEASE/) · [E5b六患者360项ARI/NMI及原审计JSON](experiments/cellcharter_dlpfc/E5B_20261122_RELEASE/) · [Windows六文件SHA256来源清单](experiments/cellcharter_dlpfc/AUDIT_EXPORT_20261122/) · [Claude最新独立审查入口](experiments/cellcharter_dlpfc/CLAUDE_INDEPENDENT_REVIEW_BRIEF_20261122.md)。
 
+E3d的48组AutoK已审计但**没有后验ARI/NMI**；E5a 288项指标真实在仓库；E5b 360项指标真实在仓库。12张DLPFC来自3位供体，Wu乳腺癌为6名患者，不能将技术seed和spot当作独立生物学重复。原始模型预测大目录及counts未自动提交；结果之后产生的比较不冒充预注册分析。论文新颖性和正式结果章仍需独立审查与更新。
 
 > **新对话读档：** [AGENTS.md](AGENTS.md) → [PROJECT_STATE.md](PROJECT_STATE.md) → [最近科研日记](RESEARCH_JOURNAL/2026-11-10.md) → [CURRENT_RESEARCH_HANDOFF.md](CURRENT_RESEARCH_HANDOFF.md)。当前 CellCharter 151507 seed22911 的 L0–L4 五档诊断与逐层边界审计已完成；下一步是审计历史 GMM seed0 L4 重拟合不一致。下方 STAGATE、冒烟等内容为历史背景，不能视为最新状态。
 
