@@ -1,5 +1,12 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-22｜毕业论文写作新增：第2/3/4节V1、专题引言与结论、BibTeX、独立预览入口均已推送
+
+本次用户明确要求**继续写作，并在写作过程中逐份提交GitHub**，已落实：先完成第三章方法新稿`experiments/cellcharter_dlpfc/chapter_03_methods_rewrite_v1_20261122.tex`（11,486字符）；随后完成第二章背景新稿`chapter_02_background_rewrite_v1_20261122.tex`（5,716字符），新增11条经项目先前证据矩阵或本轮期刊/PubMed核对DOI的BibTeX参考文献；另增CellCharter专题引言模块和研究结论/展望模块。原已有新版第四章`chapter_04_results_rewrite_v1_20261122.tex`（10,319字符）保留。为排版另创建**仅本研究专题**的`thesis_cellcharter_chapters_2to4_preview_20261122.tex` XeLaTeX预览入口，不将此误称完整硕士论文。全部正式文件、静态检查和后续任务详见`experiments/cellcharter_dlpfc/THESIS_WRITING_PROGRESS_20261122.md`。本轮GitHub远端读取检查：TeX各环境成对、全文件labels无重复、ref无悬空、cite在BibTeX有条目；**尚未执行Tex编译，也未逐图核对E4原SVG**，不能宣称定稿或导师通过。旧第2/3/4章未覆盖；不重训模型，不改原始CSV。
+
+后续行动：优先将E4真实SVG接入图文，统一学校主模板/参考文献/跨专题章节结构并编译，再交Claude对完整草稿独立审查。CellCharter的高创新性/P0-1原全文重叠核查不作为毕业论文开始写作的前置阻断，但在最终引用和贡献措辞中仍须避免原创性夸大。
+
+
 ## 2026-11-22｜毕业论文写作正式启动：第四章新版完整初稿已提交（待审，不是终稿）
 
 用户明确决定硕士毕业论文优先：不以高创新性或新算法发明为必要前提，以**真实自主计算、正负结果完整、统计层级准确、论文写实**为核心。2026-11-22完成**全新第四章实验结果与分析初稿**（新增10,319字符的LaTeX源文件，原2026-11-12旧第四章未覆盖）：`experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex`。本稿包括实验设置、E1/E2累计尺度和等维A/B、E3c固定K网格、E3d无标签AutoK+事后ARI/NMI、E3b严格及1/2-hop容差、E5a四成熟基线、E5b六患者外部评价、E4图示说明与综合局限，并附5张真实数值表。论文数值来源逐项对应`experiments/cellcharter_dlpfc/THESIS_WRITING_EVIDENCE_MAP_20261122.md`。GitHub重读已检查表格和公式环境成对匹配、无重复label，但**尚未在学校主模板完成LaTeX编译、E4全图核验或原论文Supplement查重**。不得称导师审核通过或全文完稿。
