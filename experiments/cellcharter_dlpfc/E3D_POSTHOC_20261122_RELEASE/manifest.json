@@ -1,0 +1,47 @@
+{
+  "release": "E3D_POSTHOC_20261122_RELEASE",
+  "status": "computed locally in current ChatGPT session; SHA source verified and GitHub byte-for-byte verified",
+  "analysis_timing": "posthoc_after_E3c_E5a_E5b_results",
+  "frozen_E3d_original_audit_sha256": "f2560ec0cde25a9b09fcec8816ffac9e844faceb562756ec19f951cfe51fc821",
+  "source_zip_filename": "e3d_posthoc_inputs_20261122.zip",
+  "source_zip_sha256": "1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094",
+  "source_zip_export_manifest_sha256": "7d255651db8f4ec112e543ef776fdb40476a5673ff34e756dcca20c0c2a25121",
+  "n_predictions": 48,
+  "n_slices": 12,
+  "independent_donors": 3,
+  "Kblind_boundary_hits": 10,
+  "metric_definition": "adjusted_rand_score, normalized_mutual_info_score(average_method='arithmetic')",
+  "no_retraining": true,
+  "source_zip_bytes_on_user_machine_only": true,
+  "checks": "72 source file hashes, 12 frozen reference SHA and label masks, 48 prediction SHA and barcode ordering, frozen K and stability argmax, 48 independent contingency recalc tests",
+  "files": {
+    "derived/all_48_posthoc_ari_nmi.csv": {
+      "sha256": "6d05e4aa9ccafa9de461e7426635773a27c1e1425a98d9e0ef58077da5228b1a",
+      "bytes": 13732,
+      "rows": 48
+    },
+    "derived/all_48_paired_slice_effects.csv": {
+      "sha256": "701aeb62f720c715dd0458812bafd3b563522607ff4c3c15ae4d755a1a89ab84",
+      "bytes": 3657,
+      "rows": 48
+    },
+    "derived/four_scale_descriptives.csv": {
+      "sha256": "d8c447b5641fb213f9eac89ad3026f669c554cd5926aa34891e5d87ed316218e",
+      "bytes": 748,
+      "rows": 4
+    },
+    "derived/three_donor_scale_summary.csv": {
+      "sha256": "f0e62e36787e0cdcb658cf19f118620b58b88a15768145d8be5741cd992beb58",
+      "bytes": 631,
+      "rows": 12
+    },
+    "derived/posthoc_audit_report.json": {
+      "sha256": "f7da003f16809018a5f908e6c188f9b7ac843cd8836b92fbedcf35bf5aa1038d",
+      "bytes": 5329
+    },
+    "e3d_posthoc_evaluate_v1.py": {
+      "sha256": "69670390cc9a1afbb40eccca72cf43af149f946b42e7243737f73a7c76029ac9",
+      "bytes": 17066
+    }
+  }
+}
