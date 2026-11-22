@@ -1,5 +1,17 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-22｜E3d/E5a/E5b Windows六项原始审计CSV/JSON正式补传GitHub：远端SHA256校验7/7
+
+**用户已授权直接归档**，本轮上传`github_missing_derived_20261122.zip`，内含六份原始审计CSV/JSON及`SOURCE_SHA256.csv`。在本助手沙盒中对ZIP原字节和Windows来源清单逐一检查6/6通过；保留Windows UTF-8 BOM/CRLF、文件原始内容，提交GitHub后重新从远端逐份读取、重算SHA256，共**7/7完全一致**。跨阶段统一归档总表：[experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md](experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md)。Windows真实源路径、导出SHA256位于`experiments/cellcharter_dlpfc/AUDIT_EXPORT_20261122/SOURCE_SHA256.csv`；ZIP本体未重复入库。
+
+- **E3d**：`E3D_20261122_RELEASE/derived/all_48_autok_audit.csv` + 原`audit_report.json`：48/48审计PASS、2640个标签运行数组、10/48选K边界。**没有ARI/NMI**，不能把选K审计当标注质量评价。
+- **E5a**：`E5A_20261122_RELEASE/derived/all_288_prediction_checks.csv` + `method_regime_descriptives.csv`(8组) + 原`e5a_phase_audit_report.json`：288/288项真实ARI/NMI现在直接可供GitHub审查；JSON有BayesSpace的K-blind 28/36命中q=10冻结搜索上界warning，必须完整保留。DLPFC12片来自仅3位独立供体，种子与切片不能伪重复。
+- **E5b**：此前已上传360项ARI/NMI、120患者级汇总、144配对差异及分析/矢量图，本次补`E5B_20261122_RELEASE/derived/audit_report.json`原件；原JSON`phase1=passed`、`phase2=passed`、`verified_predictions=360`、`all_metrics_count=360`，且3个指标文件SHA与当前已归档CSV一致。六个独立乳腺癌患者n=6；18/18 BayesSpace K-blind落q=10上界。
+- 原预测目录、标签文件、10x counts等大原始文件仍仅在Windows，本次只归档**真实小派生指标与原审计报告**；不能将Github凭空声明为从原始矩阵到预测全量重跑的公共镜像。
+- 已更新`README.md`、各E3d/E5a/E5b Release README和manifest、`CLAUDE_INDEPENDENT_REVIEW_BRIEF_20261122.md`及历史审计说明，旧“指标尚未上传”叙述已由新章节更正，但保留审计时间线。
+- **下一科研关口**：Claude独立审查已归档数据、E3d独立后验ARI/NMI是否需要按原冻结预测+标签另做只读评价、E3b未做、Varrone CellCharter原论文/补充新颖性重叠P0-1、E4全图文件归档和旧第4章更新。**无模型重训/无K修改/不将事后分析写为事前计划。**
+
+
 ## 2026-11-22｜E5b三份原始CSV和5份分析材料已完整归档GitHub（以本条为最新事实）
 
 **用户本轮明确授权直接GitHub归档**。E5b原360预测的后验ARI/NMI三份原始CSV已经从本聊天上传原件逐字节读取（Windows CRLF原样保留）、通过SHA256对照后提交，再由GitHub远端读取逐份重算SHA256全部PASS：`all_360_prediction_metrics.csv` 360行 SHA `b41a492e53bc71ef1e3d2648643383f026735a77ef9c54912a7139839080709f`；`patient_three_seed_summary.csv` 120行 SHA `318d54e0fa5c06998c38457eca21a3cd1de3a85c3c3f37acc412be3b36d9e278`；`patient_paired_effects.csv` 144行 SHA `bf6868cdfa4c91960762a458ac71eeefe37ceaf4f23523f5c521002eafa7a078`。此外SHA验证归档历史后验分析报告、Python可重现数据SVG脚本及3张SVG，**共8份文件**。来源与边界见`experiments/cellcharter_dlpfc/E5B_20261122_RELEASE/README.md`和`manifest.json`，总审查入口`experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md`。此前本项目日志中“尚未上传E5b CSV”的句子是历史状态，**现已失效**，不能据旧日志误判缺少外部定量结果。
