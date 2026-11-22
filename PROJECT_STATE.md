@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-22｜E3b全1200源预测SHA核验PASS，完成3600条严格/容差边界后验指标并归档
+
+用户Windows真实终端：`E3B_GITHUB_INPUTS_VERIFIED`、`E3B_E1E2_EXPORT_PASS predictions=1200 audit_sha_pass=1200 missing=0`，上传源ZIP `e3b_e1e2_1200_export_20261122.zip`，SHA256 `cfad75dbc35723c72e52f8906b07e1b81048ff70fcf04df709d41ae42bc1302b`。本助手独立重新核验ZIP **1200/1200**份预测CRC、SHA、12切片条码对齐与参考文件SHA（和既有E3d审计/后验参考一致），使用**已有Oracle-K模型预测**只读计算每份严格0-hop、1-hop、2-hop最大一对一边界匹配共**3600/3600真实结果**，没有重拟合或修改K/seed。历史seed22911下A15D严格TP合计2103、B15D严格TP合计1999，与旧论文独立记录完全一致。GitHub已归档完整3600行原始指标、1200行任务内配对、360行切片均值、90行供体均值、30行全样本尺度均值、完整审计JSON、1200份源预测SHA原账本、可复现评价+作图Python及2张SVG，共11份源数据/结果文件加manifest/README，远端**11/11 Git blob SHA与本地字节一致**。位置`experiments/cellcharter_dlpfc/E3B_E1E2_1200_POSTHOC_20261122_RELEASE/`，归档总控`experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md`更新。注意原**28.99MB的1200预测ZIP仍仅保留Windows/本聊天用户上传中**，未放GitHub；GitHub是完整派生指标和原源SHA，不是全部源预测字节。E3d另有K-blind48项边界评价，**不可与E1/E2 Oracle-K混淆**。所有容差分析是在看过其他结果后进行，标明post-hoc；strict 0-hop不得由更宽松的容差F1取代。描述性均值L0严格0.1441，15D严格0.1361，25D严格0.1179，而相应25D 2-hop为0.5333，这种方向反差要报告，不是声称空间层越多边界越准。12切片只有3个独立供体n=3，seed/spot/edge均非生物独立。下一优先任务：E4全套图件是否实际归档及Varrone原全文/补充创新性对比、论文第4章整合，不必再训练模型。
+
+
 ## 2026-11-22｜新增：E3d已完成48/48后验ARI/NMI；E3b已完成E3d K-blind 48配置边界分析（仅部分）
 
 **来自用户本轮真实上传ZIP的独立计算，而不是只读Windows日志**：`e3d_posthoc_inputs_20261122.zip` SHA256 `1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094`，含48份原E3d冻结预测、12张spot坐标、12张人工层标签与SHA清单共72份输入。72/72输入文件SHA、全部12份与E1/E2源标签/位置SHA、48/48预测SHA与条码顺序、AutoK原K稳定性argmax均PASS，**不重新训练、不重选K**。后验ARI/NMI（算术平均NMI）48/48均经独立列联表公式交叉验算PASS。真实12切片宏均值（ARI/NMI）：10D 0.379285/0.503341；15D 0.386114/0.535941；20D 0.431145/0.594212；25D 0.388976/0.543449。20D宏均值最好属于**结果后描述性观察**，各尺度K可变且生物学n=3供体，不能宣称新方法优势或显著性。完整48行、48切片配对、3供体×4尺度12行、审计报告和完全重算脚本已GitHub提交并远程重读校验于`experiments/cellcharter_dlpfc/E3D_POSTHOC_20261122_RELEASE/`。原ZIP未上传GitHub（SHA可核对），不要把派生数据当作原预测文件。
