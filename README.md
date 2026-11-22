@@ -1,5 +1,10 @@
 # Spatial Transcriptomics Clustering Research
 
+## 2026-11-22补充：E3d后验ARI/NMI与E3b现有48个K-blind预测边界分析
+
+[E3d后验ARI/NMI完整48行+3供体汇总+重算脚本](experiments/cellcharter_dlpfc/E3D_POSTHOC_20261122_RELEASE/)已按原始48预测+12切片标签SHA核验后计算并归档；[E3b严格边界F1及1/2-hop容差144行+一对一匹配源码](experiments/cellcharter_dlpfc/E3B_E3D48_POSTHOC_20261122_RELEASE/)已完成**仅E3d 48项Kblind的补充分析**。上述为**结果观察后新增的事后评价**，不是2026-11-20冻结AutoK的训练结果，未重训或重选K。E3b原计划E1/E2 1200个预测的全量边界容差分析**尚未完成**，已提交SHA核验只读导出脚本 [export_e3b_e1e2_1200_predictions_v1.ps1](experiments/cellcharter_dlpfc/export_e3b_e1e2_1200_predictions_v1.ps1)以取得原始输入。只有3位DLPFC供体是独立生物重复，不能将12切片×4尺度当48独立样本。
+
+
 ## 第三篇CellCharter：最新可复核结果索引（2026-11-22）
 
 **请从这里读最新正式实验状态，不要把下方旧STAGATE/冒烟记录当作第三篇现状：**
