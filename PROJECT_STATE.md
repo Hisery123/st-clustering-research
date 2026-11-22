@@ -1,5 +1,10 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-22｜E5b末端独立审计正式PASS：360/360预测和360/360 ARI/NMI；真实数值尚待上传
+
+用户Windows真实终端：`E5B_AUDIT_PREDICTIONS_PASS verified=360/360 errors=0 labels_not_yet_read=True`、`E5B_PHASE_AUDIT_FINAL status=passed verified=360/360 metrics=360/360 errors=0 report=D:\paper\CellCharter_reproduction\results\e5b_external_v1\phase_audit_v1\audit_20261122T030849Z_17404\audit_report.json`、`NO_REFIT_NO_PARAM_CHANGE_PATIENT_N6`、`E5B_AUDIT_EXIT_CODE=0`，三文件`all_360_prediction_metrics.csv`、`patient_three_seed_summary.csv`、`patient_paired_effects.csv`均在该audit目录。独立只读脚本先完成全部文件/条码/固定K策略审计，然后**确实打开reference_only标签**计算ARI/NMI（`labels_not_yet_read=True`只代表第一阶段过关时的状态），不重训、不改任何方法学设置。六患者生物学独立n=6，360项任务不是360个生物重复。**这不是性能提升的证据**：用户尚未上传任何分数CSV，本助手尚未读取具体ARI/NMI、方法比较或数据图，不能宣称谁更优/有创新或显著。独立审计完整记录已新建`experiments/cellcharter_dlpfc/E5B_FINAL_AUDIT_PASS_20261122.md`（commit`af1cb214ff2845d3f1f1f6f47ea4a305643c6544`）。下一动作仅请用户上传上述3个CSV原件，读取后按患者比较全部Kblind/Oracle组与正负结果；再组装Claude独立方法审查材料，不再训练/调整K/seed/尺度。
+
+
 ## 2026-11-22｜E5b全360/360真实预测执行完成，末端只读独立审计+固定mask评价脚本待跑
 
 **用户Windows真实BayesSpace最后批日志**：`E5B_BS_PREDICTION_PASS sample=CID4535 arm=k_blind seed=25842 q=10 actual_k=10`、`E5B_BS_PREDICTION_PASS sample=CID4535 arm=oracle_k seed=25842 q=6 actual_k=6`、`E5B_BS_SAMPLE_PASS sample=CID4535 tasks=6 seconds=617.96`、`E5B_BS_PROGRESS completed=36/36`、`E5B_BS_FINAL status=completed completed=36/36 failed=0 result=D:/paper/CellCharter_reproduction/results/e5b_external_v1/bayesspace_20261121T135133Z_25840/batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI`、`E5B_BS_EXIT_CODE=0`。总E5b的CellCharter216、非空间GMM36、Leiden36、BANKSY36、BayesSpace36，共**360/360正式预测均由Windows脚本报告成功运行**，**但尚未独立复查原始预测/选K轨迹和计算ARI/NMI**。六个独立患者n=6而非360独立生物样本。CID4535 BayesSpace Kblind q=10为预冻上边界，必须保留；算法显示`Neighbors were identified for 1123 out of 1125 spots`（影响解释待审核），不得删spot、扩K或改参数。最初PowerShell `Rscript -e`引号失败在拟合前，后续直接Rscript执行成功，故保留工程失败记录且不将其当训练失败。
