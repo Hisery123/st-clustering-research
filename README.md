@@ -1,5 +1,10 @@
 # Spatial Transcriptomics Clustering Research
 
+## CellCharter毕业论文研究专题写作 V1（2026-11-22）
+
+真实实验结果已形成可写作证据链；新增完整背景/方法/结果的LaTeX首稿、专题引言与结论、BibTeX和独立预览入口。**[写作进度和限制](experiments/cellcharter_dlpfc/THESIS_WRITING_PROGRESS_20261122.md)**；**[CellCharter专题五部分预览源](experiments/cellcharter_dlpfc/cellcharter_study_full_preview_v1_20261122.tex)**。该研究专题初稿不等同于整本硕士学位论文；未编译、E4图件待核对、学校模板未应用、未经过导师/Claude审稿。未覆盖原11月12日第2/3/4节旧稿。
+
+
 ## 2026-11-22 最新增补：E3b原E1/E2全1200条边界后验评价已经完成
 
 **新GitHub完整派生结果**：[E3B_E1E2_1200_POSTHOC_20261122_RELEASE](experiments/cellcharter_dlpfc/E3B_E1E2_1200_POSTHOC_20261122_RELEASE/)：1200条冻结E1/E2 **Oracle-K**预测独立SHA验收，严格0/1/2-hop边界F1、TP/FP/FN全部3600行，1200份任务配对/3供体统计/完整源预测SHA/重算程序/两张SVG；旧A15D/B15D严格TP合计2103/1999完全复核。E3d 48项**K-blind**另有部分边界后验结果。注意原29MB源ZIP仍留Windows，GitHub是**完整派生指标，非原1200预测字节**；明确标记post-hoc不能冒称事前主指标，三供体才是独立n=3；严格边界F1与容差F1结论可能相反。请审稿人检查全部正负结果、容差定义及最近邻文献重叠，勿依据旧交接记录将E3b全量标记为未完成。
