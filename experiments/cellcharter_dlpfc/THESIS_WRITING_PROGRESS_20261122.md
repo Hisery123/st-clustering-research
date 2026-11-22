@@ -41,3 +41,9 @@
 2. 使用学校模板把本专题的背景、方法与结果合并，真实编译并检查长表格/公式/中文字体/引用。
 3. 整合全论文其他研究工作的真实草稿，完成统一绪论、各专题衔接、总结与中文/英文摘要，不编造尚未提供的其他实验。
 4. 提交完整草稿给Claude进行逐段内容、统计独立性、引用与结构审查，按实际缺陷修改。
+
+## 2026-11-22补充｜E4正文选图规则统一、36图附录和原件发布准备
+
+本轮用户要求继续写作并边写边上传：对`experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex`新增完整E4结果解释、按原冻结E4规则将主文示例统一为**151507/151671/151675**（而非旧稿另一目的的151671/151676单seed边界案例），在LaTeX按真实矢量PDF可用性设置条件插图位，缺图时只显示待插入提示。新增`appendix_e4_all12_figures_v1_20261122.tex`：12切片×3类真实图，共36个源文件控制的附录插图位，已接入`cellcharter_study_full_preview_v1_20261122.tex`的条件入口。**这不是36张原SVG已上传，也不是36张PDF已转换。**
+
+GitHub新增`publish_e4_original_figures_v1.ps1` Windows手动一次性上传脚本；它使用用户2026-11-20原完成批次及审计JSON、按每样本manifest逐件核对36SVG+36CSV的SHA，计划提交原72产物、12manifest、原batch/audit及新来源清单/README共88 Git文件。当前**脚本已提交、尚未见用户Windows真实执行成功反馈**，不能称GitHub具有原E4图。来源、脚本、安全边界及上传后SVG→LaTeX矢量PDF转换分别详见`experiments/cellcharter_dlpfc/E4_SOURCE_PUBLICATION_AND_FIGURE_INTEGRATION_20261122.md`。下一唯一用户Windows操作是按固定Git SHA下载、SHA1核验并运行上传脚本；成功后需GitHub重新统计及原字节哈希复核。
