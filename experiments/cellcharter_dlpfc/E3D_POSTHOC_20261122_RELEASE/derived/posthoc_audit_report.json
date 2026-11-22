@@ -1,0 +1,127 @@
+{
+  "experiment": "E3D_AUTOK_POSTHOC_LABEL_EVALUATION_V1",
+  "status": "passed",
+  "created_utc": "2026-11-22T09:45:12.777192+00:00",
+  "analysis_timing": "posthoc_after_E3c_E5a_E5b_known",
+  "used_labels_only_for_posthoc_metrics": true,
+  "refits": 0,
+  "changed_K": false,
+  "source_zip_sha256": "1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094",
+  "source_zip_file": "e3d_posthoc_inputs_20261122.zip",
+  "source_export_manifest_sha256": "7d255651db8f4ec112e543ef776fdb40476a5673ff34e756dcca20c0c2a25121",
+  "original_e3d_audit_sha256": "f2560ec0cde25a9b09fcec8816ffac9e844faceb562756ec19f951cfe51fc821",
+  "source_label_provenance": "E1E2_20261119_RELEASE/derived/all_1200_tasks.csv",
+  "n_predictions": 48,
+  "independent_donors": 3,
+  "nested_slices": 12,
+  "selected_k_boundary_hits": 10,
+  "metrics": "ARI adjusted_rand_score, NMI normalized_mutual_info_score average_method=arithmetic",
+  "independent_contingency_metric_crosscheck_passed": true,
+  "reference_verification": {
+    "151507": {
+      "reference_sha256": "00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428",
+      "positions_sha256": "f90fcc5a38959d248da14b614afb96a647d1a7c82ea490f6e2634349b6cf017c",
+      "n_spots": 4226,
+      "n_labeled": 4221,
+      "n_labels": 7,
+      "donor": "D1"
+    },
+    "151508": {
+      "reference_sha256": "93e4458575b148891efa99ec2f1d233cc623125dfe9d8ea3f260912e1d1174ef",
+      "positions_sha256": "c7008a34887d1af22721d185aa6123570cb11fcd0da9b98235c5f04330f105dc",
+      "n_spots": 4384,
+      "n_labeled": 4381,
+      "n_labels": 7,
+      "donor": "D1"
+    },
+    "151509": {
+      "reference_sha256": "52d802d5d54e6e1e63b7f2fce086b9bc9d1403b70bc4d6df19edcb2dc5326812",
+      "positions_sha256": "98d8cbda6951a443288274ca5ece16597bf8984a539fe9d09ce0232f64bbc2ea",
+      "n_spots": 4789,
+      "n_labeled": 4788,
+      "n_labels": 7,
+      "donor": "D1"
+    },
+    "151510": {
+      "reference_sha256": "3f328c4347e75383ecceba209a19ae46b7dfb5494f03766c36e1fc0a60ae2fc1",
+      "positions_sha256": "7ff723d19deae2b15b67ed21c70f02cf76a1ad56312e1bdf17be17a6b31d89d9",
+      "n_spots": 4634,
+      "n_labeled": 4595,
+      "n_labels": 7,
+      "donor": "D1"
+    },
+    "151669": {
+      "reference_sha256": "c1ea5b4d3fcc43ef7dcb7dd5001c922263013084391035dd1f71c32a13c39afb",
+      "positions_sha256": "c0bf8e032b0643e68c5cd68523e2723d913a2d2d287340e671db13183b9011f3",
+      "n_spots": 3661,
+      "n_labeled": 3636,
+      "n_labels": 5,
+      "donor": "D2"
+    },
+    "151670": {
+      "reference_sha256": "66b2a1c28ae6cb547213835bc80f1179f1f549efa5551227b86d31e06a288c20",
+      "positions_sha256": "131cf73c209eb3cc56d86e3eac4100a07ca988e4d58a205c46e4edad83a08fdf",
+      "n_spots": 3498,
+      "n_labeled": 3484,
+      "n_labels": 5,
+      "donor": "D2"
+    },
+    "151671": {
+      "reference_sha256": "de40372c82d30b1b5f97df3ea84c6856923b3d63028a45d9415369ec9e145824",
+      "positions_sha256": "b8ed247edd53976bd0c1030006903a34e4990aebf5d2a73ee9509dd2e8ca11f0",
+      "n_spots": 4110,
+      "n_labeled": 4093,
+      "n_labels": 5,
+      "donor": "D2"
+    },
+    "151672": {
+      "reference_sha256": "ac92222b88058f2cbd8e2a1f0af1a14d3c1f235426d74d2fa1f87eec76fecbc0",
+      "positions_sha256": "ae213db83e2e56d0c8c393673a66b9c8dd14db63c0f7180d7ba88adcc1950281",
+      "n_spots": 4015,
+      "n_labeled": 3888,
+      "n_labels": 5,
+      "donor": "D2"
+    },
+    "151673": {
+      "reference_sha256": "271538a67dd85092a797735a391657262f68b72d3470064271303d58e28ce0ed",
+      "positions_sha256": "96bdbff316a547fa14f7c94eb5f1a7f5734ea913f2710e21af4a1d175affc36e",
+      "n_spots": 3639,
+      "n_labeled": 3611,
+      "n_labels": 7,
+      "donor": "D3"
+    },
+    "151674": {
+      "reference_sha256": "44e3c308f8251974222ab772f74c0f2eca2e2ab17ca9bd3338a5751b440eccbb",
+      "positions_sha256": "a3c95069a93910772766681b6e02bd901e3f27fc56a49799fd7d43cdbd925ba8",
+      "n_spots": 3673,
+      "n_labeled": 3635,
+      "n_labels": 7,
+      "donor": "D3"
+    },
+    "151675": {
+      "reference_sha256": "a111565746647185093d5ac6d1a3b5c403a02c88b0019428b3a1b58691c1117f",
+      "positions_sha256": "d9ba6d5cee484a9962c2cdb87d87b3dad4293decf6afed88351af1cf2031777c",
+      "n_spots": 3592,
+      "n_labeled": 3566,
+      "n_labels": 7,
+      "donor": "D3"
+    },
+    "151676": {
+      "reference_sha256": "7dae6c8eb72873e43ac88279b99f63bff483857e651d2641007a7fa53925f864",
+      "positions_sha256": "1236cb9f78d2806c75404d0afcc615e023859bd75c628aec6d8dfaf34cbae89a",
+      "n_spots": 3460,
+      "n_labeled": 3431,
+      "n_labels": 7,
+      "donor": "D3"
+    }
+  },
+  "outputs_sha256": {
+    "all_48_posthoc_ari_nmi.csv": "6d05e4aa9ccafa9de461e7426635773a27c1e1425a98d9e0ef58077da5228b1a",
+    "all_48_paired_slice_effects.csv": "701aeb62f720c715dd0458812bafd3b563522607ff4c3c15ae4d755a1a89ab84",
+    "four_scale_descriptives.csv": "d8c447b5641fb213f9eac89ad3026f669c554cd5926aa34891e5d87ed316218e",
+    "three_donor_scale_summary.csv": "f0e62e36787e0cdcb658cf19f118620b58b88a15768145d8be5741cd992beb58"
+  },
+  "inference_limitation": "n=3 independent donors; no p-values; do not treat slices/spots as independent",
+  "no_seed_pseudoreplication": true,
+  "warning": "AutoK selected K changes with feature depth, so depth contrasts also change K; not a controlled same-K spatial effect."
+}
