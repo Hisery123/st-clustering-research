@@ -1,5 +1,12 @@
 # 第三篇 CellCharter｜科研结果归档与审查总控（2026-11-22更新）
 
+## 最新增补｜E3b全1200预测边界容差后验评价正式PASS（2026-11-22）
+
+**不是仅48份E3d的部分E3b：现在原E1/E2完整1200份预测也已完成严格边界0-hop、1-hop及2-hop评价**，且原1200预测文件SHA、完整任务网格、12张DLPFC切片人工标注与坐标SHA全部校验通过。新实物入口：[E3B_E1E2_1200_POSTHOC_20261122_RELEASE](E3B_E1E2_1200_POSTHOC_20261122_RELEASE/)；全部3600条指标：[all_3600_boundary_metric_rows.csv](E3B_E1E2_1200_POSTHOC_20261122_RELEASE/derived/all_3600_boundary_metric_rows.csv)；1200份源预测SHA原账本与两张SVG均已GitHub提交。**远端11/11文件Git blob与本地原件SHA1完全相同。** 完整源ZIP SHA256 `cfad75dbc35723c72e52f8906b07e1b81048ff70fcf04df709d41ae42bc1302b`，大小28,988,158字节，保留在用户Windows，不在GitHub（大文件），但GitHub有全量derived评分、原源预测文件SHA与分析代码。
+
+E1/E2 1200个预测属于**Oracle-K（标签类别数知情）**，与E3d 48个K-blind预测要分开；对旧论文12切片、seed22911的严格边界TP独立复核完全一致（A15D **2103**，B15D **1999**）。12切片嵌套于3供体，n=3；三个容差值是**事后定义的探索性敏感性结果**，严格0-hop须保留为严格定位指标。描述性宏均值：A15D严格F1 `0.1361`、2-hop `0.4838`；25D严格F1 `0.1179`、2-hop `0.5333`，表明加宽容差分数升高并不意味严格边界更准确；不能挑2-hop替代严格F1。全部负结果保留。旧正文“E3b 1200预测尚未执行”仅是上述归档**之前**的历史状态，现已失效。
+
+
 ## 2026-11-22｜新增：E3d已完成48/48后验ARI/NMI；E3b已完成E3d K-blind 48配置边界分析（仅部分）
 
 **来自用户本轮真实上传ZIP的独立计算，而不是只读Windows日志**：`e3d_posthoc_inputs_20261122.zip` SHA256 `1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094`，含48份原E3d冻结预测、12张spot坐标、12张人工层标签与SHA清单共72份输入。72/72输入文件SHA、全部12份与E1/E2源标签/位置SHA、48/48预测SHA与条码顺序、AutoK原K稳定性argmax均PASS，**不重新训练、不重选K**。后验ARI/NMI（算术平均NMI）48/48均经独立列联表公式交叉验算PASS。真实12切片宏均值（ARI/NMI）：10D 0.379285/0.503341；15D 0.386114/0.535941；20D 0.431145/0.594212；25D 0.388976/0.543449。20D宏均值最好属于**结果后描述性观察**，各尺度K可变且生物学n=3供体，不能宣称新方法优势或显著性。完整48行、48切片配对、3供体×4尺度12行、审计报告和完全重算脚本已GitHub提交并远程重读校验于`experiments/cellcharter_dlpfc/E3D_POSTHOC_20261122_RELEASE/`。原ZIP未上传GitHub（SHA可核对），不要把派生数据当作原预测文件。
@@ -19,7 +26,7 @@
 | E4空间域可视化 | 终审通过日志已有文档 | 原图生成代码、审计及可视化计划 | 全套原始图件是否逐张复制到GitHub尚未逐图验收 |
 | **E5a 四成熟基线** | Windows独立审计PASS **288/288** | **[E5A_20261122_RELEASE](E5A_20261122_RELEASE/)**：288项评价CSV（含ARI/NMI）、8行方法×K臂汇总、原audit_report.json+SHA清单 | 3独立供体/12嵌套切片/3技术seed；BayesSpace K-blind 28/36选到q=10搜索上界；跨方法并非完全相同特征 |
 | **E5b Wu2021乳腺癌六患者** | Windows独立审计PASS **360/360**、ARI/NMI评价360/360 | **[E5B_20261122_RELEASE](E5B_20261122_RELEASE/)**：360项全部真实ARI/NMI、120患者三seed汇总、144患者配对、原audit_report.json、后验分析报告、可重做绘图脚本及3张SVG；SHA清单 | 6独立患者；K-blind与Oracle-K分开；BayesSpace K-blind 18/18选q=10上界；并非DLPFC训练模型的直接跨组织推理 |
-| E3b 边界容差 | 尚无完整冻结全量运行/终审通过记录 | 只有历史局部诊断或草案 | 未完成；不得写成已全面验证 |
+| **E3b全量后验边界容差** | 1200/1200份E1/E2原预测SHA+条码复核，3600/3600指标完成；另有48项E3d补充 | [E3B_E1E2_1200_POSTHOC_20261122_RELEASE](E3B_E1E2_1200_POSTHOC_20261122_RELEASE/) + [E3B_E3D48_POSTHOC_20261122_RELEASE](E3B_E3D48_POSTHOC_20261122_RELEASE/) | Oracle-K与K-blind分别报告；后验分析，原1200预测ZIP仍在Windows；3供体非1200生物重复 |
 | P0-1 最近邻文献审查 | 第一轮已留档 | [LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md](LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md) | Varrone et al. 2024 CellCharter全文+补充、已发表层数消融重叠问题尚未闭环 |
 | 论文第4章 | 旧fixed-15 A/B写作稿 | [chapter_04_results_integrated.tex](chapter_04_results_integrated.tex) | **未整合E3d/E5a/E5b**；不可当作已完成的正式结果节 |
 
