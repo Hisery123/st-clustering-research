@@ -1,0 +1,91 @@
+{
+  "protocol": "E5B_FINAL_360_PREDICTIONS_AUDIT_AND_EVAL_V1",
+  "status": "passed",
+  "started_utc": "2026-11-22T03:08:49.496199+00:00",
+  "model_fit_performed": false,
+  "params_changed": false,
+  "reference_labels_read_only_after_360_predictions_verified": true,
+  "expected_predictions": 360,
+  "independent_biological_patients": 6,
+  "sources": [
+    "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\input_stage_20261121T083911Z_14272",
+    "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\features_20261121T090400Z_28460",
+    "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\cellcharter_cluster_20261121T100504Z_29172",
+    "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\nonspatial_20261121T104630Z_22052",
+    "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\banksy_20261121T133058Z_31292",
+    "D:\\paper\\CellCharter_reproduction\\results\\e5b_external_v1\\bayesspace_20261121T135133Z_25840"
+  ],
+  "local_code_sha256": {
+    "e5b_prepare_inputs_v1.py": "c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52",
+    "e5b_scvi_feature_batch_v1.py": "28f792587a54ac8cb436d82f888dc9a39a2cff204168021ff8591a3f05a2b558",
+    "e5b_cellcharter_cluster_batch_v1.py": "d8df95cd86116a2a4aec2a6f0b4cf2f63e2a1425956198bb1afe6c1baf91c1aa",
+    "e5b_nonspatial_baselines_batch_v1.py": "2defb2821370a4c8e60ad6450276a6cd695b5bd26f6a26d6c3cd5c7cc02ec7f1",
+    "e5b_banksy_baselines_batch_v1.py": "c80a1e7c97d563c8b9e7a83e97c83d7b8c021f583c6b82b91225b9be69ade927",
+    "e5b_bayesspace_baselines_batch_v1.R": "7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68"
+  },
+  "phase1": "passed",
+  "verified_predictions": 360,
+  "verified_utc": "2026-11-22T03:09:01.016437+00:00",
+  "phase2": "passed",
+  "completed_utc": "2026-11-22T03:09:04.486974+00:00",
+  "metrics": "sklearn adjusted_rand_score; normalized_mutual_info_score average_method=arithmetic",
+  "evaluation_reference": [
+    {
+      "sample": "1142243F",
+      "model_spots": 4784,
+      "eval_spots": 4665,
+      "excluded": 119,
+      "oracle_label_categories": 5,
+      "reference_sha256": "9b0c737a25e9c36570a9fabbff8915aed58a467db90b49f619a945f0ba47fcd2"
+    },
+    {
+      "sample": "1160920F",
+      "model_spots": 4895,
+      "eval_spots": 4846,
+      "excluded": 49,
+      "oracle_label_categories": 7,
+      "reference_sha256": "dde487f80a89aa4ce7bbdcc9003174e61202bdd3dbe76af6d69a9004ec24e5c4"
+    },
+    {
+      "sample": "CID4290",
+      "model_spots": 2426,
+      "eval_spots": 2419,
+      "excluded": 7,
+      "oracle_label_categories": 3,
+      "reference_sha256": "9f862705f845358a6cb9ffa8224d70e5ad66519b6741717e47ff266b2c19f2bf"
+    },
+    {
+      "sample": "CID4465",
+      "model_spots": 1211,
+      "eval_spots": 1207,
+      "excluded": 4,
+      "oracle_label_categories": 3,
+      "reference_sha256": "ad47dfc1749393d3b49556ba0c8df2550e352da3680049f6372c3b9119e38c1b"
+    },
+    {
+      "sample": "CID44971",
+      "model_spots": 1160,
+      "eval_spots": 1159,
+      "excluded": 1,
+      "oracle_label_categories": 6,
+      "reference_sha256": "31309306ba86ef0fff6edab73840e504d54398a705952350725cd329ea70f094"
+    },
+    {
+      "sample": "CID4535",
+      "model_spots": 1125,
+      "eval_spots": 1028,
+      "excluded": 97,
+      "oracle_label_categories": 6,
+      "reference_sha256": "74d3a7c9bbf08ce316838ce738f21c558d43a8ba9dec2e1ae59d0c22443749fe"
+    }
+  ],
+  "all_metrics_count": 360,
+  "patient_method_config_arm_count": 120,
+  "patient_paired_comparisons_count": 144,
+  "files_sha256": {
+    "all_360_prediction_metrics.csv": "b41a492e53bc71ef1e3d2648643383f026735a77ef9c54912a7139839080709f",
+    "patient_three_seed_summary.csv": "318d54e0fa5c06998c38457eca21a3cd1de3a85c3c3f37acc412be3b36d9e278",
+    "patient_paired_effects.csv": "bf6868cdfa4c91960762a458ac71eeefe37ceaf4f23523f5c521002eafa7a078"
+  },
+  "no_p_values_or_technical_pseudoreplication": true
+}
