@@ -1,0 +1,3 @@
+# Preserve exact bytes of original experiment SVG, CSV, JSON and manifests.
+# Prevent Git core.autocrlf from silently normalizing CRLF on Windows.
+* -text
