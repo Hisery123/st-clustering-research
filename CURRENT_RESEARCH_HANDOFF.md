@@ -1,5 +1,14 @@
 # CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
 
+## 2026-11-23｜E3B/E4上传后的CRLF字节保真风险（已定位，修复未执行）
+
+**有新核查证据，必须覆盖2026-11-22的“GitHub原件逐字节完全相同”旧说法。** E4确实已经提交GitHub，共88文件：36张SVG、36份CSV、12样本manifest、原batch/audit、README、来源清单；上传提交`0b3a13fbe784711b2c522a09282feeb8a82771e8`。但读取GitHub E4原生SVG `figures/151507/151507_reference_A_B_spatial.svg`并对远端Git blob内容独立计算SHA256，得到`8d3f84cc015bbbefceefd0b4d9744910fc318c8b48ac3e01ebe58442a551a750`，不同于本地原件清单`7d76f7f61d750c9503056aaf60cfd43310e2ce8d72ead91d202655fb868849c1`；远端LF字节仅将每个换行恢复为Windows CRLF后重新计算，则**完全等于原件SHA**。E3B首份原始预测`predictions/151507/cum_L0/seed_22911/predictions.csv`亦发现同样问题：远端LF的SHA`f8b0d04ea183ee4df18882b8f2c43e16f83a1b5a5c3d5144d8d10c7e9d42903c`，恢复CRLF后等于原件`cabbb5f476be36ac7c38270e68ccb87146f9a1d665ace2b780e1b22406671525`。科学数值没有因此重新计算或修改，但旧“Git源字节与Windows原件相同”的表述不成立，必须修复后才能称原始字节完全备份。
+
+已分别为`E3B_E1E2_1200_PREDICTIONS_20261122/`与`E4_SOURCE_FIGURES_20261122_RELEASE/`提交`.gitattributes`、设置`* -text`禁用未来Git换行自动规范化；已上传**综合一次性精确Git blob修复脚本**`experiments/cellcharter_dlpfc/repair_e3b_e4_exact_git_blobs_v1.py`：拟从原始E3B ZIP（固定SHA256 cfad75...）与E4源Windows文件分别校验1200+86=1286份SHA256，`git hash-object -w --stdin`写入原始字节的Git blob，`git update-index --index-info`直接提交原字节，再验证完整提交树并非强制push。**目前只是准备和提交修复脚本，用户尚未报告运行；不得称远端字节修复通过。**早期只修E4的`repair_e4_exact_source_blobs_v1.ps1`被综合版取代，不要先运行它。另已准备`convert_e4_original_svg_to_pdf_and_push_v1.py`，但必须先完成1286份原始Git blob的字节修复，才能开始转换36份真实SVG成论文矢量PDF。
+
+论文正文及36图附录已写入GitHub，原E4图件存在的事实与“严格逐字节匹配原Windows SHA”需要分开报告；同理E3B全部1200文件存在但部分CRLF被规范化。下一步用户在Windows手动执行单条固定SHA脚本下载、核验、精确Git blob修复命令，提供PASS/FAIL；助手再远端核验提交树与来源清单。全程无训练、无更改参考标签、无数据数值重算。
+
+
 ## 2026-11-22补充｜E4正文选图规则统一、36图附录和原件发布准备
 
 本轮用户要求继续写作并边写边上传：对`experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex`新增完整E4结果解释、按原冻结E4规则将主文示例统一为**151507/151671/151675**（而非旧稿另一目的的151671/151676单seed边界案例），在LaTeX按真实矢量PDF可用性设置条件插图位，缺图时只显示待插入提示。新增`appendix_e4_all12_figures_v1_20261122.tex`：12切片×3类真实图，共36个源文件控制的附录插图位，已接入`cellcharter_study_full_preview_v1_20261122.tex`的条件入口。**这不是36张原SVG已上传，也不是36张PDF已转换。**
