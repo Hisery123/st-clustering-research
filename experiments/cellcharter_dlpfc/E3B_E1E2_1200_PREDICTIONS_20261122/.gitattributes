@@ -1,0 +1,3 @@
+# Freeze exact bytes of 1200 original clustering prediction CSVs.
+# Disable Git automatic CRLF/LF normalization on all E3B release files.
+* -text
