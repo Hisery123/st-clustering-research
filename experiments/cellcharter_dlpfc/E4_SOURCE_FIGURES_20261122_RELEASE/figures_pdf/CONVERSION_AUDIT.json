@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "archive_checked_utc": "2026-11-23T05:02:25.806768+00:00",
+  "repository": "Hisery123/st-clustering-research",
+  "branch": "main",
+  "destination": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf",
+  "base_commit": "b52f9a90fcedb0f9a248006f16b090cc80e67b38",
+  "operation": "archive_existing_files_without_regeneration",
+  "scope": {
+    "pdf_count": 36,
+    "slice_count": 12,
+    "pdfs_per_slice": 3,
+    "new_conversions_in_this_archive_task": 0,
+    "pdf_bytes_total": 66324070
+  },
+  "pre_upload_verification": {
+    "pdf_sha256_matches_final_manifest": 36,
+    "pdf_size_matches_final_manifest": 36,
+    "source_svg_sha256_matches_manifest": 36,
+    "source_svg_matches_frozen_repository_blob": 36,
+    "mismatches": 0
+  },
+  "conversion_report_summary": {
+    "converter": "Inkscape 1.4.4 (dcaf3e7, 2026-05-05)",
+    "settings": [
+      "--export-type=pdf",
+      "--export-pdf-version=1.5",
+      "--export-text-to-path",
+      "--export-dpi=300",
+      "--export-area-page"
+    ],
+    "new_exports": 33,
+    "preexisting_pdfs_preserved": 3,
+    "pdf_conversion_failures": 0,
+    "pdf_version": "1.5",
+    "pages_per_pdf": 1,
+    "all_pdf_font_resource_counts_zero": true,
+    "all_pdf_vector_paint_counts_positive": true,
+    "original_svg_hashes_unchanged": true,
+    "preexisting_pdf_hashes_unchanged": true,
+    "reported_visual_review": "passed: all 36 PDF previews inspected in three category contact sheets; no obvious missing content, blank pages or clipping"
+  },
+  "source_report_sha256": {
+    "final_manifest.csv": "bf2632a2f6dfc0c3f32d20156ee8d92ae0a693e291d0b72c7ec5cb1cbf1fadf4",
+    "FINAL_CHECK_REPORT.txt": "4b538a3a09a2fcabf8172e71ea749f4368b3ab1a1f1b97b66f5f9c1625d0f2e1",
+    "final_report.json": "f40f2139dd73b8b4aa22a66f605108af96b56b50c79f58601581b01517b74497"
+  },
+  "warnings": [
+    {
+      "scope": "historical_conversion",
+      "status": "resolved",
+      "detail": "One GBK UnicodeEncodeError occurred while printing test diagnostics AFTER successful PDF export/validation. UTF-8 logging was fixed; the existing test PDF was revalidated and visually compared before batch conversion. No failed PDF conversion is reported."
+    },
+    {
+      "scope": "archive_read_preflight",
+      "status": "resolved",
+      "detail": "Initial direct Git fetch was reset; a second direct diagnostic fetch was cancelled. GitHub API reads and fetch through the existing local proxy succeeded. No upload had been attempted during these read failures."
+    },
+    {
+      "scope": "archive_metadata_preparation",
+      "status": "resolved",
+      "detail": "An overbroad absolute-drive-path scanner incorrectly matched a public https URL in converter attribution. The pattern boundary was corrected and privacy checks rerun before any file was staged or uploaded."
+    }
+  ],
+  "privacy": "Only PDFs and these three whitelisted metadata files are archived. Source paths are repository/project-relative; raw local debug logs are excluded.",
+  "verification_boundary": "This metadata records pre-upload checks and existing conversion evidence. Post-push GitHub downloads are verified separately and reported with the resulting commit SHA; not claimed in advance.",
+  "files": [
+    {
+      "pdf_relative_path": "151507/151507_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "4d7f23f1ed6ffcb0a725e0f224c5651625b2d045f54cc67727042f883adf84e0",
+      "pdf_bytes": 5533232,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151507/151507_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151507/151507_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "36c2933c9746b78c5cf878ae2934a0c4a184608b98ef84730ad93606805db21b",
+      "conversion_origin": "existing_protected",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151507/151507_reference_A_B_confusion.pdf",
+      "pdf_sha256": "42deff977930db70645971c2aeca820823f44ab21ab816a4d25f327575b6028c",
+      "pdf_bytes": 147688,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151507/151507_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151507/151507_reference_A_B_confusion.svg",
+      "source_svg_sha256": "4fb9dddc27982cf692f8be5ddfc8f8b8e2512dd75f87342101efec33bce04b23",
+      "conversion_origin": "existing_protected",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151507/151507_reference_A_B_spatial.pdf",
+      "pdf_sha256": "d5a0e70684cbe7a5af58e31bca028c6e43ba99334f1de7d5e96ef720103b6fdb",
+      "pdf_bytes": 197169,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151507/151507_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151507/151507_reference_A_B_spatial.svg",
+      "source_svg_sha256": "7d76f7f61d750c9503056aaf60cfd43310e2ce8d72ead91d202655fb868849c1",
+      "conversion_origin": "existing_protected",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151508/151508_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "9f1772fe59e761c4967d18aa4d5db2a0da7d2c32f8eeb0cb2fc82d76049570be",
+      "pdf_bytes": 5740534,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151508/151508_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151508/151508_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "fc4bd53194fc13a8a399732b6bbb648df0b7d5d724f74f04b7eee25f47988544",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151508/151508_reference_A_B_confusion.pdf",
+      "pdf_sha256": "d86b106e138463269cd0dfa0b0cde2d58b62340fd0d7a0ac7fa623c2b6d501a4",
+      "pdf_bytes": 145744,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151508/151508_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151508/151508_reference_A_B_confusion.svg",
+      "source_svg_sha256": "94c1297a0463db1c176b3091496a2c0e9d708d132d1606a23b278f1becdcdf7a",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151508/151508_reference_A_B_spatial.pdf",
+      "pdf_sha256": "4c91d117a21d8b1b59daf575763693f3dde95be086c192e40c78591e8af3c9d1",
+      "pdf_bytes": 202691,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151508/151508_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151508/151508_reference_A_B_spatial.svg",
+      "source_svg_sha256": "b634e63c6db58d337b60c5d6d2286e40a1479c6434e9436cc82d71dbee55e2b2",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151509/151509_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "06321db3ef2711908242f1c27a8e48b312992f8f879f0e23b79884be1f018ce5",
+      "pdf_bytes": 6267865,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151509/151509_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151509/151509_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "01395948bb50a24b0b8ed2188e2f02c7631ea2b7cbc9e72599e1567c05ae4ac6",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151509/151509_reference_A_B_confusion.pdf",
+      "pdf_sha256": "2ebcec59c23a835b371cfc100e04ae9e36448c3fad2f127e8b902300f2fc8e1f",
+      "pdf_bytes": 135779,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151509/151509_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151509/151509_reference_A_B_confusion.svg",
+      "source_svg_sha256": "31332c83f9b177106b4979b0c3c91858003c68b1f5d94e248b458acbc93bd12c",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151509/151509_reference_A_B_spatial.pdf",
+      "pdf_sha256": "018f21022d108a3626f2e2e1313cb52fbc8d23d92ff69b345a3aad380c2d2d91",
+      "pdf_bytes": 188796,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151509/151509_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151509/151509_reference_A_B_spatial.svg",
+      "source_svg_sha256": "03ce2ed1947cbe6e030dcc2937503b409582eea0520615589f917abb67a969ae",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151510/151510_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "251572e7d8721255e898dbe6e37577a47bec4fa450b2618f4756209ab3b4ac93",
+      "pdf_bytes": 6066408,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151510/151510_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151510/151510_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "f6ccf3430ad79a3c4daff055621a0ebe3f05e1dbfe85b6b9fef679fa850c2a60",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151510/151510_reference_A_B_confusion.pdf",
+      "pdf_sha256": "ec074e099bb0cb0d60a92fa1dd2a32fd8c986ff5c5d043cdb5f979099d7ea494",
+      "pdf_bytes": 142551,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151510/151510_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151510/151510_reference_A_B_confusion.svg",
+      "source_svg_sha256": "a60646821d9e62cf501af39c346270922f77665f58f660971af017f83acf3ccd",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151510/151510_reference_A_B_spatial.pdf",
+      "pdf_sha256": "cdcb304cdd5b329ee5335e86d1fcc69f91742188c7f39feb568f8e57d9a2bf4d",
+      "pdf_bytes": 219502,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151510/151510_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151510/151510_reference_A_B_spatial.svg",
+      "source_svg_sha256": "0cdf05179841d8a27681405632923e3f3e6b4b806b6a16b628fa580c1f2c69a1",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151669/151669_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "151693fd6a6cdbad60a78e03a54074155b68b119f72967f5fec5ee7b3920316d",
+      "pdf_bytes": 4799483,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151669/151669_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151669/151669_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "893a56179ed8efdd747782d49ce2b00a59473fb5a3acd9a36d26d862c9552037",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151669/151669_reference_A_B_confusion.pdf",
+      "pdf_sha256": "fcb8470970790fc720021290352c7b825603ee06666e08e002e970cf8e544107",
+      "pdf_bytes": 111610,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151669/151669_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151669/151669_reference_A_B_confusion.svg",
+      "source_svg_sha256": "b90ac17175c90e8268859e61b7c0b237b852fc57f11e950c44b1166e9248972e",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151669/151669_reference_A_B_spatial.pdf",
+      "pdf_sha256": "5f329e62cebf6aea50b81a619a71fbbb563479763f2dee8eac45a44216130789",
+      "pdf_bytes": 167804,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151669/151669_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151669/151669_reference_A_B_spatial.svg",
+      "source_svg_sha256": "6ddc960d239f3387847bd08d31522776d07271afa620e270c2d7765e9b902b2c",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151670/151670_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "402392f1936d9cb76c6eb5e69b6612d8d118957d8de692616bbb09dc0d7a8f24",
+      "pdf_bytes": 4587415,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151670/151670_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151670/151670_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "1ae63ddc40fde94a274bb1ebd7bc8c882cdff99bbc29589bd84cf15df871207e",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151670/151670_reference_A_B_confusion.pdf",
+      "pdf_sha256": "5eb4a4e30b6fd9f093ec45cfb7965d03cb1dbda499757f3a35f020d2649160c4",
+      "pdf_bytes": 111687,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151670/151670_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151670/151670_reference_A_B_confusion.svg",
+      "source_svg_sha256": "80974e2b06dfb1f93ded40234d496fa912944aad4f99c29308568e0d9271ba88",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151670/151670_reference_A_B_spatial.pdf",
+      "pdf_sha256": "31c73489488263827e40a28b92643b9f0e65857abb88da003cc53b38efc8f15a",
+      "pdf_bytes": 166302,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151670/151670_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151670/151670_reference_A_B_spatial.svg",
+      "source_svg_sha256": "46ac874705b5e1bc6732366d4e3fa4acc3825f3d133b98efca9c4539bef84b6c",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151671/151671_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "0073cc237877048ab8149435bd8ee91b1950de41cc7df8ed80f4a1e083850905",
+      "pdf_bytes": 5381869,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151671/151671_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "534f47363ee1972cb3e638c23e8ba20c50f89b3315fca8dd23b9381c9645021c",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151671/151671_reference_A_B_confusion.pdf",
+      "pdf_sha256": "7055ccf28dd310339bc29beac3b4175a6f1cc6f4e0a381214e4a7d4968f256c4",
+      "pdf_bytes": 109420,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151671/151671_reference_A_B_confusion.svg",
+      "source_svg_sha256": "7852409a449136318471882d13334cdb3ac9110d346b43c1c9b246d6d7ab262c",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151671/151671_reference_A_B_spatial.pdf",
+      "pdf_sha256": "b434527682a0f3f6ef561032b50a58c31aaf6bcdf8bf25c7758cc405640c0cd4",
+      "pdf_bytes": 173917,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151671/151671_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151671/151671_reference_A_B_spatial.svg",
+      "source_svg_sha256": "b9192241a5192e9d19ad4347963368e62113a9c1288783edd5ba4d35e8aa1763",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151672/151672_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "1d264be17d2e04a2c16827ac3443acbb0a7eb48257e9dd87a7eb934c9a086d59",
+      "pdf_bytes": 5257684,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151672/151672_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151672/151672_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "627c2e57254e3a7de33a48404aa795be4b0cb0b286bb15a1e5a1b4dded2c5540",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151672/151672_reference_A_B_confusion.pdf",
+      "pdf_sha256": "ec843adf82ba28278d222ce0ac48f66c93bbefd48dc47cd69265e9fe95ab742b",
+      "pdf_bytes": 120148,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151672/151672_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151672/151672_reference_A_B_confusion.svg",
+      "source_svg_sha256": "3d002a4ea7ee22443872e897e241e60880ef240acdd6ac8c7307cac45a96be5c",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151672/151672_reference_A_B_spatial.pdf",
+      "pdf_sha256": "0b49db599be88c97da0fb852070a5cd45d86b2667495633c20a14d438c82ea42",
+      "pdf_bytes": 175483,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151672/151672_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151672/151672_reference_A_B_spatial.svg",
+      "source_svg_sha256": "01d48101b420e47dadff2b8190c76a50a303bf38aaaa87b00fc0185a9561acdd",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151673/151673_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "8b767bc113580f23b5973612f0008b509d689423dab3b857603f48730de2ed2f",
+      "pdf_bytes": 4769856,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151673/151673_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151673/151673_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "dd5a973c0a7c794ab20c74a925d3aa7ab1db65bb22bd82a57fbc64b11b849cf0",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151673/151673_reference_A_B_confusion.pdf",
+      "pdf_sha256": "3ecdc254f9536f75e71441d1d23c8712ceaf405a3c2043eafbb9608c42ac88b4",
+      "pdf_bytes": 139403,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151673/151673_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151673/151673_reference_A_B_confusion.svg",
+      "source_svg_sha256": "27eb48a3231e0d966bffb7d21ec60ea5941b3776b84059598e7944b2395d5e2d",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151673/151673_reference_A_B_spatial.pdf",
+      "pdf_sha256": "2c71cdbb960f80eeef6491417ddf8e75af9c04f3f7db1e749919b8ac5daea34c",
+      "pdf_bytes": 194489,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151673/151673_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151673/151673_reference_A_B_spatial.svg",
+      "source_svg_sha256": "fb0fb869b52e3e4c5cab4117d2b3dbd641a55c0b81030ca518507cee15967691",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151674/151674_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "88b0d3cf81ea547489db9887eadeb1dbfdd984a09fa75dd889af234519d71837",
+      "pdf_bytes": 4813119,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151674/151674_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151674/151674_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "7c761578f9c24b4ed60cbc6a5fbcec785d319561e35ba8c1984533a19b7c21c8",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151674/151674_reference_A_B_confusion.pdf",
+      "pdf_sha256": "adbba61f9b4a1faa949b5ae0b4997c2953d6e89d66baa02d4fdd0eac377e0a5e",
+      "pdf_bytes": 145604,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151674/151674_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151674/151674_reference_A_B_confusion.svg",
+      "source_svg_sha256": "11f7429990fb858d32fcecf651669e3db43e3a26e1dd75a9ce07e43cdbb7a32a",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151674/151674_reference_A_B_spatial.pdf",
+      "pdf_sha256": "b5de1af58fc7f8baff1cf83d5077a5fcf1de08cfb962d832815db21d1348e6d5",
+      "pdf_bytes": 194560,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151674/151674_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151674/151674_reference_A_B_spatial.svg",
+      "source_svg_sha256": "597d83c62cdbaa26a389e09ebf6da688429e65efe92a77dc1d5601d92e996b48",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151675/151675_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "56367562af653b1250237087e9c644196e6dd93a22a55f9674d4b09642248e4c",
+      "pdf_bytes": 4709681,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151675/151675_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151675/151675_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "d666211bf229889c215a99d50d1a0230855703e96c07eb6fab0001dd185334de",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151675/151675_reference_A_B_confusion.pdf",
+      "pdf_sha256": "3109c8cd9b73ad8265ba0d946627f8fe72ad3080dfe5de9663f101837cc76815",
+      "pdf_bytes": 146516,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151675/151675_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151675/151675_reference_A_B_confusion.svg",
+      "source_svg_sha256": "935a8b75e26187ac9f15cbcf4de4a375fbc308c20c517029fe61d67d3cdc0ac1",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151675/151675_reference_A_B_spatial.pdf",
+      "pdf_sha256": "81ea94530082146cf64f6dea238ca68c347a468a6050288bd8861939b3a93de9",
+      "pdf_bytes": 192909,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151675/151675_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151675/151675_reference_A_B_spatial.svg",
+      "source_svg_sha256": "0b4091f7a0248c50664f2ab302e189a0ebb94615d4dd6edeb7267bc061f1de15",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151676/151676_MOBP_PCP4_SNAP25_expression.pdf",
+      "pdf_sha256": "b5572fbf355cc3165ba9d5ff1e901a391cd516ed14106f51f03d489580c7d260",
+      "pdf_bytes": 4537264,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151676/151676_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151676/151676_MOBP_PCP4_SNAP25_expression.svg",
+      "source_svg_sha256": "83307e012098536094140de3dd71d1332c3c7bcc70593da490e9f721347c7bd7",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151676/151676_reference_A_B_confusion.pdf",
+      "pdf_sha256": "76007d142eab1d7e8d3a99797d1e2cb475bf9d42ffb478cb969603513407b2ac",
+      "pdf_bytes": 139147,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151676/151676_reference_A_B_confusion.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151676/151676_reference_A_B_confusion.svg",
+      "source_svg_sha256": "cb3482e4fabf1760f2ecba693f223486c98ec9be138e7d7a4ed7bca56841a0eb",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    },
+    {
+      "pdf_relative_path": "151676/151676_reference_A_B_spatial.pdf",
+      "pdf_sha256": "00c39c1ef5f2947e2a532b50bc0add61cd10e68e4866ae995a09e6746acd3819",
+      "pdf_bytes": 190741,
+      "source_svg_repository_path": "experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures/151676/151676_reference_A_B_spatial.svg",
+      "source_svg_project_relative_path": "results/e4_spatial_visualization_v1/batch_20261120T080609Z_4732/151676/151676_reference_A_B_spatial.svg",
+      "source_svg_sha256": "ad6e7accc928cd2d90685b8e4366953edd76f745352077c29a78f047160b02f5",
+      "conversion_origin": "success",
+      "converter": "Inkscape 1.4.4 (https://inkscape.org)"
+    }
+  ]
+}
