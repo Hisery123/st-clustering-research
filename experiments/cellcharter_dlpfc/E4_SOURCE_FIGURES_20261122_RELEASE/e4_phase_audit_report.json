@@ -1,0 +1,113 @@
+{
+  "protocol": "E4_SPATIAL_MARKER_PHASE_AUDIT_V1",
+  "timestamp_utc": "2026-11-20T08:21:35.852395+00:00",
+  "status": "passed",
+  "checked_samples": 12,
+  "expected_samples": 12,
+  "checked_outputs": 72,
+  "svg_checked": 36,
+  "csv_checked": 36,
+  "original_batch_dir": "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732",
+  "source_batch_sha256": "cf570329799f9d342f05f77eb236a1ae231a1110ee918b02a1a5627919ae34ca",
+  "audit_scope": "file SHA, SVG XML, reference-vs-prediction confusion recomputation, 10x raw and normalized marker value recomputation",
+  "limits": "Automatic artifact audit is not a human review of visual legibility or biological interpretation.",
+  "issues": [],
+  "samples": [
+    {
+      "sample": "151507",
+      "spots": 4226,
+      "labeled": 4221,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151508",
+      "spots": 4384,
+      "labeled": 4381,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151509",
+      "spots": 4789,
+      "labeled": 4788,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151510",
+      "spots": 4634,
+      "labeled": 4595,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151669",
+      "spots": 3661,
+      "labeled": 3636,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151670",
+      "spots": 3498,
+      "labeled": 3484,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151671",
+      "spots": 4110,
+      "labeled": 4093,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151672",
+      "spots": 4015,
+      "labeled": 3888,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151673",
+      "spots": 3639,
+      "labeled": 3611,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151674",
+      "spots": 3673,
+      "labeled": 3635,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151675",
+      "spots": 3592,
+      "labeled": 3566,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    },
+    {
+      "sample": "151676",
+      "spots": 3460,
+      "labeled": 3431,
+      "outputs": 6,
+      "marker_values_recomputed": true,
+      "confusions_recomputed": true
+    }
+  ]
+}

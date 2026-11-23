@@ -1,0 +1,55 @@
+{
+  "status": "completed",
+  "sample": "151510",
+  "spots": 4634,
+  "labeled": 4595,
+  "unlabeled": 39,
+  "A_k": 7,
+  "B_k": 7,
+  "10x_h5_total_barcodes": 4634,
+  "spots_zero_total_UMI": 0,
+  "markers": {
+    "MOBP": {
+      "feature_rows": 1,
+      "spots_with_nonzero": 849
+    },
+    "PCP4": {
+      "feature_rows": 1,
+      "spots_with_nonzero": 938
+    },
+    "SNAP25": {
+      "feature_rows": 1,
+      "spots_with_nonzero": 4353
+    }
+  },
+  "input_sha256": {
+    "spots": "7ff723d19deae2b15b67ed21c70f02cf76a1ad56312e1bdf17be17a6b31d89d9",
+    "labels": "3f328c4347e75383ecceba209a19ae46b7dfb5494f03766c36e1fc0a60ae2fc1",
+    "h5": "421a77bad2e08326a627d91a8994e1f47afb61b75aba815204b2b37c2aed26e9",
+    "A_predictions": "8c1d1e7b18e1adbd93731ce4a9222a7e0c3d88ba540ea8f330fc139e8f78b494",
+    "B_predictions": "df974cf80e2a4d91d5a80833b941fdd2e0aa273ee33dba9358724ccdea16bea0"
+  },
+  "input_files": {
+    "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151510\\spots_aligned.csv",
+    "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151510\\manual_layer_annotations.csv",
+    "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151510\\filtered_feature_bc_matrix.h5",
+    "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151510_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+    "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151510_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+  },
+  "output_sha256": {
+    "151510_reference_A_B_spatial.svg": "0cdf05179841d8a27681405632923e3f3e6b4b806b6a16b628fa580c1f2c69a1",
+    "151510_MOBP_PCP4_SNAP25_expression.svg": "f6ccf3430ad79a3c4daff055621a0ebe3f05e1dbfe85b6b9fef679fa850c2a60",
+    "151510_marker_expression_raw_and_log1p10k.csv": "d4b65ea61d4bf1e94b53bca186ab82c5dc1afc7eb548120f15b9b1851afc2291",
+    "151510_reference_vs_A_confusion_counts.csv": "4379cbbf2e1f88c9dafbd02a4a40dd44d93fd39e1908073ded0db459ed3e11c1",
+    "151510_reference_vs_B_confusion_counts.csv": "a3946d781362a41f04ce0ea044732221e555e5448161d2dcc5ce7689a316cfb8",
+    "151510_reference_A_B_confusion.svg": "a60646821d9e62cf501af39c346270922f77665f58f660971af017f83acf3ccd"
+  },
+  "output_files": [
+    "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_A_B_spatial.svg",
+    "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_MOBP_PCP4_SNAP25_expression.svg",
+    "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_marker_expression_raw_and_log1p10k.csv",
+    "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_vs_A_confusion_counts.csv",
+    "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_vs_B_confusion_counts.csv",
+    "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_A_B_confusion.svg"
+  ]
+}

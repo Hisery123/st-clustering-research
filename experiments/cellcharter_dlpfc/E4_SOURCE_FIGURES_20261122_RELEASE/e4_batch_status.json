@@ -1,0 +1,693 @@
+{
+  "protocol": "E4_SPATIAL_MARKER_REAL_DATA_BATCH_V1",
+  "started_utc": "2026-11-20T08:06:09.126677+00:00",
+  "status": "completed",
+  "samples": {
+    "151507": {
+      "status": "completed",
+      "sample": "151507",
+      "spots": 4226,
+      "labeled": 4221,
+      "unlabeled": 5,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 4226,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 905
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1068
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3963
+        }
+      },
+      "input_sha256": {
+        "spots": "f90fcc5a38959d248da14b614afb96a647d1a7c82ea490f6e2634349b6cf017c",
+        "labels": "00b0d2599702ddd1506e6bcb41b0c6fa636f290c3355b605f7d34b49034de428",
+        "h5": "686521ab02a68dfdd810c3cde26daea2257d016c8047859877ffb8c7ac5bdd01",
+        "A_predictions": "b6cdbbbe5f8b720ba37c002668234c849c00857500e48c6612351dd7226abb78",
+        "B_predictions": "35eedba81f322bd0a1b78c21e16a90f7713f945288838c6108fa63b96783cc18"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151507\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151507\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151507\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_block_swap_151507_seed22911_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_block_swap_151507_seed22911_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151507_reference_A_B_spatial.svg": "7d76f7f61d750c9503056aaf60cfd43310e2ce8d72ead91d202655fb868849c1",
+        "151507_MOBP_PCP4_SNAP25_expression.svg": "36c2933c9746b78c5cf878ae2934a0c4a184608b98ef84730ad93606805db21b",
+        "151507_marker_expression_raw_and_log1p10k.csv": "7cd71489cc084d9fff1ae3c9a976771f239f9b3daf3fd4fb7b581ab6ea76a778",
+        "151507_reference_vs_A_confusion_counts.csv": "8ff2a5565616ea2b008c2312f71625fae2f894f7123ebab3edaef759c07cda6f",
+        "151507_reference_vs_B_confusion_counts.csv": "46f43c8cf554bdedbd33319646ef06f19fa7a768522e12816565b5a74519918a",
+        "151507_reference_A_B_confusion.svg": "4fb9dddc27982cf692f8be5ddfc8f8b8e2512dd75f87342101efec33bce04b23"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151507\\151507_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151507\\151507_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151507\\151507_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151507\\151507_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151507\\151507_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151507\\151507_reference_A_B_confusion.svg"
+      ]
+    },
+    "151508": {
+      "status": "completed",
+      "sample": "151508",
+      "spots": 4384,
+      "labeled": 4381,
+      "unlabeled": 3,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 4384,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 735
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1032
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 4014
+        }
+      },
+      "input_sha256": {
+        "spots": "c7008a34887d1af22721d185aa6123570cb11fcd0da9b98235c5f04330f105dc",
+        "labels": "93e4458575b148891efa99ec2f1d233cc623125dfe9d8ea3f260912e1d1174ef",
+        "h5": "48ab74b340c79f19070e433b8b7db67932a6e889d421a691f70293587fff0621",
+        "A_predictions": "ed9d0d9080736cec98e2a453749889f99b70b5418f5e3d12c6d60708ec3a294a",
+        "B_predictions": "721c532a41bdec0a363980e5a58cca1088c52789e23d45625b2c8ae4927c0b04"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151508\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151508\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151508\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_block_swap_151508_gmm22911_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_block_swap_151508_gmm22911_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151508_reference_A_B_spatial.svg": "b634e63c6db58d337b60c5d6d2286e40a1479c6434e9436cc82d71dbee55e2b2",
+        "151508_MOBP_PCP4_SNAP25_expression.svg": "fc4bd53194fc13a8a399732b6bbb648df0b7d5d724f74f04b7eee25f47988544",
+        "151508_marker_expression_raw_and_log1p10k.csv": "0ebd7d32649ef33fa0b6a1094f6bf51e537db44f04d284a2e239652da8694f3d",
+        "151508_reference_vs_A_confusion_counts.csv": "a254e6374170f067393d7736995e240a3d946226ac857ee50f5b485c6d92b9be",
+        "151508_reference_vs_B_confusion_counts.csv": "c71f047e2c95055c480ee22979965a37cd66be67494804e3c8289f24585a77dc",
+        "151508_reference_A_B_confusion.svg": "94c1297a0463db1c176b3091496a2c0e9d708d132d1606a23b278f1becdcdf7a"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151508\\151508_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151508\\151508_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151508\\151508_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151508\\151508_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151508\\151508_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151508\\151508_reference_A_B_confusion.svg"
+      ]
+    },
+    "151509": {
+      "status": "completed",
+      "sample": "151509",
+      "spots": 4789,
+      "labeled": 4788,
+      "unlabeled": 1,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 4789,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 837
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 905
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 4514
+        }
+      },
+      "input_sha256": {
+        "spots": "98d8cbda6951a443288274ca5ece16597bf8984a539fe9d09ce0232f64bbc2ea",
+        "labels": "52d802d5d54e6e1e63b7f2fce086b9bc9d1403b70bc4d6df19edcb2dc5326812",
+        "h5": "35a4850aebdfdccb9fdf2f79cebeebc037684a79c03adb4bcdffa7c7c68486fc",
+        "A_predictions": "3b5d07fb1b464c6f0a062c0aa1b3e23a120230fe2d58990641010023bf44eeec",
+        "B_predictions": "011f6f1c61f3bd66acc2bc893c556a38f6f4105cd95e591b6f99a6943a1c1173"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151509\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151509\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151509\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151509_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151509_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151509_reference_A_B_spatial.svg": "03ce2ed1947cbe6e030dcc2937503b409582eea0520615589f917abb67a969ae",
+        "151509_MOBP_PCP4_SNAP25_expression.svg": "01395948bb50a24b0b8ed2188e2f02c7631ea2b7cbc9e72599e1567c05ae4ac6",
+        "151509_marker_expression_raw_and_log1p10k.csv": "cf8a154db9996b840aa9b00d0760e0bb447d6e6269ae3c8b7121e4ab6f5f9bc1",
+        "151509_reference_vs_A_confusion_counts.csv": "a9d5322f7795cc03d1960f51f1a35d40d96a9ca5b09ca0c79031b248fc9a37ac",
+        "151509_reference_vs_B_confusion_counts.csv": "84e15ad34d6bdad87ed168c02d52df8fd68fd0d64cdb439bc60d298791ae0414",
+        "151509_reference_A_B_confusion.svg": "31332c83f9b177106b4979b0c3c91858003c68b1f5d94e248b458acbc93bd12c"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151509\\151509_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151509\\151509_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151509\\151509_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151509\\151509_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151509\\151509_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151509\\151509_reference_A_B_confusion.svg"
+      ]
+    },
+    "151510": {
+      "status": "completed",
+      "sample": "151510",
+      "spots": 4634,
+      "labeled": 4595,
+      "unlabeled": 39,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 4634,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 849
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 938
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 4353
+        }
+      },
+      "input_sha256": {
+        "spots": "7ff723d19deae2b15b67ed21c70f02cf76a1ad56312e1bdf17be17a6b31d89d9",
+        "labels": "3f328c4347e75383ecceba209a19ae46b7dfb5494f03766c36e1fc0a60ae2fc1",
+        "h5": "421a77bad2e08326a627d91a8994e1f47afb61b75aba815204b2b37c2aed26e9",
+        "A_predictions": "8c1d1e7b18e1adbd93731ce4a9222a7e0c3d88ba540ea8f330fc139e8f78b494",
+        "B_predictions": "df974cf80e2a4d91d5a80833b941fdd2e0aa273ee33dba9358724ccdea16bea0"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151510\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151510\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151510\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151510_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151510_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151510_reference_A_B_spatial.svg": "0cdf05179841d8a27681405632923e3f3e6b4b806b6a16b628fa580c1f2c69a1",
+        "151510_MOBP_PCP4_SNAP25_expression.svg": "f6ccf3430ad79a3c4daff055621a0ebe3f05e1dbfe85b6b9fef679fa850c2a60",
+        "151510_marker_expression_raw_and_log1p10k.csv": "d4b65ea61d4bf1e94b53bca186ab82c5dc1afc7eb548120f15b9b1851afc2291",
+        "151510_reference_vs_A_confusion_counts.csv": "4379cbbf2e1f88c9dafbd02a4a40dd44d93fd39e1908073ded0db459ed3e11c1",
+        "151510_reference_vs_B_confusion_counts.csv": "a3946d781362a41f04ce0ea044732221e555e5448161d2dcc5ce7689a316cfb8",
+        "151510_reference_A_B_confusion.svg": "a60646821d9e62cf501af39c346270922f77665f58f660971af017f83acf3ccd"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151510\\151510_reference_A_B_confusion.svg"
+      ]
+    },
+    "151669": {
+      "status": "completed",
+      "sample": "151669",
+      "spots": 3661,
+      "labeled": 3636,
+      "unlabeled": 25,
+      "A_k": 5,
+      "B_k": 5,
+      "10x_h5_total_barcodes": 3661,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 873
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1319
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3582
+        }
+      },
+      "input_sha256": {
+        "spots": "c0bf8e032b0643e68c5cd68523e2723d913a2d2d287340e671db13183b9011f3",
+        "labels": "c1ea5b4d3fcc43ef7dcb7dd5001c922263013084391035dd1f71c32a13c39afb",
+        "h5": "4c92c56291f22c31abdc76eb4d7e638ffc5b72e3c08de1142cd76ca731cbea14",
+        "A_predictions": "8db35bf0abd4b5766bdb29cba532fde7eb94df491522d2c33f7805ea17eb64fc",
+        "B_predictions": "357878386c2c26453d0b9712da8de0c28d1a79d435ee751279505dca95f7028c"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151669\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151669\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151669\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151669_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151669_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151669_reference_A_B_spatial.svg": "6ddc960d239f3387847bd08d31522776d07271afa620e270c2d7765e9b902b2c",
+        "151669_MOBP_PCP4_SNAP25_expression.svg": "893a56179ed8efdd747782d49ce2b00a59473fb5a3acd9a36d26d862c9552037",
+        "151669_marker_expression_raw_and_log1p10k.csv": "e7d794fddac8a67d4a98c7c2d1c136a88bf9eea74a1c429d8f020b38e41c9afd",
+        "151669_reference_vs_A_confusion_counts.csv": "7c530f2cccaa21d34deb5169b21eec815e93307598d72766554fc90afb41fd40",
+        "151669_reference_vs_B_confusion_counts.csv": "60d16fb10d328e37a74fd2f83a02a9732f22bdb14966fcb80fcac84a30784536",
+        "151669_reference_A_B_confusion.svg": "b90ac17175c90e8268859e61b7c0b237b852fc57f11e950c44b1166e9248972e"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151669\\151669_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151669\\151669_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151669\\151669_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151669\\151669_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151669\\151669_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151669\\151669_reference_A_B_confusion.svg"
+      ]
+    },
+    "151670": {
+      "status": "completed",
+      "sample": "151670",
+      "spots": 3498,
+      "labeled": 3484,
+      "unlabeled": 14,
+      "A_k": 5,
+      "B_k": 5,
+      "10x_h5_total_barcodes": 3498,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 771
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1105
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3406
+        }
+      },
+      "input_sha256": {
+        "spots": "131cf73c209eb3cc56d86e3eac4100a07ca988e4d58a205c46e4edad83a08fdf",
+        "labels": "66b2a1c28ae6cb547213835bc80f1179f1f549efa5551227b86d31e06a288c20",
+        "h5": "931f50b5de5aaa6a9e9c9d795f072a1f1f7f42a1602c849c61540b7f2258a5b1",
+        "A_predictions": "84642deed825966a7688600b4a95373c75dcbc7d04a70f6c49a0ae43995bc035",
+        "B_predictions": "a4e36f70266d6fc5e366d0e3a54ddde1da479f0ce92c59932d66ed2ae6ddf2fb"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151670\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151670\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151670\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151670_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151670_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151670_reference_A_B_spatial.svg": "46ac874705b5e1bc6732366d4e3fa4acc3825f3d133b98efca9c4539bef84b6c",
+        "151670_MOBP_PCP4_SNAP25_expression.svg": "1ae63ddc40fde94a274bb1ebd7bc8c882cdff99bbc29589bd84cf15df871207e",
+        "151670_marker_expression_raw_and_log1p10k.csv": "9224e08fd64ee187f40b7b19c7f541f1cd95f19a12cc9533750cb206cad8b2ae",
+        "151670_reference_vs_A_confusion_counts.csv": "b97c4cf3ca7f86f4bb017fba35c329db3b9a5508d2abde7f74b5bcb03d529e43",
+        "151670_reference_vs_B_confusion_counts.csv": "4e4a0eb4263d9ad3612d69c0df8ff90704fa078aa3f7adc9c9093fe7e09f6b8c",
+        "151670_reference_A_B_confusion.svg": "80974e2b06dfb1f93ded40234d496fa912944aad4f99c29308568e0d9271ba88"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151670\\151670_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151670\\151670_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151670\\151670_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151670\\151670_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151670\\151670_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151670\\151670_reference_A_B_confusion.svg"
+      ]
+    },
+    "151671": {
+      "status": "completed",
+      "sample": "151671",
+      "spots": 4110,
+      "labeled": 4093,
+      "unlabeled": 17,
+      "A_k": 5,
+      "B_k": 5,
+      "10x_h5_total_barcodes": 4110,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1098
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1479
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3981
+        }
+      },
+      "input_sha256": {
+        "spots": "b8ed247edd53976bd0c1030006903a34e4990aebf5d2a73ee9509dd2e8ca11f0",
+        "labels": "de40372c82d30b1b5f97df3ea84c6856923b3d63028a45d9415369ec9e145824",
+        "h5": "6b6b86696b377fb44fd367e80c3820209f8977cb62af4b4715c37c6faf80baa5",
+        "A_predictions": "14bf516b746605dae896444f983f4bbb3b4820b399768eb7e95d93fc6b5f6dfe",
+        "B_predictions": "a387a14dc1e5f028aa67b2cbce0ee75088ad651d4c705bb2a033050487182685"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151671\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151671\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151671\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151671_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151671_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151671_reference_A_B_spatial.svg": "b9192241a5192e9d19ad4347963368e62113a9c1288783edd5ba4d35e8aa1763",
+        "151671_MOBP_PCP4_SNAP25_expression.svg": "534f47363ee1972cb3e638c23e8ba20c50f89b3315fca8dd23b9381c9645021c",
+        "151671_marker_expression_raw_and_log1p10k.csv": "53398ad17d36bea9a248fdac3bbe00418dcc44d014ead0cc98a80cf3f094c3c6",
+        "151671_reference_vs_A_confusion_counts.csv": "21154029ee8f1e0decca8e79e702bd20bc864464e0815d370d53885c1b9a1f2a",
+        "151671_reference_vs_B_confusion_counts.csv": "c592cd257ab153b74ca138f23802b999e0d13507f6d89ae7b09c5bb52069490f",
+        "151671_reference_A_B_confusion.svg": "7852409a449136318471882d13334cdb3ac9110d346b43c1c9b246d6d7ab262c"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151671\\151671_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151671\\151671_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151671\\151671_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151671\\151671_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151671\\151671_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151671\\151671_reference_A_B_confusion.svg"
+      ]
+    },
+    "151672": {
+      "status": "completed",
+      "sample": "151672",
+      "spots": 4015,
+      "labeled": 3888,
+      "unlabeled": 127,
+      "A_k": 5,
+      "B_k": 5,
+      "10x_h5_total_barcodes": 4015,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1117
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1404
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3869
+        }
+      },
+      "input_sha256": {
+        "spots": "ae213db83e2e56d0c8c393673a66b9c8dd14db63c0f7180d7ba88adcc1950281",
+        "labels": "ac92222b88058f2cbd8e2a1f0af1a14d3c1f235426d74d2fa1f87eec76fecbc0",
+        "h5": "a28ad2b88314d16b1bbde612fb80d12460ce84981cf4c00902ca046cafae4009",
+        "A_predictions": "ed562e29690e97874e3151d12afaa1e8682cb7ff300624252a45a928191e57a5",
+        "B_predictions": "7b0b170071dc523be2c0917373a6dc928fe92a63d49a7f20b9b35b6259c079b5"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151672\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151672\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151672\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151672_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151672_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151672_reference_A_B_spatial.svg": "01d48101b420e47dadff2b8190c76a50a303bf38aaaa87b00fc0185a9561acdd",
+        "151672_MOBP_PCP4_SNAP25_expression.svg": "627c2e57254e3a7de33a48404aa795be4b0cb0b286bb15a1e5a1b4dded2c5540",
+        "151672_marker_expression_raw_and_log1p10k.csv": "d6eaa7c491d61297ec5640ec1de162a89b767c06f1150d8c6998a5c87eeaef54",
+        "151672_reference_vs_A_confusion_counts.csv": "11501247307b542888c2712f0feca66ab9c38a62e3ae063caf0e9b83a374295c",
+        "151672_reference_vs_B_confusion_counts.csv": "a73d0b477cdc47e4b4d088123301bc4d6a02c3117ed395ff54b1af13f58c41a0",
+        "151672_reference_A_B_confusion.svg": "3d002a4ea7ee22443872e897e241e60880ef240acdd6ac8c7307cac45a96be5c"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151672\\151672_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151672\\151672_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151672\\151672_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151672\\151672_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151672\\151672_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151672\\151672_reference_A_B_confusion.svg"
+      ]
+    },
+    "151673": {
+      "status": "completed",
+      "sample": "151673",
+      "spots": 3639,
+      "labeled": 3611,
+      "unlabeled": 28,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 3639,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1643
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1737
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3552
+        }
+      },
+      "input_sha256": {
+        "spots": "96bdbff316a547fa14f7c94eb5f1a7f5734ea913f2710e21af4a1d175affc36e",
+        "labels": "271538a67dd85092a797735a391657262f68b72d3470064271303d58e28ce0ed",
+        "h5": "216e8010e1c313925afa0f174207da7c8947497c960e81b07edbd16176460413",
+        "A_predictions": "10b3cce9c57a29c9dcb17e39db2149d8e06eb54760f634d720785fdcb3509b6a",
+        "B_predictions": "6b5daf9ef35a6b970cd1ecaede57be52a112957cb4d4a0db2924470dac9a126c"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151673\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151673\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151673\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151673_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151673_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151673_reference_A_B_spatial.svg": "fb0fb869b52e3e4c5cab4117d2b3dbd641a55c0b81030ca518507cee15967691",
+        "151673_MOBP_PCP4_SNAP25_expression.svg": "dd5a973c0a7c794ab20c74a925d3aa7ab1db65bb22bd82a57fbc64b11b849cf0",
+        "151673_marker_expression_raw_and_log1p10k.csv": "fd29f2d0228364fc72dfad72dbea52d335df703b81312fa4a79ba8289fbf7ef7",
+        "151673_reference_vs_A_confusion_counts.csv": "045111661f4ddc09e100b31842e648da799a7ea84564126b3337d9bd91f8e9ba",
+        "151673_reference_vs_B_confusion_counts.csv": "1bddebd16634e1663981122329b657c90758b0dcfc6dd66197e6227b8f794feb",
+        "151673_reference_A_B_confusion.svg": "27eb48a3231e0d966bffb7d21ec60ea5941b3776b84059598e7944b2395d5e2d"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151673\\151673_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151673\\151673_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151673\\151673_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151673\\151673_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151673\\151673_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151673\\151673_reference_A_B_confusion.svg"
+      ]
+    },
+    "151674": {
+      "status": "completed",
+      "sample": "151674",
+      "spots": 3673,
+      "labeled": 3635,
+      "unlabeled": 38,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 3673,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1940
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 2052
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3649
+        }
+      },
+      "input_sha256": {
+        "spots": "a3c95069a93910772766681b6e02bd901e3f27fc56a49799fd7d43cdbd925ba8",
+        "labels": "44e3c308f8251974222ab772f74c0f2eca2e2ab17ca9bd3338a5751b440eccbb",
+        "h5": "0ecbabdb0ea98893f41bf7b557d8de50f1e9833eb2e55b69740b85b985c01880",
+        "A_predictions": "8e49b35a0fda1816477861941b49a7822c620137cb477ea582e13308bc33f8e5",
+        "B_predictions": "c60397912605e963c2893d4ed900fe0d38c61c617bc45dbf1ccf71df224cc584"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151674\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151674\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151674\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151674_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151674_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151674_reference_A_B_spatial.svg": "597d83c62cdbaa26a389e09ebf6da688429e65efe92a77dc1d5601d92e996b48",
+        "151674_MOBP_PCP4_SNAP25_expression.svg": "7c761578f9c24b4ed60cbc6a5fbcec785d319561e35ba8c1984533a19b7c21c8",
+        "151674_marker_expression_raw_and_log1p10k.csv": "f2c56abe9f9e7990b84ec5da44b8f622a8f9526575b911f009cf3064fc52904c",
+        "151674_reference_vs_A_confusion_counts.csv": "8cfe8fb29f844d841f31a5d10e7fa47f1af60ae23465c9d77dbfd0a1274b9370",
+        "151674_reference_vs_B_confusion_counts.csv": "43b5b5bfd123b63ffe403a13079c5f8d0932b9f7d0374e39e15c76e69aea43bb",
+        "151674_reference_A_B_confusion.svg": "11f7429990fb858d32fcecf651669e3db43e3a26e1dd75a9ce07e43cdbb7a32a"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151674\\151674_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151674\\151674_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151674\\151674_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151674\\151674_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151674\\151674_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151674\\151674_reference_A_B_confusion.svg"
+      ]
+    },
+    "151675": {
+      "status": "completed",
+      "sample": "151675",
+      "spots": 3592,
+      "labeled": 3566,
+      "unlabeled": 26,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 3592,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1408
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1548
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3469
+        }
+      },
+      "input_sha256": {
+        "spots": "d9ba6d5cee484a9962c2cdb87d87b3dad4293decf6afed88351af1cf2031777c",
+        "labels": "a111565746647185093d5ac6d1a3b5c403a02c88b0019428b3a1b58691c1117f",
+        "h5": "eba1f479b85df34dd6b58144c1fcdfbf2ad8fb01fe80caabb9bf64a2ce36394a",
+        "A_predictions": "e1c17f2e15f01d4cb8442424ac302ae2d6f5a64f678e6053a576e49824ea946f",
+        "B_predictions": "84d4c980852f91ba3fbea395ac52cd9676e0516fb5ee8c1a800b262ad39ec6ef"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151675\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151675\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151675\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151675_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151675_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151675_reference_A_B_spatial.svg": "0b4091f7a0248c50664f2ab302e189a0ebb94615d4dd6edeb7267bc061f1de15",
+        "151675_MOBP_PCP4_SNAP25_expression.svg": "d666211bf229889c215a99d50d1a0230855703e96c07eb6fab0001dd185334de",
+        "151675_marker_expression_raw_and_log1p10k.csv": "a98591795f62e5d5d643415f4f5fbf238694e1fbc9be6f8fddfd6cb42679bd67",
+        "151675_reference_vs_A_confusion_counts.csv": "b27575726bad54712ead0f64190c2d9a09cb62f6735b8575ce91c07bbe720892",
+        "151675_reference_vs_B_confusion_counts.csv": "19872af9f71ba399399ada165d3402f9954e48349f0dbfa5df46aed0f5deb2c6",
+        "151675_reference_A_B_confusion.svg": "935a8b75e26187ac9f15cbcf4de4a375fbc308c20c517029fe61d67d3cdc0ac1"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151675\\151675_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151675\\151675_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151675\\151675_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151675\\151675_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151675\\151675_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151675\\151675_reference_A_B_confusion.svg"
+      ]
+    },
+    "151676": {
+      "status": "completed",
+      "sample": "151676",
+      "spots": 3460,
+      "labeled": 3431,
+      "unlabeled": 29,
+      "A_k": 7,
+      "B_k": 7,
+      "10x_h5_total_barcodes": 3460,
+      "spots_zero_total_UMI": 0,
+      "markers": {
+        "MOBP": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1588
+        },
+        "PCP4": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 1606
+        },
+        "SNAP25": {
+          "feature_rows": 1,
+          "spots_with_nonzero": 3396
+        }
+      },
+      "input_sha256": {
+        "spots": "1236cb9f78d2806c75404d0afcc615e023859bd75c628aec6d8dfaf34cbae89a",
+        "labels": "7dae6c8eb72873e43ac88279b99f63bff483857e651d2641007a7fa53925f864",
+        "h5": "f436605010a0133c96d1135f22fdd789317779287af58ba5af764fc1b28ea041",
+        "A_predictions": "df9902bcc9c1588e9038c5a5d604a51c1e38eb1efe7b5a7fadf98db53bdf2ed0",
+        "B_predictions": "3206e5d4593cd47f4da6a59d9415bd3589769f51b8f15ec5cd07c337ccc5a0e3"
+      },
+      "input_files": {
+        "spots": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151676\\spots_aligned.csv",
+        "labels": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151676\\manual_layer_annotations.csv",
+        "h5": "D:\\paper\\ST_Benchmark_Planning\\mvp\\data\\151676\\filtered_feature_bc_matrix.h5",
+        "A_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151676_gmm22911_batch_v1\\control_L0_L1_L2_predictions.csv",
+        "B_predictions": "D:\\paper\\CellCharter_reproduction\\results\\mvp_fixed15_151676_gmm22911_batch_v1\\candidate_L0_L1_L4_predictions.csv"
+      },
+      "output_sha256": {
+        "151676_reference_A_B_spatial.svg": "ad6e7accc928cd2d90685b8e4366953edd76f745352077c29a78f047160b02f5",
+        "151676_MOBP_PCP4_SNAP25_expression.svg": "83307e012098536094140de3dd71d1332c3c7bcc70593da490e9f721347c7bd7",
+        "151676_marker_expression_raw_and_log1p10k.csv": "208d82e68a9f857ff376a85688c926731eee060e455e33deee0726a26351da55",
+        "151676_reference_vs_A_confusion_counts.csv": "79c0a862ab49c9c7c22ad02c419efff1cc29d825d56e00c567e21d2dc5f2b6df",
+        "151676_reference_vs_B_confusion_counts.csv": "f0129a68c1a5226b7b043fbc24bf713b32ed6aaf324c4b0c5ac0cd6251f87e50",
+        "151676_reference_A_B_confusion.svg": "cb3482e4fabf1760f2ecba693f223486c98ec9be138e7d7a4ed7bca56841a0eb"
+      },
+      "output_files": [
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151676\\151676_reference_A_B_spatial.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151676\\151676_MOBP_PCP4_SNAP25_expression.svg",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151676\\151676_marker_expression_raw_and_log1p10k.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151676\\151676_reference_vs_A_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151676\\151676_reference_vs_B_confusion_counts.csv",
+        "D:\\paper\\CellCharter_reproduction\\results\\e4_spatial_visualization_v1\\batch_20261120T080609Z_4732\\151676\\151676_reference_A_B_confusion.svg"
+      ]
+    }
+  },
+  "reference_label_use": "posthoc_visualization_and_confusion_only",
+  "A": "cum_L0_L1_L2_seed22911_OracleK",
+  "B": "fixed_L0_L1_L4_seed22911_OracleK",
+  "coordinate_system": "pxl_col / pxl_row full-resolution pixels; y inverted",
+  "gene_normalization": "log1p(10000*raw_gene_UMI / spot_total_UMI)",
+  "gene_color_scale": "vmin=0, vmax=6, values above 6 visually clipped",
+  "planned_markers": [
+    "MOBP",
+    "PCP4",
+    "SNAP25"
+  ],
+  "representative_main_text": [
+    "151507",
+    "151671",
+    "151675"
+  ],
+  "representative_selection": {
+    "151507": "D1 maximum reported B-A delta_ARI, +0.049888880058",
+    "151671": "D2 delta_ARI closest to zero, -0.003548500474",
+    "151675": "D3 minimum reported B-A delta_ARI, -0.063314250971"
+  },
+  "all_12_saved_for_appendix": true,
+  "note": "12 slices nested in 3 donors. Original predicted IDs untouched.",
+  "finished_utc": "2026-11-20T08:06:27.777116+00:00",
+  "pass_count": 12,
+  "failure_samples": []
+}
