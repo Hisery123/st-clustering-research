@@ -1,5 +1,21 @@
 # PROJECT_STATE — 第三篇空间转录组聚类论文
 
+## 2026-11-23｜E3B/E4原件精确Git字节修复已实际完成并通过远端复核
+
+**当前最新状态覆盖此前“等待执行修复”的旧记录。** 用户Windows端实际运行`repair_e3b_e4_exact_git_blobs_v1.py`，日志报告：
+
+- `E3B_ORIGINAL_BYTES_PASS sources=1200 zip_sha256=cfad75dbc35723c72e52f8906b07e1b81048ff70fcf04df709d41ae42bc1302b`
+- `E4_ORIGINAL_BYTES_PASS sources=86`
+- `E3B_E4_EXACT_BLOB_STAGE_PASS sources=1286 changed=1286 audits=2`
+- `E3B_E4_COMMITTED_SOURCE_BLOB_PASS sources=1286/1286`
+- `E3B_E4_EXACT_SOURCE_PUSH_PASS e3b=1200 e4=86 changed=1286`
+- `E3B_E4_EXACT_SOURCE_COMMIT=6d4bc09bb6f98d0dff13a442fee1dd4759e998c2`
+
+**本助手独立在GitHub远端取main分支该提交的完整Git tree**（非截断），分别读取`E3B_E1E2_1200_PREDICTIONS_20261122/EXACT_SOURCE_BLOB_REPAIR_AUDIT_20261123.csv`和`E4_SOURCE_FIGURES_20261122_RELEASE/EXACT_SOURCE_BLOB_REPAIR_AUDIT_20261123.csv`，逐条检查`path`对应`blob SHA1`等于`exact_git_blob`：E3B **1200/1200**匹配、E4 **86/86**匹配、缺失0。提交树完整且各对象等于Windows脚本从原源文件SHA256校验后生成的原始Git blob。由此此前CRLF规范化产生的字节保真缺口**已修复**，不是仍待修复。原始报告和修复审计继续保留，不覆盖。
+
+下一任务是把E4真实36SVG无重绘转换为适合XeLaTeX的36个矢量PDF，运行脚本`experiments/cellcharter_dlpfc/convert_e4_original_svg_to_pdf_and_push_v1.py`（已提交但**尚未由Windows执行**），先逐份检查原始SVG的SHA再转换与提交。真实PDF成功后需检查GitHub文件树数量、来源哈希、至少代表图视觉一致性和学校模板编译；当前尚不可称图件已全部排版或PDF已生成。无新增模型训练。
+
+
 ## 2026-11-23｜E3B/E4上传后的CRLF字节保真风险（已定位，修复未执行）
 
 **有新核查证据，必须覆盖2026-11-22的“GitHub原件逐字节完全相同”旧说法。** E4确实已经提交GitHub，共88文件：36张SVG、36份CSV、12样本manifest、原batch/audit、README、来源清单；上传提交`0b3a13fbe784711b2c522a09282feeb8a82771e8`。但读取GitHub E4原生SVG `figures/151507/151507_reference_A_B_spatial.svg`并对远端Git blob内容独立计算SHA256，得到`8d3f84cc015bbbefceefd0b4d9744910fc318c8b48ac3e01ebe58442a551a750`，不同于本地原件清单`7d76f7f61d750c9503056aaf60cfd43310e2ce8d72ead91d202655fb868849c1`；远端LF字节仅将每个换行恢复为Windows CRLF后重新计算，则**完全等于原件SHA**。E3B首份原始预测`predictions/151507/cum_L0/seed_22911/predictions.csv`亦发现同样问题：远端LF的SHA`f8b0d04ea183ee4df18882b8f2c43e16f83a1b5a5c3d5144d8d10c7e9d42903c`，恢复CRLF后等于原件`cabbb5f476be36ac7c38270e68ccb87146f9a1d665ace2b780e1b22406671525`。科学数值没有因此重新计算或修改，但旧“Git源字节与Windows原件相同”的表述不成立，必须修复后才能称原始字节完全备份。
