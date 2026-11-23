@@ -2,6 +2,14 @@
 
 > **本文件是新对话直接接手的精简入口。** 当前状态优先依据 [PROJECT_STATE.md](PROJECT_STATE.md)。完整旧交接历史已归档至 [ARCHIVED_HANDOFF_BEFORE_20261123_CHECKPOINT.md](RESEARCH_JOURNAL/ARCHIVED_HANDOFF_BEFORE_20261123_CHECKPOINT.md)。不要依据早期段落中“E3/E4/E5未做”的历史描述重新启动实验。
 
+## 最新交接快照：2026-11-23 收工，P0/P1已上GitHub，P1编译待开始
+
+- **GitHub main 经独立核查：`088c8d4730dee35791e34e0ae6374452bf52a6ee`。** 用户Windows已将P0/P1审查安全合并包解压至仓库，显示58个全为新增（A）且没有M/D；已执行commit `088c8d4`、push成功（`f17314b..088c8d4`），下一次不再要求`git add/commit/push`这些已完成步骤。
+- **当前有效论文入口：** [P1 TeX](experiments/cellcharter_dlpfc/cellcharter_study_full_preview_p1_20261124.tex)；P0/P1目录含[证据表](experiments/cellcharter_dlpfc/REV_P0_20261124/REV_P0_EVIDENCE_TABLE_20261124.md)、[P1证据映射](experiments/cellcharter_dlpfc/P1_20261124/P1_EVIDENCE_MAP_20261124.md)、派生汇总、脚本、差异说明。**V1/V2均保留，V2 39页PDF真实编译完成；P1仍未编译、没有P1 PDF验收。**
+- **本轮Claude与ChatGPT写作工作：** 朋友电脑产生P0科学修订及P1正式学术叙事稿，本助手审查压缩包并通过独立补丁修订三处重要风险：全配置优于非空间的错误泛化、0.4418与0.4438相近被表述为实现一致、缺E4时附录静默缺失。用户将审查版58新文件实际提交到GitHub。写作须遵照[学术叙事与贡献凝练标准](ACADEMIC_WRITING_AND_CONTRIBUTION_STANDARD.md)（科研问题、独立评价贡献、主要发现、性能权衡；不写流水账、不强制标题用“复现”，但不冒充原创算法、不删负结果）。
+- **唯一下一行动**：用户在科研电脑上按前一轮准备的PowerShell命令，对 `experiments/cellcharter_dlpfc/cellcharter_study_full_preview_p1_20261124.tex` 执行**第一遍XeLaTeX**，写入隔离目录 `D:\paper\CellCharter_reproduction\results\cellcharter_thesis_p1_compile_20261123`；返回`XELATEX_FIRST_EXIT`与最后35行日志。之后才单步BibTeX及第二、三遍XeLaTeX，检查两张新增pgfplots图、正文/附录36图、引用、封面及学校格式。**目前没有P1编译成功证据。**
+- 不启动新训练、不修改冻结实验CSV/SVG/预测、不重做Git修复或E4 PDF转换。DLPFC n=3独立供体/12切片，乳腺癌外部n=6独立患者；严格区分Oracle-K、K-blind、后验评分和对照局限。学校模板、导师认可仍未完成。
+
 ## 项目定位与职责
 
 用户使用Windows/PowerShell亲自运行，助手审查设计、代码、实验统计、LaTeX稿件并逐步维护GitHub；按**毕业论文先行**原则，对成熟CellCharter流程开展已完成的多尺度、K敏感性、边界、成熟基线及外部六患者系统评价，不强行宣称新方法。原始实验数据、负结果、后验分析和K选择局限如实披露。DLPFC独立$n=3$供体（12切片嵌套），乳腺癌独立$n=6$患者，不将seed/spot作为生物独立n。
