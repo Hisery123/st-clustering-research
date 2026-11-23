@@ -1,3 +1,5 @@
+> **2026-11-23字节级核查说明：** 文件已上传且数量完整，但Windows Git的自动换行规范化使部分原始CRLF文本在Git blob中变成LF。**此时原始SHA256清单与GitHub源文件字节尚不完全相同**；这是行结束符转换而非数据值被重算。已禁用本发布目录的Git文本转换（`.gitattributes: * -text`），并另行准备从用户Windows原始ZIP/原件恢复Git blob的脚本`../repair_e3b_e4_exact_git_blobs_v1.py`。只有其真实运行和远端SHA复核完成后，才能重新宣称GitHub逐字节等同原始来源。
+
 # Exact 1200 original E1/E2 prediction CSVs (2026-11-22)
 
 This is a BYTE-EXACT COPY of all 1,200 frozen clustering predictions
