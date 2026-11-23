@@ -1,0 +1,1386 @@
+<!-- Historical snapshot, before 2026-11-23 checkpoint compaction. Old status entries are not current truth; see PROJECT_STATE.md. -->
+
+# CURRENT_RESEARCH_HANDOFF · 第三篇空间转录组聚类论文
+
+## 2026-11-23｜E3B/E4原件精确Git字节修复已实际完成并通过远端复核
+
+**当前最新状态覆盖此前“等待执行修复”的旧记录。** 用户Windows端实际运行`repair_e3b_e4_exact_git_blobs_v1.py`，日志报告：
+
+- `E3B_ORIGINAL_BYTES_PASS sources=1200 zip_sha256=cfad75dbc35723c72e52f8906b07e1b81048ff70fcf04df709d41ae42bc1302b`
+- `E4_ORIGINAL_BYTES_PASS sources=86`
+- `E3B_E4_EXACT_BLOB_STAGE_PASS sources=1286 changed=1286 audits=2`
+- `E3B_E4_COMMITTED_SOURCE_BLOB_PASS sources=1286/1286`
+- `E3B_E4_EXACT_SOURCE_PUSH_PASS e3b=1200 e4=86 changed=1286`
+- `E3B_E4_EXACT_SOURCE_COMMIT=6d4bc09bb6f98d0dff13a442fee1dd4759e998c2`
+
+**本助手独立在GitHub远端取main分支该提交的完整Git tree**（非截断），分别读取`E3B_E1E2_1200_PREDICTIONS_20261122/EXACT_SOURCE_BLOB_REPAIR_AUDIT_20261123.csv`和`E4_SOURCE_FIGURES_20261122_RELEASE/EXACT_SOURCE_BLOB_REPAIR_AUDIT_20261123.csv`，逐条检查`path`对应`blob SHA1`等于`exact_git_blob`：E3B **1200/1200**匹配、E4 **86/86**匹配、缺失0。提交树完整且各对象等于Windows脚本从原源文件SHA256校验后生成的原始Git blob。由此此前CRLF规范化产生的字节保真缺口**已修复**，不是仍待修复。原始报告和修复审计继续保留，不覆盖。
+
+下一任务是把E4真实36SVG无重绘转换为适合XeLaTeX的36个矢量PDF，运行脚本`experiments/cellcharter_dlpfc/convert_e4_original_svg_to_pdf_and_push_v1.py`（已提交但**尚未由Windows执行**），先逐份检查原始SVG的SHA再转换与提交。真实PDF成功后需检查GitHub文件树数量、来源哈希、至少代表图视觉一致性和学校模板编译；当前尚不可称图件已全部排版或PDF已生成。无新增模型训练。
+
+
+## 2026-11-23｜E3B/E4上传后的CRLF字节保真风险（已定位，修复未执行）
+
+**有新核查证据，必须覆盖2026-11-22的“GitHub原件逐字节完全相同”旧说法。** E4确实已经提交GitHub，共88文件：36张SVG、36份CSV、12样本manifest、原batch/audit、README、来源清单；上传提交`0b3a13fbe784711b2c522a09282feeb8a82771e8`。但读取GitHub E4原生SVG `figures/151507/151507_reference_A_B_spatial.svg`并对远端Git blob内容独立计算SHA256，得到`8d3f84cc015bbbefceefd0b4d9744910fc318c8b48ac3e01ebe58442a551a750`，不同于本地原件清单`7d76f7f61d750c9503056aaf60cfd43310e2ce8d72ead91d202655fb868849c1`；远端LF字节仅将每个换行恢复为Windows CRLF后重新计算，则**完全等于原件SHA**。E3B首份原始预测`predictions/151507/cum_L0/seed_22911/predictions.csv`亦发现同样问题：远端LF的SHA`f8b0d04ea183ee4df18882b8f2c43e16f83a1b5a5c3d5144d8d10c7e9d42903c`，恢复CRLF后等于原件`cabbb5f476be36ac7c38270e68ccb87146f9a1d665ace2b780e1b22406671525`。科学数值没有因此重新计算或修改，但旧“Git源字节与Windows原件相同”的表述不成立，必须修复后才能称原始字节完全备份。
+
+已分别为`E3B_E1E2_1200_PREDICTIONS_20261122/`与`E4_SOURCE_FIGURES_20261122_RELEASE/`提交`.gitattributes`、设置`* -text`禁用未来Git换行自动规范化；已上传**综合一次性精确Git blob修复脚本**`experiments/cellcharter_dlpfc/repair_e3b_e4_exact_git_blobs_v1.py`：拟从原始E3B ZIP（固定SHA256 cfad75...）与E4源Windows文件分别校验1200+86=1286份SHA256，`git hash-object -w --stdin`写入原始字节的Git blob，`git update-index --index-info`直接提交原字节，再验证完整提交树并非强制push。**目前只是准备和提交修复脚本，用户尚未报告运行；不得称远端字节修复通过。**早期只修E4的`repair_e4_exact_source_blobs_v1.ps1`被综合版取代，不要先运行它。另已准备`convert_e4_original_svg_to_pdf_and_push_v1.py`，但必须先完成1286份原始Git blob的字节修复，才能开始转换36份真实SVG成论文矢量PDF。
+
+论文正文及36图附录已写入GitHub，原E4图件存在的事实与“严格逐字节匹配原Windows SHA”需要分开报告；同理E3B全部1200文件存在但部分CRLF被规范化。下一步用户在Windows手动执行单条固定SHA脚本下载、核验、精确Git blob修复命令，提供PASS/FAIL；助手再远端核验提交树与来源清单。全程无训练、无更改参考标签、无数据数值重算。
+
+
+## 2026-11-22补充｜E4正文选图规则统一、36图附录和原件发布准备
+
+本轮用户要求继续写作并边写边上传：对`experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex`新增完整E4结果解释、按原冻结E4规则将主文示例统一为**151507/151671/151675**（而非旧稿另一目的的151671/151676单seed边界案例），在LaTeX按真实矢量PDF可用性设置条件插图位，缺图时只显示待插入提示。新增`appendix_e4_all12_figures_v1_20261122.tex`：12切片×3类真实图，共36个源文件控制的附录插图位，已接入`cellcharter_study_full_preview_v1_20261122.tex`的条件入口。**这不是36张原SVG已上传，也不是36张PDF已转换。**
+
+GitHub新增`publish_e4_original_figures_v1.ps1` Windows手动一次性上传脚本；它使用用户2026-11-20原完成批次及审计JSON、按每样本manifest逐件核对36SVG+36CSV的SHA，计划提交原72产物、12manifest、原batch/audit及新来源清单/README共88 Git文件。当前**脚本已提交、尚未见用户Windows真实执行成功反馈**，不能称GitHub具有原E4图。来源、脚本、安全边界及上传后SVG→LaTeX矢量PDF转换分别详见`experiments/cellcharter_dlpfc/E4_SOURCE_PUBLICATION_AND_FIGURE_INTEGRATION_20261122.md`。下一唯一用户Windows操作是按固定Git SHA下载、SHA1核验并运行上传脚本；成功后需GitHub重新统计及原字节哈希复核。
+
+
+## 2026-11-22｜毕业论文写作新增：第2/3/4节V1、专题引言与结论、BibTeX、独立预览入口均已推送
+
+本次用户明确要求**继续写作，并在写作过程中逐份提交GitHub**，已落实：先完成第三章方法新稿`experiments/cellcharter_dlpfc/chapter_03_methods_rewrite_v1_20261122.tex`（11,486字符）；随后完成第二章背景新稿`chapter_02_background_rewrite_v1_20261122.tex`（5,716字符），新增11条经项目先前证据矩阵或本轮期刊/PubMed核对DOI的BibTeX参考文献；另增CellCharter专题引言模块和研究结论/展望模块。原已有新版第四章`chapter_04_results_rewrite_v1_20261122.tex`（10,319字符）保留。为排版另创建**仅本研究专题**的`thesis_cellcharter_chapters_2to4_preview_20261122.tex` XeLaTeX预览入口，不将此误称完整硕士论文。全部正式文件、静态检查和后续任务详见`experiments/cellcharter_dlpfc/THESIS_WRITING_PROGRESS_20261122.md`。本轮GitHub远端读取检查：TeX各环境成对、全文件labels无重复、ref无悬空、cite在BibTeX有条目；**尚未执行Tex编译，也未逐图核对E4原SVG**，不能宣称定稿或导师通过。旧第2/3/4章未覆盖；不重训模型，不改原始CSV。
+
+后续行动：优先将E4真实SVG接入图文，统一学校主模板/参考文献/跨专题章节结构并编译，再交Claude对完整草稿独立审查。CellCharter的高创新性/P0-1原全文重叠核查不作为毕业论文开始写作的前置阻断，但在最终引用和贡献措辞中仍须避免原创性夸大。
+
+
+## 2026-11-22｜毕业论文写作正式启动：第四章新版完整初稿已提交（待审，不是终稿）
+
+用户明确决定硕士毕业论文优先：不以高创新性或新算法发明为必要前提，以**真实自主计算、正负结果完整、统计层级准确、论文写实**为核心。2026-11-22完成**全新第四章实验结果与分析初稿**（新增10,319字符的LaTeX源文件，原2026-11-12旧第四章未覆盖）：`experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex`。本稿包括实验设置、E1/E2累计尺度和等维A/B、E3c固定K网格、E3d无标签AutoK+事后ARI/NMI、E3b严格及1/2-hop容差、E5a四成熟基线、E5b六患者外部评价、E4图示说明与综合局限，并附5张真实数值表。论文数值来源逐项对应`experiments/cellcharter_dlpfc/THESIS_WRITING_EVIDENCE_MAP_20261122.md`。GitHub重读已检查表格和公式环境成对匹配、无重复label，但**尚未在学校主模板完成LaTeX编译、E4全图核验或原论文Supplement查重**。不得称导师审核通过或全文完稿。
+
+写作立场：毕业论文贡献定位为CellCharter既有成熟流程的多尺度/聚类数/空间边界/外部队列系统实证分析，不主张新核心算法；固定Oracle-K与K-blind分开；E3d/E3b在2026-11-22补做的事后评价必须标明；E5b相对BayesSpace NMI负值和患者ARI低值必须保留。下一工作优先更新`chapter_03_methods_integrated.tex`的方法表述及论文模板内图件/引用，再对接第二章、摘要和结论，最后让Claude独立审稿；无需为写作增加模型训练。
+
+
+## 2026-11-22｜E3b全1200源预测SHA核验PASS，完成3600条严格/容差边界后验指标并归档
+
+用户Windows真实终端：`E3B_GITHUB_INPUTS_VERIFIED`、`E3B_E1E2_EXPORT_PASS predictions=1200 audit_sha_pass=1200 missing=0`，上传源ZIP `e3b_e1e2_1200_export_20261122.zip`，SHA256 `cfad75dbc35723c72e52f8906b07e1b81048ff70fcf04df709d41ae42bc1302b`。本助手独立重新核验ZIP **1200/1200**份预测CRC、SHA、12切片条码对齐与参考文件SHA（和既有E3d审计/后验参考一致），使用**已有Oracle-K模型预测**只读计算每份严格0-hop、1-hop、2-hop最大一对一边界匹配共**3600/3600真实结果**，没有重拟合或修改K/seed。历史seed22911下A15D严格TP合计2103、B15D严格TP合计1999，与旧论文独立记录完全一致。GitHub已归档完整3600行原始指标、1200行任务内配对、360行切片均值、90行供体均值、30行全样本尺度均值、完整审计JSON、1200份源预测SHA原账本、可复现评价+作图Python及2张SVG，共11份源数据/结果文件加manifest/README，远端**11/11 Git blob SHA与本地字节一致**。位置`experiments/cellcharter_dlpfc/E3B_E1E2_1200_POSTHOC_20261122_RELEASE/`，归档总控`experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md`更新。注意原**28.99MB的1200预测ZIP仍仅保留Windows/本聊天用户上传中**，未放GitHub；GitHub是完整派生指标和原源SHA，不是全部源预测字节。E3d另有K-blind48项边界评价，**不可与E1/E2 Oracle-K混淆**。所有容差分析是在看过其他结果后进行，标明post-hoc；strict 0-hop不得由更宽松的容差F1取代。描述性均值L0严格0.1441，15D严格0.1361，25D严格0.1179，而相应25D 2-hop为0.5333，这种方向反差要报告，不是声称空间层越多边界越准。12切片只有3个独立供体n=3，seed/spot/edge均非生物独立。下一优先任务：E4全套图件是否实际归档及Varrone原全文/补充创新性对比、论文第4章整合，不必再训练模型。
+
+
+## 2026-11-22｜新增：E3d已完成48/48后验ARI/NMI；E3b已完成E3d K-blind 48配置边界分析（仅部分）
+
+**来自用户本轮真实上传ZIP的独立计算，而不是只读Windows日志**：`e3d_posthoc_inputs_20261122.zip` SHA256 `1f3e55c1acbf9162998a1a3e198c26284c8a63f7784ab8b28088220e2e148094`，含48份原E3d冻结预测、12张spot坐标、12张人工层标签与SHA清单共72份输入。72/72输入文件SHA、全部12份与E1/E2源标签/位置SHA、48/48预测SHA与条码顺序、AutoK原K稳定性argmax均PASS，**不重新训练、不重选K**。后验ARI/NMI（算术平均NMI）48/48均经独立列联表公式交叉验算PASS。真实12切片宏均值（ARI/NMI）：10D 0.379285/0.503341；15D 0.386114/0.535941；20D 0.431145/0.594212；25D 0.388976/0.543449。20D宏均值最好属于**结果后描述性观察**，各尺度K可变且生物学n=3供体，不能宣称新方法优势或显著性。完整48行、48切片配对、3供体×4尺度12行、审计报告和完全重算脚本已GitHub提交并远程重读校验于`experiments/cellcharter_dlpfc/E3D_POSTHOC_20261122_RELEASE/`。原ZIP未上传GitHub（SHA可核对），不要把派生数据当作原预测文件。
+
+同时基于**同一48份冻结E3d Kblind预测**和六邻接阵列坐标，执行了后验严格0-hop edge-F1、1-hop、2-hop容差F1，使用参考/预测边界一对一最大基数匹配避免重复命中；全部48×3=**144项**真实结果、48汇总、12宏描述、36供体汇总、审计报告和源码已归档`experiments/cellcharter_dlpfc/E3B_E3D48_POSTHOC_20261122_RELEASE/`且远端复核。12片均值0-hop F1按10/15/20/25D依次为0.159578、0.129871、0.133824、0.119033；容差分数另列，绝不取代严格F1。**这只是E3b的48项Kblind补充，不是原计划E1/E2 1200项全量E3b**；后者需要取得原1200个预测CSV，再依据原E1/E2任务账本逐项验证SHA后计算。如E3b未完成全量，写论文必须如实称“未做完整E1/E2边界容差”。所有新增E3d/E3b分析均为**2026-11-22观察既有结果之后才制定/执行的post-hoc**，不可伪装事前分析。独立论文新颖性仍待P0-1原CellCharter论文与Supplement精读。
+
+
+## 2026-11-22｜E3d/E5a/E5b Windows六项原始审计CSV/JSON正式补传GitHub：远端SHA256校验7/7
+
+**用户已授权直接归档**，本轮上传`github_missing_derived_20261122.zip`，内含六份原始审计CSV/JSON及`SOURCE_SHA256.csv`。在本助手沙盒中对ZIP原字节和Windows来源清单逐一检查6/6通过；保留Windows UTF-8 BOM/CRLF、文件原始内容，提交GitHub后重新从远端逐份读取、重算SHA256，共**7/7完全一致**。跨阶段统一归档总表：[experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md](experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md)。Windows真实源路径、导出SHA256位于`experiments/cellcharter_dlpfc/AUDIT_EXPORT_20261122/SOURCE_SHA256.csv`；ZIP本体未重复入库。
+
+- **E3d**：`E3D_20261122_RELEASE/derived/all_48_autok_audit.csv` + 原`audit_report.json`：48/48审计PASS、2640个标签运行数组、10/48选K边界。**没有ARI/NMI**，不能把选K审计当标注质量评价。
+- **E5a**：`E5A_20261122_RELEASE/derived/all_288_prediction_checks.csv` + `method_regime_descriptives.csv`(8组) + 原`e5a_phase_audit_report.json`：288/288项真实ARI/NMI现在直接可供GitHub审查；JSON有BayesSpace的K-blind 28/36命中q=10冻结搜索上界warning，必须完整保留。DLPFC12片来自仅3位独立供体，种子与切片不能伪重复。
+- **E5b**：此前已上传360项ARI/NMI、120患者级汇总、144配对差异及分析/矢量图，本次补`E5B_20261122_RELEASE/derived/audit_report.json`原件；原JSON`phase1=passed`、`phase2=passed`、`verified_predictions=360`、`all_metrics_count=360`，且3个指标文件SHA与当前已归档CSV一致。六个独立乳腺癌患者n=6；18/18 BayesSpace K-blind落q=10上界。
+- 原预测目录、标签文件、10x counts等大原始文件仍仅在Windows，本次只归档**真实小派生指标与原审计报告**；不能将Github凭空声明为从原始矩阵到预测全量重跑的公共镜像。
+- 已更新`README.md`、各E3d/E5a/E5b Release README和manifest、`CLAUDE_INDEPENDENT_REVIEW_BRIEF_20261122.md`及历史审计说明，旧“指标尚未上传”叙述已由新章节更正，但保留审计时间线。
+- **下一科研关口**：Claude独立审查已归档数据、E3d独立后验ARI/NMI是否需要按原冻结预测+标签另做只读评价、E3b未做、Varrone CellCharter原论文/补充新颖性重叠P0-1、E4全图文件归档和旧第4章更新。**无模型重训/无K修改/不将事后分析写为事前计划。**
+
+
+## 2026-11-22｜E5b三份原始CSV和5份分析材料已完整归档GitHub（以本条为最新事实）
+
+**用户本轮明确授权直接GitHub归档**。E5b原360预测的后验ARI/NMI三份原始CSV已经从本聊天上传原件逐字节读取（Windows CRLF原样保留）、通过SHA256对照后提交，再由GitHub远端读取逐份重算SHA256全部PASS：`all_360_prediction_metrics.csv` 360行 SHA `b41a492e53bc71ef1e3d2648643383f026735a77ef9c54912a7139839080709f`；`patient_three_seed_summary.csv` 120行 SHA `318d54e0fa5c06998c38457eca21a3cd1de3a85c3c3f37acc412be3b36d9e278`；`patient_paired_effects.csv` 144行 SHA `bf6868cdfa4c91960762a458ac71eeefe37ceaf4f23523f5c521002eafa7a078`。此外SHA验证归档历史后验分析报告、Python可重现数据SVG脚本及3张SVG，**共8份文件**。来源与边界见`experiments/cellcharter_dlpfc/E5B_20261122_RELEASE/README.md`和`manifest.json`，总审查入口`experiments/cellcharter_dlpfc/RESULTS_ARCHIVE_STATUS_20261122.md`。此前本项目日志中“尚未上传E5b CSV”的句子是历史状态，**现已失效**，不能据旧日志误判缺少外部定量结果。
+
+**已由本对话实际读到的E5b结果（均为后验描述，非新预注册）**：A15D与L0在K-blind六患者等权下ΔARI +0.0458、ΔNMI +0.0583，六患者均正向；相对BayesSpace的ΔARI +0.0404仅4/6患者正向、ΔNMI −0.0139，不能宣称全面优越。BayesSpace K-blind全部18/18命中K2..10的上界q10；六患者n=6、三个seed技术重复、跨方法输入表征不同。指标来自真实CSV，没有模型重训。仓库E5b目前仍**没有用户Windows上原audit_report.json和360份预测源CSV**，已归档的是后验派生表和复核图表，不可将其冒充原始预测再评分。E3d与E5a的审计派生CSV/JSON仍缺，下一步请用户提供本机原件，逐步按SHA补齐；旧第四章还没有更新E3d/E5a/E5b。正式综述/新颖性对比仍需CellCharter原论文及补充材料精读。
+
+
+## 2026-11-21｜E5a独立统一审计真实PASS 288/288；E5b优先候选Wu 2021人乳腺癌Visium6样本
+
+**已执行（用户Windows终端原始报告）**：`E5A_PHASE_AUDIT_FINAL status=passed verified=288/288 errors=0 report=D:\paper\CellCharter_reproduction\results\e5a_phase_audit_v1\audit_20261121T035302Z_5292\e5a_phase_audit_report.json`、`E5A_PHASE_AUDIT_EXIT_CODE=0`；288个任务的实物/MD5(SHA256)/barcodes/Oracle-K与K-blind规则/同mask ARI/NMI均由冻结只读审计脚本报告通过。**本助手尚未直接读取本地结果数值/JSON警告，不得虚构性能结论。** 已归档`experiments/cellcharter_dlpfc/E5A_FINAL_AUDIT_PASS_20261121.md`。E5a正式关闭，E5b现在只在方案与数据前期核查状态，未训练。
+
+**外部集候选（非已完成）**：经联网查证，Wu et al., *Nature Genetics* 2021 (DOI `10.1038/s41588-021-00911-1`)和Zenodo原研究数据 `10.5281/zenodo.4739739` 包含6例人乳腺癌Visium切片，论文正文说spots由专科乳腺病理医师通过Loupe4.0标注。元数据归档约217.5kB，MD5 `1d0b34ead70635c094ac74ac58a88d68`，拥有逐spot病理标签；这是与DLPFC不同组织/来源但仍同Visium技术的优先候选。项目GitHub新`experiments/cellcharter_dlpfc/E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`已保留来源、证据等级、条件/备选与资源规则。正式E5b样本/模型/预算**尚未冻结**，需要先只读盘点公开metadata压缩包内的标签文件结构，再选择患者样本和公平任务矩阵。下一唯一Windows命令：下载该`metadata.tar.gz`小文件、比对上述MD5、`tar -tzf`只读列出目录；不下载大文件、不训练、不变更E5a。根据返回继续制定E5b方案。E6仍可选，最终Claude总审遵循原计划。
+
+## 2026-11-21｜BayesSpace v1.1 Windows完成72/72；E5a三子批报告288/288执行成功，统一产物审计待运行
+
+真实Windows结果：`E5A_BAYESSPACE_PASS 71/72 ... seed=25842 q=7 actual_k=7`和`PASS 72/72 ... q=10 actual_k=10`；`E5A_BAYESSPACE_FINAL status=completed completed=72/72 failed=0 summary=D:/paper/CellCharter_reproduction/results/e5a_baselines_v1/bayesspace_20261120T103557Z_11440/batch_status.json`，`E5A_BAYESSPACE_V11_EXIT_CODE=0`。其中151676 `Neighbors were identified for 3456 out of 3460 spots`，孤立4 spot需阶段末记录，但不据此改协议；151676末个K-blind种子q=10属于预冻K2..10边界选择。原BayesSpace v1在151507输入CSC无序导致0/72阻断，保留原失败状态；独立修复v1.1真实跑完72项，原始数据只读。
+
+E5a原定12片×(非空间GMM、Leiden、BANKSY、BayesSpace)×(oracle_k、k_blind)×3seed=288项**批处理成功日志**目前已齐备：`nonspatial_20261120T095303Z_15120`144/144、`banksy_20261120T101256Z_26540`72/72、`bayesspace_20261120T103557Z_11440`72/72，三批均exit0、无报告失败。**目前尚未运行独立阶段末实物审计、未读取三会话CSV/manifest或重算ARI/NMI**，不能把成功日志当已审计结论或论文效果。下一唯一Windows步骤：下载GitHub冻结E5a阶段末只读审计脚本、核SHA、运行并保留报告（288份CSV的行数、barcode/空间对齐、SHA、参数/K轨迹、每份manifest与重算ARI/NMI同mask等）；审计通过后再按原计划进入E5b（独立外部集），E6仍可选，Claude总审在E5b/E6结束集中处理。
+
+## 2026-11-20｜BayesSpace首批0/72因10x CSC无序索引阻断，修复v1.1待运行
+
+用户Windows真实`E5A_BAYESSPACE_HALTED completed=0/72 error=类别为"dgCMatrix"的对象无效: 'i' slot is not increasing within columns`，`E5A_BAYESSPACE_EXIT_CODE=2`。0/72说明**未运行任何BayesSpace聚类任务**；失败阶段在读取151507的10x HDF5稀疏CSC矩阵，`methods::new('dgCMatrix',...)`要求每列非零行索引升序，H5原`indices`可以无序；不据此宣称原数据坏或模型失败。原失败结果和日志保留在`D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\bayesspace_20261120T102925Z_30592\batch_status.json`。已提交独立最小修复`experiments/cellcharter_dlpfc/e5a_bayesspace_baselines_batch_v1_1.R`，Git SHA256 `fed1f66c87a186104c60727d1bd27791a6dd9d389096b06305aac40fc97ccfbe`。仅将CSC原0基行索引+每列ptr恢复的列索引通过`Matrix::sparseMatrix`规范排序，原始H5完全只读；不改变冻结的BayesSpace模型/K2..10、seed、MCMC参数或评价mask。该修复**尚未在用户Windows运行/验收**。下一Windows**唯一**步骤下载SHA校验v1.1并运行全部72任务，旧v1原地保留、不覆盖失败会话，不加额外实验。详见`E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`第七节。原非空间144/144与BANKSY72/72已完成无变化。
+
+## 2026-11-20｜E5a BANKSY 72/72真实通过，BayesSpace第三子批72项R脚本待用户Windows执行
+
+用户Windows真实`E5A_BANKSY_FINAL status=completed completed=72/72 failed=0 summary=D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\banksy_20261120T101256Z_26540\batch_status.json`和`E5A_BANKSY_EXIT_CODE=0`。已冻结的BANKSY同seed/邻域/K臂运行成功；个别Oracle-K实际簇数未恰命中K5/7属预冻resolution网格允许现象，**不据此改参数**。此前非空间GMM+Leiden144/144通过，E5a当前累计216/288项真实报告成功、0失败，阶段末尚未统一独立落盘核验。
+
+第三子批BayesSpace72项（12片×3seed×Oracle-K/无标签K2..10）R脚本已GitHub提交`experiments/cellcharter_dlpfc/e5a_bayesspace_baselines_batch_v1.R`，SHA256=`8b40062723cd67cf6c3aa23fcfb51eba6535a34276126c7defa0fdc8db452752`，R4.5.1 `D:\R\R-4.5.1\bin\Rscript.exe`、BayesSpace1.20.2隔离R包库和真实10xH5/阵列坐标输入；`qTune(qs=2:10,nrep=1000,burn.in=100)`按平均伪对数似然最大选K，正式每臂`spatialCluster(nrep=10000,burn.in=1000)`、mclust初始化、t model。两臂原始预测CSV先保存，之后才按barcode读取真实层标签评价ARI/NMI；全部独立新会话、状态和SHA。**R脚本尚未在用户Windows真实数据中启动**；本会话仅审查官方文档和静态脚本，无R运行环境，不能声称本地模拟测试通过。计划见`experiments/cellcharter_dlpfc/E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`第六节。下一唯一Windows操作：SHA下载`e5a_bayesspace_baselines_batch_v1.R`，以`D:\R\R-4.5.1\bin\Rscript.exe --vanilla script.R --run`运行，若阻断最小修复保留日志目录，不在E5a中途审查BIC/ARI或补跑BANKSY。成功末尾应`E5A_BAYESSPACE_FINAL status=completed completed=72/72 failed=0`及`E5A_BAYESSPACE_EXIT_CODE=0`。后E5a全量统一审计→E5b独立数据→E6可选→Claude总审。
+
+
+## 2026-11-20｜E5a非空间144/144真实完成，BANKSY第二子批72项脚本已冻结待Windows运行
+
+**用户Windows真实结果**：`E5A_NONSPATIAL_FINAL status=completed completed=144/144 failed=0 summary=D:\paper\CellCharter_reproduction\results\e5a_baselines_v1\nonspatial_20261120T095303Z_15120\batch_status.json`，`E5A_NONSPATIAL_EXIT_CODE=0`；12片×GMM/Leiden×oracle_k/k_blind×3seed=144项按已冻协议完成，未做全E5a汇总审计。末尾Leiden K-blind fixed resolution1.0 K=17不等于参考K5/7，但符合冻结的Kblind规则，不因后验结果改参数。用户Windows上完成产物不等于GitHub已保存其原始CSV/manifest。
+
+正式BANKSY子批冻结方案在`experiments/cellcharter_dlpfc/E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`新增第5节（在**首次BANKSY拟合前**）：raw10x按barcode匹配→Scanpy normalize1e4→log1p→2000 HVG（seurat）、BANKSY核心`initialize_banksy(15 neighbours,max_m1)`→`generate_banksy_matrix(lambda0.2)`→PCA20D→BANKSY自带Leiden `run_Leiden_partition(num_nn=50)`，16预定Leiden resolutions、三seed22911/7449/25842、Oracle-K按K差距最近与Kblind固定1.0两臂。省略`run_banksy_multiparam`纯粹自动逐项PNG绘图包装层，保留官方核心算法、不加载人工层作为annotation；人工层仅在两个臂predictions.csv落盘后评价。
+
+BANKSY GitHub实现脚本`experiments/cellcharter_dlpfc/e5a_banksy_baselines_batch_v1.py`，SHA256=`2ff7cb5f71b58973986f82863f474c28d02032c5715926e23af8df08468860da`，Git blob=`8e55a7ca9a19ca7b6678e295b0271bd3e9cccb40`。**尚未用户Windows运行/验证依赖完整适配**；用户下一Windows唯一命令为SHA下载+执行`--run`72项预测，结果独立在`results/e5a_baselines_v1/banksy_<UTC>_<PID>`，每sample/seed所有resolution原label NPZ，双臂CSV/manifest和原始输入SHA及日志。若脚本遇真数据错误则`E5A_BANKSY_HALTED`保留原件，不盲目重启。成功预期`E5A_BANKSY_FINAL status=completed completed=72/72 failed=0`，然后执行原第三子批BayesSpace，不插入中途审核；完整E5a阶段结束统一审计，Claude在计划结束统一审查。
+
+注意Python BANKSY包是纯CPU路径，已安装的PyTorch GPU仍正常，但不应在此代码谎称使用GPU训练。
+
+## 2026-11-20｜E5a四方法双K策略协议已冻结；非空间GMM+Leiden 144任务脚本待Windows执行
+
+**本阶段尚无任何真实E5a基线拟合结果**。用户Windows`E5A_PY_API_PASS`、`E5A_R_API_PASS`、`E5A_METHOD_INTERFACE_CHECK_COMPLETE`确认Leiden/GMM/BANKSY/BayesSpace方法函数签名可用；BANKSY可忽略rpy2/mclust可选警告，BayesSpace已在R4.5.1隔离库安装并通过导入。已在首次拟合前GitHub提交`experiments/cellcharter_dlpfc/E5A_FROZEN_FAIR_BASELINE_PROTOCOL_20261120.md`：固定12DLPFC切片、4方法（非空间GMM与Leiden、空间BANKSY与BayesSpace）、Oracle-K/标签不参与选K双臂、统一3技术seed22911/7449/25842、训练后的同一mask ARI/NMI；先非空间、再BANKSY、再BayesSpace三子批；不因后验分数改方法/调参。GMM和Leiden复用原25D缓存中的L0 scVI5D，Oracle-K分别固定K5/7或Leiden固定resolution grid靠近K，K-blind GMM-BIC K2..10，Leiden固定resolution1.0；真实K差距不得隐藏。BayesSpace原生10x、HVG/PCA、qTune2..10和正式MCMC，BANKSY原生邻域特征及Leiden；第三方保留各原生预处理，不谎称全四法严格同5D。
+已在GitHub提交`experiments/cellcharter_dlpfc/e5a_nonspatial_baselines_batch_v1.py`。该GitHub文件精确SHA256=`4cf7b952452a2e52cbae615e7d949870017f3a418a40b77727aed7346b005266`，Git blob SHA`a64f32149655add9cd2d1a45b9400859cec4f21c`。语法静态编译通过，GMM随机模拟数据两个K臂测试PASS、任务矩阵144；**未在用户Windows真实数据上执行**，未验证Leiden端完整训练。该脚本执行12切片×GMM/Leiden×两个K臂×3seed=144预测，逐任务新目录单独`predictions.csv`+带版本和SHA及超参搜索的`manifest.json`，进度`batch_status.json`；真实标签只在预测文件落盘后用于最终指标。输出独立`results/e5a_baselines_v1/nonspatial_<UTC>_<PID>`，绝不覆盖旧实验；**不承诺中途自动恢复**，中途失败先保留状态报告，不盲目重新启动。下一唯一Windows操作：下载该版本、SHA校验后执行`--run`全部144项，最终预期`E5A_NONSPATIAL_FINAL status=completed completed=144/144 failed=0`，退出码0；若失败发原样末尾错误，依据真实阻断最小修复。之后按已冻结计划进BANKSY和BayesSpace，不进行非空间子批逐片审稿。
+
+## 2026-11-20｜BayesSpace 1.20.2 隔离R库真实安装成功，E5a四基线基础依赖齐备
+
+用户Windows真实日志：`E5A_BIOC_VERSION=3.22`、R4.5.1；`BiocManager::install('BayesSpace',lib='D:/paper/CellCharter_reproduction/third_party/e5a_r_libs',update=FALSE,type='binary')` 下载并校验BayesSpace和12项Windows二进制依赖，`E5A_BAYESSPACE_VERSION=1.20.2`、`E5A_BAYESSPACE_INSTALL_PASS`、`E5A_BAYESSPACE_EXIT_CODE=0`。Arrow报告缺tzdb仅时区警告，未有安装失败；不必因此追加依赖。BANKSY 1.3.5先前隔离安装、导入PASS，Leiden0.12.0和igraph1.0.0已可用，GMM/torch现有；四基线**基础安装**已经达到预期，**并非E5a训练跑过**。当前下一唯一步仅检查原Python/R训练API接口签名和模块导入，继而一次性冻结四法×12切片Oracle-K及K-blind设计，完成全量连续执行；Windows Rscript路径`D:\R\R-4.5.1\bin\Rscript.exe`，联网代理Clash`http://127.0.0.1:7897`，R隔离库`D:\paper\CellCharter_reproduction\third_party\e5a_r_libs`。决策文件`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。
+
+## 2026-11-20｜E5a BANKSY 已安装；R位于D盘且Clash代理7897，待Rscript只读验证
+
+**用户最新真实终端**：`pybanksy==1.3.5`到隔离`D:\paper\CellCharter_reproduction\third_party\e5a_banksy_libs`后`E5A_BANKSY_IMPORT_PASS version=1.3.5`，`E5A_TORCH_VERSION 2.1.2+cu121`，`E5A_CUDA_AVAILABLE True`，`E5A_BANKSY_SETUP_COMPLETE`。唯一警告`rpy2`不存在，BANKSY默认Leiden可运行，只有mclust不可用。**用户截图**：`D:\R\R-4.5.1`真实目录，Clash Verge系统HTTP代理`127.0.0.1:7897`（混合端口7897）。此前`Rscript NOT_FOUND_IN_PATH`是PATH问题，**不能说电脑没R**。尚未实际调用Rscript；也未确认BayesSpace是否安装。事前安装/选择记录在`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。**用户下一Windows唯一操作**：明确Rscript路径优先`D:\R\R-4.5.1\bin\Rscript.exe`或`bin\x64\Rscript.exe`，只读查R版本和BayesSpace/BiocManager是否安装；显式仅在本次进程设置HTTP_PROXY/HTTPS_PROXY为127.0.0.1:7897并于结束恢复，不直接安装R包。E5a尚未训练；下一阶段预冻结公平基线后批量执行。
+
+## 2026-11-20｜E5a环境真实清点完成，已建立基线选择记录，尚未训练
+
+用户Windows真实输出：Python3.10.22、`torch2.1.2+cu121`、CUDA=True RTX4070Laptop 8GB；`leidenalg0.12.0`、`igraph1.0.0`可用，scanpy/anndata/scvi/cellcharter模块可找到；`banksy`/`GraphST`/`torch_geometric`/`rpy2`缺失，`Rscript`未在PATH。未运行任一E5a实验。已查官方BANKSY Python `pybanksy1.3.5`支持Python3.10，R在其默认Leiden方案不是必要项；GraphST官方旧Python+R且以Linux完整支持为主，BayesSpace R包，均不当作当前可运行。事前候选方案与各方法数据/K/seed公平门槛见`experiments/cellcharter_dlpfc/E5A_BASELINE_SETUP_DECISION_20261120.md`。接下来Windows唯一一步是在**独立目录**用`pip --target --no-deps`安装并导入测试pybanksy1.3.5，绝不升级已验证CellCharter原环境；确认后再准备空间方法环境、冻结E5a全量，连续运行，阶段结束后审计/计划完成后Claude终审。
+
+
+## 2026-11-20｜E4统一最终审计真实PASS、E4正式结束；E5a环境预检待运行
+
+用户Windows真实返回：`E4_PHASE_AUDIT_FINAL status=passed verified=12/12 svg=36/36 csv=36/36 errors=0`；`E4_PHASE_AUDIT_EXIT_CODE=0`。这是E4全部12片、36SVG与36CSV的单阶段独立自动文件验收通过，真实报告仍在用户Windows `D:\paper\CellCharter_reproduction\results\e4_spatial_visualization_v1\phase_audit_v1\20261120T082135Z_29612\e4_phase_audit_report.json`；**助手未实际读取文件字节，用户终端报告是当前可信原始证据**。统一日志已归档`experiments/cellcharter_dlpfc/E4_FINAL_AUDIT_PASS_20261120.md`；E4关闭、不新增绘图。按照`EXECUTION_FIRST_CLAUDE_FINAL_REVIEW_DECISION_20261120.md`立刻进入既有E5a成熟基线3–4项的**事前环境/可行性清点**，用一条只读Windows PowerShell命令报告当前CellCharter Python环境中的scanpy/leidenalg/igraph/torch/torch-geometric/GraphST/BANKSY相关包版本与PyTorch GPU可用性，检查Rscript/BayesSpace可用性；无包不能假定安装成功，不能擅自安装，也不可承诺E5已运行。根据真实清点一次性冻结候选基线及Oracle-K与标签独立选K两套不混淆的比较规则，然后连续开展E5a。最终Claude审核安排在整个计划末。
+
+## 2026-11-20｜E4真实绘图12/12批量完成（自动阶段末审计尚未运行）
+
+用户Windows真实终端：`E4_BATCH_FINAL status=completed passed=12/12 failed=0 session=D:\paper\CellCharter_reproduction\results\e4_spatial_visualization_v1\batch_20261120T080609Z_4732`和`E4_BATCH_EXIT_CODE=0`。单片输出规定3SVG+3CSV（参考层/A/B空间图，三marker表达，A/B混淆矩阵），按成功任务12片**应形成**36SVG+36CSV，但原文件还没有独立验收/上传GitHub；不可把runner通过与所有图形内容审计通过混同。完整原计划`E4_SPATIAL_VISUALIZATION_EXECUTION_PLAN_20261120.md`。
+
+已完成GitHub真实脚本提交`e4_phase_final_audit_v1.py` SHA256=`ce2bd25ea3683984bf8701e4e85e7b9ce634096d4776e17ae7fca0773e4138ff`。脚本隔离模拟输入PASS，用户Windows**尚未运行**。新审计一次性只读核对全12个文件清单/SHA、SVG XML及原10x H5复算MOBP/PCP4/SNAP25归一化值、A/B混淆矩阵，不重画、不重训，仅新的audit目录输出JSON。下一唯一Windows操作：下载脚本并核验准确SHA，执行一次，预期`E4_PHASE_AUDIT_FINAL status=passed verified=12/12 svg=36/36 csv=36/36 errors=0`；成功后直接按计划启动E5a公平成熟方法比较。Claude论文级评审安排在整个E4/E5/E6计划末，勿再逐配置审查。详见`E4_BATCH_COMPLETE_PRE_AUDIT_20261120.md`。
+
+## 2026-11-20｜E4全部12片事前输入预检真实通过，批量SVG真实表达绘图脚本GitHub已发布
+
+用户Windows真实输入预检：12张DLPFC每片`E4_PREFLIGHT_PASS`；spots/人工层标签/两份历史Oracle-K 15D A (`cum_L0_L1_L2`)与B (`fixed_L0_L1_L4`)预测路径齐全，每片`A_k=B_k=7`（151669–151672为5）；核验预期各片spot与有标注数；`E4_PREFLIGHT_SUMMARY total=12 MOBP=12/12 PCP4=12/12 SNAP25=12/12`、`E4_PREFLIGHT_EXIT_CODE=0`。发现每片原`filtered_feature_bc_matrix.h5`含三个marker基因名称。**只说明基因名字存在，不代表实际基因表达值/10x barcode对齐已做；这些步骤交由E4批量脚本运行时核对。** 用户本机既有`e4_spatial_visualization_v1.py`是输入预检脚本，并非真正的--run绘图器；它曾写入`results/e4_spatial_visualization_v1/e4_preflight_summary.json`，已知存在不清理。
+
+已在GitHub新增`experiments/cellcharter_dlpfc/e4_spatial_visualization_batch_v1.py`，SHA256=`78adf071e00ac2da33a8cb98d3254ffc05a787d9047bd39b44785640571d8d3c`。只读取用户现有preflight模块及真实10x CSC稀疏原始counts（匹配barcode）、真实spot坐标/标签、真实A/B seed22911 原始ID预测；每片产出三种SVG：参考层+A/B空间三联、MOBP/PCP4/SNAP25真实表达三联、A/B对参考层混淆矩阵，以及3份CSV原值表；计算表达`log1p(1e4 * raw UMI / spot UMI total)`，SVG统一vmin0 vmax6，超过6只剪裁显示，原表保留未经裁切强度。12片都做，正文3个展示例子依据**已存在E1E2汇总**预冻：151507（D1 deltaARI最大正）、151671（D2接近0）、151675（D3最负），每个供体一片，剩余全部附录展示；标签/簇颜色**不做监督式匹配**，保留独立原始ID。位置坐标`pxl_col_in_fullres`为x、`pxl_row_in_fullres`为y并向下。全部输出写入新唯一`results/e4_spatial_visualization_v1/batch_<UTC>_<PID>`，每片input/output SHA、文件状态与失败日志；不覆盖或重训E1/E2/E3c/E3d，失败保留并继续其他片，最后给明确`E4_BATCH_FINAL`。**新绘图脚本未由用户Windows下载/验收/运行；代码提交不意味着E4图已生成。** 当前下一步直接用户Windows下载SHA检查并执行`--run`全12，完成后集中审计，不再逐片核对。
+
+## 2026-11-20｜E3d全48配置阶段末统一只读审计真实PASS（退出码0），进入E4
+
+**用户Windows真实最终结果**：
+
+```text
+E3D_PHASE_AUDIT_SUMMARY status=passed verified=48/48 errors=0 label_fit_archives=2640/2640 boundary_hits=10 best_converged=528/528
+E3D_PHASE_AUDIT_K_COUNTS {'2': 9, '3': 5, '4': 5, '5': 4, '6': 11, '7': 3, '8': 7, '9': 3, '10': 1}
+E3D_PHASE_AUDIT_REPORT path=D:\paper\CellCharter_reproduction\results\e3d_autok_phase_audit_v1\20261120T072220Z_24992\audit_report.json
+E3D_PHASE_AUDIT_EXIT_CODE=0
+```
+
+48/48配置逐项显示`E3D_PHASE_AUDIT_PASS`，已执行统一文件完整性审计，合计每K/每run标签数组2640/2640，全部11内部K各最佳GMM共528/528标记收敛，**不代表2640次全部独立收敛**。10项边界命中(9项K2、1项K10)，已知边界不得据此事后改搜索范围。正式E3d训练与阶段末审计**全部完成**，不再训练、不临时延伸；尚未做E3d人工标注的后验ARI/NMI或Claude论文级方法审查。原审计JSON/CSV及全量48实验原始预测和NPZ仍在用户Windows，没有上传GitHub。详细K选择12×4表及路径见`experiments/cellcharter_dlpfc/E3D_FINAL_AUDIT_PASS_20261120.md`。**下一阶段E4**：按`THIRD_PAPER_FULL_EXPERIMENT_EXPANSION_DECISION_20261112.md`以及`E3_E6_Q4_EMPIRICAL_RESEARCH_GATE_20261119.md`，做全12切片空间真值/A/B聚类分区及marker表达定性空间图，优先SVG、可重复不造图、不再训练，E5a/b与E6依次执行；遵守用户《先执行后Claude集中审查》新规。
+
+## 2026-11-20｜E3d训练48/48批量终端完成；阶段末统一文件核对脚本已备齐，Windows尚未执行
+
+**用户最后的实际Windows日志**：`E3D_BATCH_FINAL status=completed completed=46 existing=2 problem_tasks=0 pending=0 summary=D:\paper\CellCharter_reproduction\results\e3d_autok_batch_sessions_v1\20261120T061725Z_16624\session_status.json`、`E3D_BATCH_EXIT_CODE=0`。累计48/48配置runner状态为completed、46本批新任务成功、2既有任务跳过；仍待**阶段末一次性独立文件核对**，不能冒充所有原件已被助手读取。已有15D单项独立审计通过，另25D此前终端完成；保留本次K分布原值，勿因见到K2/10擅自改参数。
+
+已用GitHub仓库新增**统一终审（仅文件完整性，不是Claude科研方法学审查）**脚本`experiments/cellcharter_dlpfc/e3d_autok_final_audit_v1.py`，文件SHA256=`234de8245bb831c34cc24376711aa6ee5f16a4ac899e263b6a8a308af5031fb6`。它读取冻结runner会话、48个目录的manifest+summary+预测CSV+每K五次NPZ，校验运行协议、文件SHA、spot/barcode、K数/稳定性有限、11内部K各五次标签档案、样本内4尺度barcode顺序；不加载人工层标签、不训练、不修改原实验。仅在新`results/e3d_autok_phase_audit_v1/<UTC>_<PID>/`目录输出`audit_report.json`和`all_48_autok_audit.csv`，供随后论文/Claude统一审查。**脚本尚未由用户在Windows下载或执行验收**，若报错保留所有结果并以实际回报为准。
+
+**用户下一唯一Windows操作**：下载该审核脚本到`D:\paper\CellCharter_reproduction\e3d_autok_final_audit_v1.py`，核对上面的SHA256，然后运行一次，期望`E3D_PHASE_AUDIT_SUMMARY status=passed verified=48/48 errors=0 label_fit_archives=2640/2640`与`E3D_PHASE_AUDIT_REPORT`；审核通过后直接推进原计划E4/E5/E6，无新增E3d计算。**完整科研方法学批评由Claude在用户约定的计划结束后集中处理**，中途不加审稿工作。
+
+
+## 2026-11-20｜E3d完整48配置批量运行已结束（终端PASS，统一文件审计待执行）
+
+**用户Windows批量任务真实终端原文末尾**：
+```text
+E3D_BATCH_PASS task=43/48 sample=151675 dim=20 selected_k=10 seconds=58.847
+E3D_BATCH_PASS task=44/48 sample=151675 dim=25 selected_k=4 seconds=64.592
+E3D_BATCH_PASS task=45/48 sample=151676 dim=10 selected_k=8 seconds=50.942
+E3D_BATCH_PASS task=46/48 sample=151676 dim=15 selected_k=2 seconds=57.425
+E3D_BATCH_PASS task=47/48 sample=151676 dim=20 selected_k=6 seconds=58.954
+E3D_BATCH_PASS task=48/48 sample=151676 dim=25 selected_k=6 seconds=61.764
+E3D_BATCH_FINAL status=completed completed=46 existing=2 problem_tasks=0 pending=0 summary=D:\paper\CellCharter_reproduction\results\e3d_autok_batch_sessions_v1\20261120T061725Z_16624\session_status.json
+E3D_BATCH_EXIT_CODE=0
+```
+**严格可报告：** E3d批量程序真实完成，46配置新计算成功、2配置复用既有训练（151509 15D与25D），总48/48配置有`completed`状态，报表为`problem_tasks=0 pending=0 exit_code=0`；但这还是runner返回的完成状态，**尚未进行全48配置文件级独立审计，也未独立读取用户Windows的原始manifest/CSV/NPZ及session JSON**。按冻结E3d方案每配置11内部K×5次，完整48配置**计划总2640 GMM fits**，实际完整性需集中审计验证后才能说2640次标签档案齐全。已知用户日志尾部K可变包括K=2、K=10，不据此改变冻参、增加实验或挑结果；用户要求**阶段结束一次性审计、之后由Claude集中审查**。
+**接下来唯一工作**：准备/运行E3d全48配置的统一只读验证（可在隔离输出目录保存汇总CSV/JSON）、将结果及协议整理给Claude，不再启动新的E3d训练或逐项审查；随后按既定计划进入E4/E5。历史旧的“25D先单项审计”建议已被用户新规则覆盖。
+
+
+## 2026-11-20｜按用户执行优先新规，E3d剩余46配置批量runner已提交，Windows待下载
+
+- 当前**真实训练完成2/48**：151509/15D（已经单项产物审核）、151509/25D（终端训练完成、集中审计待全阶段结束）；不能称其他46项已运行。
+- 依据用户最新“**按既定计划连续执行、结束交Claude统一审查**”指令，已在GitHub新增`experiments/cellcharter_dlpfc/e3d_autok_batch_runner_v1.py`（SHA256 `c9fc65275638a1627a1c836198e8804ecfa866938377448e0de40346d9d01191`）和`experiments/cellcharter_dlpfc/E3D_BATCH_EXECUTION_PLAN_20261120.md`。严格保留E3d frozen CPU/K2..10/5 seeds，枚举12×4=48个配置，跳过已有两个且不覆盖；原始日志/状态记录在独立批次会话目录。单样本故障跳过其后该样本任务，跨两样本/疑似全局错误停止，不静默重跑。
+- **仅助手侧Python语法及模拟任务列表测试通过；尚未由用户Windows下载/运行batch脚本**。下一只需用户Windows**一条PowerShell**：下载并验证固定SHA，随后一次性显示只读计划`E3D_BATCH_PLAN completed=2 pending=46 blocked=0`。收到计划通过后直接执行runner `--run` 让46项连续运行；中途不再逐项做科学审核。全48项完成后统一审计并组织Claude审查。
+
+
+## 2026-11-20｜用户新指令：严格执行冻结计划，禁止执行中临时审计，结束后由Claude集中审核
+
+**用户最新明确策略，高于旧交接文件中“25D单独审计后才能继续”的临时意见**：事前一次性审核并冻结计划；执行期间连续完成，除非真实错误/覆盖/泄漏/损坏等阻断，否则不再中途插入审计、猜想、扩展任务或改参数；整阶段完成后统一打包证据、让Claude集中审核补漏。科研诚信、真实状态、无标签选K、失败记录不放松。规则见`AGENTS.md`和`experiments/cellcharter_dlpfc/EXECUTION_FIRST_CLAUDE_FINAL_REVIEW_DECISION_20261120.md`。
+
+**E3d权威执行状态**：151509/15D已完成并通过本地单项产物审计；151509/25D终端`TASK_COMPLETE selected_k=3 seconds=57.55`但尚未独立文件审计；**已完成2/48，待继续46配置**。不用把25D即时审核当阻断门槛；**下一项实际工作**是建立严格遵循E3d冻结CPU/K2..10/5次seed的可恢复连续批量执行流程，保证已有2项不覆盖、失败不隐匿。用户Windows执行前须审视批处理的计划、输入/输出和失败处理（一次性事前），然后按计划推进所有余项；**完成后统一审计及Claude终审**。没有收到用户Windows后续训练日志前，绝不宣布剩余46项已运行。此前旧的逐项审计建议是历史记录，已被本条覆盖，不能误用为当前下一步。
+
+
+## 2026-11-20｜E3d正式CPU 151509/25D高维冒烟终端COMPLETE，文件审计待执行
+
+**用户Windows实际训练终端摘录**（非模拟、非工具在助手环境运行）：
+
+```text
+100%|...| 11/11 [00:11<00:00, 1.05s/it]
+GPU available: True (cuda), used: False
+E3D_FIXED_TASK_COMPLETE sample=151509 condition=cum_L0_L1_L2_L3_L4 selected_k=3 seconds=57.55 output=D:\paper\CellCharter_reproduction\results\e3d_autok_fixed_v1\151509\cum_L0_L1_L2_L3_L4
+```
+
+- **新真实状态**：E3d正式配置运行完成 **2/48（151509的15D和25D）**，其中已完成文件级审计 **1/48（15D）**，本次25D需审计`manifest.json`/`autok_summary.json`/`predictions.csv`/`all_k_run_labels.npz`后才可升级为审计通过。
+- CPU是正式协议选定的设备；GPU可见但不使用的PyTorch Lightning提示符合预期。终端称耗时57.55s，正式精确耗时待JSON。报告K3，但不代表最符合真实层数，未计算任何标签参考ARI/NMI。
+- 正式协议v1 K候选2..10，辅助K1..11，每K5次，预计本项55次GMM；终端`TASK_COMPLETE`显示程序报告完成，但仍须核查完整产物、每K重复次数和文件哈希。上次15D结果K3、55.909676s，不能仅据同一切片两配置选相同K，推断跨供体稳健性。
+- **下一唯一Windows操作**：只读审计25D输出目录，核对预测行数4789、唯一barcode、合法K簇、55次NPZ形状、模型收敛摘要、稳定性有限与全部SHA256一致；失败时保留完整报错且不删除、不重跑、不启动其他46项。15D/25D之后才考虑设计全量安全批处理（待另行冻结和审查），不能擅自把“终端成功”说成全量验收。
+
+
+## 2026-11-20｜E3d首项正式CPU拟合的本机落盘数据审计通过（151509、15D，K3，55格）
+
+用户Windows真实只读审计回报：
+```text
+E3D_ARTIFACT_AUDIT_PASS sample=151509 dim=15 fits=55 selected_k=3
+STABILITY_BY_K= {2: 0.745067, 3: 0.800295, 4: 0.798525, 5: 0.738262, 6: 0.722156, 7: 0.729765, 8: 0.728879, 9: 0.680207, 10: 0.674636}
+BEST_MODEL_CONVERGENCE= {1: True, 2: True, 3: True, 4: True, 5: True, 6: True, 7: True, 8: True, 9: True, 10: True, 11: True}
+BEST_MODEL_ITERATIONS= {1: 2, 2: 5, 3: 8, 4: 16, 5: 16, 6: 22, 7: 43, 8: 21, 9: 44, 10: 24, 11: 50}
+WALL_SECONDS= 55.909676
+```
+正式协议1/48配置审计通过：预测CSV、所有K的5次随机运行标签NPZ、配置和结果JSON的本机SHA256一致、barcode4789、K1..11各5次。**仅11个“最佳模型”收敛状态全True，不足以推出全部55次拟合都收敛**。K3与K4的稳定性仅差0.001770；先前pilot的K4与当前正式K3不是同参数协议的重复试验，不能推论不稳定或后验ARI优劣。**本次没有上传Windows原JSON/CSV/NPZ到GitHub，也没有对真实标签评价ARI/NMI。** 详情见`experiments/cellcharter_dlpfc/E3D_151509_15D_FIRST_RESULT_AUDIT_20261120.md`。暂时只允许下一项151509/25D高维冒烟，待审计后再设计批量runner，禁止凭1项结果直接宣布剩余47项完成。计划中的CPU K2..10×5次、无标签选K等保持冻结。
+
+
+## 2026-11-20｜E3d正式协议151509/15D首个CPU单配置拟合终端PASS（待本地文件审计）
+
+**用户Windows原始控制台证据**（已实际执行`e3d_autok_single_config_v1.py --sample 151509 --condition cum_L0_L1_L2 --run`）：
+```text
+100%|...| 11/11 [00:09<00:00, 1.11it/s]
+GPU available: True (cuda), used: False
+E3D_FIXED_TASK_COMPLETE sample=151509 condition=cum_L0_L1_L2 selected_k=3 seconds=55.91 output=D:\paper\CellCharter_reproduction\results\e3d_autok_fixed_v1\151509\cum_L0_L1_L2
+```
+软件打印`GPU available but not used`为预先冻结的**CPU正式主方案所预期**，并非错误；仅本样本本尺度完成，**48个slice×scale配置中的1个**，程序预设K候选2..10（内部K1..11）、每K5次=>55次GMM；完整次数需要后续从`autok_summary.json`及`all_k_run_labels.npz`核验，不能单凭进度条说全量数据已验收。本正式配置`selected_k=3`（与先前探索pilot K4不同；候选K范围和重启预算已变，不能推断不稳定或优劣）；本次耗时终端为55.91s（归档精确值待JSON）。**尚无本地JSON/NPZ/预测CSV校验或有标签后验ARI/NMI，正式全量E3d还未执行。**
+唯一下一步：用户Windows一条只读审计命令检查输出目录的`manifest.json`、`autok_summary.json`、`predictions.csv`、`all_k_run_labels.npz`，校验文件SHA、4789barcode、K1..11每K5次、稳定性有限、chosen K、各K模型收敛记录；任何失败不清空/重跑。完成后再决定是否启动其余47配置，仍需分批和严格审核。旧E1/E2/E3c、pilot不可修改。
+
+## 2026-11-20｜E3d单配置修复版Windows只读预检及退出码0验收通过
+
+**用户Windows真实终端回报**：
+```text
+E3D_FIXED_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 spots=4789 dim=15 cuda=True feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+E3D_FIXED_EXIT_CODE=0
+```
+
+已先成功执行旧脚本退出处理bug的安全更新，返回`E3D_FIXED_EXIT_BUG_PATCH_PASS`（修复版`e3d_autok_single_config_v1.py` GitHub SHA256 `24f500a953e73055d44bfbe3b68e2301f3aeab7e9046035fe31bc2ca81ed8da2`）；此次真实只读预检通过且退出码**确实为0**。该预检没有启动训练、没有写入正式实验结果。151509/15D输入n=4789，特征来源哈希如上。**批准的下一唯一步骤**：用户Windows独立执行`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e3d_autok_single_config_v1.py' --sample 151509 --condition cum_L0_L1_L2 --run`；只运行1配置、CPU、11个内部K(1..11)×5 runs=55次GMM；写入隔离目录`results/e3d_autok_fixed_v1/151509/cum_L0_L1_L2`，若该目录已经存在则 fail-closed 不覆盖。需观察`E3D_FIXED_TASK_COMPLETE`及退出码0，或`E3D_FIXED_TASK_FAILED`异常并原样保留manifest/traceback；不因报错自行删目录重跑。正式E3d尚未提供拟合完成证据，E1/E2/E3c及旧pilot保持冻结，人工标签没有用于K选择。
+
+
+## 2026-11-20｜E3d单配置dry-run输入校验通过但退出码错误已发现并修复
+
+用户真实Windows终端：
+```text
+E3D_FIXED_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 spots=4789 dim=15 cuda=True feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+E3D_FIXED_PREFLIGHT_ABORTED error=SystemExit(0)
+```
+**结论**：输入/冻结特征/CPU/GPU可见性检查通过，dry-run没有训练或产出结果；但GitHub首发单配置脚本的`if __name__ == '__main__': try: sys.exit(main()) except BaseException`错误地捕获正常`SystemExit(0)`并以错误状态码退出，属于**助手提供代码错误**，不可认定整个脚本退出正常。`--run`也受此退出包装错误影响；**不得直接启动正式拟合直到修复版安装并验证退出码**。
+
+已在GitHub同路径`e3d_autok_single_config_v1.py`仅将最末尾`except BaseException as e`改为`except Exception as e`（不改变数据、算法、实验参数、旧输出），GitHub提交`32c48d77679e022d4cce18f966ef0d385714cc33`；新文件SHA256=`24f500a953e73055d44bfbe3b68e2301f3aeab7e9046035fe31bc2ca81ed8da2`，此前本地旧文件SHA256=`79188c06fbf54aa19b385e606a42f6223551217b710d703a80021a9cf98e8670`。**尚未由用户Windows下载新文件**；下一唯一Windows小步骤先对已验证旧文件做条件检查、备份、下载新文件到临时路径、校验新版SHA256然后替换。成功后再次只读运行并观察`$LASTEXITCODE=0`，不能与下载更新命令合并成一次拟合。E3d主方案仍未产生正式结果；E1/E2/E3c冻结产物不变。
+
+## 2026-11-20｜E3d正式CPU单配置脚本Windows下载SHA256校验成功
+
+用户真实Windows PowerShell输出：`E3D_FIXED_SCRIPT_READY sha256=79188c06fbf54aa19b385e606a42f6223551217b710d703a80021a9cf98e8670`。仅能确认`D:\paper\CellCharter_reproduction\e3d_autok_single_config_v1.py`下载完毕，且文件SHA256与GitHub已发布脚本完全匹配；**当前未运行正式E3d只读预检、未运行正式E3d拟合，也没有新AutoK正式结果**。新脚本冻结K候选2–10、每配置5次受控初始化、CPU方案；E3c和既往pilot结果不改。下一唯一用户Windows操作：直接使用本机`env_cellcharter\python.exe`运行`e3d_autok_single_config_v1.py` **不加--run**，期望`E3D_FIXED_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 spots=4789 dim=15 ...`与`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`，任何失败停止并提供原始输出。
+
+## 2026-11-20｜E3d开发试点GPU/CPU预测分区一致性PASS，正式E3d前瞻协议已建立
+
+**用户Windows真实只读验证输出**：
+```text
+E3D_DEVICE_COMPARISON_PASS n= 4789 ARI= 1.0 NMI= 1.0
+CPU_CLUSTER_SIZES= {0: 1183, 1: 1460, 2: 1728, 3: 418}
+GPU_CLUSTER_SIZES= {0: 418, 1: 1728, 2: 1460, 3: 1183}
+```
+
+用户已根据本机试点`summary.json`中CPU/GPU预测路径和SHA256做只读核对：两文件SHA匹配各自摘要，barcode行数/顺序一致，簇标签为0..3、有效spot数4789、设备间`ARI=NMI=1`。故**在该151509/15D/三次AutoK pilot上**CPU/GPU分区完全一致，仅簇编号交换（按簇大小CPU 0→GPU 3、1→2、2→1、3→0）；**两份预测文件SHA256不同不构成设备结果冲突**。但每K稳定性分值CPU/GPU不完全一样（例如K4 CPU0.798634、GPU0.778192），不能推断其他切片/随机性完全一致。CPU25.341s、GPU19.777s，GPU约1.28倍，只是单次技术试验，非全面性能基准。
+
+**新协议与代码（计划，不是正式数据）**：GitHub新增`experiments/cellcharter_dlpfc/E3D_AUTOK_FROZEN_PROTOCOL_20261120.md`及`e3d_autok_single_config_v1.py`，定稿前瞻**CPU主方案**，K候选2..10（v0.3.2内部辅助K1/11），每切片×尺度5次显式播种、最大100 GMM epochs、无AutoK稳定性早停；全12切片×4尺度×11内部K×5次预计2640次GMM。原边界K4试点之后才扩展到K2，已经看过E3c参考标签表现，因此不能冒充完全独立的历史预注册或最终外部盲测。正式K选择不使用人工标签，所有ARI/NMI仅在产物冻结后评价。源码当前**仅在GitHub生成，未由用户Windows下载/运行/验证**；正式任务尚未开始。下一Windows唯一步骤先下载新脚本并校验SHA256，其后单独只读dry-run，再允许一张切片一尺度冒烟，防止长批量误运行。不得更改任何旧E1/E2/E3c/PILOT输出。此次未上传Windows`summary.json`和预测CSV原始文件到GitHub，仅归档用户终端报告数值。
+
+
+
+## 2026-11-20｜E3d AutoK pilot summary.json CPU/GPU完整结果已从用户终端核对
+
+用户Windows在会话直接粘贴`D:\paper\CellCharter_reproduction\results\e3d_autok_seeded_pilot_v1\20261120T023802Z_28068\summary.json`全文（**仅对话原始文本，助手尚未直接获取本机JSON文件字节或两份预测CSV**）。内容包含`status=completed`、`protocol=E3D_AUTOK_SEEDED_CPU_GPU_PILOT_V1_NOT_PAPER_RESULT`、`sample=151509`、`condition=cum_L0_L1_L2`、`feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f`、`references_used_for_K_selection=false`、`K_candidate_bounds=[4,10]`、`max_runs=3`、`seed_policy=explicit_before_each_GMM_fit`。CPU和GPU均在K=3..11每K完成3次（27次拟合/设备），`chosen_k=4`。
+
+**真实运行时间**：CPU `wall_seconds=25.341`，GPU `19.777`，GPU/CPU加速为`25.341/19.777≈1.281×`，墙钟节省`5.564秒≈21.96%`。这是一张151509切片15D、CPU先GPU后的**单次试运行**，有启动/缓存/顺序影响，不能宣布一般性GPU加速效果。
+
+**CPU稳定性K4..10**：`[0.7986341020,0.7662414500,0.7596862129,0.7675760238,0.7687324854,0.7054318168,0.6938588927]`；**GPU**：`[0.7781916657,0.7444835573,0.7086581291,0.7403812213,0.7382208174,0.7025690473,0.6456510033]`。CPU预测SHA256=`d4eb5f460bfffc7f29b79d5700b1dfe3f76cd126d1e8f271979285ccc7de3779`；GPU预测SHA256=`20aa22a7da099ccf339521ef400dd0b078f8f71b0735162da55aeabfb3147a92`，哈希不同，**不能推断预测相同或不同到何程度**；需直接比较按相同barcode排列的`cpu_predictions.csv`与`gpu_predictions.csv`，用ARI/NMI评价**两预测之间**的一致性，而非与人工参考标签比较。最优K落在候选下边界K4：主方案正式冻结前须有不依赖人工标签的搜索边界规则，避免根据ARI调K范围。
+
+**下一步唯一Windows只读操作**：校验CPU/GPU`predictions.csv`文件SHA256、barcode行数/顺序、聚类标签合法性，计算**设备间**ARI/NMI；不修改数据/不启动训练/不读取人工参考标签。此pilot仅可用于方法/性能可行性，不得作为正式E3d生物学结果；3独立生物供体、E1/E2/E3c冻结结果不变。
+
+
+## 2026-11-20｜E3d AutoK CPU/GPU试点完成标记（GPU 19.78秒，CPU详细数值待核对）
+
+**用户本轮上传本机终端日志摘录文件** `粘贴的文本 (1)(20261120-024342).txt`（助手实际读取781行），其最终明确输出：
+```text
+E3D_PILOT_DEVICE_PASS device=gpu chosen_k=4 wall_seconds=19.78 predictions_sha256=20aa22a7da099ccf339521ef400dd0b078f8f71b0735162da55aeabfb3147a92
+E3D_PILOT_COMPLETE CPU_GPU success summary=D:\paper\CellCharter_reproduction\results\e3d_autok_seeded_pilot_v1\20261120T023802Z_28068\summary.json
+```
+**可确定的事实**：E3d探索性`e3d_autok_seeded_pilot_v1.py --run`在用户Windows已实际运行且给出`CPU_GPU success`终止标志；151509样本15D、K候选4–10（内部拟合3和11）、3次重复、显式播种试运行；GPU使用RTX4070、设备级耗时19.78秒、当前`chosen_k=4`。上传文本只含GPU末尾大量Trainer输出，**没有CPU设备PASS行和CPU wall_seconds/选K**；不能凭尾段计算加速倍数，也不能确认CPU/GPU选择一致，需直接读取本机`summary.json`。部分拟合显示`max_epochs=100 reached`，需后续检查收敛性；PyTorch Tensor Cores precision提示为性能建议，不宜无预注册更改计算精度。该试点非正式E3d结果、不用于选择最终超参，不代表最优K或最终科研结论；E1/E2/E3c冻结结果保持不变。
+
+**下一唯一用户Windows只读操作（未执行）**：`Get-Content -LiteralPath 'D:\paper\CellCharter_reproduction\results\e3d_autok_seeded_pilot_v1\20261120T023802Z_28068\summary.json' -Raw`。核对CPU与GPU`chosen_k`、`wall_seconds`、`actual_runs`、稳定性序列、预测SHA以及status，再确定是否继续抽查种子/收敛性、如何冻结正式E3d。用户尚未上传summary原文件，GitHub仅归档这份日志中的可信摘录，不是Windows原始结果备份。
+
+
+## 2026-11-20 10:35｜E3d seeded AutoK pilot 151509 15D只读预检通过
+
+**证据：用户Windows真实PowerShell输出**：
+```text
+E3D_PILOT_PREFLIGHT_PASS sample=151509 condition=cum_L0_L1_L2 n=4789 dim=15 cuda=True original_feature_sha256=95879ded7bef09282906b4f992d273472580f5d7748b583342f3e4a64c0cd40f
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+```
+
+先前用户Windows已完成`e3d_autok_seeded_pilot_v1.py`下载SHA256核查（`830563658a0dacb1bd63652fcccf741fea18edf9c48f480debfec7b4a1254656`），此次不带`--run`的程序成功通过源码、数据与CUDA预检；已读取151509的冻结15D缓存，4789spots，特征SHA256如上，与E1/E2已归档一致。另有`xarray_schema`关于`pkg_resources`的弃用UserWarning，当前未阻断执行。**此轮无训练、无拟合、无AutoK best_k、无CPU/GPU测时，也未写入实验文件。** E3c仍冻结，2400/2400完成并已审计。下一唯一建议为Windows单条显式命令运行`e3d_autok_seeded_pilot_v1.py --run`（在隔离目录输出、151509开发样本、15D、K候选4..10，内部包含3与11、3次重复，CPU再GPU；仅探索测时，不用于最终论文结果），保留全部真实输出；若报错停止、留存独立session的`summary.json`和终端日志，先排错，不自动升级软件、不修改冻结E3c。正式E3d盲标签K搜索与运行预算仍未冻结。
+
+
+## 2026-11-20｜E3d独立试验脚本已由用户Windows下载并完成SHA256校验
+
+**真实Windows终端回报**：`E3D_PILOT_SCRIPT_READY sha256=830563658a0dacb1bd63652fcccf741fea18edf9c48f480debfec7b4a1254656`。这证明用户本机`D:\paper\CellCharter_reproduction\e3d_autok_seeded_pilot_v1.py`已按GitHub发布内容下载并SHA256检查通过。助手另直接读取GitHub已冻结`e3c_k_sensitivity_single_task_v1.py`计算SHA256=`c3bbe996e8bf5f13775a193061fc4b654d9317170e0dca14b7792c429cd77cca`，与pilot硬编码依赖一致。**截至本回合用户尚未执行E3d预检、更未运行AutoK CPU/GPU拟合或产生best_k，不能认为E3d已经开始正式实验。**
+
+**下一唯一Windows步骤（未执行）**：用原本`env_cellcharter\python.exe`执行`e3d_autok_seeded_pilot_v1.py`，不加`--run`，按脚本验证151509 15D特征与冻结脚本、CUDA，要求看到`E3D_PILOT_PREFLIGHT_PASS`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`；如错误提供真实终端全文并停止。预检通过后再另一步决定受控播种CPU/GPU测时，正式E3d网格和统计尚未冻结。E1/E2/E3c全部冻结结果不得修改。
+
+
+## 2026-11-20｜E3d本机v0.3.2源码哈希核验及已知AutoK随机种子缺陷
+
+用户Windows本机原始终端：`AUTOK_RANDOM_LINES= ['random_state = self.model_params.pop("random_state", 0)', 'clustering = self.model_class(n_clusters=k, random_state=i + random_state, **self.model_params)']`；`GMM_INIT_RANDOM_LINES=['random_state: AnyRandom = 0,', 'self.random_state = random_state']`；`GMM_FIT_SEED_LINES=[]`。本地源文件SHA256：`_autok.py=7c2596df24b81472c7518436a6e4f0fb3b031bcf189ea6d9a307c84e562e29f8`、`_gmm.py=bed1a6e897ed662aca2a3642d1cebcfe0a4c1d733d918faeea8671841841243b`。**SHA256与Git blob SHA-1不可直接比值判等**，但检测到的代码语义与上游v0.3.2一致。
+
+上游官方issue [#122](https://github.com/CSOgroup/cellcharter/issues/122)明确确认旧版`random_state`未实际应用，并于2026-10-15关闭修复；因此当前0.3.2原样`ClusterAutoK`的多次重启**不可当作受控随机重复**。既有E3c脚本独立调用`torch.manual_seed`且E3c全2400格已通过审计，**不因这个E3d风险擅自推翻或重跑E3c**。本地用户报告GPU RTX4070 CUDA=True、cellcharter=0.3.2、torchgmm=0.1.2、torch=2.1.2+cu121；仅警告`pkg_resources`弃用。
+
+新增探索性`experiments/cellcharter_dlpfc/e3d_autok_seeded_pilot_v1.py`：采用在`GaussianMixture.fit`前显式`seed_everything(self.random_state)`的独立子类（**不升级或改写本地第三方包**），只用预定开发切片151509的15D缓存、K候选4..10（AutoK v0.3.2内部还拟合3、11）、仅3次重复用于试测，CPU与GPU顺序运行，无参考标签参与K选择，无ARI/NMI指标、不可纳入正式E3d结果。默认只读、只有显式`--run`启动，输出单独`results/e3d_autok_seeded_pilot_v1`，任何失败保留日志/JSON并停止。**脚本只已上传GitHub，尚未在用户Windows下载/运行，运行性能与正确性未验证；正式E3d的max_runs、设备、统计/复现协议仍未冻结**。下一唯一Windows步骤先只下载到本机独立文件并报告SHA256，后续确认后再执行默认只读/试点；不得现在运行正式全量。
+
+
+## 2026-11-20｜E3d AutoK Windows软件版本/API/GPU只读预检已执行
+
+**用户Windows真实终端**（调用`env_cellcharter/python.exe`，未调用拟合）：
+```text
+CELLCHARTER_VERSION= 0.3.2
+TORCHGMM_VERSION= 0.1.2
+TORCH_VERSION= 2.1.2+cu121
+AUTOK_SIGNATURE= (n_clusters: 'tuple[int, int] | list[int]', max_runs: 'int' = 10, convergence_tol: 'float' = 0.01, model_class: 'type' = None, model_params: 'dict' = None, similarity_function: 'callable' = None)
+GMM_SIGNATURE= (n_clusters: 'int' = 1, *, covariance_type: 'str' = 'full', init_strategy: 'str' = 'kmeans', init_means: 'torch.Tensor' = None, convergence_tolerance: 'float' = 0.001, covariance_regularization: 'float' = 1e-06, batch_size: 'int' = None, trainer_params: 'dict' = None, random_state: 'AnyRandom' = 0)
+AUTOK_SOURCE= D:\paper\CellCharter_reproduction\env_cellcharter\lib\site-packages\cellcharter\tl\_autok.py
+CUDA_AVAILABLE= True
+GPU_NAME= NVIDIA GeForce RTX 4070 Laptop GPU
+```
+首行另有`xarray_schema`提示`pkg_resources is deprecated`，**仅warning，未导致本次导入失败**。确认GPU可见并不等于AutoK已采用CUDA或GPU性能已验收。版本0.3.2仍未升级。
+**上游实现已直接读取**GitHub `CSOgroup/cellcharter` **tag v0.3.2**`src/cellcharter/tl/_autok.py`（blob `a0eeca0ffaab6f98317eac0721ca9ce173fc90f6`）和`src/cellcharter/tl/_gmm.py`（blob `d7205846df88d9ff1847bc27ee59e9eaf81fb062`）：AutoK通过`random_state = self.model_params.pop('random_state',0)`及`random_state=i+random_state`传入不同数值；同版本GaussianMixture的`__init__`只是保存`self.random_state`，未见在该类直接调用`torch.manual_seed`。是否由继承的TorchGMM内部实际使用该属性**需进一步核验本机安装实现**，不可直接认定随机种子正确生效。E3c单任务有自己的显式`torch.manual_seed(info['seed'])`，E3c结果仍冻结，**不重跑或从此推翻其完成审计**。AutoK v0.3.2传入tuple K范围会额外算两侧邻近K；具体范围、max_runs/提前停、CPU/GPU、随机可复现、独立输出与评价隔离均**未最终冻结**。**未启动E3d训练，没有产生best_k/ARI/NMI**。
+**唯一下一步**：Windows只读查看本机ClusterAutoK.fit和GaussianMixture.__init__中random_state处理及其源文件sha256，确定与上游版本一致后再讨论独立环境随机播种修补和单片CPU/GPU冒烟。不要自动升级现有E1/E2/E3c环境。
+
+
+## 2026-11-20｜E3c真实数据/分析图已入库；接下来E3d版本与GPU只读预检
+
+**GitHub已实际提交并按原文件Git blob逐项核对**：`experiments/cellcharter_dlpfc/E3C_20261120_RELEASE/`包含用户上传原始`e3c_newK_metrics_1920.csv`（SHA256 `50c624a9133d0ad885cd69d53929047f6398729699498771b20c86537bff92f2`）、六份派生统计CSV、三份可编辑SVG、`E3c_分析说明_20261120.md`、`build_e3c_review.py`、两份历史Oracle-K汇总/哈希前缀来源文件及`README.md`。源码`build_e3c_review.py`及依赖的两份文本均已核对与聊天离线包原件一致。旧Oracle-K真正的480行原记录继续存放在E1/E2归档；本E3c独立分析使用了6位小数组均值，**不是重新发布精准2400行原始逐任务合并CSV**。原聊天`E3c_K敏感性_初步统计与SVG_20261120.zip`二进制与其中的`e3c_summary_audit.txt`尚未上传GitHub，README明确了这个差异；公开内容足以运行已上传的`build_e3c_review.py`重算描述统计和生成SVG，但不含Windows全体逐spot预测/metrics/manifest原始目录，后者未备份到GitHub。**此前只有文字存档，现核心真实指标与科研图已经实际上传**，旧交接有关“新1920行未入库”的表述已过时。
+
+**E3c**：Windows独立审计`E3C_ALL_2400_AUDITED_PASS`已确认，12片×4尺度×5固定K×10seed的2400格均完整；E1/E2另已完成1200格。后验结果K敏感性与供体反向趋势可用，但无标签AutoK尚未做，3供体独立重复，不能按spot/seed扩大n。
+
+**E3d**：2026-11-20实际查阅[官方ClusterAutoK API](https://cellcharter.readthedocs.io/en/latest/generated/cellcharter.tl.ClusterAutoK.html)、CellCharter`v0.3.2`源文件`tl/_autok.py`、[随机状态问题#122](https://github.com/CSOgroup/cellcharter/issues/122)和版本发布；新增 [E3d预检计划](experiments/cellcharter_dlpfc/E3D_AUTOK_PREFLIGHT_20261120.md)，**不是已运行/已冻结K搜索实验**。发现部分早期版本可能未真正执行所传随机种子，官方于2026-10-15修复；用户Windows目前安装版本/torchgmm/GPU仍需实际查验，不应自动更新旧环境或改写冻结E3c。
+
+**下一步唯一操作（未运行）**：用户Windows在`env_cellcharter`执行一条PowerShell只读命令打印`cellcharter`、`torchgmm`、`torch`版本、ClusterAutoK/GaussianMixture函数签名、CUDA可用性、GPU名称、实际模块源路径。收到结果后再冻结E3d搜索范围/重复预算、随机状态控制、CPU/GPU选择和单片测时。不给用户直接启动全12片AutoK拟合。GitHub主分支新增提交不等于Windows本地已同步。
+
+
+
+## 2026-11-20｜E3c新1920行CSV已由ChatGPT独立读取验收并完成初步统计
+
+用户真实上传`e3c_newK_metrics_1920.csv`（SHA256 `50c624a9133d0ad885cd69d53929047f6398729699498771b20c86537bff92f2`），助手对1920行全量键、非Oracle-K、每片160行、样本/条件/种子/固定K、指标范围及哈希格式核查通过。再从本库E1/E2历史1200行真实提取480条Oracle-K并计算48组10seed均值/SD，按样本、n_evaluated、K、旧新输入SHA256前16位跨来源校验无冲突。获得**12切片×4尺度×K5..9 =240组10seed汇总，覆盖2400已验证任务**（旧480仅在本回合按48组汇总，未声称全精度2400原始任务CSV已经创建）。初步描述性结果：15D−10D的12片等权均值ΔARI在K5–9皆正（+0.0112至+0.0229）；25D−15D Br5292供体五个K均正、Br8100五个K均负；K与供体/Oracle-K混杂，不能宣称K5为无标签最佳K或广泛普适改善。原始新增1920的逐任务指标本轮上传并进入用户会话分析包，**未公开上传GitHub且Windows全部原始预测未备份**。图表/数据审查包已在用户对话生成并经重新运行脚本检验，详见 [E3c结果审查记录](experiments/cellcharter_dlpfc/E3C_K_SENSITIVITY_ANALYSIS_20261120.md)。下一优先事项：E3d无标签AutoK的冻结协议与小范围测时，或按用户意愿先组织E3c论文章节；E3b/E4/E5/E6仍待执行。下文旧进度/任务按本节覆盖。
+
+
+## 2026-11-20｜E3c本地1920行指标导出成功，原CSV待上传
+
+**证据为用户Windows PowerShell真实终端最后一行**：
+```text
+E3C_NEWK_EXPORT_PASS rows=1920 path=D:\paper\CellCharter_reproduction\results\e3c_newK_metrics_1920.csv
+```
+用户执行前一轮提供的只读来源/新CSV导出操作（读取`results/e3c_k_sensitivity_v1`中1920个`manifest.json`及相邻`metrics.json`，校验 completed/protocol/固定非Oracle-K/未以人工标签拟合、ARI/NMI取值范围、sample×condition×k×seed键唯一、每12片160行，以及基本来源hash字段，然后导出新表）。终端返回`PASS`；因此可以记录**用户Windows已报告生成1920行CSV**；助手本轮尚未收到/读取该CSV，不能声称已独立重算内容、确认数据分布或科学结论。此前E3c全局2400格只读审计PASS、旧480格复用均维持不变，不重复训练。当前CSV仅在Windows本地，GitHub**未备份**。**下一步唯一事项：用户直接上传`e3c_newK_metrics_1920.csv`到当前对话**（无需再次执行命令）；收到后实际读取、独立验收并结合GitHub E1/E2归档中的Oracle-K 480行，形成2400行完整分析表，再开展E3c统计及真实SVG。E3d/E3b/E4/E5/E6仍未开始。
+
+
+## 最新权威交接：2026-11-20 09:34（北京时间，按用户会话时间）｜E3c全部2400格审计PASS，切换到数据汇总
+
+用户提交的Windows完整尾部显示`E3C_GRID_PREFLIGHT_PASS total=2400 REUSED_AUDITED=480 EXISTING_AUDITED=1920 NEW_TASK=0`和`E3C_ALL_2400_AUDITED_PASS`，说明12片×4配置×K5–9×10种子共2400格均已通过**全网格只读复审**；本次夜间10片`COMPLETED_SAMPLES`齐全、`FAILED_SAMPLES`空。E3c新拟合1920项完成（另480旧Oracle-K格经审核复用），当前没有必要重训。请**不要再根据旧快照重启151509或151510**。现在唯一优先事是**提取、验收、归档E3c真实新K逐任务数据**（原始文件在Windows），与GitHub E1/E2归档的Oracle-K480项按键合并生成2400行统计分析集，随后做跨K/尺度/供体可重复统计与SVG；不能把固定K敏感性说成无标签AutoK。E3d/E3b/E4/E5/E6未完成，论文结论需等实际指标。Windows路径`D:\paper\CellCharter_reproduction\results\e3c_overnight_20261120_001819.txt`为真实用户提供日志位置，助手尚未直接读本地完整日志或1920原始metrics。下方旧记录均为历史；以本段与[科研日记](RESEARCH_JOURNAL/2026-11-20.md)为准。
+
+## 2026-11-20 09:34（北京时间，按用户会话时间）｜E3c全12切片K网格2400/2400独立只读审计PASS（正式验收）
+
+**用户Windows真实终端末尾输出**：
+```text
+PREFLIGHT_SAMPLE_OK sample=151675 verified_reused=40 verified_existing=160 pending_new=0 total=200
+PREFLIGHT_SAMPLE_OK sample=151676 verified_reused=40 verified_existing=160 pending_new=0 total=200
+E3C_GRID_PREFLIGHT_PASS total=2400 REUSED_AUDITED=480 EXISTING_AUDITED=1920 NEW_TASK=0
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+COMPLETED_SAMPLES 151507,151508,151669,151670,151671,151672,151673,151674,151675,151676
+FAILED_SAMPLES
+E3C_ALL_2400_AUDITED_PASS
+SESSION_LOG D:\paper\CellCharter_reproduction\results\e3c_overnight_20261120_001819.txt
+```
+
+**本次关键进展**：前次151509全200格已独立复核、151510新160项已runner内部审核；此次新`--sample ALL`只读复核覆盖全部12切片×4累计尺度×5固定K×10种子=2400格，480旧Oracle-K格审计复用、1920新增K格审计确认为existing，**NEW_TASK=0**。因此现在可标记`E3C_ALL_2400_AUDITED_PASS`，E3c**实验运行及全网格产物审计完结**；夜间其余10片均被PowerShell包装脚本列为完成、`FAILED_SAMPLES`为空。仅据用户贴出的终端而非助手直接打开全部原始Windows文件、session日志；不能将`FAILED_SAMPLES`空行推断为所有历史批次从未出过任何错误。输出总数不等于已经完成E3c跨K/尺度/供体统计、可视化或科学解释；这些尚待进行。
+
+**研究约束**：冻结E3c为CPU TorchGMM 4累计尺度10/15/20/25D×K{5,6,7,8,9}×10 GMM种子；历史Oracle-K参考人工标签类别数，仅作为有标签知情条件；K网格对照不是无标签AutoK。3位供体才是生物学来源，切片和种子不能伪作独立生物学重复。所有K和seed均须完整报告；不得事后以ARI最大K当成独立无标签方法。E3d AutoK、E3b边界指标、E4空间/marker、E5公平基线/独立外部验证、E6可选候选改进仍未完成。
+
+**下一步唯一优先事项**：停止E3c拟合；只读从Windows完整E3c任务输出导出规范化新K逐任务表（1920行）并联合GitHub已有E1/E2真值知情Oracle-K480行构成2400行分析集；逐格核验键唯一、ARI/NMI数值范围、标签mask、供体嵌套和来源哈希，产出跨K稳定性及敏感性汇总、真实SVG。用户尚未上传本地新E3c原始预测CSV/metrics/manifest，GitHub更新仅是文档存档，**不等于原始训练结果备份**。执行前还应实际核查要运行的统计汇总脚本，勿修改冻结原结果。夜间SESSION_LOG在用户Windows本机，助手未直接读取。
+
+
+
+## 最新交接（2026-11-20 00:18（北京时间，按本次会话时间））｜E3c容错夜间策略已确定但未经运行证实
+
+E1/E2 1200/1200已完成，E3c 151509 已独立审计200/200；151510 已由Windows批量runner完成160个新K并内部审核，待独立只读200格复查。全局当前为**推算800/2400格**（旧480+新320），尚未获取剩余10片1600新K的夜间执行结果。用户批准夜间**失败单片跳过、连续2片失败或共享/未知错误停止**的PowerShell包装方案；只在聊天提供候选代码，**未验证用户运行，未修改Python runner，不能声称已实现或已完成**。下一回合优先核查用户夜间日志/SESSION_LOG与完整`--sample ALL`只读审计，随后仅补做缺失项。原始Windows新K产物未上传GitHub，文档不等于备份；E3d/E3b/E4/E5/E6仍待开展。详情参见 [2026-11-20日记](RESEARCH_JOURNAL/2026-11-20.md)；下方旧“下一步”均被本节覆盖。
+
+
+## 最新权威快照：2026-11-19 23:52（北京时间）｜151510已完成160新拟合，待独立审计
+
+用户Windows真实`E3C_BATCH_COMPLETE new_audited=160`；151510的160个新K任务已由运行器内部审核，先前40旧格已只读审核，但**结束后还没有独立复审200格**。151509先前独立复审200/200。全局最新推算800/2400，未做最新全局只读复审。可按日志与既有安全runner安排剩余10张切片（1600新拟合）的受控夜间连续批处理：首先只读全局审核，错误停止；之后逐片，不覆盖；最后再独立`--sample ALL`。**未执行夜间剩余1600，原始Windows文件未上传GitHub**。以下旧交接为历史。
+
+## 2026-11-19｜151510 E3c 160项新K批处理完成（待独立只读审计）
+
+【用户Windows末尾原始日志】：
+```text
+[2026-11-19T15:52:57+00:00] RUN_AUDIT_PASS 160/160 sample=151510 condition=cum_L0_L1_L2_L3_L4 k=9 seed=12815 ARI=0.354917 NMI=0.567188 wall_seconds=14.15
+[2026-11-19T15:52:57+00:00] E3C_BATCH_COMPLETE new_audited=160 summary=D:\paper\CellCharter_reproduction\results\e3c_k_sensitivity_batch_sessions_v1\20261119T151528Z_26fb78a1db\session_status.json
+```
+前文用户已真实通过151510全200格只读预检（40旧Oracle-K复用、0现存新K、160待新拟合），然后用户发回批处理尾部`RUN_AUDIT_PASS 156/160`至`160/160`与`E3C_BATCH_COMPLETE new_audited=160`，故**160项新K完成并通过安全运行器内部逐项审计**，并非仅计划。此轮仍**未**独立重新运行151510全200格只读审计；不可提前称为独立复核200/200。151509此前已200/200独立复核。现按前次全12片旧480格已复核、151509新160、151510新160计，E3c全局**推算**800/2400格、剩余10片新K1600项，最新全局`--sample ALL`审计尚未收到用户结果。
+
+**后续策略**：用户先前明确希望若151510顺利，今晚连续完成剩余1600项；可交付**一个**PowerShell分组操作，在任何训练前运行`--sample ALL`只读全局审计，以同时独立核实151510的200格及其余样本输入；只要预检PASS，顺序执行冻结剩余10片（151507、151508、151669–151676），每片调用已有`e3c_k_sensitivity_batch_runner_v1.py --sample <sid> --run --max-new 160`，严格检查`$LASTEXITCODE`非0立即停止，不删除不覆盖；末尾再`--sample ALL`只读最终审计，只有总计2400格且`NEW_TASK=0`才可标全局完成。程序已有每批次session原始日志、单任务超时和锁、默认不修改旧结果。此夜间完整工作**尚未执行**；程序实际性能/总耗时与成功率未保证。E3c原始新K结果只在Windows，GitHub文字记录不算备份。
+
+
+## 最新权威快照：2026-11-19｜151510 E3c dry-run PASS，准备首批160个新K
+
+用户Windows真实终端确认`151510` 200格只读预检通过：40历史Oracle-K格审计复用、0项新K现存、160项待拟合；尾部`E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。**151510尚未开展新拟合**；151509此前完成200/200审计，E3c全局仍以640/2400为待全局复核的推算。下一次只给用户一个明确操作：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e3c_k_sensitivity_batch_runner_v1.py' --sample 151510 --run --max-new 160`；运行器先fail-closed预检、再串行拟合，不覆盖失败/已有文件；须等待真实成功日志。相关证据详见[当日日记](RESEARCH_JOURNAL/2026-11-19.md)；**原始E3c结果仍在Windows未上传GitHub**。历史段落旧指令以本节覆盖。
+
+## 2026-11-19｜151510 E3c 200格只读预检PASS（尚未训练）
+
+【用户Windows终端原始记录摘录】```text
+PREFLIGHT_SAMPLE_OK sample=151510 verified_reused=40 verified_existing=0 pending_new=160 total=200
+E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+```
+
+用户在Windows手动执行`e3c_k_sensitivity_batch_runner_v1.py --sample 151510`，**没有`--run`**。末尾提供8个`PREFLIGHT_SEED_OK checked=20`及总计成功标记；总汇总来自脚本对指定样本全部200格的fail-closed预检。旧Oracle-K 40格重新审计可复用，新增E3c已有0项，待拟合160项，**没有训练、没有写文件、没有产生新的ARI/NMI**。151509此前200/200已审计完成；全局现有格数480历史复用+160新K为**按两次样本结果及先前全局预检推算640/2400**，151509结束后完整12片`--sample ALL`尚未重审，不得标为最新全局独立审计。
+
+**下一步唯一Windows手动操作（尚未执行）**：在用户确认使用本地已验证安全runner的前提下，单条PowerShell启动`--sample 151510 --run --max-new 160`，runner会先预检全部200格，再在独立E3c目录执行最多160个新K拟合。无成功日志不得声称已完成；成功应见`E3C_BATCH_COMPLETE new_audited=160`，失败保留`E3C_BATCH_HALTED`及session日志、不得删除/盲目重试。151509的160份原始E3c预测与本次任何151510本地结果仍未上传GitHub，文档归档不等于原始结果备份。
+
+
+## 最新权威快照：2026-11-19 19:55（北京时间）｜E3c 151509全部完成并独立复核
+
+**已核实**：151509 已于 Windows 完成全部160项新K的GMM拟合（1+5+20+134），最后一次不含`--run`的独立只读审计明确返回：`PREFLIGHT_SAMPLE_OK sample=151509 verified_reused=40 verified_existing=160 pending_new=0 total=200`，`E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=160 NEW_TASK=0`，`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。因此**151509切片200/200 E3c格完成并审计通过**。原E1/E2的12片1200项已在之前核验；E3c全局最新推算480个原Oracle-K复用、160个新K完成、1760新K待做（计划总2400格），**但151509完结后的全局`--sample ALL`复核尚未执行**。不能将新GMM seeds或同供体切片当独立生物重复；K网格不能代替AutoK，且真实指标不可筛选性报告。
+
+**接手唯一首要事项**：按冻结协议使用已通过151509验证的安全批处理器推进**151510**；下一回合可先只读`--sample 151510`检查200格，确认`REUSED_AUDITED=40 EXISTING_AUDITED=0 NEW_TASK=160`后，再在下一回合显式`--run --max-new 160`。不得推定151510已训练。所有Windows新E3c预测、metrics和manifest仍在用户本机，**未同步到GitHub仓库**。严禁声称已备份。当天详细日志与交接文档见[专门权威存档](experiments/cellcharter_dlpfc/E3C_CHECKPOINT_20261119.md)；**本文件以下旧段落是历史快照，旧“下一步”均以本节覆盖**。GitHub文档已通过连接提交，不代表用户Windows仓库已拉取。
+
+
+
+## 2026-11-19 E3c 151509 200/200 full independent read-only audit PASS
+用户手动在Windows上完成首个样本151509的134项新增训练之后，又按规定执行 `e3c_k_sensitivity_batch_runner_v1.py --sample 151509` （无`--run`），真实完整终端输出确认全部10个冻结seed均`PREFLIGHT_SEED_OK ... checked=20`；尾行如下：
+```text
+PREFLIGHT_SAMPLE_OK sample=151509 verified_reused=40 verified_existing=160 pending_new=0 total=200
+E3C_GRID_PREFLIGHT_PASS total=200 REUSED_AUDITED=40 EXISTING_AUDITED=160 NEW_TASK=0
+DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN
+```
+**意义**：151509的E3c全200个格（E1/E2旧40 + 新K160）已全部独立复核通过，可正式标记`SAMPLE_151509_E3C_COMPLETE_AND_AUDITED`。全局按先前已验证的480个旧格与这个样本160个新格推算，新增已完成160/1920，另外11个样本待新增1760；*本回合未重新执行12张全局只读汇总*，最终全局进度仍要以下一次全局审计确认。此阶段没有读取/改写其他STAGATE相关课题。
+
+当前真实v1 batch runner源代码支持`--sample 151510 --run --max-new 160`：会先对151510完整200格重新fail-closed预检，确认40个旧Oracle-K格再在独立`e3c_k_sensitivity_v1`目录最多运行160项新任务，每项新Python进程、CPU串行、输出单项审计及batch session日志、有600s单任务超时、文件已有即拒绝、任何失败停机，**不删除、不覆盖已完成结果**。由于151509的完整160项已走通，可以下一步对151510进行完整160项同协议运行，不需要再换K/seed/算法。运行成功的实际期望标志是`E3C_BATCH_COMPLETE new_audited=160`，失败则保持文件并返回`E3C_BATCH_HALTED ... summary=...`路径；绝不宣称151510已执行。即使151510完成，跨样本K结果和论文结论仍需12片完整汇总与E3d AutoK等后续条件。
+
+
+
+## 2026-11-19｜E3c首个新K任务重复独立审计PASS；v1批量安全调度器已上传（尚未运行）
+用户Windows实际重跑**不带--fit**的只读审计：
+```
+E3C_PRECHECK_SOURCE_OK sample=151509 condition=cum_L0_L1 feature_dim=10 K=6 seed=22911 original_oracle_K=7 source_sha256=1f29060473365c02d2c26b51a477d87ff2fb4ee6a4e7ae8e18193895c8dfc32e
+E3C_EXISTING_AUDITED sample=151509 condition=cum_L0_L1 K=6 seed=22911 ARI=0.440307 NMI=0.572330
+NO_TRAINING_NO_FILES_WRITTEN
+```
+这是**第二次独立读取已经落盘结果的审计通过**，不是第二次拟合；首个K6拟合`fit_seconds=0.683`之前真实成功。E3c冻结网格2400：480 Oracle-K原E1/E2复用，1920需要新拟合；目前**1/1920新拟合已完成且可重复审计**，余1919个尚未执行。原E1/E2的480格必须由新程序逐格现场审计后才标记为`REUSED_AUDITED`，不能直接把计划当成核验结果。
+
+ChatGPT依据已冻结`THIRD_PAPER_E3C_K_SENSITIVITY_FROZEN_PROTOCOL_20261119.md`开发并上传`experiments/cellcharter_dlpfc/e3c_k_sensitivity_batch_runner_v1.py`，GitHub commit`a000ae3`；本地源码SHA256=`58d88544b49c956aee915e46b426932434b8ba18ee860c71e499aa7154fefca0`。程序默认`--sample 151509`为**只读**，扫描4条件×5K×10seed=200格，预期40旧Oracle-K审计复用、1已完成K6审计、159待跑；该预期**尚未在用户真实Windows批量程序确认**。若`--sample ALL`则12片2400格一同扫描，预期480/1/1919。显式`--run`才启动训练，默认每次最多**1**个新任务、CPU串行、新Python子进程、超时中断、不覆盖已存在或坏的输出、不自动重试；整个请求扫描有异常就停止在启动训练前。
+
+批量脚本通过ChatGPT容器`py_compile`、CLI`--help`、模拟200格单切片审计（40/1/159）、损坏已有结果拒绝、错误Oracle-K重复输出拒绝、无写文件路径检查；另通过冻结源脚本导入核验；**尚未在用户Windows上真实运行**。下一次只提供**一条PowerShell命令**：从GitHub下载批量脚本到`D:\paper\CellCharter_reproduction\`（已存在则拒绝覆盖），核对SHA，然后执行无`--run`的`--sample 151509`只读预检，观察200格的真实状态。通过再执行全12片只读预检，然后再考虑限量批量拟合。论文所有数据贡献/三供体边界保持原状。
+
+
+## 【2026-11-19：E3c 代码准备／Windows真实训练尚未开始】
+
+用户Windows PowerShell核对3个冻结E1/E2脚本SHA256全部与GitHub归档一致：
+- `e1e2_multiscale_gmm_task.py` `d447dd2cc812616d3589c40f0fd586df3e78d89aec032ad4a82bb433465b958a`
+- `e1e2_safe_batch_runner_v2.py` `22ae7b4cd5b8b652f493168fb7b037eb886a466ab1bdba0c734aec912b2f37e4`
+- `e1e2_aggregate_multiseed_v2.py` `e8ef524c1cab24834c2160e1c06df1da94234c9c9ce72457b9d1d07defc9fce5`
+版本门槛PASS 3/3，依旧不代表E3已训练。
+
+ChatGPT依据既已提交的`experiments/cellcharter_dlpfc/THIRD_PAPER_E3C_K_SENSITIVITY_FROZEN_PROTOCOL_20261119.md`编写并上传**安全单任务新脚本**：`experiments/cellcharter_dlpfc/e3c_k_sensitivity_single_task_v1.py`，仓库最终提交`9c34f3c`（更正GitHub源文件末尾换行以保持与交付原文件逐字节一致），SHA256应为`c3bbe996e8bf5f13775a193061fc4b654d9317170e0dca14b7792c429cd77cca`。脚本启动时先强制校验冻结3脚本SHA和缓存特征/barcode/掩码来源，默认**只读预检、不写文件、不训练**；显式`--fit`才对一个已冻结样本/累计配置/K/seed **新K** 拟合。若K==该片原始Oracle-K，调用E1/E2的V2 auditor验证后`E3C_E1E2_REUSED_AUDITED`且**永不重拟合**；非原K写入独立`results/e3c_k_sensitivity_v1/`并保存manifest/predictions/metrics/哈希和失败traceback，保存预测后才首次读取参考标签并算ARI/NMI，防止标签用于拟合/选K。已经存在的E3输出只读重算审计，决不覆盖。每次仅1任务，**尚未提供批量调度，不能直接跑1920任务**。
+
+**本轮已在ChatGPT容器执行**`py_compile`、`--help`、核心SHA确认、一个合成8spot模拟审核及篡改哈希拒绝、一个模拟dry-run零写文件测试，结果全部PASS；**没有在用户Windows实际运行/训练，也没跑真实151509**。下一步请用户通过GitHub或ChatGPT文件将脚本放在`D:\paper\CellCharter_reproduction\`，单条PowerShell命令只读预检`--sample 151509 --condition cum_L0_L1 --k 6 --seed 22911`（该片Oracle-K7，K6为新任务）；预期`E3C_PREFLIGHT_PASS`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`，如失败保留报错，不开启`--fit`。预检真实通过后下一步仅一次`--fit`冒烟，再开发冻结全网格安全续跑程序并测成本。
+
+
+
+## 【2026-11-19｜E3a供体映射证据完整；冻结E3c K敏感性协议，尚未运行】
+
+用户Windows逐文件证据确认：`151507/metadata.tsv`全部3661行`sample_name=151669,subject=Br5595`，SHA256=`82CF728854BC30F534438E34BADF59C26CF07E08475F4BA2CE0368E56C572F79`，与`151669/metadata_source.tsv`**精确同SHA**，是误放的151669元数据副本，绝不能用来推导151507。10张切片的`subject`已经本地逐spot检查：151509/151510 Br5292；151669–151672 Br5595；151673–151676 Br8100，`Status=OK`。151507和151508没有可用于直接检查subject的本地正确metadata，但2025年Bioinformatics论文补充表S1明确`Case2 Br5292=151507,151508,151509,151510`、`Case3 Br5595=151669–151672`，正文https://academic.oup.com/bioinformatics/article/41/6/btaf350/8161564；故**全12张切片供体映射已由10张本地直读+2张同行评审文献证据组成，不能声称12张全部本地逐spot核验**。已提交映射表`experiments/cellcharter_dlpfc/E3a_DONOR_MAPPING_EVIDENCE_20261119.csv`（commit `68b4229`），E3a供体**映射级完成、2张需注明证据级别**。
+
+本轮已静态读取GitHub原样归档`E1E2_20261119_RELEASE/scripts/e1e2_multiscale_gmm_task.py`，preflight仅使用`spots_aligned.csv`、`manual_layer_annotations.csv`、`cellcharter_aggregated.npy`、spot_order和status，**没有直接读取误放metadata.tsv**；但未全盘核验缓存上游生成，不能因此断言上游不受影响或E1/E2所有代码都没有读过。原1200项仍为已核验结果，无需因错放metadata直接重跑。
+
+**E3c研究协议已在任何训练前独立提交GitHub**：`experiments/cellcharter_dlpfc/THIRD_PAPER_E3C_K_SENSITIVITY_FROZEN_PROTOCOL_20261119.md`，commit`2a3e47b`。12 slices × 4累计配置(10/15/20/25D) × K{5,6,7,8,9} × 10 frozen seeds=2400格；原E2固定OracleK相应格480已审核可核验复用，最多1920新拟合；新output`results/e3c_k_sensitivity_v1`不得覆盖E2。**固定K网格仅敏感性试验，不是无标签AutoK选择**；AUTO-K仍需单独E3d。只读检查Windows实际脚本SHA之后再开发新脚本的dry-run和一个新K冒烟，才可安全运行批量，不可承诺耗时；现在**E3尚未训练任何新模型**。下一回合用户手动唯一命令：用PowerShell`Get-FileHash`检查3个Windows关键脚本与冻结源码同一版本，回报哈希，若有差异先审核。所有研究只讨论CellCharter DLPFC，不跨其他STAGATE/CTW课题。
+
+
+
+## 【2026-11-19 E3a真实供体元数据核对：10/12片确认，2片缺路径】
+用户在 Windows PowerShell 对 `D:\paper\ST_Benchmark_Planning\mvp\data\<sample>\metadata_source.tsv` **只读解析并修正首列无表头的1列错位**（原Header 73字段/首条数据74字段；临时补`_source_rowname`，所有行检查`sample_name==sample`且`barcode==_source_rowname`），终端真实输出：
+- **151509** 4789行 Br5292 OK；**151510** 4634行 Br5292 OK。
+- **151669** 3661行、**151670** 3498、**151671** 4110、**151672** 4015：全部 Br5595、OK。
+- **151673** 3639行、**151674** 3673、**151675** 3592、**151676** 3460：全部 Br8100、OK。
+- **151507与151508**：指定`metadata_source.tsv`路径不存在（`FILE_MISSING`），不代表样本/GMM数据不存在，也不能声称已经核实这两片为Br5292；需下一步查看两个切片目录是否有替代元数据源，然后才做12/12最终确认。
+这是用户本机真实元数据证据，比之前参考文献暂定D1/D2/D3分组更可靠。**E3a进度10/12、尚未完成；E3c K敏感性尚未启动，现有1200项E1/E2实验不得重新跑。** 不要把用户本次验证误写成ChatGPT直接读原metadata；Windows输出源自用户。
+
+
+## 【2026-11-19：Claude独立评审已读；四区实证文章有条件GO，E3门槛规划已写入GitHub】
+
+用户上传`粘贴的文本 (1)(20261119-025503).txt`（Claude对本CellCharter DLPFC第三篇的独立评审全文），询问能否冲SCI四区实证论文并按步骤实施。已读原文246行，**硕士论文章节GO、SCI四区实证论文有条件GO、当前新自适应算法暂不主推**；所需K无标签策略、3–4公平强基线、外部独立数据，三者都尚未运行，不能保证任何期刊接受。最新冻结研究路径见新提交`experiments/cellcharter_dlpfc/E3_E6_Q4_EMPIRICAL_RESEARCH_GATE_20261119.md` (commit`978ef16`)；只限CellCharter，不读取其他STAGATE项目历史结果。
+
+ChatGPT读取完整真实`E1E2_20261119_RELEASE/derived/all_1200_tasks.csv`与120条件汇总/600逐seed配对重新计算并核对Claude关键数：L0→L1平均ARI+0.103007 (12/12片为正)；L1→L2+0.021812 (10/12片正)；L2→L3 +0.008430，L3→L4 +0.003473；每片**后验选择**最佳配置 vs 固定A15D mean+0.030079、A的**后验选最好seed**比10seed mean+0.038882（两者都是使用参考标签的上界/幸运选择，不能用来证明所有自动选择方法理论上限）；平均10seed ARI极差0.076423，中位SD0.027629；B−A单seed方向与10seed平均反向33/120=27.5%。Claude主要数字基本一致，但“自适应算法最大只能+0.03”“seed噪声压倒可提升空间”过强，需要跨配置同seed配对/供体比较。3独立供体**精确双侧符号翻转检验**最小p=0.25，不可泛称任何统计检验不可能显著。Claude预估2400项K实验“约1小时”不可信：此前用户776项夜间顺序批次墙钟约3小时，等比例可能数小时至约9小时，须冒烟计时。
+
+**重大协议核对**：CellCharter官方教程`aggregate_neighbors(n_layers=3)`明确包括L0-L3，故在此项目单块5D对应20D，是官方示例；API的`n_layers`是必填而非有固定default 3，不能把本研究A15D叫“官方标准”。原CellCharter论文自身已有12张DLPFC benchmark，实证论文必须提出清晰不同的评价维度/协议和独立验证。Oracle-K是标签知情的benchmark，不等于特征拟合直接读真值，但并非无监督选K。未来需分别做K固定网格敏感性（并非解决无标签K选择）与AutoK（不看标签选K），注意K5与供体2完全共线。
+
+**下一步唯一Windows命令**：只读枚举`D:\paper\ST_Benchmark_Planning\mvp\data`下可能含donor/subject/sample_info/metadata的csv/tsv文件与首行列名，帮助确认原始供体标签是否有本地可核对来源；没有的话改查官方spatialLIBD原始metadata。请用户返回输出，不重跑E1/E2、不启动E3训练。之后冻结E3c协议并新建安全单任务runner；同时按论文结构把已完成E1/E2文本先成稿，其他内容TODO。不得声称新E3已执行。
+
+
+## 【2026-11-19｜CellCharter E1/E2全量资料已真正上传GitHub；限定Claude审查这一个实验】
+
+用户明确授权将统计ZIP、完整派生CSV、中文科研审查、版本可核对的本地实验脚本公开归档，不必强调隐私保密，并希望Claude提出后续实验方案和论文实验章节，但**严禁Claude研究仓库其他STAGATE等项目**。
+
+**此轮已通过GitHub实际提交并远程树独立核实：** `experiments/cellcharter_dlpfc/E1E2_20261119_RELEASE/` 目录下首批**24个文件，共1,483,679 bytes**，包括两份**原字节**ZIP（原始12切片统计包和完整审查/科研图包）、6个`e1e2_*.py`实验脚本快照、16个派生CSV/SVG/MD/Python文件。Git object SHA均等于本会话本地计算Git blob SHA，远程`git/trees/main?recursive=1`已返回24文件和大小一致。数据主提交 `0587e262d48cf4bb51cb3c4a3519ba75f2d61e07`。后来另建`README.md`和`CLAUDE_REVIEW_START_HERE.md`两个说明文档（提交`5d78e2f7`、`2efd4ee7`），**专门要求Claude只审查这篇CellCharter DLPFC研究的E1/E2及E3–E6/Experiments章节，其他STAGATE、CTW-RF、CARR等目录完全排除**。所有材料已经上传Github仓库主分支，无需用户手动重复上传ZIP；仓库Public是用户明确接受的公开状态。
+
+**真实性限制**：当前脚本是ChatGPT以前发给用户的版本快照，核心任务/auditor/statistics SHA与上传ZIP的provenance完全对应；未从用户Windows直接读取最新文件，如Windows做过未报告的本地编辑则需另行核对。仓库统计ZIP没有原始逐spot预测/人工标签/表达矩阵，派生统计审查不能冒充完全重算原始ARI/NMI。已核验完整1200任务统计一致；15D B−A ARI 7/12正且均差+0.003282、NMI9/12正且均差+0.010867，供体3负，必须保留负结果。只有3个独立供体，Oracle-K标签信息进入K，且K5和供体2混杂，不能伪重复或宣称普遍创新。
+
+**下一步不是再次运行训练或再次打包；而是用户向Claude粘贴该URL：** `https://github.com/Hisery123/st-clustering-research/blob/main/experiments/cellcharter_dlpfc/E1E2_20261119_RELEASE/CLAUDE_REVIEW_START_HERE.md`，请求其按该任务书直接基于GitHub文件提出独立E3–E6方案及论文章节，**禁止跨课题**。ChatGPT当前无可直接调用Claude的连通工具，不能声称已通知Claude/已有Claude回复。用户将Claude建议带回，ChatGPT再做代码和科研边界复核。
+
+
+## 【2026-11-19：用户上传完整12片统计ZIP，ChatGPT独立重算审计通过，重要纠正：15D交换不稳健】
+
+**真实新附件**：`e1e2_12slices_statistics_20261119_095251.zip`，SHA256=`446ad84a992a83c776ea768042ed198d6bdc794236c313c24f7d09ca8daef6ac`（用户亲自于Windows打包上传）。ChatGPT当前会话直接解压读取**12×(4 CSV+1 JSON)=60份文件**，使用独立Python脚本逐项复核：1200条唯一(`sample,condition,gmm_seed`)任务、120条10seed条件统计、600条相同15D逐seed配对、60条配对统计，**所有60组provenance对应4CSV的字节SHA256相符，均值/样本SD(DDOF=1)/中位数/min/max/配对增量和正种子计数重算零不一致**。12片各10条件×10冻结seed，K5 4片/K7 8片；来源码1176 NEW_AUDITED +24 LEGACY_AUDITED，47,681 spots（其中参考标签有效47,329）。本会话审计的范围是上传统计包的一致性，**没有原始逐spot预测与参考文件，不能声称在云端重新重算1200份原始ARI/NMI**；先前用户Windows安全runner有逐spot级审计证据。
+
+**核心结果（描述性、非独立推断）**：同样15D的候选B=`fixed_L0_L1_L4` vs A=`cum_L0_L1_L2`，12片的10seed均值差ARI**7/12正、5/12负、切片不加权平均+0.003282**；NMI**9/12正、3/12负、平均+0.010867**。151674 ARI-0.060879/NMI-0.035787；151675 ARI-0.063314/NMI-0.024986，前四片均正的乐观印象被全样本推翻。其他4组同维15D的正切片数：L0L1L3 ARI6/12 NMI8/12；L0L2L3 5/12与6/12；L0L2L4 5/12与8/12；L0L3L4 6/12与6/12；**没有任何固定15D交换在全部12片、两指标都正向**。
+
+按公开附录ICLR2026 LMRL Workshop Table2的供体标签（用户ZIP本身无donor_id，**须最终与原始spatialLIBD metadata核对**）：D1 151507–151510 K7，D2 151669–151672 K5，D3 151673–151676 K7。同维B−A的4切片均值：D1 ARI+0.039251/NMI+0.031386；D2 +0.003412/+0.014683；D3 **-0.032818/-0.013468**。独立供体n=3，K5与donor2完全对应，不能分离K/供体，不能进行基于12片或120seed的伪重复显著性检验；D1和D3都K7但符号不同，无法仅归因于K。25D累计在全12片**mean ARI最佳2/12、mean NMI最佳7/12**，vs标准15D ARI增益正6/12且均差+0.011903，NMI正9/12且均差+0.020186（注意维数同时变化）。仅全12片的**描述性异质性/鲁棒性问题**已获数据支持，不能叫方法创新。
+
+审计提醒：两组不同GMM seed得到完全相同逐spot预测文件SHA：151669/fixed_L0_L1_L4 seeds6690和22159；151672/fixed_L0_L2_L4 seeds10379和6690，可能同解收敛，不能据此判断错误或独立性。当前没有E3 K敏感性、边界F1、E4空间/marker、E5公平成熟基线/外部数据；**全面设计尚需执行**。既有12片已用于探索，不能再当未见测试；外部独立验证及供体留组验证必须冻结决策、防泄漏。Oracle-K来自参考标签类别数，不能写纯无监督估计K。
+
+**ChatGPT本地完整审计工件（未推入GitHub）**：`/mnt/data/E1E2_12切片_统计审查报告与矢量图_20261119.zip`（7.2KB中文审查报告、可重复审计/Matplotlib脚本、CSV整合、SVG图），当前会话生成并复测脚本，最终以用户实际上传ZIP为唯一统计证据。GitHub只归档摘要，不上传其他代码或原始数据。下一步先冻结E3/后续比较协议并核实原始供体元数据，按用户手动Windows步骤执行，禁止后验单片最优配置选择性汇报。
+
+
+## 【2026-11-19：E1/E2冻结12切片×10配置×10seed=1200/1200全部完成并分切片统计通过】
+
+**新用户Windows原始终端日志（2026-11-19北京时间凌晨）**：8片夜间脚本`e1e2_overnight_remaining_slices_v1.py --run`运行至最后151676/seed12815，`BATCH_RUN_COMPLETE new_tasks=10`，`COMMAND_OK RUN 151676 seed=12815`，`SEED_COMPLETE ... groups=80/80`，随后`SECTION_FULL_AUDIT_AND_SUMMARY_BEGIN sample=151676`、`COMMAND_OK SUMMARY 151676`、`SECTION_COMPLETE sample=151676 verified=100/100 summary=D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151676\20261118T185220Z_bde3aec9`，最终**`OVERNIGHT_ALL_COMPLETE sections=8 audited_cells=800 new_tasks=776 summaries=8`**，Session日志`D:\paper\CellCharter_reproduction\results\e1e2_overnight_v1\20261118T154858Z_52c4c93a0b\session.log`。调度器源码已检查：在执行前预检8片×10seed共80组；每组调用V2安全runner，结束检查退出码和任务计数；每片100格完成后调用V2统计脚本逐项复核100份预测和ARI/NMI，检查100/10/50/5四张CSV和SHA/来源文件，才计`SECTION_COMPLETE`；没有并行、无自动重试/覆盖。该日志支持**全部剩余8张切片各100/100审核并产生统计结果**；800格中有**776项本轮新训练+24项已有结果通过复审并复用**（涵盖151669最先单独跑的8项新结果），并非24项都为“历史”实验。此前151507–151510四张各100/100已用户独立核验和统计完成。**因此E1/E2总矩阵1200/1200配置-种子格已完成、12/12每片10seed统计已产生**。本次数字来自用户终端和已审核的控制脚本逻辑，助手**还未直接读取8片的CSV指标值/全面对照，不得虚构哪种特征在12片上胜出**。E1/E2完成不等于整篇论文结束：E3 K敏感性/空间边界、E4生物学/空间可视化、E5成熟公平基线/独立外部数据、E6候选增量与论文还待做。
+
+**下一步一条PowerShell本地命令**：将`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v1`（151507、151508）与`e1e2_multiseed_statistics_v2`（151509–151676）两目录**只读打包压缩成独立统计ZIP**，不含原始表达矩阵/预测文件、不覆盖。用户随后将ZIP上传到聊天，助手检查12片每个seed/条件、source/K、指标/负结果、基于样本维度的描述性排名与等维配对；必须先核实真实供体归属（仅3供体，seed≠独立重复），避免K5与K7混淆、把使用Oracle-K的实验宣称无监督泛化。若zip失败保留原目录回报错误。夜间程序状态已成功，**不应再让用户重跑800项或重新进行单片审计**。
+
+
+## 【2026-11-18：为用户创建可人工启动的八切片夜间安全顺序调度器，尚未在Windows执行】
+
+用户希望把未做的8张DLPFC切片（151669–151676）在睡觉时自动顺序完成，不再手动输入几十次命令。ChatGPT根据**已真实通过多片数据验收**的`e1e2_multiscale_gmm_task.py` + `e1e2_safe_batch_runner_v2.py` + `e1e2_aggregate_multiseed_v2.py`，已在容器**实际生成**`/mnt/data/e1e2_overnight_remaining_slices_v1.py`（SHA256 `4a9ee487308cc4f739326409568d9787208814c272c023ff85e57c7a386156dd`，仅此会话下载工件，**尚未上传GitHub代码树，也未运行用户Windows真数据**）。文件供用户下载后置于`D:\paper\CellCharter_reproduction\e1e2_overnight_remaining_slices_v1.py`，脚本使用绝对本地同目录路径。
+
+脚本**只运行冻结名单**`151669–151676`共8片（151669–151672 Oracle-K5，151673–151676 K7），每片10配置×10冻结seed=800格；seed22911历史15D A/B结果预计每片2格，可复用16格，若无其它已完成任务预计最多新增784格，**这只是计划上限，不是实际完成**。执行时必须显式`--run`，它会先对8片×10seed的**所有80个seed-group进行只读runner_v2预检**并检查完整10配置列表、哈希/条码/指标、历史A/B，任何一处出错都在开始训练**前**停止。然后按切片/seed顺序一次只运行一个V2安全runner，每轮`--run --max-new 10`，内部每GMM独立子进程并逐项审计，已完成项跳过，错误立即停止、不重试/不覆盖，正常每张片完工后用V2统计器完整复核100格、导出新的独立统计文件夹，额外核查100/10/50/5 CSV行数、任务ID完整性、provenance和输出SHA。记录唯一`results/e1e2_overnight_v1/<UTC时间>_<id>/session.log`和`session_status.json`，进程锁保护不同时启动第二个调度器；Windows SetThreadExecutionState防系统**空闲**睡眠，但合盖、电源断开、Windows系统策略仍可能令任务终止。中断后重启`--run`只读复核已完成项并继续缺项；若硬停留有incomplete/running目录则必须人工检查，**不会静默覆盖或自动重训**。脚本强制核对原三文件SHA，与计划不符即`CODE_SHA256_MISMATCH`停止；不提供绕过命令。
+
+容器中该脚本已`py_compile`和`--help`通过，并以**全模拟实验数据**验证了80个前检→80个顺序seed批次→8个统计出口、预计784项新任务的流程、禁止错误历史复用/任务数不一致/统计CSV被改动后的哈希检测。**模拟不等于真实完成**。用户Windows唯一手动动作：下载该新脚本并保存相同目录，在PowerShell运行`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_overnight_remaining_slices_v1.py' --run`。期待终端`PREFLIGHT_ALL_PASS ...`、逐片`SECTION_COMPLETE sample=... verified=100/100`和最终`OVERNIGHT_ALL_COMPLETE sections=8 audited_cells=800 ... summaries=8`；任何阻断`OVERNIGHT_HALTED`，用户将尾端错误/SESSION_LOG发回，不删改任何数据。**不保证一夜完成，估算具体用时须由真实任务测得**。这只覆盖冻结的GMM多尺度E2矩阵和每片统计，后续E3–E6仍未执行；随机seed不算独立生物重复，供体统计需后续核实。
+
+
+## 【2026-11-18 最新：151669 / Oracle-K=5 / seed22911 历史15D只读预检通过，8项待拟合】
+
+用户Windows真实执行`e1e2_safe_batch_runner_v2.py --sample 151669 --seed 22911`，返回`CHECK cum_L0_L1_L2 LEGACY_AUDITED ARI=0.404429 NMI=0.563346`，`CHECK fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.306170 NMI=0.509998`；其余8配置`MISSING`，末尾`PLAN_OK sample=151669 seed=22911 verified=2 missing=8 max_new=1`及`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。严格同维15D B−A**ARI=-0.098259、NMI=-0.053348**，属于此切片此单seed的双指标负结果，必须保留不能挑选性报告；**尚未有151669其他9个seed的结果，不可称稳定或跨供体负增益**。该片按照预冻结协议Oracle-K=5，不同于151507–151510的Oracle-K=7。此前四片分别100/100已正式核验并完成10seed统计，400/1200；151669仅2项历史资产已通过只读核验，8项尚未运行。
+
+**下一步仅一条Windows PowerShell命令**：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151669 --seed 22911 --run --max-new 8`，安全runner跳过旧2项、独立补8缺项并逐项审计，失败中止不覆盖、不改旧结果，成功`BATCH_RUN_COMPLETE new_tasks=8`，当前尚未实际运行。随后按原冻结9seed、安全批处理、最终100/100审计、V2跨seed统计顺序推进；供体独立性、所有负结果、E3–E6原计划不变。
+
+
+## 【2026-11-18 更新：151510四项缺失统计已补齐；4/12片统计完毕；下一片应为151669（纠正此前151511错误）】
+
+用户Windows从已生成`results/e1e2_multiseed_statistics_v2/151510/20261118T151851Z_f72ad2af/condition_mean_sd_10seeds.csv`只读导出151510缺失的前四项均值/样本SD（列condition,ari_mean,ari_sd_across_gmm_seeds,nmi_mean,nmi_sd_across_gmm_seeds），实际终端：
+- `cum_L0` ARI0.328442168763 SD0.0265370964598 / NMI0.41199174582 SD0.00943528357797
+- `cum_L0_L1` ARI0.394669523811 SD0.0188381744613 / NMI0.517134565361 SD0.00270514151649
+- `cum_L0_L1_L2` (15D标准A) ARI0.387783103426 SD0.0373503588174 / NMI0.551844287663 SD0.00680149457206
+- `cum_L0_L1_L2_L3` ARI0.432654471199 SD0.0256589125747 / NMI0.597837372328 SD0.0183410470401。
+151510其余六行已在前一条日志据实归档：25D均值ARI0.462506/NMI0.615700均为本片十配置最高（打印精度6位）；fixed15D B=L0+L1+L4 均值ARI0.431545/NMI0.595161，所以B−A平均差约ARI **+0.043762**、NMI **+0.043317**，均据实数和已给六位小数计算。151510固定L0+L2+L4平均ARI0.458299/NMI0.602704也低于25D。对比前3片同维固定B−标准A，四片10seed均值差分别ARI[+0.049888,+0.024777,+0.038576,+0.043762]，NMI[+0.040173,+0.004407,+0.037645,+0.043317]；**方向均正，但四片不是独立供体n=4、seed不是生物重复；不许显著性或稳定泛化宣称，须保留151510单seed22911 ARI负结果与所有完整结果**。
+
+**关键纠错**：先前助手错误称第五张为151511。用户实际本地`e1e2_multiscale_gmm_task.py`的`SAMPLES`列表以及GitHub冻结协议`THIRD_PAPER_E1E2_FROZEN_GMM_PROTOCOL_20261113.md`只有`151507,151508,151509,151510,151669,151670,151671,151672,151673,151674,151675,151676`，**不存在151511**；正确下一片 **151669，Oracle-K=5**（151669–151672为K5，其余8片K7）。历史上下文中任何“下一步151511”均由本条纠正，不应执行对应命令。用户手动下一唯一PowerShell命令：
+`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151669 --seed 22911`
+是纯只读干运行，核对历史A/B资产、当前源和标签hash、缺失配置，预期PLAN_OK和DRY_RUN，不带--run；若失败保持原文件，贴完整错误。此后再决定运行8缺失项；K5不得混淆K7。151507–151510各100/100复审及跨10seed统计实际完成，总E2=400/1200=33.3%，剩余8片且需E3–E6完整建议1。
+
+
+## 【2026-11-18｜151510的100/100多seed统计成功，终端只显示后6配置，先补读前4行再判断】
+
+用户Windows执行`e1e2_aggregate_multiseed_v2.py --sample 151510`，实际回传末尾6行10seed mean/sample SD指标及`SUMMARY_COMPLETE sample=151510 verified=100 conditions=10 paired_rows=50`，输出`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151510\20261118T151851Z_f72ad2af`，并输出`NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED`。此前`FINAL_151510_ALL_SEEDS_AUDITED 100/100`已实测。因此**151507、151508、151509、151510四张切片均100/100独立复核并成功生成跨10seed统计**，累积400/1200实验格(33.3%)。用户此次粘贴的汇总**只有后6行**，前4行 `cum_L0`、`cum_L0_L1`、`cum_L0_L1_L2`、`cum_L0_L1_L2_L3` 的151510跨seed均值SD**尚不在聊天证据中，不得填数或推断完整最优/同维B-A差值**。
+
+151510后6行mean ARI / SD ARI / mean NMI / SD NMI：
+`cum_L0_L1_L2_L3_L4` 0.462506/0.017132/0.615700/0.004785；
+`fixed_L0_L1_L3` 0.420079/0.036178/0.572641/0.010492；
+`fixed_L0_L1_L4` 0.431545/0.054732/0.595161/0.018831；
+`fixed_L0_L2_L3` 0.385374/0.047936/0.566726/0.009534；
+`fixed_L0_L2_L4` 0.458299/0.048919/0.602704/0.015699；
+`fixed_L0_L3_L4` 0.400181/0.044039/0.585223/0.023803。
+完整25D在**已展示的6项**中两指标均最高，但不能断言全10项的最高，也不能算A对照差值直至取得实际A行。GMM种子为技术随机重复，不是生物重复；保留seed22911 A/B ARI方向相反的观察，严禁选择性汇报。
+
+**下一步仅一个用户Windows只读操作**：`Import-Csv -LiteralPath 'D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151510\20261118T151851Z_f72ad2af\condition_mean_sd_10seeds.csv' | Select-Object -First 4 condition,ari_mean,ari_sd_across_gmm_seeds,nmi_mean,nmi_sd_across_gmm_seeds | Format-Table -AutoSize`，输出缺少的四条真实结果；不更改任何文件。失败需贴错误，不重训GMM。拿到后归档完整十条件并比较151510同维B-A；随后下一张151511 V2 dry-run预检，完整12片E2和E3–E6不变。
+
+
+## 【2026-11-18：151510全部10seed×10配置最终只读核验通过；下一步V2多seed统计】
+
+用户Windows执行151510的`e1e2_safe_batch_runner_v2.py`只读10seed审计循环，对每个冻结seed检查退出码0、唯一`PLAN_OK verified=10 missing=0`。用户回传尾部 `AUDIT_PASS seed=10379,6690,26128,21059,22159,32389,12815 verified=10/10`，最终输出`FINAL_151510_ALL_SEEDS_AUDITED 100/100`。最终标志仅在**全部10个seed的全部10配置**通过循环验证后才打印，因此151510 **100/100已最终复审**；151507、151508、151509均已100/100最终复审且各有多seed统计。现在**4张切片×100=400/1200最终审计通过（33.3%）**；151510尚未生成跨seed统计（mean/SD与paired_rows）且用户未提供这100项明细，因此不得推断统计趋势或显著性。10seed只是GMM算法重复，不是独立供体。下一步用户只运行**一条**`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed_v2.py' --sample 151510`，V2兼容已验证的历史Manifest，先审计，再导出独立新目录100行记录/10行配置汇总/50行同维15D配对差，预计`ALL_MATRIX_AUDIT_PASS sample=151510 tasks=100 seeds=10 conditions=10`和`SUMMARY_COMPLETE sample=151510 verified=100 conditions=10 paired_rows=50`，不训练、不覆盖。待用户实际输出后再归档真实10seed统计，并启动151511预检。所有12片及E3–E6科研计划不变。
+
+
+## 【2026-11-18：151510其余9冻结GMM种子连续批次全部正常返回，下一步全100只读复验】
+
+用户Windows手动运行先前V2顺序PowerShell批次，依预冻结9seed（7449、25842、10379、6690、26128、21059、22159、32389、12815），逐seed调用`e1e2_safe_batch_runner_v2.py --sample 151510 --seed <seed> --run --max-new 10`并对退出码进行非零立即终止。用户终端末尾显示末seed12815的`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.433581 NMI=0.599585`、`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.367003 NMI=0.569511`、`BATCH_RUN_COMPLETE new_tasks=10 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151510\seed_12815\20261118T150429Z_031c4c8fb5\summary.json`、`SEED_COMPLETE 12815`、`ALL_9_SEEDS_COMPLETED`，会话日志`D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151510\multi_seed_20261118_223548.txt`。**九个seed批处理全部成功退出（源自循环退出码守卫）；只有末尾具体指标可据实引用，不能填造其他seed指标。** 结合151510先前seed22911的10项审核，当前151510预计100/100结果已就绪，但**尚未执行全100只读统一验收或10seed统计**。151507、151508、151509各100/100已统一复验并有10seed统计，总300/1200正式最终验收；本片另外100格预计就绪，不能宣称400全经最终审计。
+
+**下一步**：用户Windows仅执行一段PowerShell **V2**只读10seed统一验收循环：每个冻结seed`22911,7449,25842,10379,6690,26128,21059,22159,32389,12815`调用`e1e2_safe_batch_runner_v2.py --sample 151510 --seed $seed`，检查退出码0和唯一`PLAN_OK verified=10 missing=0`，再打印`FINAL_151510_ALL_SEEDS_AUDITED 100/100`。纯只读，不带`--run`，失败输出末30行并抛异常。之后才运行`e1e2_aggregate_multiseed_v2.py --sample 151510`，取得真实10seed统计和配对差；完整E2 12片×10配置×10seed冻结协议、E3–E6计划与所有负结果保留。
+
+
+## 【2026-11-18｜151510/seed22911 新8项批处理成功，首seed已齐10/10；下一步9seed连续V2批次】
+
+用户Windows运行`e1e2_safe_batch_runner_v2.py --sample 151510 --seed 22911 --run --max-new 8`，终端尾部实测`RUN_AUDIT_PASS`包含25D `cum_L0_L1_L2_L3_L4` ARI0.511256/NMI0.629307、`fixed_L0_L1_L3` 0.376183/0.556720、`fixed_L0_L2_L3` 0.346866/0.554664、`fixed_L0_L2_L4` 0.372234/0.573326、`fixed_L0_L3_L4` 0.513001/0.624514，结尾`BATCH_RUN_COMPLETE new_tasks=8`、批次报告`results/e1e2_batch_reports_v1/151510/seed_22911/20261118T135651Z_9327124a7f/summary.json`。其余3项新运行指标没有在此回合用户提供的终端尾部完整显示，**不推测数字**。此前该seed下两项历史15D已`LEGACY_AUDITED`（标准A ARI0.430863/NMI0.559271；B ARI0.374885/NMI0.569489），因此151510/22911当前10/10任务已批量审核，暂无10seed整体统计。此前151507、151508、151509均100/100最终审计并统计，现E2计**310/1200格经runner审查**（其中前三片300经过最终10seed循环+完整统计，151510首seed10格经runner但尚未独立最终复审）。
+
+**下一步**：用户本地一次性PowerShell按冻结9seed`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`运行V2 runner`--sample 151510 --seed $seed --run --max-new 10`，每次检查退出码并Start-Transcript留记录；不并行，不覆盖历史文件，出错立即停止。成功标志`ALL_9_SEEDS_COMPLETED`（尚未执行）。随后执行151510全100只读审计→V2统计器`--sample 151510`→151511预检，保持完整12切片计划，保留随机种子非生物重复及正负结果。 
+
+
+## 【2026-11-18：151510 seed22911 V2只读预检通过，需补齐8个缺失配置】
+
+用户Windows实际运行`e1e2_safe_batch_runner_v2.py --sample 151510 --seed 22911`，显示`CHECK cum_L0_L1_L2 LEGACY_AUDITED ARI=0.430863 NMI=0.559271`、`CHECK fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.374885 NMI=0.569489`，其他8个配置`MISSING`，最终`PLAN_OK sample=151510 seed=22911 verified=2 missing=8 max_new=1`，`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。该片同一seed、同样15D的B-A：**ARI -0.055978（下降）、NMI +0.010218（上升）**，两个指标方向相反，应完整报告，不得只挑正向的NMI。目前151510只读检查通过**2/10**，8个新配置未拟合。151507、151508、151509分别100/100审核+10seed汇总完成，三片共300/1200已最终审核，另151510 2个旧格已验证。下一步用户Windows只运行`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151510 --seed 22911 --run --max-new 8`。保留2个历史资产、逐一训练和审核剩余8项、失败即停不覆盖。尚未运行，不得记新增8项完成。后续9seed与全100最终验收、统计仍按同一冻结协议。
+
+
+## 【2026-11-18 最新：151509全部100格10seed统计真实完成；前3张切片均完成，下一步151510只读预检】
+
+用户Windows实际运行已交付的`e1e2_aggregate_multiseed_v2.py --sample 151509`，尾部`AUDIT_SEED_OK seed=22159,32389,12815 verified=10/10`，且`ALL_MATRIX_AUDIT_PASS sample=151509 tasks=100 seeds=10 conditions=10`、`SUMMARY_COMPLETE sample=151509 verified=100 conditions=10 paired_rows=50`，统计目录`D:\paper\CellCharter_reproduction\results\e1e2_multiseed_statistics_v2\151509\20261118T124301Z_8f96ddff`，`NO_MODEL_TRAINING_OR_ORIGINAL_FILES_CHANGED`。这是用户Windows真实结果，不是模拟或计划。151507、151508、151509三张切片均已最终核验100/100且分别完成10seed统计，**总300/1200格已复验=25%**；其余9片未完成。
+
+151509 frozen 10seed mean±sample SD：cum_L0 ARI0.356070±0.039312/NMI0.465603±0.017125；cum_L0_L1 0.394604±0.045299/0.567233±0.015261；cum_L0_L1_L2 0.422100±0.020413/0.595683±0.002836；cum_L0_L1_L2_L3 0.427857±0.017932/0.614925±0.011553；cum_L0_L1_L2_L3_L4 0.446735±0.017751/0.636819±0.012562；fixed_L0_L1_L3 0.441305±0.024988/0.611663±0.002266；fixed_L0_L1_L4 0.460676±0.032138/0.633328±0.009920；fixed_L0_L2_L3 0.421940±0.022669/0.608223±0.005920；fixed_L0_L2_L4 0.444440±0.026441/0.626235±0.008233；fixed_L0_L3_L4 0.442118±0.019153/0.627391±0.011365。**151509平均ARI最佳fixed L0+L1+L4=0.460676，NMI最佳25D=0.636819**；相同15D B相对标准A的10seed均值差ARI+0.038576/NMI+0.037645。此前151507同对照平均差+0.049888/+0.040173；151508+0.024777/+0.004407。**这仅是三张切片层级的描述性一致方向，不清楚供体独立关系；绝不可把30次随机seed当n=30供体、不得宣称已经统计显著或有新算法创新。** 用户报告的`paired_rows=50`代表配对文件已生成，未把其逐行字节交给助手，不能编造其方差/显著性。
+
+**下一步单条Windows命令，只读、不得训练**：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151510 --seed 22911`，先复审旧15D Manifest、哈希/条码、A/B，以及另外8项缺失；预期`PLAN_OK verified=2 missing=8`但要以终端为准，失败立即贴日志。确认后才分批拟合，不能偷跑，保留完整12片E2、E3–E6研究路线与所有负结果。
+
+
+## 【2026-11-18：151509所有100个配置×seed格通过最终只读核验，V2统计脚本已交付、待Windows实际运行】
+
+用户Windows实际执行151509十个冻结seed的V2只读审核循环（对每个seed核查退出码0、`PLAN_OK verified=10 missing=0`），终端末尾显示种子6690、26128、21059、22159、32389、12815分别`AUDIT_PASS verified=10/10`，以及最终`FINAL_151509_ALL_SEEDS_AUDITED 100/100`。因为最终标志只有全部10个seed均通过循环断言后打印，**151509全100项已获得最终审核**。当前151507/151508/151509三张切片各100/100均已复验，**E2共300/1200最终核验=25%**；151507、151508已有正式10seed统计，**151509未生成统计，严禁编造均值/SD**。
+
+ChatGPT已在此会话容器**真实生成**`/mnt/data/e1e2_aggregate_multiseed_v2.py`（SHA256 `e8ef524c1cab24834c2160e1c06df1da94234c9c9ce72457b9d1d07defc9fce5`），由之前已成功用于151507/151508的`e1e2_aggregate_multiseed.py`轻量改编：把载入的批处理审计器改为在用户151509历史数据上已经实测通过的`e1e2_safe_batch_runner_v2.py`；历史耗时字段支持`elapsed_fit_predict_seconds`/早期`elapsed_fit_and_predict_seconds`；新输出根`results/e1e2_multiseed_statistics_v2/<sample>/<timestamp>_<id>`独立目录，protocol V2与三份代码SHA均写入provenance.json；其余十seed×十条件数据、mean/sample SD、50行等维15D配对差均保留，**绝不训练、不得修改原始预测**，不作将seed当独立生物重复的显著性检验。容器已运行`py_compile`、完整100项模拟矩阵（生成100行原始、10行汇总、50行配对、5行配对汇总）及缺失一格拒绝测试，全部通过；**没有用户Windows运行，不能声称151509统计已完成**。
+
+**下一步用户仅需下载脚本至**`D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed_v2.py`，**单条PowerShell**`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed_v2.py' --sample 151509`。成功应打印`ALL_MATRIX_AUDIT_PASS sample=151509 tasks=100 seeds=10 conditions=10`、10行均值/样本SD及`SUMMARY_COMPLETE sample=151509 verified=100 conditions=10 paired_rows=50`与`OUTPUT_DIR`；失败立刻停下不要覆盖原始文件。待用户回传真实数值后再归档与做三切片趋势分析；后续151510开始remaining9片、完整E3–E6原计划仍在。注：项目规则用户Windows自行执行，助手只提供单步命令。
+
+
+## 【2026-11-18 151509其余9个冻结GMM种子完整批次成功返回，待统一100/100只读验收】
+
+用户Windows手动执行此前PowerShell顺序循环，以修正兼容的`e1e2_safe_batch_runner_v2.py`对151509依次运行冻结的9个seed（7449、25842、10379、6690、26128、21059、22159、32389、12815），每个runner有`$LASTEXITCODE -ne 0`立即停止保护。用户提供末尾实际终端：`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.439222 NMI=0.634390`，`RUN_START 151509 fixed_L0_L3_L4 seed=12815`，`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.460713 NMI=0.637268`；`BATCH_RUN_COMPLETE new_tasks=10 report=D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151509\seed_12815\20261118T103742Z_779bec50f2\summary.json`；`SEED_COMPLETE 12815`；**`ALL_9_SEEDS_COMPLETED`**；`SESSION_LOG D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151509\multi_seed_20261118_181638.txt`。根据循环守卫，九个seed均正常退出且runner逐项核验，结合151509/seed22911已10/10，**151509预计100/100结果齐全，但还没有再次对全部100格统一只读复核，不能写成已完成最终验收或跨10seed统计**。151507与151508各100/100已最终核验并生成10seed统计；目前全1200格中已最终审计200，另151509预计100格就绪。
+
+**下一步唯一用户本地动作：** PowerShell对151509使用**V2**的只读10seed审计循环（之前151508的审核模式，改sample151509和runner_v2），10次各`PLAN_OK verified=10 missing=0`且退出码0才打印`FINAL_151509_ALL_SEEDS_AUDITED 100/100`，不带`--run`，无训练、无写入。若失败自动输出30行停止。收到验收结果后才能用汇总脚本做151509 mean/SD/配对差；旧版汇总脚本可能内置调用V1（需核实，不能臆断），正式汇总前须核对来源并作兼容修复。保留12张切片完整计划和单片种子非独立生物重复限制。
+
+
+## 【2026-11-18 最新：151509/seed22911已完成10/10，准备其余9seed安全连续批次】
+
+用户Windows使用**V2安全runner**，`--sample 151509 --seed 22911 --run --max-new 8`执行成功：8个新任务均`RUN_AUDIT_PASS`，2个历史15D此前`LEGACY_AUDITED`，最后`BATCH_RUN_COMPLETE new_tasks=8`，批次报告`results/e1e2_batch_reports_v1/151509/seed_22911/20261118T081214Z_cd19ec9e1b/summary.json`。其中25D ARI0.454121/NMI0.643115（本seed最高NMI），历史fixed L0,L1,L4 ARI0.488331/NMI0.639697（本seed最高ARI），15D标准A ARI0.437996/NMI0.595607；单seed不宣称稳定获益。151507与151508均100/100且跨10seed统计完成；151509 10/100。**累计E2 210/1200格经过用户Windows程序核验**。下一步给用户一段**单次复制执行的PowerShell顺序循环**，用`e1e2_safe_batch_runner_v2.py`（不得换回有历史Manifest字段兼容问题的V1），按9个剩余冻结seed 7449、25842、10379、6690、26128、21059、22159、32389、12815逐个运行`--run --max-new 10`，遇失败停止并记录transcript。该循环目前未执行，**不能把后90格计作完成**。之后需独立100/100验收及跨seed汇总，不将10seed当独立生物重复，E3–E6及剩余切片继续。
+
+
+## 【2026-11-18：151509历史Manifest兼容修复V2经Windows实测通过】
+
+用户Windows执行 `e1e2_safe_batch_runner_v2.py --sample 151509 --seed 22911`，成功显示：
+`cum_L0_L1_L2 LEGACY_AUDITED ARI=0.437996 NMI=0.595607`、
+`fixed_L0_L1_L4 LEGACY_AUDITED ARI=0.488331 NMI=0.639697`、
+`PLAN_OK sample=151509 seed=22911 verified=2 missing=8 max_new=1`、
+`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。其余8项为MISSING。**说明历史源哈希字段兼容修复已在151509实际通过完整旧A/B结果复算，并未训练或改文件**。同切片同seed的历史B−A差ARI=+0.050335、NMI=+0.044090；仅单seed观察、不能宣称稳定改善。151507和151508各100/100已完成全部核验和跨10seed统计，当前完整E2矩阵200/1200格，151509本seed只有2个可复用历史资产。下一步给用户单条Windows命令：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151509 --seed 22911 --run --max-new 8`，安全runner逐项拟合八个缺项，完成后核验，再扩展其他seed。遇错即停、不覆盖。
+
+
+
+## 【2026-11-18 151509历史Manifest兼容性阻断：已定位字段名差异，待Windows验证修复】
+
+用户Windows三次运行原`e1e2_safe_batch_runner.py --sample 151509 --seed 22911`均输出`CHECK cum_L0 MISSING`、`CHECK cum_L0_L1 MISSING`，然后`RuntimeError: LEGACY_MANIFEST_MISMATCH: cum_L0_L1_L2`，位置在批次脚本check()约68行。**纯预检、无训练、无覆盖，三次重复错误相同。**
+
+ChatGPT直接读取用户实际交付的`e1e2_safe_batch_runner.py`源码（本项目挂载源）和GitHub历史`scripts/cellcharter/mvp_fixed15_dlpfc_10_sections.py`：旧十切片代码的Manifest源数组SHA字段是`source_feature_sha256`（另有`position_csv_sha256`、`reference_annotation_sha256`），原安全runner却只检查`source_file_sha256`，后者是早期151507/151508代码命名。这解释为何151509合法旧Manifest也会被拒绝；但实际151509旧Manifest其他字段/文件尚待新版本核查，**不能预先断言已经通过全部检查**。
+
+ChatGPT已在当前容器生成`/mnt/data/e1e2_safe_batch_runner_v2.py`，SHA256=`22ae7b4cd5b8b652f493168fb7b037eb886a466ab1bdba0c734aec912b2f37e4`，对原runner只做向后兼容修补：`source_file_sha256`与`source_feature_sha256`只要存在任一必须与当前25D源哈希一致，若两者存在则都要匹配；核对旧Manifest的sample、15D维数，且仅当历史位置/标签哈希字段存在时额外严格核对；其他seed/K/块SHA、预测顺序、ARI/NMI复核和训练/不覆盖保护保持原样。新脚本在ChatGPT容器`py_compile`成功，模拟新旧字段均可通过，而错误哈希/位置哈希/标签哈希/seed/维数均被正确拒绝；**还没有在用户Windows真实数据上执行**。脚本未覆盖旧runner，GitHub只归档此说明，没有提交脚本字节。
+
+**唯一下一步**：用户下载修正版并放于原runner同目录`D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py`，紧接着用一条不带--run的PowerShell命令`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner_v2.py' --sample 151509 --seed 22911`，预期两个15D历史条件`LEGACY_AUDITED`、其余8项`MISSING`、`PLAN_OK verified=2 missing=8`；如果仍失败，请原样返回错误，不改动旧Manifest、不重跑已有GMM。151507与151508各100/100并各自多seed统计已完成，不受影响。
+
+## 【2026-11-18：151508 100项多seed统计实测完成；转151509预检】
+
+用户Windows实际运行`e1e2_aggregate_multiseed.py --sample 151508`，10seed各`AUDIT_SEED_OK verified=10/10`，`ALL_MATRIX_AUDIT_PASS tasks=100 seeds=10 conditions=10`和`SUMMARY_COMPLETE verified=100 conditions=10 paired_rows=50`，新独立目录`results/e1e2_multiseed_statistics_v1/151508/20261118T034428Z_fbd9289d`，未重训或覆盖。151508 10seed平均±样本SD：25D累计ARI=0.486451±0.038099、NMI=0.603826±0.024558（两指标均最高）；固定15D`L0,L1,L4`ARI=0.481651±0.028648/NMI=0.589889±0.027680，相对同维A`L0,L1,L2`ARI=0.456874/NMI=0.585482的均值差ARI+0.024777/NMI+0.004407；**这不同于此切片单seed22911 B-A双指标下降，应保留全部结果**。151507既有100/100与多seed统计也完成。当前**两片合计200/1200实验格已审计并生成各自统计**；不得将10种子当独立供体、两切片结论外推12片。完整十组原始均值SD和证据见[2026-11-18科研日记](RESEARCH_JOURNAL/2026-11-18.md)。下一步单条Windows只读预检：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner.py' --sample 151509 --seed 22911`；核实历史15D可复用与数据SHA后，再安排安全批次，未实际运行不能标记151509完成。保底硕士毕业论文章节与完整建议1/E3–E6计划不变。
+
+
+## 【2026-11-18：151508/10seed×10配置完整只读最终验收100/100通过，下一步统计汇总】
+
+用户Windows真实输出依次`AUDIT_PASS seed=22911,7449,25842,10379,6690,26128,21059,22159,32389,12815 verified=10/10`，最终`FINAL_151508_ALL_SEEDS_AUDITED 100/100`。此审计是在已完成顺序批处理后执行的**只读**完整性/指标复算；没有新训练。故151508 **100/100已审核**，此前151507 **100/100已审核且10seed统计生成成功**，原E2计划1200格目前**200/1200已审核（两张切片，各10配置×10 GMM seed）**；另外10张尚未执行本轮完整矩阵。151508的10配置跨seed均值、SD及配对差**尚未生成或由用户提供**，不能凭单seed写统计结论。
+
+**下一步唯一用户Windows命令**：`& 'D:\paper\CellCharter_reproduction\env_cellcharter\python.exe' 'D:\paper\CellCharter_reproduction\e1e2_aggregate_multiseed.py' --sample 151508`。已确认已交付脚本参数`--sample`接受151508，脚本逐项重新审计100格，生成唯一新统计目录（不修改原实验文件、不训练），预计输出`ALL_MATRIX_AUDIT_PASS sample=151508 tasks=100 seeds=10 conditions=10`、10种配置mean/sample SD及`SUMMARY_COMPLETE sample=151508 verified=100 conditions=10 paired_rows=50`，会显示OUTPUT_DIR。等用户终端真实返回后再归档151508统计，并比较151507/151508两个切片，检查分层/供体，随后开展剩余10片和E3–E6。原完整建议1未变。
+
+
+## 【2026-11-18 最新：151508其余9个冻结seed顺序批次已全部正常返回，待全100只读审计】
+
+用户Windows手动运行此前提供的PowerShell顺序脚本：`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`，每个seed通过`e1e2_safe_batch_runner.py --sample 151508 --seed <seed> --run --max-new 10`依次拟合缺失配置并自动核验；用户提供末尾终端：`RUN_AUDIT_PASS fixed_L0_L2_L4 ARI=0.455476 NMI=0.566003`；`RUN_AUDIT_PASS fixed_L0_L3_L4 ARI=0.479041 NMI=0.609614`（seed12815）；`BATCH_RUN_COMPLETE new_tasks=10`，`SEED_COMPLETE 12815`，`ALL_9_SEEDS_COMPLETED`，`SESSION_LOG .../151508/multi_seed_20261118_100047.txt`。根据脚本`$LASTEXITCODE`检查，9个seed的runner均返回成功。结合此前seed22911的10/10，**151508预计100/100已存在可复算结果，尚未完成全部100格跨seed统一只读验收，也尚未计算该切片的10seed统计**。151507已经100/100审核及10seed统计。不能把预计200/1200写成全部已最终审计。
+
+**下一步唯一Windows命令**：复制先前用于151507的10seed只读PowerShell循环，把样本改为`151508`，逐seed调用`e1e2_safe_batch_runner.py --sample 151508 --seed $seed`，断言每个`PLAN_OK verified=10 missing=0`及返回码0；最后打印`FINAL_151508_ALL_SEEDS_AUDITED 100/100`。不重新训练、不写文件、不覆盖。若失败记录失败seed和最近30行日志；用户发送终端后再运行已保存的`e1e2_aggregate_multiseed.py --sample 151508`生成正式统计，之后才做跨切片对照并推进其余10张切片及E3–E6。
+
+
+## 【2026-11-18｜151508/seed22911 十尺度实验已核验10/10，准备其余9个随机种子连续批次】
+
+用户Windows真实执行`e1e2_safe_batch_runner.py --sample 151508 --seed 22911 --run --max-new 8`，预检`PLAN_OK ... verified=2 missing=8`（历史两个15D预测均`LEGACY_AUDITED`），随后八个新任务均`RUN_AUDIT_PASS`并`BATCH_RUN_COMPLETE new_tasks=8`，报告`D:\paper\CellCharter_reproduction\results\e1e2_batch_reports_v1\151508\seed_22911\20261118T014703Z_b405982e50\summary.json`。此次seed22911已有完整10/10格通过runner核验，叠加先前151507的100/100，DLPFC预冻1200格当前**110/1200有已核验结果**；151508仍缺其他九个GMM种子（每seed10项，最多新增90个任务）。历史A 15D = ARI0.462671/NMI0.613217，历史B 15D = 0.460596/0.569139；完整25D=0.531339/0.635565，当前单seed两指标均最优，但不可概括跨种子/片结论。下一步给用户一条PowerShell顺序循环，依预冻列表`[7449,25842,10379,6690,26128,21059,22159,32389,12815]`调用已Windows验证的安全runner`--sample 151508 --seed <seed> --run --max-new 10`，按缺项执行，遇错误立即停止，日志Start-Transcript到151508已有`results/e1e2_batch_reports_v1/151508`目录，绝不覆盖原任务；**循环尚未运行，不能假设90项已完成**。完成后先全100只读核验，再统计CSV/mean-SD与配对差，随后剩余10片与E3–E6不变。
+
+
+## 【2026-11-17 151508/seed22911旧15D审计通过，下一步补齐8个缺项】
+
+用户Windows只读dry-run`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`返回`PLAN_OK verified=2 missing=8`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。已核验两个历史预测：15D A=`cum_L0_L1_L2` ARI0.462671 NMI0.613217；15D B=`fixed_L0_L1_L4` ARI0.460596 NMI0.569139，**B-A ARI=-0.002075，NMI=-0.044078**（负结果，不能挑选性省略）。8个缺失配置尚未训练。151507全部100格及10seed统计此前已完成、只是同片随机重复。下一步仅运行用户Windows单命令`e1e2_safe_batch_runner.py --sample 151508 --seed 22911 --run --max-new 8`，runner跳过并核验两个历史结果，独立训练其余8个，遇失败即停，不覆盖旧产物。若成功进入151508其他seed批次；全12片×10配置×10seed不变。
+
+
+## 【2026-11-17 151507 100项统计汇总成功｜正式开始下一切片预检】
+
+用户Windows真实执行`e1e2_aggregate_multiseed.py --sample 151507`，10个seed各`AUDIT_SEED_OK verified=10/10`，`ALL_MATRIX_AUDIT_PASS tasks=100`和`SUMMARY_COMPLETE verified=100 conditions=10 paired_rows=50`，新输出目录`results/e1e2_multiseed_statistics_v1/151507/20261117T124154Z_75d68b68`，没有模型重训或改动原结果。**mean±sample-SD**最重要：25D累计 ARI0.504370±0.032078、NMI0.664849±0.019590；固定15D L0+L3+L4 ARI0.519286±0.048324、NMI0.655772±0.023636。固定15D L0+L1+L4相比对照15D L0+L1+L2均值差：ARI+0.049888、NMI+0.040173。完整十条件实数与证据等级见[E0/E1/E2日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)最后统计段。**统计只是单切片上的10个seed算法重复，不是独立生物重复；既非已验证创新，也不允许据此显著性结论。** 下一步唯一手动操作是`e1e2_safe_batch_runner.py --sample 151508 --seed 22911`纯只读dry-run，以审核现有历史15D可复用结果及待训练缺项；预检通过后再扩展11张切片，其余E3–E6建议1不变。
+
+
+## 【2026-11-17：151507全部100/100配置-种子格通过最终只读审计，进入统计汇总阶段】
+
+用户Windows运行完整10个冻结GMM seed的read-only审计，终端最后实际显示`AUDIT_PASS seed=10379 verified=10/10`、6690、26128、21059、22159、32389、12815及`FINAL_151507_ALL_SEEDS_AUDITED 100/100`。此前22911、7449、25842亦在同一脚本循环核验（最终标志仅在所有10个seed的退出码与`PLAN_OK verified=10 missing=0`断言均通过后打印），因此**151507的10唯一配置×10冻结seed=100个格子已获得用户Windows的完整结果和自动复算验收**。注意：这仍是**同一张组织切片**、10个GMM随机运行，不能写成独立生物重复；ARI/NMI的全100行数字与均值SD尚未送至助手，绝不编造统计量。
+
+**下一步唯一Windows操作（用户先下载保存脚本，再执行随附的一条命令）：** 在ChatGPT本地构建`e1e2_aggregate_multiseed.py`（SHA256 `04a1e52abb0ecae4fc800c06ddc0a4a6b11d999f68c8dd4f13555f4583595b19`，228行），脚本经过Python编译和纯合成表单元测试，**尚未在用户Windows运行、亦未提交至GitHub代码树**。用户放置于`D:\paper\CellCharter_reproduction\`，和现有`e1e2_multiscale_gmm_task.py`、`e1e2_safe_batch_runner.py`同目录，运行`--sample 151507`，严格只读复核100份原始预测和参考指标后才新建唯一`results/e1e2_multiseed_statistics_v1/151507/<UTC时间>_<随机ID>/`，输出100行追溯CSV、10配置跨seed均值/样本SD表、相同15D的50行逐seed配对差及5候选总结CSV、provenance.json；不训练、不覆盖原文件、不计算伪重复显著性P值。预期`ALL_MATRIX_AUDIT_PASS sample=151507 tasks=100 seeds=10 conditions=10`及`SUMMARY_COMPLETE sample=151507 verified=100 conditions=10 paired_rows=50`。如果失败，停止，保存错误输出。待回传统计表后判断不同种子稳定性，扩展剩余11张切片及后续建议1实验。
+
+
+## 【2026-11-17｜151507剩余8seed连续批次已全部正常返回，待统一100/100复核】
+
+用户Windows终端包含`SEED_COMPLETE 12815`、`ALL_8_SEEDS_COMPLETED`，完整本地session日志路径`results/e1e2_batch_reports_v1/151507/multi_seed_20261117_174307.txt`。末尾实际`RUN_AUDIT_PASS`：seed12815/fixed_L0_L2_L4=ARI0.476403,NMI0.635180；fixed_L0_L3_L4=ARI0.534144,NMI0.678811；`BATCH_RUN_COMPLETE new_tasks=10`。此前151507 seed22911与7449各10/10经核验，seed25842已核验5/10，8seed脚本最后显示所有剩余seed调用均成功，**预计全部100项已具结果资产，但尚未执行最终10seed×10配置统一只读审计**。下一步仅给用户一条PowerShell命令：循环10个冻结seed逐个调用`e1e2_safe_batch_runner.py --sample 151507 --seed <seed>`（无--run，纯只读），核对每个`PLAN_OK verified=10 missing=0`与退出码，最后打印`FINAL_151507_ALL_SEEDS_AUDITED 100/100`。不重训，不虚构未展示的其余seed统计/指标。之后再汇总完整CSV与mean/SD，进入后续11切片及E3–E6。
+
+
+## 【2026-11-17最新：151507/seed25842前5项已审计，允许用户启动剩余8seed连续批次】
+
+用户Windows真实`RUN_AUDIT_PASS`：seed25842的cum_L0 0.360789/0.435997、cum_L0_L1 0.384524/0.523974、cum_L0_L1_L2 0.424493/0.594504、cum_L0_L1_L2_L3 0.491921/0.615256、cum_L0_L1_L2_L3_L4 0.482264/0.654713（值为ARI/NMI）；`BATCH_RUN_COMPLETE new_tasks=5`，报告`results/e1e2_batch_reports_v1/151507/seed_25842/20261117T093740Z_c2d2b056f9/summary.json`。因此151507目前已核验**25/100项**：22911(10/10)、7449(10/10)、25842(5/10)。用户询问能否运行之前提供的无人值守顺序PowerShell循环，助手核对现有runner可跳过5项，只跑缺项，每seed最多10项，失败停止；**已告知可按原脚本直接运行**（seed25842后剩5项，另7个seed最多70项，总最多75）。此循环**尚无用户实际执行/完成反馈，不得记为已完成或臆造额外指标**。下次接手重点：读取用户结束输出/可能的multi_seed日志，逐种子进行只读审计，确保最终151507 100/100再推进其他11片及E3–E6。
+
+
+## 【2026-11-17：151507/seed7449 10/10审核完成；计划顺序批次8种子】
+
+用户Windows最新`PLAN_OK sample=151507 seed=7449 verified=10 missing=0`、`ALL_TASKS_AUDITED NO_TRAINING_NO_FILES_WRITTEN`，全部10个配置`NEW_AUDITED`，其中最新3项`fixed_L0_L2_L3`ARI0.467507/NMI0.598102、`fixed_L0_L2_L4`0.516643/0.639311、`fixed_L0_L3_L4`0.459927/0.633146。seed22911的10配置也已独立审核，故151507 **20/100项**。**用户现明确希望出门期间一条PowerShell循环按冻结顺序运行剩余8个seed（25842、10379、6690、26128、21059、22159、32389、12815），各seed调用既有安全runner `--run --max-new 10`；此为用户Windows将要执行的计划，未启动。**已读取真实runner源代码，遇已有完整结果自动核验跳过，遇损坏/不完整直接拒绝，遇训练失败返回非0停止，不删除重跑。循环必须`$LASTEXITCODE`非0后停止；可记录PowerShell transcript与runner内置summary.json。完成151507后再扩大11片、E3–E6；不把单片多seed当独立生物重复。
+
+
+## 【2026-11-17 最新：151507/seed7449批次max-new5通过，共7/10配置】
+
+用户Windows实际输出`RUN_AUDIT_PASS`五项：cum_L0_L1_L2 ARI0.440005/NMI0.573425；cum_L0_L1_L2_L3 0.491921/0.615256；cum_L0_L1_L2_L3_L4 0.479119/0.653431；fixed_L0_L1_L3 0.489367/0.629702；fixed_L0_L1_L4 0.523749/0.616188；终端`BATCH_RUN_COMPLETE new_tasks=5`，报告`results/e1e2_batch_reports_v1/151507/seed_7449/20261117T092556Z_72c97ded79/summary.json`。该seed此前已有cum_L0(0.319646/0.414585)和cum_L0_L1(0.395767/0.537167)通过核验，**目前seed7449 7/10、seed22911 10/10，151507合计17/100已核验配置-seed格**。三项未跑：fixed_L0_L2_L3、fixed_L0_L2_L4、fixed_L0_L3_L4。仅此单片seed7449可观察25D vs20D ARI低0.012802、NMI高0.038175，不能当作普遍结论。**下一步仅给用户一条Windows命令`e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 3`**，跑完剩余三项并自动审计；出错保留现场。原完整建议1不变。
+
+
+## 【2026-11-17 E2 seed7449首个安全批次（max-new1）成功】
+
+用户Windows实际终端：`RUN_START 151507 cum_L0_L1 seed=7449`，`RUN_AUDIT_PASS cum_L0_L1 ARI=0.395767 NMI=0.537167`，`BATCH_RUN_COMPLETE new_tasks=1`，批次报告`results/e1e2_batch_reports_v1/151507/seed_7449/20261117T092249Z_804730c20c/summary.json`。此seed已有L0(0.319646/0.414585)和L0+L1(0.395767/0.537167) **2/10通过独立文件与指标自动复算**；相同seed从5D到10D的变化ARI+0.076121/NMI+0.122582，仅单片种子。seed22911原10/10已人工只读全量验收，故151507当前已知总计12/100配置-种子格经审核；12张切片全计划1200格与独立供体统计仍待完成。**下一步仅给用户一条手动PowerShell命令，151507/seed7449 `e1e2_safe_batch_runner.py --run --max-new 5`**，脚本跳过已审计2项，只运行下一5项，逐项审计，任何异常停止不覆盖。用户原定建议1不改变，不因同seed差异停工。
+
+
+## 【2026-11-17：151507/seed7449安全分批dry-run成功，待首批1任务】
+
+用户Windows运行`e1e2_safe_batch_runner.py --sample 151507 --seed 7449`只读核验通过：`CHECK cum_L0 NEW_AUDITED ARI=0.319646 NMI=0.414585`；其余9个冻结配置标记`MISSING`；输出`PLAN_OK sample=151507 seed=7449 verified=1 missing=9 max_new=1`和`DRY_RUN_ONLY NO_TRAINING_NO_FILES_WRITTEN`。无训练、无新增结果。已核对实际batch runner代码：必须显式`--run`训练，按预冻配置顺序先审计、只启动缺项、每项独立子进程和完成后的独立核验，默认最多一个，报错即停并保留报告。**下一步唯一用户命令：`D:\paper\CellCharter_reproduction\env_cellcharter\python.exe D:\paper\CellCharter_reproduction\e1e2_safe_batch_runner.py --sample 151507 --seed 7449 --run --max-new 1`**，预计启动缺项中第一个`cum_L0_L1`(10D)，不重跑L0。等待用户真实终端，不能预先声称完成。见[2026-11-17科研日记](RESEARCH_JOURNAL/2026-11-17.md)。
+
+
+## 【2026-11-17：151507 L0、第二随机种子7449独立验收通过】
+
+用户Windows只读审计`151507/cum_L0/seed7449`成功，终端`E2_SEED7449_L0_AUDIT_PASS`：**ARI=0.319646，NMI=0.414585，有效参考标签4221**，源/特征/标签/条码、预测SHA及复算指标均符合，Manifest completed。对比同片同配置seed22911 ARI0.360282/NMI0.412568，seed7449相对差ARI -0.040636/NMI +0.002017；目前只有两个seed，不能以其作统计显著性或独立供体结论。完整151507 seed22911十配置已验收，7449仅L0通过。用户先前seed7449的`--fit`因目录已存在中止，不视为新拟合。**下一步：已在ChatGPT生成`e1e2_safe_batch_runner.py`安全分批脚本（静态语法+合成数据检查通过，尚未在Windows执行/同步GitHub），用户仅下载并放至`D:\paper\CellCharter_reproduction\`，与现有单任务脚本同文件夹；之后一次只读`--sample 151507 --seed 7449`计划核对，通过才考虑`--run --max-new 1`训练。**不删除重跑已完成文件，保留失败记录；冻结12片×10配置×10seed计划不变。
+
+
+## 【2026-11-17 seed7449/cum_L0现存结果目录显示completed，待独立复算】
+
+用户Windows只读清点`151507/cum_L0/seed7449`结果目录：Manifest标记`completed`，协议`E1E2_MULTISCALE_GMM_TASK_V1`，seed7449/5D/Oracle-K7，started_utc 2026-11-17 08:40:07.286420，finished_utc 08:40:08.652883；`manifest.json`、`metrics.json`、`predictions.csv`三文件均存在，输出文件修改时间约为当地16:40:08。先前新运行命令因此被防覆盖保护挡下，不能认定它发生了第二次拟合。**此刻不知seed7449实际ARI/NMI，未核查CSV或hash**。下一步唯一操作：用户执行一条只读Python复算与来源/条码/哈希核验，成功后才能把该seed视为已完成的已验收实验格；不删除、不重跑、不任意改seed。原seed22911/151507完整10/10已验收不变。
+
+
+## 【2026-11-17 seed7449首次尝试被目录已存在保护拦截】
+
+用户执行`151507/cum_L0/seed7449 --fit`立即出现`FileExistsError`，目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0/seed_7449`已存在。根据任务脚本`main()`先判断`out.exists()`再进入`run_fit()`，故**这次命令没有启动训练、没有覆盖已有结果**。现有目录中的manifest/metrics/预测是否完整及其来源完全未知；**seed7449尚不能记为已完成**。下一步请用户执行一条只读本地目录审计，输出manifest状态和文件完整性/预测哈希/必要时复算指标；不得擅自删除、重跑、跳过或编造结果。151507/seed22911已验证的10配置结果不受影响。
+
+
+## 【2026-11-17：E2首张10配置完整结果表经用户Windows只读复核10/10通过】
+
+用户实际执行只读全矩阵核查，终端`FULL_151507_SEED22911_AUDIT_PASS 10/10`。**151507/seed22911全部10种冻结配置已经有经本地独立重算的参考ARI/NMI**；8个本轮新任务+2个历史可复用15D任务。核验按条码4226条一致、4221有效标签、条件特征SHA和输入源SHA、Manifest和预测SHA、预测簇范围及独立计算ARI/NMI与保存值一致。完整10行实数见[本日审计日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)最末段。两历史配置的监督指标已确认：`cum_L0_L1_L2`=ARI0.480019/NMI0.574796；`fixed_L0_L1_L4`=ARI0.527265/NMI0.617566。六种等维15D里ARI最大`fixed_L0_L3_L4`=0.531983，NMI最大`fixed_L0_L1_L3`=0.652819；**仅单片单seed，不可当作普遍最优或创新已证实**。**下一步唯一Windows操作：151507 / cum_L0 / GMM seed7449 --fit**，单任务新目录不覆盖。原12片×10唯一配置×10冻结seed实验继续，不再追溯历史same-seed排障。
+
+
+## 【2026-11-17 E2 151507/seed22911 已具10/10结果资产，待统一只读审核】
+
+用户Windows最新真实输出：`E1E2_TASK_COMPLETE 151507 fixed_L0_L3_L4 seed 22911 ARI 0.531983 NMI 0.645675 fit_seconds 1.758`，目录`results/e1e2_multiscale_gmm_v1/151507/fixed_L0_L3_L4/seed_22911`。同片同seed25D ARI0.514192/NMI0.641353；此次15D比25D分别高0.017791/0.004322，但单点不能归因或声称显著性。151507/seed22911的**8项新增GMM完成终端+2项历史同参数15D可复用=10/10项存在结果资产**，但**新旧10项统一指标/哈希审计尚未运行**，历史15D的ARI/NMI不能补造。**下一步仅运行一条只读PowerShell/Python核验10项输入特征SHA、manifest、预测SHA、barcode及ARI/NMI复算，生成屏幕完整10项表**。不重训scVI、不覆盖原结果；完成后再扩大seed和其他11切片。详见[E2原始终端日志转录](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-17：151507 fixed_L0_L2_L4 已完成；seed22911进度9/10】
+
+用户Windows实测终端：`E1E2_TASK_COMPLETE 151507 fixed_L0_L2_L4 seed 22911 ARI 0.516344 NMI 0.640627 fit_seconds 1.936`，输出`results/e1e2_multiscale_gmm_v1/151507/fixed_L0_L2_L4/seed_22911`。该15D结果与同片同seed25D(ARI0.514192/NMI0.641353)相比ARI仅高0.002152、NMI低0.000726，不作稳定性或创新性断言。当前151507/seed22911有**7个新增正式任务终端完成、2个经过早期核验的历史15D预测可复用，共9/10唯一配置格**。新增结果除5D外尚待集中做文件级审计，历史15D的参考ARI/NMI待原文件并入。**下一步仅运行剩余`fixed_L0_L3_L4`（15D）/seed22911单任务**，脚本经静态核对有此配置；不得覆盖或推断尚未运行结果。完成此任务后开展全10配置统一指标/哈希核验，再扩大样本/seed。原建议1完整范围不变。
+
+
+## 【2026-11-17 E2最新：151507固定15D L0+L2+L3完成，下一项L0+L2+L4】
+
+用户Windows真实终端：`E1E2_TASK_COMPLETE 151507 fixed_L0_L2_L3 seed 22911 ARI 0.449927 NMI 0.610138 fit_seconds 0.649`，独立目录`results/e1e2_multiscale_gmm_v1/151507/fixed_L0_L2_L3/seed_22911`。本次15D结果与同切片同种子fixed_L0_L1_L3（0.456330/0.652819）相比，ARI低0.006403、NMI低0.042681；仅单个配置/seed，不是普遍尺度结论。151507/seed22911累计**6个本轮新任务完成终端+2个历史15D可复用=8/10唯一配置格**；尚未对全部新文件完成统一独立复算。**下一步只运行一个`fixed_L0_L2_L4`、seed22911 --fit**，之后为`fixed_L0_L3_L4`。不覆盖历史输出，不重训scVI，不因旧seed问题停工。原建议1仍按12片×10配置×10seed完整推进；最新结果详见[E0/E1/E2审计日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-17 E2 151507固定15D第一新任务完成｜下一步fixed_L0_L2_L3】
+
+用户真实Windows输出：`E1E2_TASK_COMPLETE 151507 fixed_L0_L1_L3 seed 22911 ARI 0.45633 NMI 0.652819 fit_seconds 0.662`，独立结果目录`results/e1e2_multiscale_gmm_v1/151507/fixed_L0_L1_L3/seed_22911`。与同seed同片25D ARI0.514192/NMI0.641353相比：15D **ARI低0.057862但NMI高0.011466**，不能说25D对所有指标最好；不推广到其他切片/随机种子。此时151507/seed22911十唯一配置已有**5个新任务终端完成、2个历史15D配置可复用，共7/10格**；历史15D指标尚未统一合并；新结果尚未全部做文件级独立核验。**下一步只运行一个新的`fixed_L0_L2_L3`（L0+L2+L3，15D）seed22911任务**；之后还有`fixed_L0_L2_L4`和`fixed_L0_L3_L4`，原12片×10配置×10seed计划不变。不得重跑旧配置或覆盖输出。详情见[E2审计日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-17 最新：E2累计25D成功，切换固定15D等维消融】
+
+用户Windows实际运行`151507/cum_L0_L1_L2_L3_L4/seed22911 --fit`成功：终端`E1E2_TASK_COMPLETE`，**参考标签ARI=0.514192、NMI=0.641353、fit+predict=0.737秒**，新目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1_L2_L3_L4/seed_22911`。此前同seed同片5D=0.360282/0.412568、10D=0.384925/0.520652、20D=0.475498/0.588648；15D旧实验指标仍须后续合并，不能补值。已有4个新增累计配置成功完成（5D已独立复算，10/20/25D终端完成但未各自独立复算）；只是单切片单seed、维数/尺度混杂。**下一步运行151507固定15D`fixed_L0_L1_L3`、seed22911单任务，避免重跑已核验历史15D A(L0,L1,L2)、B(L0,L1,L4)。** 不追查历史同seed；按冻结建议1继续12片×10配置×10seed。详情见[E0/E1/E2档案](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-17 E2 20D任务完成｜下一步25D】
+
+用户Windows实际输出`E1E2_TASK_COMPLETE 151507 cum_L0_L1_L2_L3 seed 22911 ARI 0.475498 NMI 0.588648 fit_seconds 0.755`，结果目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1_L2_L3/seed_22911`。同片同seed已知5D=ARI0.360282/NMI0.412568、10D=0.384925/0.520652；**仅三个实际点（5D/10D/20D），不填补15D与25D，尺度和输入维数同时变化，不得外推或断言新颖性**。20D终端完成，但尚未独立审计其新CSV/metrics文件字节。已审查用户脚本`get_legacy_result`，25D`cum_L0_L1_L2_L3_L4`不自动复用旧151507 baseline，而新统一GMM协议需要保持full/kmeans/100epochs等显式参数，因此下一步只运行一个新任务：`151507/cum_L0_L1_L2_L3_L4/seed22911 --fit`，不覆盖历史。详细档案见[E0/E1/E2记录](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-17 E2第2个任务完成：151507 L0+L1(10D)】
+
+用户Windows真实终端显示`E1E2_TASK_COMPLETE 151507 cum_L0_L1 seed 22911 ARI 0.384925 NMI 0.520652 fit_seconds 0.759`，与已核验L0(5D) ARI0.360282/NMI0.412568相比同片同seed分别增加0.024643、0.108084；**仅单片单seed，不归因为纯尺度效应或普遍改善**。10D结果目录`results/e1e2_multiscale_gmm_v1/151507/cum_L0_L1/seed_22911`，尚待后续统一文件汇总核验。经读取用户实际脚本：151507/cum_L0_L1_L2/seed22911对应已审计历史15D A组，脚本自动显示LEGACY_RESULT_EXISTS并不重复拟合。因此**下一个需要新训练的任务为151507/cum_L0_L1_L2_L3(20D)/seed22911 --fit**。不要覆盖旧数据，不排查历史同seed差异；仍实施原建议1完整矩阵。
+
+
+## 【2026-11-17 E2首个新结果文件复算通过，准备第二配置】
+
+用户Windows只读复算 `151507/cum_L0/seed22911`：Manifest completed、4221个有效参考标签、预测barcode及簇范围匹配、预测CSV SHA256匹配、重新计算ARI=**0.360282**和NMI=**0.412568**，终端`E2_FIRST_RESULT_AUDIT_PASS`。这是已执行结果，与前次训练输出一致；无新训练。**下一步只运行一个新任务**：`151507/cum_L0_L1/seed22911 --fit`，独立目录、不覆盖；不重跑已完成L0、不追查历史同seed不一致。完整建议1计划不变。
+
+
+## 【2026-11-13 E2首次正式GMM任务完成】
+
+用户Windows实测`151507 / cum_L0 (5D) / seed22911 / Oracle-K7`单任务：终端`E1E2_TASK_COMPLETE`，**参考标签ARI=0.360282、NMI=0.412568、fit+predict=0.958s**，输出目录`D:\paper\CellCharter_reproduction\results\e1e2_multiscale_gmm_v1\151507\cum_L0\seed_22911`。此前同一`--fit`命令曾因目录已存在而防覆盖报错，之后用户重试成功；**不能推断中间目录处理方式**。这不是预测对预测的稳定性ARI；仅单配置，不预设尺度规律。完整E2仍按12片×10唯一配置×10seed推进，历史可复用任务仍不覆盖。**下一步只读核对新完成任务的manifest/metrics/predictions实际文件和条码哈希，然后151507的cum_L0_L1同seed单任务继续。** 详见[E0/E1/E2日志](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-13 用户策略决定：不再排查同seed差异，恢复建议1系统实验】
+
+用户明确表示第三篇主要研究目标不是验证GMM相同seed百分百复现，要求停止历史重复性根因追查、按原全套系统实验计划行事并如实记录波动。**接受**：E1同seedA/B预测ARI0.784965371/0.776070708仍归档为事实和潜在限制，但**不再构成停跑E2的门槛**；不继续环境/线程诊断或旧seed0分析。助手记忆不会直接改变用户已运行代码，除非对话导致脚本/配置差异。现已冻结十种子表、十种唯一特征组合、12片与Oracle-K/CPU-GMM规范，见[ E1/E2冻结协议 ](experiments/cellcharter_dlpfc/THIRD_PAPER_E1E2_FROZEN_GMM_PROTOCOL_20261113.md)。**实际新增E2任务仍未运行**；准备单任务脚本，用户先自行保存至Windows后，再做只读preflight与首个任务，不重新训练scVI、不覆盖历史结果。
+
+
+## 【2026-11-13 E1首次同seed复现有差异：暂停大批量GMM】
+
+用户Windows已真实执行E1首个151507同seed22911独立Python进程冒烟，终端显示`E1_PILOT_COMPLETE`、新目录`results/e1_same_seed_151507_gmm22911_rep01_v1`。对照历史seed22911预测，**A(L0/L1/L2)预测互比ARI=0.784965371、NMI=0.830379493、fit+predict=1.811s；B(L0/L1/L4)预测互比ARI=0.776070708、NMI=0.834877522、0.835s**。两配置同seed均未完全复现，原因**尚未确定**。GitHub历史151507代码及新运行代码都显式`np.random.seed(22911)`、`torch.manual_seed(22911)`，Cluster random_state=22911。不能拿之前B跨seed101/22911预测ARI1.0证明B普遍稳定；这不是相对参考标签的ARI/NMI。**不能现在启动1200批任务，需先做针对性的只读环境/线程诊断和受控独立进程验证**。详情见 [E0/E1延伸审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-13 E0第11步完成｜11片历史结果可复用，E1待启动】
+
+用户Windows实际输出 `LEGACY_RESULT_AUDIT_PASS 11/11`：151508及151509–151676（共11片）既有固定15D A/B GMM seed22911结果，Manifest与25D源、15D切片特征SHA256、GMM参数、oracle-K和预测CSV条码顺序/类别全部通过核验。**无须重做这11片已完成的相同配置**，下一步切换E1同seed独立进程重复性冒烟，优先151507使用已有25D、两种15D特征与GMM seed22911；新运行必须使用新目录、不覆盖旧预测；按barcode比较新旧分区ARI/NMI，并记录环境版本与耗时。此11/11为Windows运行结果，未表示助手直接读取了本地CSV。E1、E2及新训练仍未开始；详情见 [E0资产审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+
+## 【2026-11-13 E0第10步更新：151507跨GMM seed分区稳定性新证据】
+
+用户Windows实测，两组151507等维A/B预测CSV跨GMM种子101与22911、按4226条barcode对齐后，**对照A(L0+L1+L2)：预测互比ARI=0.504900119、NMI=0.637920634；候选B(L0+L1+L4)：预测互比ARI=1.0、NMI=1.0**。这仅表示单切片两seed的**预测分区相似度**；不是相对人工层标签的准确性，不能推出B多切片普遍更稳定、更准确或是新方法。旧两次seed0预测ARI≈0.713871是另一项记录，不能混淆；正式E1同seed独立重复未执行。详情见 [E0资产审计](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。**下一步只读核查151508及后10片历史manifest/预测输出与缓存来源的一致性**；不训练、不改历史文件。
+
+
+## 【2026-11-13 E0第9步更新：两组151507固定15D并非同seed重复】
+
+用户Windows实际打印两份完整Manifest：`mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1` 使用GMM seed101，`mvp_fixed15_block_swap_151507_seed22911_v1` 使用seed22911；两者状态completed、source 25D SHA256相同、A/B各自15D特征哈希相同，记录的GMM full/kmeans/CPU/100epoch等参数相同。候选B簇大小仅排列不同，但**不能据此断言两次分区一致**；需先按barcode对齐两目录的预测CSV，分别算A与B的分区互比ARI/NMI。**两者是跨seed对比，E1同seed重复仍未执行。** 完整字段与证据限制见 [E0审计档案](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。下一步只读比较两组预测，不运行训练、不覆盖旧结果。
+
+
+## 【2026-11-13 最新接手点｜建议1：E0只读核查到第8步，用户要求存档】
+
+**真实Windows终端新证据**：12张DLPFC切片的25D聚合特征和5D latent文件均已定位，形状/float32/有限值检查通过；前2片spot行顺序与已有预测/spot_order一致；后10片源聚合/latent/坐标文件实际SHA256与历史status/config逐一MATCH（10/10）。12片按sample_name筛选并逐barcode匹配人工标签，`LABEL_ALIGNMENT_PASS 12/12`，本切片无重复标注或超出Spot条码；共352个Spot无有效参考层标签。151507参考CSV含来自151669的740行，筛选后有4221匹配、5无标签（has_label=False）；**不能据此断言其他历史评价脚本全部无污染或与上游官方数据逐barcode相符**。
+
+**刚完成的E0第8步**：Windows只读列举结果目录（仅文件存在性、尚未读取其内容）：后10片各有1组固定15D A/B（manifest=1、results/metrics JSON=1、prediction CSV=2）；151508有一组；151507有两组命名不同的固定15D结果，每组同样有1 manifest、1 JSON、2预测CSV；151507另有L0–L4逐层诊断目录及其预测/指标。**不能将151507两组直接视为受控的同seed双运行**。详细证据与未核实项见 [E0核查档案](experiments/cellcharter_dlpfc/E0_ASSET_LABEL_PREFLIGHT_20261112.md)。
+
+**实验状态**：本轮未做任何新增GMM/scVI训练、未运行E1、未冻结或执行1200拟议任务、未证实新创新；16页论文工作稿和原先A/B阴性结果不变。
+
+**下一回合唯一优先操作**：用户Windows只读查看151507两个固定15D实验manifest及对照151508/后10片代表性manifest关键字段，核查完成状态/seed/K/GMM超参/输入特征哈希。待核对后再设计同seed重复性冒烟，不重复全缓存预检、不重跑scVI。只给一个PowerShell命令并等用户结果。**GitHub此处为远端存档，未自动同步Windows**。
+
+
+## 【最新科研主计划｜2026-11-12：《第三篇完整实验建议1》】
+
+**用户已明确要求汇总并正式归档两轮Claude建议及本助手修正，原则上全部实施、不因时间/算力估计而预先缩减。权威全文**：[`THIRD_PAPER_COMPLETE_RECOMMENDATION_1_20261112.md`](experiments/cellcharter_dlpfc/THIRD_PAPER_COMPLETE_RECOMMENDATION_1_20261112.md)。现有16页正文只是单seed A/B阶段稿，第三篇进入**全部12片系统消融＋同seed重复性/10seed稳定性＋25D置换对照＋K敏感性＋全空间图/混淆与标志基因＋Leiden/STAGATE/GraphST/SpaGCN/BayesSpace/SEDR公平基线＋第二数据集＋供体统计＋容差边界和无监督指标＋无标签自适应尺度候选＋论文重写**的正式研究计划。10唯一配置×12片×10seed理论上1200个GMM任务（额外K、基线另计），未经实测不能断言“一夜跑完”。
+
+**必须区别证据**：151507三点hop数字和STAGATE ARI来自Claude报告，待原始CSV/日志核对；GitHub `GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md`确实记录两次**同为seed0**、预测互比ARI≈0.713871，不能说“只改变seed导致不一致”；需区分同seed重复性和跨seed波动。151507混合标签文件及5个缺参考spot、下游评价join尚未彻查，正式批量评价前须完成适当数据质量门槛，旧结果不覆盖。**全部E1–E6新增实验尚未因本次存档而执行**，不预设规律、贡献或SCI录用。
+
+**下次真正执行的第一步**：按用户需求只读核查GMM脚本、旧hop/固定25D、STAGATE/Leiden产物、25D缓存、标签评价代码，编制可复用清单，冻结预注册矩阵后做小规模冒烟与测时。用户Windows手动每回合最多一条PowerShell指令；GitHub档案未自动同步到其Windows。
+
+## 【2026-11-12 最新正式科研决策｜全面扩充第三篇实验，优先于旧MVP收尾策略】
+
+**用户明确要求：原则上全盘接受Claude提出的毕业论文+SCI实验补充建议，不因“实验数量多/尚无时间压力”而预先缩减，除非后续实际执行有实质困难或公平性/有效性约束。** 完整任务清单、科研红线、状态划分与执行路线已存档：[`THIRD_PAPER_FULL_EXPERIMENT_EXPANSION_DECISION_20261112.md`](experiments/cellcharter_dlpfc/THIRD_PAPER_FULL_EXPERIMENT_EXPANSION_DECISION_20261112.md)。
+
+**全部纳入计划（未执行≠已完成）**：5类逐层累加＋固定15D的6类组合（共10个不同配置）；12片、GMM多种子5–10；ARI/NMI/边界F1热图/箱线与12片空间图、监督后处理颜色对齐；逐片混淆矩阵/层标志基因；K5–9与AutoK；Leiden/BayesSpace/SpaGCN/STAGATE/GraphST/SEDR等公平基线；至少第二个外部数据集；供体层面统计（仅3生物供体）；容差边界F1及无标签空间指标；探索不依赖参考标签的自适应尺度选择候选；按真实结果扩充并重写论文。**目标为SCI级别实验完整性，硕士论文可提交研究为基础，创新须另证。** Claude提到本地runs/存在151507 hop消融和置换对照、figures/存在图：这是Claude报告，**本助手尚未核查原始本地文件**。
+
+**当前状态**：16页第二/三/四章工作稿已实际编译并上传审查，不能当最终定稿；原单一A/B结论B未稳定胜出。新扩充试验均为计划，不宣称已运行。此前151507跨切片参考CSV异样仍未消除；按此前用户决定，不无端继续历史排障，但正式批量评估前必须核实实际标签匹配与评价代码，防止污染。**下次唯一优先方向：先只读审查现有GMM与旧消融源码/缓存、盘点可复用成果和预算，冻结实验协议后再启动。** 绝不擅自批量跑；Windows一回合一条命令。GitHub新增记录需要用户以后同步本地。
+
+
+## 最新权威接手点｜2026-11-12（用户要求存档并暂停标签排查）
+
+完整存档见 experiments/cellcharter_dlpfc/THIRD_PAPER_PAUSE_CHECKPOINT_20261112.md。第三篇核心第二、三、四章16页整合PDF已由Windows两轮XeLaTeX成功编译、上传并审查，3张图4张表6篇文献齐全；尚未写绪论、总结、摘要，也未适配学校模板。不要误用下方旧条目的过期指令（例如继续编译第二章）。
+151507最新真实审计：metadata.tsv里3661行第三字段全部是151669，原文件表头73/数据74列；manual_layer_annotations.csv含151507的4221行和151669的740行；spots_aligned.csv共4226行，对151507自身4221条标签逐barcode匹配一致数4221、标签不一致0、无参考5。5个未匹配spot的标记及下游评价代码尚未检查，不得断言评价已污染或完全无污染。用户已明确暂时不追查此事；后续以写作及用户主动决定为优先，不启动训练。GitHub本次修改尚未同步Windows。
+
+
+## 2026-11-12 追加：DLPFC参考层标签源头得到官方资料支持（待本地逐barcode复核）
+
+公开SEDR_analyses仓库README证实其DLPFC数据源为SpatialLIBD、metadata.tsv与BayesSpace数据一致，源码DLPFC_Seurat.R直接读取layer_guess作为参考标签；SpatialLIBD官方fetch_data文档列出layer_guess字段。完整证据与原网址见 `experiments/cellcharter_dlpfc/DLPFC_LABEL_ORIGIN_AUDIT_20261112.md`。可说后10片沿用公开数据链中的既有参考标签，而非SEDR模型输出或本研究新人工标注；**尚未证实本地CSV与公开上游每行一致、也未核实旧2片与新10片完全同源**。下一步用户Windows只读列出12个目录里metadata_source.tsv与manual_layer_annotations.csv的实际存在性，收到输出再设计逐barcode核对；不训练，不改旧结果。本次新增GitHub证据档案，尚未同步用户Windows。
+
+## 2026-11-12 16页整合PDF用户实测通过、逐页视觉审查（最新）
+
+用户Windows第二轮XeLaTeX成功生成`THESIS_CHAPTERS_2_4_INTEGRATED_20261112.pdf`(16页)并上传，已直接审查PDF：第2章页1–3、第3章页4–8、第4章页9–15、参考文献页16；方法TikZ图1页7、12片Δ三面板图2页10、两例六面板真实空间图3页14，4张表全在，6篇参考文献文末出现，未出现缺图占位框。公式跨章连续到(11)，图表编号已统一。**整合版技术结构初步通过，但有实际页面问题**：第6页3.6标题/引导文字留在页尾而图1在第7页；第13页表4单独位于空白较多的页面；第14页六面板原图图例偏小。另用户终端只有`caption hypcap=true ignored`非致命警告。不要断言达到学校学位模板要求。
+
+科研边界仍是12片/3供体、固定单seed、Oracle-K，B无稳定改善；文献正文是初步核查而非系统综述/全部全文精读。**下一步优先是整合稿的实质性内容质量审查、SEDR标签源头核实和格式改善的优先级规划**，不要机械重训；如果只修复分页，修改整合正文快照片段而非覆盖原始独立版本，修复后必须先Git同步再由用户Windows重新编译验收。此次PDF上传不等于GitHub已备份用户本地PDF与实验图字节。
+
+## 2026-11-12 更新：第二章PDF已核查，通过；2–4章整合TeX已提交，待Windows验证（当前最新）
+
+**用户实际PDF证据：** 最新上传的第二章《研究背景与相关工作》PDF（3页）经逐页检查：页眉误显示“参考文献”的问题已消除，m2ST参考文献间距正常，6条参考文献完整。这只是格式审查通过，不代表已经核查全部付费论文全文或符合学校学位模板。
+
+**GitHub新增：** 保留三个原始独立TeX不变，新建 `experiments/cellcharter_dlpfc/THESIS_CHAPTERS_2_4_INTEGRATED_20261112.tex` 主文件和 `chapter_02_background_integrated.tex`、`chapter_03_methods_integrated.tex`、`chapter_04_results_integrated.tex` 三份正文快照。统一ctexart导言、2/3/4节次序和文末6篇参考文献；从整合版第4节移除“定稿前核查提示”。两张实验图仍只引用用户Windows已有的真实PDF文件，源TeX里有找不到文件时的明确占位提示。**这些新增文件尚未在用户Windows同步，也未经过Windows实际XeLaTeX编译或视觉验收，不可称整合已成功。** 原TeX与真实本地结果均未被覆盖；整合片段是快照，后续更改单章要同步片段。
+
+**当前下一步唯一Windows操作**：运行此前成功的 `git -c http.proxy=http://127.0.0.1:7897 -c https.proxy=http://127.0.0.1:7897 -C "D:\paper\st-clustering-research" pull --ff-only`。确认Fast-forward和四个新文件到位，之后另一回合单独编译主TeX，核查总图/表/公式编号、文末参考文献、横向六联图及缺图占位。禁止重训，禁止把12切片当12独立供体、把B称为已验证创新。
+
+
+## 最新接手点｜2026-11-12：第二章已同步Windows，等待第一次XeLaTeX
+
+用户实际Windows `git pull --ff-only` 输出：`0792652..73bbc05 Fast-forward`，确认第二章TeX `experiments/cellcharter_dlpfc/THESIS_BACKGROUND_RELATED_WORK_20261111.tex` 和文献证据矩阵均已下载。**不要再让用户重复这一步**。用户要求“先存个档”，本轮仅归档，无训练/编译。
+
+**章节状态：** 第二章TeX已写、已本地同步、尚未编译；第三章5页、第四章7页独立PDF已真实编译并上传核查，尚未合并。第三章后续二次编译已消除“图??”、图位置正常；第四章两张科研图已嵌入。12片3供体、单种子冻结15D A/B结论不变：B无稳定改进；仅3位生物学独立供体；Oracle-K及开发/扩展标注差异务必披露；不把多尺度特征称新算法。
+
+**唯一下一步：** 让用户在PowerShell手动XeLaTeX编译第二章TeX（输出到既有结果目录）；等完整成功/失败日志再决定是否二次编译或修正，然后上传第二章PDF进行实际逐页审查。**现在不提供新的git pull，不重训任何模型，也不要声称第二章PDF已生成**。
+
+**读档路径：** `AGENTS.md` → `PROJECT_STATE.md` → 本文件 → `RESEARCH_JOURNAL/2026-11-12.md` → 需要时读`LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md`与相关TeX/实际脚本。此前旧“下一步”只能作为历史。
+
+## 2026-11-11 文献核查与第二章TeX已完成（最新）
+
+已通过期刊/PubMed网页核对CellCharter(Varrone 2024 DOI10.1038/s41588-023-01588-4)、scVI(Lopez 2018 DOI10.1038/s41592-018-0229-2)、DLPFC(Maynard 2021 DOI10.1038/s41593-020-00787-0)、SEDR(Xu 2024 DOI10.1186/s13073-024-01283-x)、m2ST(Zhang 2025 DOI10.1093/bioinformatics/btaf221)、SACCELERATOR(Sun 2026 DOI10.1038/s41592-026-03194-8)，并读CellCharter官方aggregate_neighbors API文档。GitHub新建 `experiments/cellcharter_dlpfc/LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md` 与 `THESIS_BACKGROUND_RELATED_WORK_20261111.tex`，完整撰写第二章的研究背景、相关工作与研究问题；TeX带6条已验证参考文献。严格明确多尺度邻域特征本身、尺度赋权不是当然创新，固定B未取得跨供体稳定优势；新版2026 SACCELERATOR提醒DLPFC基准/参考标注局限。**尚未在用户Windows同步和XeLaTeX编译；没有下载/精读付费CellCharter全文及其补充材料；SEDR layer_guess元数据的最初标注来源待追溯。** 最新用户仍在Windows手动操作模式，下一步只给一条带Clash本机7897临时代理的git pull --ff-only，成功后再单独xelatex编译，不重复已完成实验。
+
+## 2026-11-11 方法章节TeX初稿已提交（最新）
+
+基于已从GitHub直接读取的 `scripts/cellcharter/prepare_dlpfc_10_sources.py`、`prepare_dlpfc_10_features.py`、`mvp_fixed15_dlpfc_10_sections.py`、`cellcharter_151507_baseline_v032.py`、`mvp_fixed15_block_swap_151508.py` 编写中文独立XeLaTeX方法章节 `experiments/cellcharter_dlpfc/THESIS_METHODS_20261111.tex`。包括12片/3供体、原始来源与SEDR `layer_guess` 来源边界、barcode/六邻接、HVG5000/5D scVI训练、CellCharter n_layers4/25D、冻结15D A/B、full协方差CPU GMM、Oracle K、ARI/NMI/边界F1和层对召回定义、数据泄漏预防、可重复性与局限。内含TikZ原生矢量方法流程图；所有真实科研图与先前7页结果PDF保持独立。**已提交GitHub，但还没有在用户Windows同步/编译；当前环境不能直接取得Github TeX文件以完成实际编译验证。** 文献引用未编造，旧两片标注来源需进一步核查。下一步先一条PowerShell git pull同步，之后单独XeLaTeX编译检查。不要重训模型或要求重复已提交的数据。
+
+## 2026-11-11 12片等维对照三面板科研图已制作；TeX已更新
+
+基于此前用户上传并确实存放在当前项目环境的三份真实Matplotlib SVG：`delta_ari_by_donor.svg`、`delta_nmi_by_donor.svg`、`delta_boundary_f1_by_donor.svg`，用独立嵌套与ID防冲突方式合成为上下A/B/C三个面板的`DLPFC_12_sections_A_B_delta_three_panel.svg`，通过Inkscape导出`DLPFC_12_sections_A_B_delta_three_panel.pdf`，PDF图像已实际渲染核查，图中有12片按3供体着色、旧2片开发标圈。打包`DLPFC_12_sections_A_B_delta_three_panel.zip`向用户提供下载；**这些二进制图件尚未保存到用户Windows，亦未上传GitHub**。GitHub中的TeX `THESIS_RESULTS_DISCUSSION_20261111.tex`已添加条件性真实图插入，路径在Windows结果目录，缺文件时保留占位。尚未在用户Windows同步或编译，不能声称最终PDF已更新。下一步先让用户解压PDF到已有结果文件夹，再单步同步/编译。保持数值图来源与12片独立供体n=3的限制，旧两片开发集清晰圈出。
+
+## 2026-11-11 中文LaTeX实验结果章节已提交GitHub（最新）
+
+用户要求将已归档的实验结果与分析章节改写为TeX并上传GitHub。已新建 [THESIS_RESULTS_DISCUSSION_20261111.tex](experiments/cellcharter_dlpfc/THESIS_RESULTS_DISCUSSION_20261111.tex)，采用 `ctexart` 独立XeLaTeX草稿结构，保留已有真实12片ARI/NMI/F1、供体差异、TP/FP/FN总计、151671/151676层间边界召回、局限；内含4个数据表、1个边界F1公式、2个**明确的待插图占位**（不冒充实图），没有编造DOI或外部引文。已通过GitHub读取新文件并检查正文起止及表格环境数量；**尚未在用户Windows编译、未宣称PDF已生成**。独立文件并入学校论文模板须适配ctex导言和章节编号。下一步可由用户Windows手动同步，再运行一次XeLaTeX检查（每次一条命令）。
+
+
+## 2026-11-11 实验结果与分析初稿已写入GitHub（最新）
+
+已直接核对用户上传的12片CSV（全部ARI/NMI/F1及计数）与用户终端提供的151671、151676分层边界审计，正式建立 [毕业论文实验结果与分析初稿](experiments/cellcharter_dlpfc/THESIS_RESULTS_DISCUSSION_DRAFT_20261111.md)。包含数据/评价协议、12片总体比较、供体与开发/扩展差异、整体TP/FP/FN、两张典型空间图及分层边界结果、局限与成稿检查清单。**这是有证据的写作草稿，不是新增实验结果、新算法或者已经完成的文献核查**；尚未写正式引用和排版成稿。下一阶段优先对照原始结果检查图表/正文的最终一致性，形成六面板图和论文章节的正式图注；不需要重训模型。
+
+
+## 2026-11-11 12片边界错误计数已补齐；科研图表脚本已提交（最新）
+
+用户实际从新增10片本地 `results.json` 输出20行A/B TP、FP、FN、L5/L6检出；与此前旧2片原始JSON合并后全12片计数齐备。按供体计数相加的候选B相对A：D1 ΔTP+72/ΔFP−1207/ΔFN−72，D2 ΔTP−18/ΔFP−225/ΔFN+18，D3 ΔTP−158/ΔFP+11/ΔFN+158；全12片ΔTP−104/ΔFP−1421/ΔFN+104。汇总是描述性的，供体n=3，不能以边为生物独立样本。详情及逐片原始读出：[证据矩阵](experiments/cellcharter_dlpfc/THESIS_CHAPTER_EVIDENCE_MATRIX_20261111.md)。
+
+GitHub新建 `scripts/cellcharter/export_thesis_12_fixed15_results.py`：拟从本地12份已有原始`results.json`只读提取完整ARI/NMI/F1/TP/FP/FN/L5L6，并做一致性检查；默认另建独立目录生成CSV、三个Matplotlib矢量SVG及来源哈希清单；**尚未同步Windows，尚未运行，图表与CSV尚未生成**。有 `--check-only` 预检不写文件。**下一步唯一Windows操作先git pull --ff-only**同步脚本；确认成功后才单独运行`--check-only`；不重训scVI/GMM。软件随机性源码检查已止损。
+
+
+## 2026-11-11 毕业论文章节证据矩阵已建（最新）
+
+基于12片/3供体、冻结15D A/B结果与10片核心指标独立复核，GitHub已建立 [毕业论文章节证据矩阵/实验与作图清单](experiments/cellcharter_dlpfc/THESIS_CHAPTER_EVIDENCE_MATRIX_20261111.md)。明确旧2片属于开发、新10片是扩展，Oracle-K、标签来源差异、边界F1改善6/12及新方法尚未成立。源码检查止损：不是GMM建议“失败”，只是尚未证明稳定性问题且当前不再无终点追查；CellCharter0.3.2/TorchGMM0.1.2版本与源码只读检查已执行。**下一现场唯一操作**：Windows只读盘点151507/151508已存在的15D A/B原始结果目录与文件，为12片主表提供可追溯来源；不训练、不重新拟合。
+
+
+## 2026-11-11 TorchGMM随机种子实现只读检查已完成；转入毕业论文章节组织（最新）
+
+用户在Windows实测环境：CellCharter 0.3.2、TorchGMM 0.1.2、PyTorch 2.1.2+cu121。源码显示CellCharter `Cluster`向中间 `GaussianMixture` 传递 `random_state`，中间类仅保存 `self.random_state`；用户完整打印的 TorchGMM `estimator.py` `GaussianMixture.fit` 没有显式使用该参数，KMeans初始化由 `KMeans(...).fit(data)` 执行。既有A/B实验脚本还显式调用 `np.random.seed(SEED)` 与 `torch.manual_seed(SEED)`。**不能据此判断整个底层随机路径失控或旧实验失效**；未开展新的GMM重拟合。基于毕业优先、有限预算决定停止无终点的源码追查（历史seed0 L4问题继续封存）。下步应优先组织全12片结果、供体级图表与论文章节；有明确必要时才按预声明最小范围开展跨seed诊断。详见 [源码检查归档](experiments/cellcharter_dlpfc/FIXED15_PREDICTION_REAUDIT_AND_NEXT_DECISION_20261110.md)。
+
+
+## 2026-11-10 最新用户目标：毕业论文优先、SCI增量创新为争取项（最高优先级）
+
+**必须优先执行的研究定位**：第三篇CellCharter首先服务于硕士**毕业论文的一章实质性研究内容**，而不是必须独立发表一篇SCI论文。以普通SCI/会议方法论文的规范与实验强度作参考，争取有真实最小增量创新，但**不以找到新算法作为完成研究的唯一条件**。学位论文的最终合格标准、是否需要正式发表与章节是否足够，仍须依据学校培养方案及导师意见，不能承诺一定毕业。
+
+**用户明确强调的论文重点**：简练摘要；研究背景及意义；充分、有说服力的研究方法、实验设计与实验分析（允许补充相关实验，绝不是为了凑数量而堆砌冗余实验）；结论与总结。真实结果、负结果、假设、计划严格区分；实验要公平、可重复，供体n=3不伪重复。
+
+**双轨交付与止损规则**：
+- **保底主线（必须推进）**：将当前CellCharter成熟方法的复现、DLPFC12片/3供体的多尺度特征消融与固定A/B对照、ARI/NMI/边界F1与TP/FP/FN、真实跨片/跨供体差异、必要的稳定性与局限分析整理成一章逻辑完整、图表充分、可追溯的**实证研究章节**；即使没有确认新机制或方法改进，也不丢弃前期工作。不得将无创新的结果伪装成原创算法；不能保证章节自动达到学校标准。
+- **争取主线（严格限时/限实验预算）**：优先已有文献依据、易于复用现有25D特征缓存且不重训scVI的**小而真实的增量改进**，仅在低成本诊断出现可信信号后试验；先完成最小可证伪MVP、检查最相近已有方法，再视证据扩展。多重启/共识聚类已有成熟先例，不可凭拼装自称新颖。
+- **禁止无终点探索**：不以“没找到创新”作为无限增加seed、搜索特征块或追查历史故障的理由。保存阴性结果，按明确停止标准及时退出无效候选。
+- **写作应并行**：在继续必要小规模诊断时，可以同步准备毕业论文该章的背景、方法、数据/实验协议、已验证结果与讨论骨架；未完成实验不得写成已有结果。
+
+**最新已确认实验状态**：新增10片GMM A/B预测CSV与结果JSON，用户Windows独立复核Barcode顺序、ARI/NMI/边界F1/TP/FP/FN，`PREDICTION_METRIC_REAUDIT_COMPLETE 10/10`；旧2片为开发集。新10片B边界F1改善4/10，全12片6/12；未确立固定B的优势或原创方法。**当前唯一下一步**仍是只读检查本地CellCharter/TorchGMM安装版本及random_state实际传递，然后才考虑小规模稳定性MVP。旧seed0 L4不一致追查仍封存。未经本轮操作结果，不得宣称已检查软件版本或已启动新试验。
+
+完整研究目标决议见 [毕业优先研究约定](experiments/cellcharter_dlpfc/THESIS_FIRST_RESEARCH_CHARTER_20261110.md)。
+
+
+## 2026-11-10 最新：10片预测与关键指标独立复核10/10；Claude外审后冻结下一诊断路径
+
+用户Windows实际运行只读程序，读取新10片每片 `manifest.json`、`results.json`、A/B预测CSV、位置CSV与参考标签CSV。对两份预测逐行核查Barcode顺序，重建Visium无向六邻接图并排除未标注端点，独立重算**ARI/NMI/边界F1/TP/FP/FN**；与每片已存 `results.json` 原始值误差<1e-9。终端十行 `PASS`，结束 `PREDICTION_METRIC_REAUDIT_COMPLETE 10/10`，没有发现不一致；**没有重训、重拟合、修改文件**。本次未独立重新核算precision/recall/L5L6、未直接取得用户本地数据字节或复核旧两片预测，不能宣称所有指标已复核。
+
+现12片 A=`L0+L1+L2`、B=`L0+L1+L4` 固定15D单种子结果：B边界F1改善6/12（后续10片4/10）；供体D1 3/4、D2 2/4、D3 1/4（仅3个独立供体）。固定B不能视为跨供体有效方法创新。Claude独立科研审查提出GMM运行间稳定性、边界过预测/碎片化的可能混杂；采纳**诊断优先**、不接受“选型噪声已证实”“F1无效”“直接240次GMM/多重启即原创”这些未经支持结论。先核对本地软件版本与随机种子实际传递，再视情况设计少量预注册跨seed试点；不重新打开此前封存的旧seed0 L4争议。**下一步唯一操作**：Windows只读查看CellCharter/TorchGMM版本、文件路径与随机种子实现/传递，收到实际输出后再决定小规模重复。详见 [独立复核与研究决策](experiments/cellcharter_dlpfc/FIXED15_PREDICTION_REAUDIT_AND_NEXT_DECISION_20261110.md)。
+
+
+## 2026-11-10 新增10片GMM完整结果已由Windows只读检查补齐（最新）
+
+用户实际PowerShell批量读取10片 `manifest.json` 和 `results.json`：10/10 `STATUS=completed`，两组预测文件均 `True`，没有缺失。此前终端截断的151509、151510已补齐：151509 A/B ARI 0.437996/0.488331、NMI 0.595607/0.639697、边界F1 0.117785/0.102159；151510 A/B ARI 0.430863/0.374885、NMI 0.559271/0.569489、边界F1 0.137725/0.142899。完整10片B相对A，ARI改善3/10，NMI改善5/10，边界F1改善4/10；结合旧151507/151508，边界F1改善6/12，按供体D1=3/4、D2=2/4、D3=1/4。候选B并未显示跨供体稳定优势，创新尚未成立。
+
+证据局限：Windows终端只读显示四舍五入6位的数值、状态及预测文件存在；尚未逐行读预测/独立重算指标或核验本地原始结果哈希。记录详见 [GMM完整10片检查补记](experiments/cellcharter_dlpfc/FIXED15_10_SECTION_GMM_20261110_FIRST_RESULTS_ARCHIVE.md)。**唯一下一步**：对已存在的预测、manifest与结果做只读一致性复核，随后以真实原始结果形成全12片供体分组表；不要重训scVI/GMM或看结果后重新挑组合。
+
+
+
+## 2026-11-10 固定15D A/B 新10片GMM运行完成；已见结果不支持普遍改善（最新）
+
+用户上传 `粘贴的文本 (1)(20261110-081623).txt` Windows终端摘录675行，末尾明确 `DLPFC_10_FIXED15_FIT_COMPLETE 10/10`，表示新10片A/B GMM批量程序正常完成。**但上传文本从151510某项结果尾部开始，151509/151510完整`RESULT`不在此附件中**；这不等于本地没有结果，须读本地`results.json`，不得补造数值。我们没有直接取得该次10片的原始预测CSV/manifest，只能据用户终端复核。
+
+本附件8片完整可见结果，Δ=B−A：
+
+|切片|Δ边界F1|ΔARI|ΔNMI|Δ边界FP|
+|---|---:|---:|---:|---:|
+|151669|−0.034586|−0.098259|−0.053348|+455|
+|151670|+0.014431|+0.063475|−0.001003|−257|
+|151671|+0.028170|−0.001288|+0.030651|−525|
+|151672|−0.027079|−0.003232|+0.024421|+102|
+|151673|−0.015907|+0.028066|+0.000479|−179|
+|151674|−0.037797|−0.082799|−0.045147|+101|
+|151675|+0.006969|−0.117841|−0.060466|+119|
+|151676|−0.091048|−0.038142|−0.004394|−30|
+
+仅8片已有完整`RESULT`行中F1提高3/8，下降5/8；供体2为2/4提高，供体3为1/4提高。**不能声称候选B跨供体稳定改善边界；不能把已知151507/151508正向结果挑出来报告**。GMM日志`GPU available True, used False`符合CPU计划；多次max_epochs100是上限停止，不等于收敛。候选只是简单固定尺度块选择，没有已证实方法创新。
+
+已归档精确A/B数值和来源边界：[FIXED15_10_SECTION_GMM_20261110_FIRST_RESULTS_ARCHIVE.md](experiments/cellcharter_dlpfc/FIXED15_10_SECTION_GMM_20261110_FIRST_RESULTS_ARCHIVE.md)。**下一次唯一操作**：用户Windows只读批量核验10片`results.json`、manifest与预测文件存在性，并显示151509/151510缺失于贴文的真实指标；先归档12片完整配对表再决定新假设，**不重训不重新随机挑方案**。本次科研归档完成但**没有验证本地文件本身**。
+## 2026-11-10 新增10片冻结A/B GMM只读预检完成（接下来可显式--fit）
+
+用户Windows执行 `python scripts/cellcharter/mvp_fixed15_dlpfc_10_sections.py --all`（**未附加--fit**）。终端10次`FIXED15_CHECK_PASS`，最终`DLPFC_10_FIXED15_CHECK_ONLY_COMPLETE 10/10`：
+151509 n4789 K7 edges14086 sha1f29060473365c02d2c26b51a477d87ff2fb4ee6a4e7ae8e18193895c8dfc32e；
+151510 n4634 K7 edges13599 sha bcdbe68d60ab802f5752406e45cd6ccbe95ee87b67be390b1f8431e16e298d17；
+151669 n3661 K5 edges10597 sha50071ef3b8f0abe8507c2697df7cccc9c0dc05d1d95d65b4ece9bc2cef732fa4；
+151670 n3498 K5 edges10185 sha6006e085aaa2c455c210e3a055bd83b99b843a9a05356f9a25dd0e8f4ca5732a；
+151671 n4110 K5 edges12026 sha b121f6a63f344c05d7a67a703f53f2d399b4a579c23bd5ec208c9939a13522c3；
+151672 n4015 K5 edges11691 sha bb979d485a4b939d455e987ca9fe7c3312092e16521ec03b609409ba14fbb943；
+151673 n3639 K7 edges10562 sha a43e600dc41d58cd353f0d0ec67748e5c776bd2f7572de08491b7dd2758ae0a0；
+151674 n3673 K7 edges10629 sha6e2d2bfa006ed836eb256215736dda81808b1ed7c1b3542c3e7623bc187e340a；
+151675 n3592 K7 edges10381 sha210aebd5225eedbc4c4430e1f43d81b87c09e663422a7c0e747d0e762ba0cf80；
+151676 n3460 K7 edges10026 sha834d10f10d4880523ddcd3d0df04b3696998c5dc01d1d98f72c9d1c0f635d4e2。
+反复xarray_schema pkg_resources deprecated仅警告。
+
+**未运行新增GMM、未生成ARI/NMI/边界F1**。下一步用户手动一条PowerShell命令带`--all --fit`执行冻结A/B两种CPU GMM；每片独立Python子进程，两种预测保存后方读取标注评价，失败保留目录且终止。不改参数，不因结果改K/挑种子，不重新训练scVI。
+
+## 2026-11-10 新增10片 25D特征写后缓存独立审计通过，已准备冻结A/B脚本（待运行）
+
+用户Windows真实只读输出：151509,151510,151669,151670,151671,151672,151673,151674,151675,151676 均 `PASS`，最终 `FEATURE_CACHE_AUDIT_COMPLETE 10/10`。审计条件包括每片 `status.json` completed、sample与config匹配、scVI latent数组(spot数,5)、CellCharter aggregate数组(spot数,25)、spot_order.csv与源spots_aligned.csv条码逐行匹配、两数组SHA256与status记录一致、源H5与坐标CSV哈希与config一致。**该证明限十片新增缓存；用户本人本地读审。**
+
+已在GitHub创建 `scripts/cellcharter/mvp_fixed15_dlpfc_10_sections.py`，移植此前151508同预算A=L0+L1+L2/B=L0+L1+L4各15D的CellCharter CPU GMM、seed22911/full covariance/kmeans/cov reg1e-6/tol.001/maxepochs100，以及相同六邻居无向边的boundary F1/ARI/NMI/L5L6指标；冻结每片K与spot/edge/annotation统计，源哈希与缓存顺序核验。该脚本默认无拟合、无写入；单片`--sample 151509`或`--all`纯检查。只有带`--fit`才在不同新目录分别保存 A/B prediction CSV、manifest、results，**先两组聚类再读标注**；出错保留失败状态，拒绝覆盖。需先同步GitHub并实际进行无写入检查，不能宣称已经测试脚本在Windows正确跑通，也没有任何新增GMM结果。
+
+冻结协议: `experiments/cellcharter_dlpfc/DLPFC_12_SECTION_FROZEN_EVALUATION_PROTOCOL_20261110.md`，已知151507/151508开发结果不重跑，供体n3，K5/7，所有负结果完整报告。下一步用户`git pull --ff-only`，确认后再运行`python ...mvp_fixed15_dlpfc_10_sections.py --all`。下个里程碑才启动CPU GMM。
+
+## 2026-11-10 批量10片特征生成终端证据：全部成功（此前“运行中”状态已更新）
+
+用户贴出`prepare_dlpfc_10_features.py --all --train`的终端尾部，**最终明确打印 `DLPFC_10_FEATURE_TRAIN_COMPLETE 10/10`**。按已归档脚本该标志说明全部10个子进程正常返回，各样本走完整成功保存或通过原有已完成缓存哈希检查的重用分支，因而不再应把批量状态写作运行中；但尚未在本地针对所有缓存执行独立写后审计。终端直接展示：
+- 151674: scVI epoch275/400早停、`FEATURE_CACHE_COMPLETE`，n3673，latent[3673,5]、aggregate[3673,25]、edges10629，latent sha256`d55bd042b8b7da7e99572a17df5abb93c7099138d79d8412f75846c88dd3d303`，aggregate sha256`6e2d2bfa006ed836eb256215736dda81808b1ed7c1b3542c3e7623bc187e340a`。
+- 151675: epoch313/400早停、`FEATURE_CACHE_COMPLETE`，n3592，latent[3592,5]、aggregate[3592,25]、edges10381，latent sha256`2d0555ddad15354c190043ba07f2470f4dd902832ad309256f620aab4bf8af74`，aggregate sha256`210aebd5225eedbc4c4430e1f43d81b87c09e663422a7c0e747d0e762ba0cf80`。
+- 151676: epoch274/400早停、`FEATURE_CACHE_COMPLETE`，n3460，latent[3460,5]、aggregate[3460,25]、edges10026，latent sha256`504af4b34a3dbfc303452a4cfda3abe983d3ac8d388448e209d15836520c34ed`，aggregate sha256`834d10f10d4880523ddcd3d0df04b3696998c5dc01d1d98f72c9d1c0f635d4e2`。
+- 其余151510、151669–151673单片完整日志未在这次摘录展示；不补造其epoch或SHA。
+- 151509先前独立训练已完成，批量脚本具备已完成hash匹配cache复用机制。
+- 显示 `GPU available: True(cuda), used: True`，警告`No GPU/TPU found`来自另一框架、不会否定Lightning CUDA训练。
+
+**下一步唯一动作**：只读批量审计10片output目录中 status.json、config.json、spot_order.csv、scvi_latent.npy、cellcharter_aggregated.npy、shape/条码对齐及文件SHA，核实无一张错片/截断，再创建冻结A/B GMM + evaluation脚本；不得重复scVI，不允许看新结果后改A/B/K/seed。仍仅3个独立供体，方法创新尚未成立。
+## 2026-11-10 跨对话中途归档：批量GPU训练已启动，最终状态未知（最高优先级）
+
+**当前主任务**：第三篇 DLPFC/CellCharter 方法论文。用户提出换新对话时已表示正在执行 `prepare_dlpfc_10_features.py --all --train`，但本次归档时**尚未发回整批终端日志**；除了先前151509已成功完成5D scVI和25D缓存，其余9片的训练完成情况**未知**，严禁称十片训练完成。
+
+**从这里接手**：先阅读[中途归档与接手手册](experiments/cellcharter_dlpfc/SESSION_CHECKPOINT_20261110_MIDRUN.md)，再根据任务阅读[冻结12片评价协议](experiments/cellcharter_dlpfc/DLPFC_12_SECTION_FROZEN_EVALUATION_PROTOCOL_20261110.md)和[批量特征脚本](scripts/cellcharter/prepare_dlpfc_10_features.py)。用户下一条消息优先判断批量运行是否结束、有无 `DLPFC_10_FEATURE_TRAIN_COMPLETE 10/10`；如正在运行不打扰训练，结束后收集实际日志及各片status/hash验证。**不要提前启动GMM，也不要重新训练已经完成的样本，更不要碰已封存的seed0 GMM历史矛盾**。
+
+**已完成且确认**：新增10片来源下载与位置/metadata标注对齐、转换 `--write`、10/10写后读审计、十片6邻居空间图无训练预检；151509 GPU scVI于epoch222早停并成功缓存25D。历史已见151507、151508固定A/B结果见冻结协议，新片尚无GMM评价。仅3位供体，供体2 K5，其他K7；标注来源 `layer_guess` 需要说明。研究方法创新**尚未成立**，目标为真实可靠的普通SCI增量研究。Github是笔记/脚本，不含未上传的本地H5及模型。
+
+**跨对话工作约定**：下一位助手先调用GitHub Connector读取原始权威记录，再给“已完成/未完成/风险/唯一下一步”；用户Windows一次只执行一条PowerShell命令；中途归档并不等于一天科研结束。
+
+
+## 2026-11-10 151509 GPU scVI+CellCharter25D 首片训练成功
+
+用户真实Windows日志：执行 `prepare_dlpfc_10_features.py --sample 151509 --train`，先 `151509_GRAPH_CHECK_PASS spots 4789 edges 14086`，`151509_CUDA_READY NVIDIA GeForce RTX 4070 Laptop GPU`，`151509_PREPROCESS_PASS (4789,5000)`；`Global seed set to 22911`。Lightning明确 `GPU available: True (cuda), used: True`，于 epoch222/400 early-stop（连续45 records无validation ELBO提升、best score1395.943），正常得到`151509_SCVI_TRAIN_FINISHED`、`151509_FEATURE_CACHE_COMPLETE`。status completed; latent[4789,5], aggregate[4789,25], graph undirected edges14086; latent sha256 `fac7c28ae833e3eb8277b79b3170dcbf9d08bcc80fb6a9f8397e97424ae5d2c4`; aggregate sha256 `1f29060473365c02d2c26b51a477d87ff2fb4ee6a4e7ae8e18193895c8dfc32e`; script reported peak_cuda_mib106.73 (PyTorch allocated memory diagnostic only, not full GPU usage); finished UTC 2026-11-10T07:08:01.204473+00:00。TensorFlow `No GPU/TPU found, falling back to CPU` 与Lightning明确CUDA使用非同一框架，不视为失败。
+
+输出目录 `D:\paper\CellCharter_reproduction\results\cellcharter_151509_scvi22911_features_batch_v1`；模型训练成功、25D完成，**尚未进行151509的GMM和性能评价**。下一步用户可执行 `--all --train`，脚本对于已完成且源文件哈希匹配的151509缓存会跳过，后续9片每片独立进程训练、失败即停止并保留现场。不会重新挑seed或筛选有利结果。
+
+## 2026-11-10 十张新增DLPFC切片批量空间图只读预检全部通过
+
+用户上传真实PowerShell日志：`python scripts/cellcharter/prepare_dlpfc_10_features.py --all`，未附加`--train`。十片依次输出`{sid}_GRAPH_CHECK_PASS`和`{sid}_CHECK_ONLY_COMPLETE; NO_TRAINING; NO_FILES_WRITTEN`，末行`DLPFC_10_FEATURE_CHECK_ONLY_COMPLETE 10/10`。图均通过六邻居几何和无向图检查。
+
+|片|spots|无向edges|
+|---|---:|---:|
+|151509|4789|14086|
+|151510|4634|13599|
+|151669|3661|10597|
+|151670|3498|10185|
+|151671|4110|12026|
+|151672|4015|11691|
+|151673|3639|10562|
+|151674|3673|10629|
+|151675|3592|10381|
+|151676|3460|10026|
+
+日志有xarray_schema `pkg_resources`弃用警告和AnnData var_names非唯一警告但**无错误**；该预检不意味着GPU模型已训练，也未生成25D缓存。下一步为尽量节省GPU及排错成本，先单独151509运行`--sample 151509 --train`，确认scVI CUDA +4-hop25D全链成功后再`--all --train`。如单片失败请保留失败目录/status.json；不要删除或偷偷改配置。
+
+## 2026-11-10 新增10片写后核验10/10 + 冻结后续协议和批量特征脚本（最新）
+
+用户Windows实测新增10张的 `POST_WRITE_AUDIT_COMPLETE 10/10`，每张 `PASS`：151509 4789/4788/K7、151510 4634/4595/K7、151669 3661/3636/K5、151670 3498/3484/K5、151671 4110/4093/K5、151672 4015/3888/K5、151673 3639/3611/K7、151674 3673/3635/K7、151675 3592/3566/K7、151676 3460/3431/K7（格式：总spots/有标签spots/Oracle K）。这证明生成CSV的行数/条码/标注/转换manifest基本一致，非完全人工独立重审或原始标签质量保证。
+
+已在GitHub新增 **[冻结协议](experiments/cellcharter_dlpfc/DLPFC_12_SECTION_FROZEN_EVALUATION_PROTOCOL_20261110.md)**：在已知151507、151508结果之后锁定新增样本的固定A=L0+L1+L2、B=L0+L1+L4，同15D，GMM seed22911，K按切片已知参考类别5或7，主要观察boundaryF1差值并共同报告ARI/NMI/FP等负结果。仅3位供体，供体1已开发，151673之前在其他项目使用过；**不能冒充全12片事先注册或全新独立盲测，不能把12张切片视为12个生物学重复**。
+
+已上传 **[新增10片 scVI+25D 通用批量准备脚本](scripts/cellcharter/prepare_dlpfc_10_features.py)**。基于已成功的151508 v2协议，只有显式`--train`才训练；`--all`按每片独立Python进程串行运行，每张输出不同 `cellcharter_{sample}_scvi22911_features_batch_v1` 目录，已完整生成且hash匹配的缓存会跳过，失败目录不被覆盖；不读层标签、不拟合GMM。**该脚本仅已在GitHub上传，尚未用户Windows git pull，也未执行。** 下一步唯一动作用户 `git pull --ff-only`；成功后再单独运行无训练 `--all` 检查，绝不能提前声称训练已完成。
+
+## 2026-11-10 10张新增切片已正式完成统一输入文件转换
+
+用户Windows实际执行 `scripts/cellcharter/prepare_dlpfc_10_sources.py --write`，连续打印十张 `VALIDATED` 并以 `DLPFC_10_SOURCE_CONVERSION_WRITTEN_COMPLETE 10/10` 正常完成。按照脚本行为，每张新增切片应已写出 `spots_aligned.csv`、`manual_layer_annotations.csv`、`source_conversion_manifest.json`。未改151507/151508，也未运行scVI/GMM；**文件写出已获终端完成标记，尚未进行独立的写后内容核查**。逐片样本量/类别来自此前预检：151509 4789 spots/4788标注/K7，151510 4634/4595/K7，151669 3661/3636/K5，151670 3498/3484/K5，151671 4110/4093/K5，151672 4015/3888/K5，151673 3639/3611/K7，151674 3673/3635/K7，151675 3592/3566/K7，151676 3460/3431/K7。
+
+**下一步**：Windows 单命令只读写后核验每张CSV存在、列名/记录数量、空间坐标barcode顺序和manifest/label数量对应；通过后再制定冻结的跨供体A/B预注册分析计划，包括Oracle-K各供体差异、边界F1/ARI/NMI主次终点、GMM初始化的处理、切片与供体的分析单位、避免按结果挑片，以及 `layer_guess` 来源与历史标注的可比性。不要立即无协议启动全10张训练。
+
+## 2026-11-10 10张新增DLPFC切片批量转换只读预检全部通过
+
+用户 Windows 实际运行 `scripts/cellcharter/prepare_dlpfc_10_sources.py` **未带 `--write`**，终端输出 `DLPFC_10_SOURCE_CONVERSION_CHECK_ONLY_COMPLETE 10/10`。每张均有 `VALIDATED`，对应spot/有标注/未标注/Oracle-K：
+- 151509:4789/4788/1/K7
+- 151510:4634/4595/39/K7
+- 151669:3661/3636/25/K5
+- 151670:3498/3484/14/K5
+- 151671:4110/4093/17/K5
+- 151672:4015/3888/127/K5
+- 151673:3639/3611/28/K7
+- 151674:3673/3635/38/K7
+- 151675:3592/3566/26/K7
+- 151676:3460/3431/29/K7
+
+该脚本已验证原始H5/坐标/metadata barcode、行序、样本ID、合法标签取值及缺失情况，并计算待转换的标准字段。**本次纯只读；新spots_aligned.csv/manual_layer_annotations.csv/source_conversion_manifest.json 尚未由此命令写出**。用户可在下一步单独运行 `--write`，脚本拒绝覆盖旧结果。十张新切片标签来自 SEDR metadata的 `layer_guess`，与旧片标注来源的潜在差异必须披露，不能声称统一人工金标准。运行后的实际输出必须由用户回传再判断成功，不得推定。
+
+## 2026-11-10 标签版本一致性检查已完成；10片转换脚本待本地预检
+
+用户Windows真实输出：历史 `manual_layer_annotations.csv` 的151507含4221有效7类、151508含4381有效7类，命名 `Layer 1` 至 `Layer 6` 及 `WM`。新增十片的 `layer_guess` 与 `layer_guess_reordered` 每片 `MISMATCHES=0`，脚本输出 `LABEL_COMPATIBILITY_CHECK_COMPLETE`。**来源差异仍然要披露**：新增切片标注来自SEDR metadata中的 `layer_guess`；不能自动保证和历史两个切片人工标注采用完全相同的注释流程，原 `Layer` 列全NaN。供体2四张片仅5类，不允许拆分Layer3。
+
+已上传新脚本 [prepare_dlpfc_10_sources.py](scripts/cellcharter/prepare_dlpfc_10_sources.py)：默认只读，10片逐个以H5条码为行序检查坐标和metadata、标签允许值、来源SHA256；将 `Layer1` 等改为 `Layer 1`、保留WM，未标注spot不写入annotation表；只有显式`--write`才为每片生成`spots_aligned.csv`、`manual_layer_annotations.csv`、`source_conversion_manifest.json`，拒绝覆盖。类别数由实际标签5或7决定，未来Oracle-K随片匹配而不能只用7。**GitHub已建脚本，用户Windows尚未拉取，也尚未运行脚本或生成新文件**。下一步仅git pull，然后独立执行无写入预检；不可提前说转换已成功。
+
+## 2026-11-10 全10张新增切片 layer_guess / 元数据参考标签审计
+
+用户Windows只读检查10张 `metadata_source.tsv`，每张 `META_BARCODE_UNIQUE=True`，`META_POSITION_MATCH=metadata总行数`。每张 `Layer` 原列**全部NaN**；可用标签列为 `layer_guess`、`layer_guess_reordered`、`layer_guess_reordered_short`。实际终端各片 `layer_guess` 值计数如下（每张均有未标注NaN，不可默认为背景）：
+
+- 151509：Layer3 1884、Layer1 1189、Layer2 602、Layer4 369、Layer5 363、Layer6 215、WM166、NaN1；7有效类。
+- 151510：Layer3 1774、Layer1 1180、Layer2 650、Layer4 318、Layer5 310、Layer6 179、WM184、NaN39；7类。
+- 151669：Layer3 2141、Layer4 364、Layer5 510、Layer6 391、WM230、NaN25；**5类**。
+- 151670：Layer3 2175、Layer4 211、Layer5 581、Layer6 308、WM209、NaN14；5类。
+- 151671：Layer3 1918、Layer4 245、Layer5 721、Layer6 760、WM449、NaN17；5类。
+- 151672：Layer3 1575、Layer4 304、Layer5 728、Layer6 882、WM399、NaN127；5类。
+- 151673：Layer3 989、Layer1 273、Layer2 253、Layer4 218、Layer5 673、Layer6 692、WM513、NaN28；7类。
+- 151674：Layer3 924、Layer1 380、Layer2 224、Layer4 247、Layer5 621、Layer6 614、WM625、NaN38；7类。
+- 151675：Layer3 771、Layer1 328、Layer2 275、Layer4 275、Layer5 732、Layer6 533、WM652、NaN26；7类。
+- 151676：Layer3 836、Layer1 289、Layer2 254、Layer4 254、Layer5 649、Layer6 616、WM533、NaN29；7类。
+
+**严格限定**：当前还没有验证这些 `layer_guess` 与151507/151508既有 `manual_layer_annotations.csv` 标注**来源、格式及一致性**。标签列名有猜测性质，不得直接称真值或说是 `Layer`（全空）；如按每片实测类数进行Oracle-K，供体2为5，其余7，需预先公布K的切片级规则、禁止用聚类结果挑K，并且不能比较跨供体绝对边界F1不考虑标注粒度差异。**下一步**：只读核查151507/151508历史标签示例、缺失情况及新增10片 `layer_guess` 与 `layer_guess_reordered` 是否实际一致，再编写批量一致转换脚本。当前未转换也未开始新训练。
+
+## 2026-11-10 新增10张数据源的只读对齐审计成功
+
+用户在Windows运行批量只读 Python/scanpy 审计，终端为10张切片逐张报告 H5_SPOTS、POSITION_MATCH、IN_TISSUE_1、POSITION_DUPLICATES、METADATA_ROWS，结尾 `SOURCE_ALIGNMENT_AUDIT_COMPLETE`，无FAIL。
+
+| slice | H5 spots | position matches | in_tissue=1 among matching spots | spatial barcode duplicates | metadata rows |
+|---|---:|---:|---:|---:|---:|
+|151509|4789|4789|4789|0|4789|
+|151510|4634|4634|4634|0|4634|
+|151669|3661|3661|3661|0|3661|
+|151670|3498|3498|3498|0|3498|
+|151671|4110|4110|4110|0|4110|
+|151672|4015|4015|4015|0|4015|
+|151673|3639|3639|3639|0|3639|
+|151674|3673|3673|3673|0|3673|
+|151675|3592|3592|3592|0|3592|
+|151676|3460|3460|3460|0|3460|
+
+前20个metadata字段包含 `barcode, sample_name, tissue, row, col, imagerow, imagecol, Cluster, ...`，但**尚未查看所有列，不能将 Cluster 擅自认作人工组织层标签**。上一轮命令也未检查metadata的barcode唯一性和与H5完全匹配（仅长度相等），仍需只读核对。下一步：一次性列出所有metadata列（至少一张及其跨片列集合差异）、候选人工layer字段的值计数、metadata barcode唯一性及匹配量；确定真实参考标签字段后才允许生成 spots_aligned/manual_layer_annotations，尤其供体2 K可能不同。**尚未转换任何新增数据，未训练新增样本**。
+
+## 2026-11-10 批量坐标/标注来源下载成功（终端核实）
+
+用户再次执行十张切片（151509/151510/151669/151670/151671/151672/151673/151674/151675/151676）的 metadata_source.tsv 和 tissue_positions_source.csv 下载，显式 `curl.exe --proxy http://127.0.0.1:7897`。终端显示先前成功项目 `SKIP`，其余全部 `OK`，没有 `FAILED`。因此指定本地目录预计已有十套这两个来源文件（20个原始文件），已有151507/151508的转换文件不改动。用户第一次无显式代理的尝试曾因连接重置失败，代理下载后成功。**只确认curl成功和文件非空，尚未读取验证来源表列名、metadata标注、barcode对齐、空间 in_tissue 及层类别。**
+
+**下一步唯一动作**：用本地专用 Python 一条只读命令批量审计十张：检查 H5的barcode唯一、spatial位置barcodes及in_tissue匹配、元数据列名及可能barcode键/Layer字段。只读查看统计，后续依据真实格式编写保真转换脚本，不在识别标签协议前训练全套12片。
+
+## 2026-11-10 追加：完整12切片 H5 下载成功（用户终端）
+
+用户 PowerShell 批量下载剩余9张 DLPFC 切片，终端九次 `DOWNLOAD_OK`：151509、151510、151670、151671、151672、151673、151674、151675、151676。此前用户已下载151669，151507/151508为已有数据。因此指定本地根目录 `D:\paper\ST_Benchmark_Planning\mvp\data` 中预计12张切片的 `filtered_feature_bc_matrix.h5` 均已取得；本次脚本判断以 curl 退出码0且文件非空为条件，**尚未逐个打开 H5 验证完整性、条码、空间坐标或人工标签；不能直接宣称12张数据集已准备到可训练阶段**。
+
+按已核对公开供体分组：D1=151507/151508/151509/151510；D2=151669/151670/151671/151672；D3=151673/151674/151675/151676。三位供体，12张切片；论文统计不能将12片视为12位独立受试者。151673此前在其他项目中被触及，后续预注册验证方案前需盘点历史使用，不得未经证据称盲测。
+
+**下一步唯一动作**：Windows 只读批量使用 `scanpy.read_10x_h5` 打开12份H5，列出spot×gene、barcode唯一性、文件大小、失败项；不训练、不改变原文件。之后才批量取得/核查 spatialLIBD 官方切片对应的坐标和人工层标签。
+
+## 新增文献核查：DLPFC 供体结构纠正（2026-11-10，最高优先级）
+
+已查公开来源（本条是**公开文献/数据项目报告**，不是Windows实验结果）：
+- BASS论文 https://pmc.ncbi.nlm.nih.gov/articles/PMC9351148/ 描述12张DLPFC切片来自3位独立供体，每供体4张切片。
+- 2026 ICLR Workshop公开论文 https://openreview.net/pdf/63a0bb10dd34a1ca90af0deae2bcd06d6de42cec.pdf 附表按供体列出：供体1 `151507/151508/151509/151510`，供体2 `151669/151670/151671/151672`，供体3 `151673/151674/151675/151676`。因此**此前泛称151509可作为独立样本并不准确**：它和已使用的151507、151508同供体。
+- 研究机构官方空间LIBD源数据链接 https://github.com/LieberInstitute/spatialLIBD/blob/devel/README.Rmd ，151669 H5官方直链 `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_filtered_feature_bc_matrix.h5`。
+**当前方案**：优先选择另一供体的151669用于冻结方案A L0+L1+L2、B L0+L1+L4的扩展验证；需另行核实其标签/坐标来源和过去是否用于模型选型。切片数不等于独立供体数，151507/151508同供体。**尚未下载151669，也未进行新实验。** 先由用户手动下载原始H5到独立新文件夹并核验，其他输入随后准备，不先训练。
+
+## 数据目录清点（2026-11-10，最新）
+
+用户Windows只读执行 `Get-ChildItem "D:\paper\ST_Benchmark_Planning\mvp\data" -Directory | Where-Object { $_.Name -match "^1515\\d{2}$" }`，只返回 `151507` 和 `151508`。因此该特定本地目录中目前只有这两张匹配的 DLPFC 切片；**不能推断其他磁盘/目录或公开数据集没有更多切片**。当前两片已有结果：151507候选B的ARI/NMI/边界F1均改善；151508候选B的ARI略降、NMI下降而边界F1上升。下一步应选定未参与锁定组合选择的额外公开切片（优先核实独立供体），按冻结评价协议验证；暂不新建无终点的 seed/组合搜索或切回STAGATE。目标仍是普通SCI增量方法论文，当前尚未成立。
+
+## 151508 冻结 A/B 对照已完成：边界F1正向、全局ARI/NMI非正向（2026-11-10，最高优先级）
+
+用户Windows运行 `scripts/cellcharter/mvp_fixed15_block_swap_151508.py`，终端明确 `MVP_FIXED15_COMPLETE`，输出目录 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151508_gmm22911_v1`，**已实际执行**。同一151508 scVI seed22911 的25D缓存切出两组15D；Oracle K7，CPU GMM seed22911。A: ARI `0.46267065495944715`, NMI `0.6132171362713753`, boundaryF1 `0.10315575161180861`, TP152/FP1868/FN775，L5/L6 41/139；B: ARI `0.46059571688191825`, NMI `0.5691388933817928`, boundaryF1 `0.16513761467889906`, TP261/FP1973/FN666，L5/L6 49/139。B−A：ARI −0.002075，NMI −0.044078，边界F1 +0.061982，边界FP +105（负面需保留）。真实评估边12846，真界面边927。
+
+对比151507开发切片：同seed B的ARI/NMI/F1均更好；**151508上整体聚类ARI略差且NMI明显差，不能宣称整体聚类跨切片稳定提升；仅两切片边界F1有探索性改善信号**。所有数值来自用户终端，不是假定已独立读取本地CSV。当前不做统计显著性声明；spot/边不等于生物独立样本，151508是曾经接触的样本，非严格未触碰盲测。完整终端归档：[151508 试验报告](experiments/cellcharter_dlpfc/MVP_FIXED15_151508_EXTENSION_PLAN_20261110.md)。
+
+**下一步**：不追加151508随机种子挑好成绩、不更改已冻结A/B；预先确定下一阶段主要终点、容忍的ARI/NMI损失，盘点是否有未用于设计的其他切片；公平对照和创新性审查之后才评估发展方法论文的可行性。不要转STAGATE或重启历史GMM排错。
+
+## 151508 scVI/25D 缓存完成，锁定跨切片 A/B 脚本待运行（2026-11-10，最新）
+
+**用户终端已证实成功**：v2脚本输出 `151508_SCVI_TRAIN_FINISHED` 及 `151508_FEATURE_CACHE_COMPLETE`，scVI提前停止于epoch260；4384×5 latent，4384×25聚合，空间边12849，CUDA运行，peak_cuda_mib=106.73（仅Torch统计），聚合文件SHA256=`094f702ba7fae32fc69c6c8026acb5765bd7bcd39b2802fbe8091b26baba60ee`。缓存路径 `D:\paper\CellCharter_reproduction\results\cellcharter_151508_scvi22911_features_v2`。**尚未在151508运行GMM、未生成跨切片比较指标。**
+
+**新脚本已上传GitHub（Windows尚未拉取）**：[151508冻结15D对比](scripts/cellcharter/mvp_fixed15_block_swap_151508.py)；A=L0+L1+L2，B=L0+L1+L4；CPU GMM seed22911 K7，标注只在预测之后读入，自动按真实151508标注及边数计算指标。完整记录：[151508实验档案](experiments/cellcharter_dlpfc/MVP_FIXED15_151508_EXTENSION_PLAN_20261110.md)。下一步**仅git pull**，随后单独运行GMM脚本，先不加其他组合、不更改种子，不称严格未接触的独立盲测。 
+
+## v2 语法错误修复（2026-11-10；最新）
+
+用户 Windows 尝试运行 `prepare_151508_scvi_aggregation_v2.py`，Python **编译解析阶段**第169行报 `SyntaxError: unexpected character after line continuation character`。原因是我此前通过GitHub写入脚本时把 `peak_cuda_mib` 条件表达式的换行误写为字面量 `\\n`。在程序运行前已失败，**未触发任何CUDA初始化、训练或输出目录创建**，故 v2 结果目录应尚未由这次命令创建（如存在则另行检查）。我已在同一 v2 脚本中将字面量替换为真实换行，未改实验配置、代码行为或输出目录。修复提交 `2b372dc`。下一步**只需手动git pull同步修复**，等待用户成功结果后再运行 v2。不得再让用户运行旧脚本版本或误判为GPU故障。
+
+## 最新 GPU 诊断与 v2 准备（2026-11-10）
+
+用户原环境实际输出：`TORCH_VERSION 2.1.2+cu121`、`TORCH_CUDA_VERSION 12.1`、`CUDA_AVAILABLE True`、`CUDA_DEVICE_COUNT 1`、`CUDA_ALLOCATION PASS`、`GPU_NAME NVIDIA GeForce RTX 4070 Laptop GPU`、`CUDA_MEMORY_STATS PASS`。此前151508 v1在 `reset_peak_memory_stats(0)` 报 Invalid device，**目前未证实是设备损坏或具体根因**，当次scVI训练未开始。
+
+已在GitHub新建 [v2 特征准备脚本](scripts/cellcharter/prepare_151508_scvi_aggregation_v2.py)，独立结果目录 `cellcharter_151508_scvi22911_features_v2`；在创建目录/开始训练前显式 `torch.cuda.init()`、分配1元素测试张量并同步。统计API故障仅记录警告（不改变是否训练模型），禁止CPU静默回退；保留v1失败目录。**v2尚未同步到用户Windows，也尚未运行。当前唯一下一步：用户手动git pull，确认成功后再单独执行v2。**
+
+
+## 151508 特征准备首次正式运行失败（2026-11-10）
+
+用户实际运行 `prepare_151508_scvi_aggregation.py`（无 `--check-only`）。终端先输出 `151508_GRAPH_CHECK_PASS spots 4384 edges 12849`、`151508_PREPROCESS_PASS (4384, 5000)`、`Global seed set to 22911`；随后出现 `No GPU/TPU found, falling back to CPU.`，在**任何 `151508_SCVI_TRAIN_START` 之前**的 `torch.cuda.reset_peak_memory_stats(0)` 第127行报 `RuntimeError: Invalid device argument 0: did you call init?`。因此**scVI尚未训练，不存在新的latent/aggregated结果**。脚本已创建专属结果目录并通过except将status.json标为failed（代码预期；未直接读取本地文件，须通过用户后续输出确认）。原脚本禁止覆写，不能立即重试。
+
+当前唯一下一步：用户在原CellCharter Python环境运行一个仅诊断的单条PowerShell命令，检查 torch.cuda.is_available、device_count、NVIDIA设备名、最小CUDA张量能否分配及显存统计 API 是否可用；异常按字符串输出。确认问题后再为失败结果目录设计安全的续跑方案（**新目录、保留失败记录**），不盲目重新安装依赖/换CPU/重训旧数据。
+
+## 151508 六邻域图预检成功（2026-11-10）
+
+用户Windows实际执行 `prepare_151508_scvi_aggregation.py --check-only`，终端输出：
+```text
+151508_GRAPH_CHECK_PASS spots 4384 edges 12849
+151508_CHECK_ONLY_COMPLETE; NO_TRAINING; NO_FILES_WRITTEN
+```
+另见 `Global seed set to 0`（包导入阶段初始化信息）及 `pkg_resources`、基因名称重复的 UserWarning。正式脚本在拟合scVI前将设置 seed22911，预处理调用 `var_names_make_unique()`。
+
+这只证明空间图几何/对称性等检查成功；**scVI尚未训练，5D/25D缓存尚未生成**。下一步用户仅运行正式 `prepare_151508_scvi_aggregation.py`（无 `--check-only`）来准备151508 5D latent及25D聚合，脚本拒绝覆盖已有结果、不执行GMM或人工标注评价。继续冻结开发阶段A/B组合；151508跨切片不能表述为先前从未探索的独立盲测。 
+
+## 151508 表征缓存盘点与训练准备（2026-11-10，最新）
+
+用户Windows只读搜索 `D:\paper\CellCharter_reproduction` 与 `D:\paper\ST_Benchmark_Planning\mvp` 下路径包含151508且文件名匹配 `latent|aggregat|embedding|scvi`、扩展名为 `.npy/.npz/.h5ad/.pt` 的文件，**终端无输出**。这表示在此匹配范围内未发现缓存，**不代表全盘绝对不存在，也不是训练已执行**。
+
+根据已经核实的151507适配版原始脚本，GitHub新建 [151508 特征准备脚本](scripts/cellcharter/prepare_151508_scvi_aggregation.py)，采用相同5000 HVG/seurat_v3、5维scVI、AdamW/early-stop、4跳25维空间拼接、seed22911和基于Visium六邻域几何校验。仅生成 scVI 5维 latent / 25维聚合/条码顺序，不拟合GMM、不读取人工层标注、不更换已锁定A/B。新结果目录独立且拒绝覆盖。**脚本仅已提交GitHub，Windows尚未同步或运行**。
+
+**唯一下一步：先 `git pull --ff-only` 同步新脚本；然后再单独运行 `--check-only` 核对空间图并确认不会训练写文件；成功后再正式开始scVI训练。** 来源151508曾用于项目其他任务，跨切片检验不称严格全新盲测。避免重复STAGATE与历史GMM排错。
+
+## 151508 预检结果（2026-11-10，最新）
+
+用户在Windows实际以 CellCharter 专用 Python 运行只读核查并输出 `151508_INPUT_PREFLIGHT_COMPLETE`。真实终端：`EXPRESSION_SHAPE: (4384, 33538)`；`POSITION_ROWS: 4384`；`BARCODE_UNIQUE: True`；`BARCODE_ORDER_MATCH: True`；`COORDINATES_VALID: True`；`ANNOTATED_SPOTS: 4381`；`ANNOTATION_CLASSES: 7`；`ANNOTATION_BARCODES_MATCH: True`。读10x H5时有两个基因变量名不唯一 UserWarning，属于预处理注意事项，原151507脚本使用 `var_names_make_unique()`，此轮未写文件。
+
+**证据边界**：以上是用户真实终端转录，不是AI直接取得本地文件；这仅验证矩阵与坐标/标注匹配，不证明历史使用或已有latent缓存、也未运行151508 scVI/GMM。151508不是完全未知的盲测数据（项目早前已涉及该切片），后续应称跨切片验证/扩展开发验证并明确已有接触程度。
+
+**当前唯一下一步**：在指定本地项目目录只读寻找151508可复用的 scVI 5维 latent 和25维聚合特征。若找不到，才准备匹配151507预处理的训练脚本；不重复训练，也不更换锁定 A/B（L0+L1+L2 vs L0+L1+L4）。
+
+## 151508 输入文件存在（2026-11-10；当前最优先）
+
+用户Windows检查：151508 的表达H5、spots_aligned.csv、manual_layer_annotations.csv 三文件均存在；指定 `CellCharter_reproduction\results` 下没有列出匹配151508的目录。**未检查文件结构/条码匹配、也未确证所有位置没有scVI缓存**。下一步仅只读检验151508矩阵与坐标行顺序及标注覆盖；随后决定最小跨片实验。方案A L0+L1+L2、B L0+L1+L4不变。暂不重训、不查STAGATE。
+
+
+## 最新结果（2026-11-10）：已完成 Barcode 分区一致性复核
+
+用户实际只读合并两轮各4226行 predictions.csv，结果：对照 A 的跨 GMM seed 分区 ARI=`0.5049001187368433`，候选 B 的分区 ARI=`1.0`。因此 B 在这两个 GMM seed 下为同一分区（簇编号可置换），不是对人工标签 ARI=1.0、不是不同切片验证。原本本文件旧段落“尚未直接读取预测文件”已过期；详细档案见 [MVP-1b](experiments/cellcharter_dlpfc/MVP_FIXED15_GMM_SEED101_151507_20261110.md)。**接下来仅只读检查151508已有数据及特征缓存；不继续刷151507、不恢复STAGATE和历史GMM排查。**
+
+
+## 最新 MVP-1b 结果（2026-11-10；当前优先）
+
+- 用户实际执行 `mvp_fixed15_block_swap_gmm101_151507.py` 成功，`MVP_FIXED15_COMPLETE`；结果在本地 `D:\paper\CellCharter_reproduction\results\mvp_fixed15_block_swap_151507_scvi22911_gmm101_v1`，当前仓库仅终端转录。
+- 固定151507/scVI seed22911/15维特征，GMM seed101：A `L0+L1+L2` 的 ARI=`0.4177569883`、NMI=`0.6113343544`、boundary F1=`0.1694744782`、L5/L6=`3/145`；B `L0+L1+L4` 的 ARI=`0.5272652573`、NMI=`0.6175659085`、boundary F1=`0.2030360531`、L5/L6=`62/145`。对照先前seed22911：A的ARI=0.480019、F1=0.154412、L5/L6=64/145，B与本次全部指标完全相同。**B两次cluster_sizes互为排列，但尚未直接读取预测文件确认按barcode分区是否严格一致。**
+- **判断**：候选B在这两个GMM初始化下的全局指标均优于A，但A对seed敏感，L5/L6在一个seed中反而是A更好。仅同切片单scVI表征双GMM seed，不能归纳为泛化优势或完整边界修复。实验明细：[MVP-1b真实终端归档](experiments/cellcharter_dlpfc/MVP_FIXED15_GMM_SEED101_151507_20261110.md)。
+- **当前最小下一步**：只读比对两次候选B的预测CSV，按barcode计算分区一致性ARI，不训练、不更改原结果；其后考虑冻结方案并规划另一张切片的实际开发/验证协议。不主动重启已取消的历史 seed0 h4 问题或 STAGATE。
+
+
+> **2026-11-10 文献核查新进展**：已核实 CellCharter 原文/官方邻域拼接 API、AugGCL 2026 PLOS 原文 NIA 表达-邻域相似度加权、CodaST 出版方摘要 LSWC、HarveST PMC 全文及 GATCL/TRACER 的摘要；详见 [第一轮最近邻审计](experiments/cellcharter_dlpfc/NEAREST_PRIOR_ART_AUDIT_20261110_V1.md)。**STOP：**不得将单纯表达相似性加权邻接或 GAT 注意力包装成独创。**条件 GO：**先审查多尺度特征块与 GMM 可分性影响的最小、可证伪机制对照（非新算法）。AugGCL GitHub 代码含根据每epoch ARI选择最佳结果的片段，但尚未证实其用于论文151507的报告值。当前无需 Windows 操作，不自动恢复已暂停的历史 GMM 排查。下方早期“下一步查 GMM”均为旧记录。
+
+
+> **2026-11-10 用户最新科研决策（优先于下文旧待办）**：停止追查历史两份 seed0 L4 GMM 不一致，根因未明，暂存为局限；**禁止自动继续预测对齐、RNG、重复拟合诊断**。转入 S2/S3：对 CellCharter 边界/连续性权衡作最近邻论文原创性审查，再决定单一最小机制。初步检索与源链接：[研究转向记录](experiments/cellcharter_dlpfc/RESEARCH_PIVOT_AND_PRIOR_ART_SCREEN_20261110.md)。后文涉及“下一步继续查 GMM”的句子是先前历史状态，现已失效。
+
+
+> 最后整理：2026-11-10。**跨对话读档顺序：** [AGENTS.md](AGENTS.md) → [PROJECT_STATE.md](PROJECT_STATE.md) → [最近科研日记](RESEARCH_JOURNAL/2026-11-10.md) → 按需审查本文件和对应实际实验代码/结果。此文件是交接索引，不是原始证据。历史实验完整记录在 `experiments/`。
+
+## MVP-0 实际结果与下一步（2026-11-10 最新）
+
+- **只读预检已实际运行成功**：源文件 SHA256 `15b1fd58d092277f81fa2a1513bb2fbf865eea71b1b7450a9a2f710c941a8f54`，4226×25 float32；L0–L4 RMS 分别为 `1.01395915, 0.77181948, 0.72375672, 0.69487204, 0.67063472`；同维对L0平均绝对相关分别为 `1.00000000, 0.64353317, 0.64636024, 0.63651649, 0.62608682`。未使用标签、未训练、未写文件。[完整终端转录和决策](experiments/cellcharter_dlpfc/MVP_MULTISCALE_SCREEN_151507_20261110.md)。
+- **决策**：无远邻特征幅度异常放大，不把纯可逆分块缩放当新方法创新（full covariance GMM 基本可吸收这种重标度）。选择等维度（均15维）特征组合的**探索性筛查**，控制 `L0+L1+L2`，候选 `L0+L1+L4`，复用已保存25维输入、同一GMM超参数和seed，**两组都重新拟合GMM**以便同一次脚本下公平比较，标签只在预测后读取；执行后报告ARI/NMI与真实边界指标，不重新训练scVI。新脚本：[mvp_fixed15_block_swap_151507.py](scripts/cellcharter/mvp_fixed15_block_swap_151507.py)。**脚本尚未执行**。
+- **下一条用户操作**：先 `git pull --ff-only` 同步新的GitHub脚本，等用户实际报告成功，再单独运行MVP脚本。本次没有启动GMM。
+
+## 当前路线的历史摘要
+
+**用户确定将论文策略调整为普通SCI毕业目标下的成熟基线、小幅增量、低成本MVP**：已完成 CellCharter adapted 151507 seed22911 L0–L4 与边界审计；立即进入**多尺度块的只读预检**，随后由数据决定是否开展一项最小固定25维校准对照。停止追查历史 seed0 GMM 不一致，停止无限期文献排查；最近邻文献以3–5篇最相似为先。当前所有加权/校准方案均未执行、不是创新成果；151507只能当开发切片，不能把大范围尝试后的幸运值当独立测试。
+
+- 最新研究策略：[MVP 增量计划](experiments/cellcharter_dlpfc/MVP_INCREMENTAL_RESEARCH_PLAN_20261110.md)
+- 新预检脚本：[多尺度块只读预检](scripts/cellcharter/preflight_multiscale_blocks_151507.py)
+- **下一个唯一操作：** Windows 本地 `git pull --ff-only` 同步 GitHub（已有 Clash 7897 代理成功方案）；用户汇报成功后，单独运行预检，不要同一回合给两条命令。
+- 实验终端还没有运行新预检，不能填预检结果。下方任何“继续查历史 GMM”的旧表述是历史记录，不是当前任务。更简明准确的现状以 [PROJECT_STATE.md](PROJECT_STATE.md) 为准。
+
+## 一句话状态
+
+当前母体为 **CellCharter v0.3.2 适配版**。DLPFC **151507、seed22911、Oracle-K=7** 的基线及 L0–L4 五档空间邻域深度诊断均已完成；统一边界审计及逐层边界分析也已运行。**当前优先执行多尺度特征块的只读预检**，不重复 L3，也不再主动排查历史 GMM。
+
+## 研究者与助手分工
+
+- 用户使用 Windows 11 / PowerShell **手动执行本地实验**。助手负责方法审查、代码设计、文献、统计、可编辑绘图、科研写作，并经授权直接维护本私人 GitHub 仓库。
+- 本地操作一次仅给一条命令或一个短操作，交代目的、成功标记、失败处理，等待终端真实结果；不默认使用 Codex 或远程操作用户电脑。
+- GitHub 可直接编辑不等于助手能访问 Windows 本地任何文件；**不得假称本地未上传的文件已核验或已备份**。GitHub 更新后用户本地 checkout 需另行同步。
+
+## 原始文件与实验环境
+
+- 私人仓库：https://github.com/Hisery123/st-clustering-research
+- Windows 训练根目录：`D:\paper\CellCharter_reproduction`
+- Git checkout：`D:\paper\st-clustering-research`
+- 数据目录：`D:\paper\ST_Benchmark_Planning\mvp\data\151507`
+- Python：`D:\paper\CellCharter_reproduction\env_cellcharter\python.exe`
+- 正式 L4 基线：[代码](scripts/cellcharter/cellcharter_151507_baseline_v032.py)、[配置](experiments/cellcharter_dlpfc/snapshot_20261110/results/cellcharter_v032_151507_seed22911_oracleK7/config.json)、[指标](experiments/cellcharter_dlpfc/snapshot_20261110/results/cellcharter_v032_151507_seed22911_oracleK7/metrics.json)
+- L3 后补：[运行代码](scripts/cellcharter/cellcharter_151507_L3_diagnostic.py)、[非重训结果恢复代码](scripts/cellcharter/recover_151507_L3_metrics.py)、[真实终端转录指标](experiments/cellcharter_dlpfc/snapshot_20261110/results/cellcharter_v032_151507_seed22911_L3_diagnostic/metrics_recovered.json)
+- 五档统一边界审计：[代码](scripts/cellcharter/audit_151507_all_depth_boundaries.py)、[完成记录](experiments/cellcharter_dlpfc/snapshot_20261110/BOUNDARY_AUDIT_151507_SEED22911_20261110.md)、[逐层结果](experiments/cellcharter_dlpfc/snapshot_20261110/LAYERWISE_BOUNDARY_151507_SEED22911_20261110.md)
+- 历史 2026-11-09 seed0：[跳数消融](experiments/cellcharter_dlpfc/HOP_ABLATION_151507_SEED0_20261109.md)、[固定25维置换](experiments/cellcharter_dlpfc/FIXED25_PERMUTATION_151507_SEED0_20261109.md)。**不可将历史 seed0 当成 22911 的重复**。
+
+原始10x H5、scVI 模型、latent.npy、聚合矩阵及部分本地 CSV 尚未备份到仓库；需要实际文件时再由用户提供，不应擅自宣称已读取。
+
+## 2026-11-10 已完成结果（仅单切片单种子）
+
+- 151507 原始 4226 spots；4221 带人工组织层标注。跨切片 barcode 可能重复：必须先按 `sample_name=="151507"` 筛标签，再对齐 barcode。
+- Visium 12385 条无向空间邻边，12381 条两端都具有标签，可评价真实层间边界共 950 条。
+- scVI（5000 HVG、latent5、GPU）→ 同一 scVI latent 的 CellCharter L0/L1/L2/L3/L4 聚合，特征维度依次 5/10/15/20/25 → 每档独立 TorchGMM CPU 拟合，Oracle K7（人工类别数）并用固定 seed22911。
+- L4：ARI=0.4961464421378273，NMI=0.6754358219165002。协议是 v0.3.2 TorchGMM 与本地重建图的**适配基线**，不是作者 v0.2.0 + PyCave + 预处理 h5ad 的完整同版本复现。
+
+| Depth | ARI | NMI | Boundary F1 | L5/L6 Boundary Recall |
+|---|---:|---:|---:|---:|
+| L0 | 0.362131 | 0.441915 | 0.175802 | 0.6000 |
+| L1 | 0.444156 | 0.569587 | 0.162024 | 0.5448 |
+| L2 | 0.457461 | 0.604740 | 0.132590 | 0.4414 |
+| L3 | 0.469696 | 0.585078 | 0.136045 | 0.3310 |
+| L4 | 0.496146 | 0.675436 | 0.171509 | 0.0000 |
+
+L3 首次运行聚合及 GMM 预测已完成，但边界代码误把 `Layer 5/Layer 6` 写成 `L5/L6` 导致失败；随后直接从保存的预测恢复指标并保留失败状态，不重训。其恢复指标 ARI=0.4696960562716283，NMI=0.5850783791093968，边界 TP/FP/FN=194/1708/756。
+
+逐层结果：L4 下 L5/L6 为 0/145，L4/L5 约为 3/160；但是 L1/L2、L2/L3 在 L4 比 L3 回升。L0 高边界召回伴随大量同层错误分割；全局 F1 亦非单调。**仅可声称单切片探索性权衡，不可声称因果过度平滑、普遍规律或已验证创新。**
+
+## 最新核查补记（2026-11-10）
+
+用户已经提供两份历史 seed0 L4 原始 `manifest.json` 的完整终端内容；见 [GMM manifest 对照归档](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。来源聚合与 latent 的 SHA256 一致、显式 GMM 超参一致，但旧 manifest 缺少最终输入矩阵 SHA256，脚本 hash 不同，训练实际收敛迭代 24 vs 29，NLL 4.614036 vs 4.721235；此不一致原因仍未定位。**下一步只读比较实际脚本中的矩阵构造、随机种子调用与 GMM fit 位置，不重复已完成的 manifest 检查或训练。**
+
+## 当前阻碍及下一步
+
+1. **立即下一步只读审查历史 GMM 重拟合一致性：** 2026-11-09 两次 seed0、名义上同源 L4 输入和同名超参数的预测分区 ARI=0.713871，而不是 1，原因不明。用户最近已列示两次本地运行目录有 `manifest.json`、`predictions.csv`、`script_snapshot.py`、`gmm_weights.pt` 等。**还未收到新一轮完整 manifest JSON 输出**；不能声称已经核查完该对比。
+2. 机制混杂：聚合深度同时改变 GMM 输入维度；旧固定25维置换将不使用的邻域特征行错配，并不等于仅改变传播深度。须先解决模型稳定性与同维控制，再提出候选边界感知模块。
+3. 归档/复现：用户终端已展示逐层四位小数，但本地五档新审计原始 CSV、L3 predictions.csv 和失败状态尚未直接读取/上传，不能误当 GitHub 已有。审计代码是事后补写，不可称当时历史实验曾运行该文件。
+4. 之后才是预先冻结对照的跨 seed、跨切片/独立供体测试，以及最近邻已有方法、机制创新、论文叙事等审查。151507已被频繁探索，不是独立盲测。
+
+## 最新代码核查（2026-11-10）
+
+用户已运行两份 `script_snapshot.py` 的关键字与上下文检查：旧 h4 在创建 AnnData 之后设 seed，固定25维 h4 在创建 AnnData 之前设 seed；均在 Cluster 构造前设 seed。尚无法断定该顺序影响随机数。旧 h4 从聚合特征取前25列，新 h4 在 hop4 无置换并返回 C-contiguous float32。**下一个唯一动作：只读计算两者的最终输入数组 SHA256，与新 h4 manifest 的哈希比较**。详情见 [历史 GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
+## 最新输入哈希复核（2026-11-10）
+
+用户实际运行只读 SHA256 检查：共同来源 `aggregated.npz` 中 `X_cellcharter (4226,25) float32`，按旧脚本 `np.ascontiguousarray(..., dtype=np.float32)` 重建后得到 `f653234c166ce80b80e1971b387439779ebe92745087d742c5821beedf1c9463`，与新固定25维 h4 manifest 中的输入矩阵 hash **一致**。这是重建一致性证据，旧运行时最终输入 hash 未被原始日志独立记录。下一步只读检查 AnnData 建立前后 NumPy/Torch RNG 状态是否被消耗，再决定是否需最小训练重复性实验；不可直接声称非确定性已证实。详见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
+## 最新 RNG 诊断（2026-11-10）
+
+用户完成 AnnData 构造 RNG 状态检测：`old` 与 `fixed25` 均显示 `TORCH_RNG_CHANGED=False`、`NUMPY_RNG_CHANGED=False`。第一次助手给出的测试代码误用 `torch.Generator.get_rng_state()` 导致 `AttributeError`，后修正成功；未重新训练。说明所测模拟 AnnData 创建过程没有消耗 CPU Torch/NumPy 全局 RNG，**不等于 TorchGMM 内部随机性已排除**。下一步只读核查脚本中完整 `cc.tl.Cluster(...)` 构造及特征装载差异。详见 [审计追加记录](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
+## 最新完整 GMM 调用核查（2026-11-10）
+
+用户回传旧 L4 和固定25维 L4 的脚本原始行号片段；两份 `cc.tl.Cluster` 的 n_clusters、random_state、covariance_type、init_strategy、convergence_tolerance、covariance_regularization、trainer_params 全部一致，且新 h4 的特征置换循环为空。当前尚未发现显式参数差异。**唯一下一步：只读审查两份脚本中的原始 barcode/feature 加载、顺序与此前 ARI 比对对齐口径；不先重复训练**。参见 [GMM 审计](experiments/cellcharter_dlpfc/GMM_L4_SEED0_MANIFEST_AUDIT_20261110.md)。
+
+## 下一次新对话如何接手
+
+先按顶部顺序读取三个记忆文件。若 `PROJECT_STATE.md` 与本文件不一致，以**最新可核实的原始证据**为准并报告冲突；不要从旧 README 中取代当前状态。读取任务相关的 `manifest.json`、脚本、日志与指标，再给用户一条 Windows 手动操作；目前不需重建环境、重跑 L3、L0–L4、跨深度边界审计。
+
+每次归档都同步更新 `PROJECT_STATE.md`、本文件与当天 `RESEARCH_JOURNAL/YYYY-MM-DD.md`，区分已执行、转录日志、待验证假设和计划。
+
+## 2026-11-21｜E5b六组metadata、spatial、counts条码一致性真实PASS，正式冻结前
+
+用户Windows实测已完成E5b公开Wu 2021六例乳腺癌Visium原始归档完整性和结构预检：metadata MD5`1d0b34ead70635c094ac74ac58a88d68`；spatial MD5`29b02ae433d459d19dc52b75a529e8e9`；counts MD5`ea1220f0606c4d4e9307468fb2d5427a`。三方barcode逐样本交集均完整，counts header尺寸与barcodes/features数相符，6/6均`E5B_COUNTS_MATCH ... status=PASS`，末尾`E5B_COUNTS_BARCODE_ALIGNMENT_PASS samples=6`。各样本spatial网格4992、metadata合计15611；其中10个元数据spot `in_tissue=0`待预冻结排除政策。6个CSV`patientid`不同，标签`Classification`含Artefact、NA、Uncertain、空值，应预先区分输入spot和评价mask。两组genes=28402、其余四组genes=19237，每组counts内层.gz实际上为plain文本；需要读取时侦测内容，不能套标准gzip解码。矩阵nnz由MatrixMarket尺寸头读取，未完整校验数据值。尚无E5b任何模型训练或评分；E5a审计288/288 PASS不变。下一只读操作建议：三归档联表计算每例`in_tissue=1` spot、有效标签mask和真实类别数K，检查极小类别，**暂不做K盲选择的标签使用**；核实后一次性冻结数据筛选、CellCharter/基线对照、K策略、种子预算，再开始训练。详情见`experiments/cellcharter_dlpfc/E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`。
+
+## 2026-11-21｜E5b六例mask实测PASS、正式协议在首次拟合前冻结、输入适配脚本待Windows执行
+
+**用户真实Windows实验预检**：`E5B_MASK_QC_PASS samples=6 total_model_spots=15601 total_eval_spots=15324`、`NO_TRAINING_NO_DATA_MODIFICATION`。六名不同patientid对应六例全部保留，按in_tissue=1筛训练输入；额外277个组织内但Artefact/Uncertain/NA/空标签者仅排除评价而**不从无监督拟合中删除**。Oracle-K各例固定5/7/3/3/6/6；CID4465/CID4535合法病理类别最少3spot，极度不平衡需披露，不能凭评价分数调整。既有metadata/spatial/count三归档MD5与条码集合全6例PASS，counts内层.gz实际为未再次压缩的plain文本，源数据仍只读。
+
+**实际GitHub已操作**：创建并提交`experiments/cellcharter_dlpfc/E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`，在任何E5b拟合之前冻结研究目标、完整6患者、scVI5D/6种尺度、E5a原4成熟基线、K-blind主分析/Oracle敏感性、3个正式技术seed、评价mask和末尾统一审计；计划216个CellCharter+144个基线=**360个预期预测文件**，并非已运行任务。创建输入处理`experiments/cellcharter_dlpfc/e5b_prepare_inputs_v1.py`，SHA256=`c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52`，只读验证三原始归档且仅显式`--stage`写新的`results/e5b_external_v1/input_stage_...`隔离输入，完成真实MatrixMarket非负整数/nnz/基因ID检查，不做任何模型训练或打分。GitHub存储≠Windows同步，代码尚未经过本机真实数据运行。
+
+**唯一下一步**：Windows手动SHA256核对并下载此脚本，执行一次`--stage`；应见`E5B_STAGE_FINAL status=completed samples=6 model=15601 eval=15324`及`NO_TRAINING_NO_ARI_NMI`。失败保留所有新会话及日志，仅修数据导入执行故障，冻结科学协议不随分数改变。E5a 288/288审计PASS继续封存；E5b拟合0项，外部ARI/NMI未知。原始完整事实见`E5B_EXTERNAL_DATA_SOURCE_PREFLIGHT_20261121.md`。
+
+## 2026-11-21｜E5b原始六例输入标准化Windows PASS，准备按冻结方案正式训练scVI特征
+
+**用户Windows真实日志（最新）**：`E5B_STAGE_SCRIPT_SHA_PASS c37e435a77cb5b7f00242004bb9a1646b686c83a16d6ab34f3c609515e661d52`、`E5B_STAGE_SOURCE_INTEGRITY_PASS archives=3`、六条`E5B_STAGE_SAMPLE_PASS`、`E5B_STAGE_FINAL status=completed samples=6 model=15601 eval=15324 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\input_stage_20261121T083911Z_14272\batch_status.json`、`NO_TRAINING_NO_ARI_NMI`、`E5B_STAGE_EXIT_CODE=0`。真正的Windows输入准备完成6/6，来源归档只读；本助手未直接访问本地报告内容。E5b拟合仍0项，不得虚构外部指标。
+
+**GitHub新冻结脚本与下一步**：已在`E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`确定6独立患者、输入15,601、评价15,324、Kblind主+Oracle对照、6种CellCharter尺度/4成熟方法3seed，总360计划预测。源数据全量准备PASS后创建`experiments/cellcharter_dlpfc/e5b_scvi_feature_batch_v1.py` Git commit`3fc8acc903cbe0f06ff70fa3b756e7b9f2461880`、SHA256 `28f792587a54ac8cb436d82f888dc9a39a2cff204168021ff8591a3f05a2b558`；六例分别在GPU scVI无监督训练一次5D latent和CellCharter 25D空间聚合，独立子进程/新结果目录/日志/源SHA，不读reference_only/不计算ARI/NMI。该脚本**尚未用户Windows执行**，程序兼容性待真实日志判定。唯一下一步为用户手动SHA验证下载并执行该`--run`全六患者feature batch；继续严格遵循阶段前冻结、执行中不新增审计、结果末集中审核原则。旧E5a 288/288 PASS保持封存。
+
+## 2026-11-21｜E5b六患者外部scVI5D+CellCharter25D特征正式训练6/6通过，216预测脚本待Windows
+
+**实际Windows终端**：`E5B_FEATURE_SAMPLE_PASS sample=CID4535 spots=1125 latent=5D aggregated=25D seconds=55.709`、`E5B_FEATURE_PROGRESS completed=6/6`、`E5B_FEATURE_FINAL status=completed completed=6/6 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\features_20261121T090400Z_28460\batch_status.json`、`NO_GMM_NO_ARI_NMI`、`E5B_FEATURE_EXIT_CODE=0`。这证明六例scVI/CellCharter空间聚合特征批次确实跑完，不能把它误记为聚类预测或独立外部指标完成；最后一例CID4535训练到400/400轮，该轮数不代表其他五例均400轮。本助手未直接审计该Windows路径二进制结果。
+
+**下一冻结操作**：已在GitHub创建`experiments/cellcharter_dlpfc/e5b_cellcharter_cluster_batch_v1.py`，commit`eeb309918dee5c97f15f864134b4178da49cc82f`，SHA256=`d8df95cd86116a2a4aec2a6f0b4cf2f63e2a1425956198bb1afe6c1baf91c1aa`。沿用已冻结E5b六患者6尺度、36独立AutoK无标签选K、Kblind+Oracle知情各三seed=216份GMM预测，使用已生成的25D缓存且代码不读取参考标签/不打分。脚本尚未在用户Windows运行，36/216均计划数，需按单一PowerShell动作下载+SHA+py_compile+显式`--run`；失败时保留新目录支持人工显式resume，不因结果修改实验设定。之后按原计划接四成熟基线144预测、末端统一评价及Claude独立审查。完整协议及日志`experiments/cellcharter_dlpfc/E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`。
+
+## 2026-11-21｜E5b CellCharter外部聚类全36配置216预测Windows PASS，下一非空间基线72项
+
+用户Windows终端实测：`E5B_CC_PROGRESS configs=36/36 predictions=216/216`、`E5B_CC_FINAL status=completed configs=36/36 predictions=216/216 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\cellcharter_cluster_20261121T100504Z_29172\batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI_NO_SCVI_RETRAIN`、`E5B_CC_EXIT_CODE=0`。最后一例CID4535/B_L0L1L4_15D AutoK=3而OracleK=6，必须保留双K臂区别、不可事后调盲选K。聚类在CPU运行符合冻结协议。到此**E5b外部scVI六例表示训练+CellCharter36个无标签AutoK+216份预测均已由Windows报告真实完成**，但完整本地预测还没有独立末尾审计，ARI/NMI没有执行，不能据此声称性能优越。
+
+GitHub已提交`experiments/cellcharter_dlpfc/e5b_nonspatial_baselines_batch_v1.py`，commit `777c90ca32ee1a2db25fc240109648ff652f5abb`，SHA256 `2defb2821370a4c8e60ad6450276a6cd695b5bd26f6a26d6c3cd5c7cc02ec7f1`，按E5a预冻参数用六患者已完成scVI-L0 5D缓存依次运行GMM与Leiden两K臂×三技术seed共72计划任务，无评价标签读取/无ARI。该脚本仍待Windows实际执行，不可标记72已完成。后续固定顺序BANKSY36+BayesSpace36、总144基线后一次性核验与评价并交Claude总审，不插入事后改K/seed/尺度。
+
+## 2026-11-21｜E5b外部预测288/360完成：GMM+Leiden72/72Windows通过，BANKSY36脚本已提交
+
+用户真实Windows结果：`E5B_NONSPATIAL_FINAL status=completed completed=72/72 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\nonspatial_20261121T104630Z_22052\batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI_NO_SCVI_RETRAIN`、`E5B_NONSPATIAL_EXIT_CODE=0`。此后`E5B_NONSPATIAL_SCRIPT_ALREADY_EXISTS`为重复触发下载脚本时本地文件存在的保护阻断，**不能当作非空间72任务失败**，不重跑。加上已由用户Windows报告完成的CellCharter216/216，目前**288/360份预测任务脚本完成（待阶段末独立全量审计）**。真实ARI/NMI暂未计算。GitHub新建`experiments/cellcharter_dlpfc/e5b_banksy_baselines_batch_v1.py`，commit`26e125a8ff1bc9c0ea0248b871dbf3e8437be6f3`，SHA256=`c80a1e7c97d563c8b9e7a83e97c83d7b8c021f583c6b82b91225b9be69ade927`；官方BANKSY核心+E5a冻结16分辨率/原生HVG2000/空间15邻居/PC20/Leiden50NN、3seed双K臂，严格用六例E5b输入与已固定in_tissue训练mask，不读参考标签/不打分。**尚未Windows执行BANKSY这36项**，下一唯一PowerShell操作SHA验证下载/语法检查/`--run`；之后BayesSpace36、阶段末统一评价/Claude审稿。完整历史和先验规则在`experiments/cellcharter_dlpfc/E5B_FROZEN_EXTERNAL_VALIDATION_PROTOCOL_20261121.md`。
+
+## 2026-11-21｜E5b BANKSY外部预测36/36 Windows PASS，324/360完成；BayesSpace36已备脚本待执行
+
+用户Windows确证：`E5B_BANKSY_FINAL status=completed completed=36/36 failed=0 result=D:\paper\CellCharter_reproduction\results\e5b_external_v1\banksy_20261121T133058Z_31292\batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI`、`E5B_BANKSY_EXIT_CODE=0`。末例CID4535 Kblind res1.0三seed实际K8/7/8、Oracle-K=6固定res0.8，CID44971有Oracle-K target6但实际K5，这些是预冻算法允许的真实失败命中情况，不因结果调参。E5b已在Windows完成CellCharter216+非空间GMM/Leiden72+BANKSY36=324份预测，BayesSpace仍0/36，尚无全量独立审计或ARI/NMI。
+
+GitHub按既定E5b冻结协议编写`experiments/cellcharter_dlpfc/e5b_bayesspace_baselines_batch_v1.R`，创建commit`4603b0f7b21e7227c81856775a0dfee96b723964`、首次用户Windows执行**之前**路径工程修复后最新版commit`637d47493f2762a9f4c824a0d3af8b2bac445050`，SHA256=`7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`。R4.5.1 + BayesSpace1.20.2，读取预检通过的六例MatrixMarket稀疏原始counts、gene IDs、barcode对齐in_tissue=1 spot、array_row/array_col，HVG2000/PCA15，原始E5a v1.1冻结`qTune(q=2..10,nrep=1000,burn.in=100)`选Kblind、Oracle类别数知情、正式每臂MCMC 10000次/1000 burn-in/100 thin，3seed×2臂×6患者总36份预测；不读参考标签或计算ARI/NMI。不同患者子R进程、隔离新session/attempt、不覆盖旧结果。**脚本未在用户Windows真实运行或验证**。下一唯一PowerShell动作固定commit下载+SHA验证+Rscript parse+显式`--run`；失败保留、按真日志最小修复且不改科学协议；36/36完成后末端只读全量审计及固定mask的ARI/NMI，再由Claude统审。
+
+## 2026-11-21｜E5b BayesSpace首条命令在Rscript -e转义处中止（尚未启动R批次）
+
+实际Windows日志：`E5B_BS_SCRIPT_SHA_PASS 7d0f4e08e7db6c913e55776e67c62a9b92de99d282fbd6bb408b5c41e7585e68`；紧接着Rscript `-e`语法检查片段发生`错误: 意外的'\\'在" cat(E5B_BS_SYNTAX_PASS\"里`，PowerShell抛出`E5B_BS_SYNTAX_FAILED`。这是**调用端引号转义问题，尚未执行R脚本--run，非BayesSpace拟合失败**。此前CellCharter216/216+GMM/Leiden72/72+BANKSY36/36依旧共324/360预测任务完成，E5b BayesSpace仍0/36。下一唯一Windows步骤只校验本地已经下载的R脚本固定SHA，不再Invoke-WebRequest或Rscript `-e`，改用`D:\R\R-4.5.1\bin\Rscript.exe --vanilla D:\paper\CellCharter_reproduction\e5b_bayesspace_baselines_batch_v1.R --run`正式启动BayesSpace六患者；若真实失败保留日志/会话原样返回。冻结方法和预算未更改，正式阶段全量审计和ARI/NMI尚未开始。
+
+## 2026-11-22｜E5b全360/360真实预测执行完成，末端只读独立审计+固定mask评价脚本待跑
+
+**用户Windows真实BayesSpace最后批日志**：`E5B_BS_PREDICTION_PASS sample=CID4535 arm=k_blind seed=25842 q=10 actual_k=10`、`E5B_BS_PREDICTION_PASS sample=CID4535 arm=oracle_k seed=25842 q=6 actual_k=6`、`E5B_BS_SAMPLE_PASS sample=CID4535 tasks=6 seconds=617.96`、`E5B_BS_PROGRESS completed=36/36`、`E5B_BS_FINAL status=completed completed=36/36 failed=0 result=D:/paper/CellCharter_reproduction/results/e5b_external_v1/bayesspace_20261121T135133Z_25840/batch_status.json`、`NO_REFERENCE_LABELS_NO_ARI_NMI`、`E5B_BS_EXIT_CODE=0`。总E5b的CellCharter216、非空间GMM36、Leiden36、BANKSY36、BayesSpace36，共**360/360正式预测均由Windows脚本报告成功运行**，**但尚未独立复查原始预测/选K轨迹和计算ARI/NMI**。六个独立患者n=6而非360独立生物样本。CID4535 BayesSpace Kblind q=10为预冻上边界，必须保留；算法显示`Neighbors were identified for 1123 out of 1125 spots`（影响解释待审核），不得删spot、扩K或改参数。最初PowerShell `Rscript -e`引号失败在拟合前，后续直接Rscript执行成功，故保留工程失败记录且不将其当训练失败。
+
+**阶段末一次性审计/评价代码**：已GitHub提交`experiments/cellcharter_dlpfc/e5b_phase_audit_and_evaluation_v1.py`，commit`57fe010d22258e54d080749c60fa57daf42b49d7`、SHA256`a9a65171ba6631d07c2eb9f606140c6d3a37d40854bec03e14eeae223594940e`。用户Windows**尚未运行**。预期先核本地六类源文件的SHA/完整任务唯一性/全spot-barcode一致、四成熟对照和CC冻结K决策以及360个原始预测，全部验证通过后才读取`reference_only`固定评价掩码重算AR​I/NMI与每患者3seed汇总、患者n=6配对描述（不生成伪独立seed的p值）。只写单独审计输出，绝不重新训练或覆写旧结果。下一唯一用户Windows指令下载固定GitHub脚本并SHA/语法校验、`--run`。审计PASS之后才根据真实结果写论文、制SVG和交Claude独立审查；目前不能声称方法更优或外部效果。
+
+## 2026-11-22｜E5b末端独立审计正式PASS：360/360预测和360/360 ARI/NMI；真实数值尚待上传
+
+用户Windows真实终端：`E5B_AUDIT_PREDICTIONS_PASS verified=360/360 errors=0 labels_not_yet_read=True`、`E5B_PHASE_AUDIT_FINAL status=passed verified=360/360 metrics=360/360 errors=0 report=D:\paper\CellCharter_reproduction\results\e5b_external_v1\phase_audit_v1\audit_20261122T030849Z_17404\audit_report.json`、`NO_REFIT_NO_PARAM_CHANGE_PATIENT_N6`、`E5B_AUDIT_EXIT_CODE=0`，三文件`all_360_prediction_metrics.csv`、`patient_three_seed_summary.csv`、`patient_paired_effects.csv`均在该audit目录。独立只读脚本先完成全部文件/条码/固定K策略审计，然后**确实打开reference_only标签**计算ARI/NMI（`labels_not_yet_read=True`只代表第一阶段过关时的状态），不重训、不改任何方法学设置。六患者生物学独立n=6，360项任务不是360个生物重复。**这不是性能提升的证据**：用户尚未上传任何分数CSV，本助手尚未读取具体ARI/NMI、方法比较或数据图，不能宣称谁更优/有创新或显著。独立审计完整记录已新建`experiments/cellcharter_dlpfc/E5B_FINAL_AUDIT_PASS_20261122.md`（commit`af1cb214ff2845d3f1f1f6f47ea4a305643c6544`）。下一动作仅请用户上传上述3个CSV原件，读取后按患者比较全部Kblind/Oracle组与正负结果；再组装Claude独立方法审查材料，不再训练/调整K/seed/尺度。
+
