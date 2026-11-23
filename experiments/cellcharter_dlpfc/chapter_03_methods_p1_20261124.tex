@@ -1,0 +1,169 @@
+% P1 学术写作版（2026-11-24）：研究方法与评价设计。
+% 由 chapter_03_methods_rev_p0_20261124.tex 改写：按评价问题而非实验编号组织；全部协议参数、
+% 数据使用说明和事后分析界定均保留；SHA/仓库/运行环境信息移入附录（appendix_cellcharter_records_p1）。
+% REV_P0/V1 保持不变。未编译。
+\section{研究方法与评价设计}
+\label{sec:cc-methods-p1}
+
+\subsection{总体评价设计}
+\label{subsec:cc-design-p1}
+本研究以CellCharter的邻域聚合与GMM聚类流程为对象，围绕引言提出的四个问题设计比较维度（表\ref{tab:cc-design-p1}）。所有分析的数据划分、特征配置、K设置、随机种子和评价指标，都在相应模型拟合之前固定；在看到结果之后才追加的诊断性分析，在第\ref{subsec:cc-posthoc-p1}节集中列出，并在结果中逐处标注。附录\ref{sec:cc-records-p1}给出各分析与实验记录编号、结果文件之间的对应关系。
+
+\begin{table}[htbp]
+\centering
+\caption{本研究的评价设计总览}
+\label{tab:cc-design-p1}
+\small
+\begin{tabularx}{\linewidth}{p{2.2cm}XXp{2.1cm}}
+\toprule
+研究问题 & 比较内容 & 数据与K条件 & 主要指标\\
+\midrule
+邻域表征 & 累计0--4层邻域（5--25维）；5种非连续等维15维组合 & DLPFC 12切片；Oracle-K；每切片10个GMM种子 & ARI、NMI\\
+聚类数规则 & 固定$K=5$--9网格；逐切片稳定性选K & DLPFC 12切片；10--25维 & ARI、NMI、选中K\\
+评价指标 & 严格边界、1-hop/2-hop容差边界（事后） & 同“邻域表征”的全部预测；另含无标签选K的预测 & 边界F1、precision、recall\\
+适用范围 & 非空间GMM、Leiden、BANKSY、BayesSpace；乳腺癌患者队列 & DLPFC 12切片与乳腺癌6名患者；K-blind与Oracle-K & ARI、NMI\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{数据与样本层级}
+\label{subsec:cc-data-p1}
+\paragraph{DLPFC。}数据为12张Visium切片（151507--151510、151669--151676），来自3名供体，每名供体4张。依据公开资料推定的分组为：151507--151510、151669--151672、151673--151676各属一名供体。这一供体映射尚未用原始受试者元数据逐项核实。表达计数取自10x \texttt{filtered\_feature\_bc\_matrix.h5}，空间位置取自\texttt{spots\_aligned.csv}，按唯一barcode对齐。参考层标签来自公开DLPFC基准数据链中的\texttt{layer\_guess}字段\cite{maynard2021}，按\texttt{sample\_name}与\texttt{spot\_name}对齐。151669--151672有5个参考类别，其余切片有7个。未标注的spot参与模型拟合和空间可视化，但不参与指标计分。151507与151508的参考标签文件，生成路径与其余10张切片不完全相同；151507目录中还曾发现一份误放的、与151669相同的\texttt{metadata.tsv}，但它不被本研究的聚类评价读取。上述情况作为数据来源的限制予以记录。
+
+\paragraph{乳腺癌队列。}外部数据为Wu等公开的6例乳腺癌Visium样本（1142243F、1160920F、CID4290、CID4465、CID44971、CID4535）\cite{wu2021,wu2021zenodo}，含表达计数、空间坐标和病理区域注释。用于建模的spot数分别为4784、4895、2426、1211、1160和1125，评价掩码内分别为4665、4846、2419、1207、1159和1028。这一队列用来检验同一流程在另一组织中的表现，不是把皮层上训练的模型迁移到乳腺癌，也不是诊断性能验证。
+
+\paragraph{样本层级。}DLPFC的独立生物学单位是供体（$n=3$），乳腺癌的独立生物学单位是患者（$n=6$）。切片、spot、空间边和随机种子都是单位内的观测，不用来扩大统计样本量。DLPFC数据在研究早期用于方法开发，因此不把12张切片都视为从未接触过的测试样本；乳腺癌队列则是在全部分析方案固定之后才开始分析的。
+
+\subsection{表达表示与邻域特征}
+\label{subsec:cc-features-p1}
+\paragraph{表达预处理与scVI。}DLPFC每张切片的处理步骤为：基因名去重；按\texttt{min\_counts=3}过滤基因与spot；在\texttt{counts}层保留原始计数；总量归一化至$10^6$后取对数；以\texttt{seurat\_v3}方法在计数层上选取5000个高变基因。scVI读取计数层，训练5维潜变量模型\cite{lopez2018}，使用AdamW优化器、学习率平台衰减和early stopping，训练轮次上限为400，随机种子为22911。每张切片只训练一次scVI，后续所有聚类比较都从同一份固定的特征中抽取所需的列。乳腺癌6名患者各自从原始计数重新完成同样的预处理与scVI训练，没有使用DLPFC训练得到的模型权重。
+
+\paragraph{空间邻接图与邻域聚合。}以Visium阵列坐标\texttt{array\_row}、\texttt{array\_col}建立无向空间图，相邻条件为
+\begin{equation}
+(|\Delta r|,|\Delta c|)\in\{(0,2),(1,1)\},
+\label{eq:cc-hex-p1}
+\end{equation}
+即六角阵列中的6个最近邻方向，排除自环、重复坐标和不匹配的barcode。在此图上，用CellCharter的\texttt{aggregate\_neighbors}对5维scVI表示聚合4层邻域，得到式\eqref{eq:cc-H-bg-p1}中的25维特征$H$。
+
+\paragraph{特征配置。}从$H$中构造两类配置：
+\begin{itemize}
+  \item 累计配置：$L_0$（5维）、$[L_0,L_1]$（10维）、$[L_0,L_1,L_2]$（15维，记为A）、$[L_0,\ldots,L_3]$（20维）、$[L_0,\ldots,L_4]$（25维）；
+  \item 等维配置：5种非连续的15维组合，即$[L_0,L_1,L_3]$、$[L_0,L_1,L_4]$（记为B）、$[L_0,L_2,L_3]$、$[L_0,L_2,L_4]$、$[L_0,L_3,L_4]$。
+\end{itemize}
+累计配置随层数增加，维度也同时增加；等维配置在固定维度下比较不同邻域块的组成，可以部分区分“用了哪些邻域层”与“特征维数”的影响。
+
+\paragraph{与原作者基准的关系。}在5000个高变基因、5维潜变量的条件下，累计15、20、25维分别对应原作者调参网格中的2、3、4层邻域，25维即其最终配置\cite{varrone2024,cellcharteranalyses2024}。这组参数是原作者在151507、151672、151673三张切片上依据参考标签ARI调出的，所以这三张切片对25维配置不是未接触的样本。本研究的处理流程与官方单切片基准脚本的主要步骤一致；两者已知的差异列在表\ref{tab:cc-official-protocol-p1}中。
+
+\begin{table}[htbp]
+\centering
+\caption{本研究25维流程与CellCharter官方单切片基准的设置差异}
+\label{tab:cc-official-protocol-p1}
+\small
+\begin{tabularx}{\linewidth}{p{2.4cm}XX}
+\toprule
+项目 & 官方单切片基准\cite{cellcharteranalyses2024} & 本研究\\
+\midrule
+切片与聚类方式 & 12张均运行单切片聚类；原文图件报告9张测试切片，主要结论来自联合聚类 & 12张，单切片聚类\\
+K & 151669--151672为5，其余为7 & 相同\\
+重复结构 & 10次，每次同时更换scVI与GMM种子 & scVI训练一次，10个GMM种子\\
+GMM设置 & 软件默认参数（GPU） & CPU；容差$10^{-3}$，协方差正则$10^{-6}$，最多100轮\\
+输入与标签字段 & HumanPilot预处理数据；\texttt{sce.layer\_guess} & 10x原始计数与对齐坐标；\texttt{layer\_guess}\\
+评价指标 & ARI & ARI、NMI及边界指标\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{候选组合B的来源。}等维组合B（$[L_0,L_1,L_4]$）是在方法开发阶段提出的：在开发切片151507上，单个GMM种子下，B的ARI比A高0.047。151507与151508都是开发阶段分析过的切片，之后又纳入全部12张切片的评价。因此，B与A的比较带有提名切片的选择偏倚。结果中同时报告预设的12切片汇总和排除这两张切片后的敏感性汇总。
+
+\subsection{聚类与聚类数设置}
+\label{subsec:cc-clustering-p1}
+\paragraph{GMM聚类。}所有CellCharter配置都使用其GMM接口聚类，设置为CPU计算、完整协方差、K-means初始化、收敛容差$10^{-3}$、协方差正则$10^{-6}$、最多100轮。邻域表征比较使用10个预先指定的GMM种子：22911、7449、25842、10379、6690、26128、21059、22159、32389和12815。模型先输出预测，之后才在固定的评价掩码上计算指标；不按指标挑选种子。
+
+\paragraph{三类聚类数条件。}
+\begin{enumerate}
+  \item \textbf{参考类别数（Oracle-K）：}151669--151672取$K=5$，其余切片取$K=7$，与原作者单切片基准相同。这一设定使用了标签的类别数先验，不能代表无标签应用。
+  \item \textbf{固定K网格：}对10、15、20、25维累计配置，在$K=5,6,7,8,9$下各用10个种子拟合，共2400个“切片×配置×K×种子”组合，其中与Oracle-K重合的480个组合直接复用前一项的结果。网格中的K由设计直接给定，用于观察指标对K的敏感性，不用于事后挑选“最佳K”。
+  \item \textbf{无标签稳定性选K：}对上述4种累计配置逐切片运行CellCharter的稳定性选K。候选$K\in\{2,\ldots,10\}$（程序同时拟合辅助的$K=1$与11），每个候选K重复5次（种子22911--22915），取平均稳定性最大者，相同时取先出现者。参考标签不参与拟合、早停或选K。
+\end{enumerate}
+需要说明，原作者在DLPFC上的稳定性选K是对12张切片联合运行，每个K重复10次，并另外用25次重复检查过收敛\cite{varrone2024}。本研究逐切片运行，只重复5次，未做收敛检查。因此，相应结果描述的是“逐切片、5次重复”这一使用条件下的表现。
+
+\subsection{空间边界评价}
+\label{subsec:cc-boundary-p1}
+\paragraph{严格边界。}在式\eqref{eq:cc-hex-p1}定义的邻接图上，只保留两端都有参考标注的边，得到有效边集
+\begin{equation}
+E^\ast=\{(i,j)\in E\mid y_i\text{与}y_j\text{均有参考标注}\},
+\end{equation}
+其中$y_i$为spot $i$的参考层，$\hat y_i$为其预测簇编号。若$y_i\ne y_j$，记该边为参考边界；若$\hat y_i\ne\hat y_j$，记为预测边界。两者的交集为严格真正例$TP_0$，预测边界中不在交集内的为$FP_0$，参考边界中不在交集内的为$FN_0$，严格边界F1为
+\begin{equation}
+F_{1,0}=\frac{2TP_0}{2TP_0+FP_0+FN_0}.
+\label{eq:cc-boundary-f1-p1}
+\end{equation}
+同时报告precision、recall以及预测边界数与参考边界数之比。
+
+\paragraph{容差边界。}把有效边集构造成线图：两条原图边若共享端点，就在线图中相邻，线图最短距离即为边与边之间的距离。对容差$t\in\{0,1,2\}$，只允许线图距离不超过$t$的预测边界与参考边界配对，并用最大基数的一对一二部匹配，保证每条参考边界至多被匹配一次，再由匹配数计算$F_{1,t}$。$t=0$即严格边界。
+
+边界评价作用于邻域表征比较的全部预测（12切片$\times$10配置$\times$10种子，每个容差1200条记录），以及无标签选K的48份预测。两组预测的K规则不同，分别报告，不合并。整个边界评价是在聚类结果完成之后追加的分析，没有改变任何预测或参考标签。
+
+\subsection{成熟方法对照}
+\label{subsec:cc-baselines-p1}
+在同一12张DLPFC切片上设置四种对照方法，每种方法、每张切片、每种K条件使用3个种子（22911、7449、25842），共288份预测：
+\begin{itemize}
+  \item \textbf{非空间GMM：}以scVI的5维$L_0$表示为输入，使用scikit-learn完整协方差GMM（K-means初始化，容差$10^{-3}$，协方差正则$10^{-6}$，单次初始化，最多100轮）。
+  \item \textbf{Leiden：}在$L_0$表示的15近邻表达图上聚类\cite{traag2019}。
+  \item \textbf{BANKSY：}使用原始计数和spot像素坐标，15个空间近邻，最高角度阶$m=1$，$\lambda=0.2$，20个主成分，经其原生变换后用Leiden聚类\cite{singhal2024}。BANKSY对Visium v1/v2的域分割推荐的就是$\lambda=0.2$。
+  \item \textbf{BayesSpace：}使用原始计数和阵列坐标，2000个高变基因、15个主成分，经原生\texttt{spatialPreprocess}与\texttt{spatialCluster}聚类；MCMC共10000次迭代，前1000次为burn-in，\texttt{model=t}，\texttt{init.method=mclust}\cite{zhao2021}。
+\end{itemize}
+
+各方法的K规则见表\ref{tab:cc-baseline-K-p1}。Leiden与BANKSY的Oracle-K，取16档分辨率中实际簇数最接近目标K的一档，这16档为0.1、0.15、0.2、0.25、0.3、0.4、0.5、0.65、0.8、1.0、1.25、1.5、2.0、2.5、3.0、4.0；这一过程不依据ARI优化。
+
+\begin{table}[htbp]
+\centering
+\caption{成熟对照方法的聚类数规则}
+\label{tab:cc-baseline-K-p1}
+\small
+\begin{tabularx}{\linewidth}{lXl}
+\toprule
+方法 & K-blind & Oracle-K\\
+\midrule
+GMM & $K=2,\ldots,10$中BIC最小者 & 参考类别数\\
+Leiden & 分辨率固定为1.0（无选K步骤） & 实际K最接近目标的分辨率\\
+BANKSY & 分辨率固定为1.0（无选K步骤） & 实际K最接近目标的分辨率\\
+BayesSpace & \texttt{qTune}（$q=2$--10）平均伪对数似然最大者 & 参考类别数\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+对比时需注意四点：
+\begin{enumerate}
+  \item 各方法沿用自身的原生输入和空间表示，计算预算也不同，因此比较的是不同方法的完整流程，而非单一因素的消融。
+  \item BayesSpace的K-blind规则（取伪对数似然最大者）与官方“在曲线拐点附近选q”的建议不一致\cite{bayesspacevignette}；GMM的BIC规则也倾向于选更多的簇。两种似然规则在实际运行中都大量选到搜索上界，结果全部保留，作为K-blind比较的可比性限制。
+  \item 本研究的BayesSpace设置与原作者基准不同（原作者为1000个高变基因、15个主成分、$\gamma=3$、5000次迭代）\cite{varrone2024}，两组数值不宜直接比较。
+  \item 原作者报告单切片表现最好的STAGATE\cite{dong2022stagate}没有纳入本研究的对照集。
+\end{enumerate}
+
+\subsection{乳腺癌患者队列}
+\label{subsec:cc-external-p1}
+在6名乳腺癌患者上重复相同的分析流程，其方案（患者名单、特征配置、对照方法、K规则、种子和评价顺序）在任何外部模型拟合之前固定。CellCharter评价6种配置：5维$L_0$、10维、15维A、20维、25维和15维B。在每个“患者×配置”上，先用稳定性规则（候选2--10，5次重复）选定K-blind的K，再与Oracle-K一起，各用3个种子拟合，共216份预测。四种对照方法沿用DLPFC中的原生流程与K规则，每种方法36份，共144份。参考区域注释只在全部预测写出之后才读取，用于评分。汇总时，先在患者内平均3个种子，再对6名患者等权平均；方法或配置之间的差值在同一患者内配对计算，并逐个报告各患者的方向与大小。
+
+\subsection{评价指标与统计汇总}
+\label{subsec:cc-metrics-p1}
+ARI与NMI（算术平均归一化）只在有参考标注的spot上计算，所有方法使用相同的评价掩码，不按结果重排簇编号，也不剔除任何spot。汇总遵循“先汇总技术重复，再描述独立生物单位”的原则：
+\begin{itemize}
+  \item 每张切片或每名患者先平均其随机种子；
+  \item DLPFC的切片等权均值只作为描述性摘要，同时给出3名供体各自的均值；
+  \item 乳腺癌报告患者等权均值，并逐患者给出差值。
+\end{itemize}
+各表报告切片间标准差和切片内种子标准差。种子标准差只反映GMM初始化的变异；由于scVI只训练一次，它小于原作者同时更换scVI与GMM种子时的波动，不能理解为流程“更稳定”。鉴于供体只有3名，本研究不做显著性检验，也不把spot、边、种子或切片当作独立重复。
+
+\subsection{预设分析与事后分析的界定}
+\label{subsec:cc-posthoc-p1}
+以下分析是在相应结果已经出现之后追加的，属于事后分析，在结果中逐处标注：
+\begin{enumerate}
+  \item 无标签选K预测的ARI/NMI评分（选K本身是预设的）；
+  \item 全部严格与容差边界指标，及其precision、recall和边界数量分解；
+  \item B相对A排除开发切片151507、151508后的汇总；
+  \item 与原作者官方单切片基准结果的对照；
+  \item 固定K网格中“ARI最大的K”与参考类别数的比较；
+  \item 用于展示空间分布的三张代表切片（151507、151671、151675），是依据B相对A的平均ARI差值，分别从三名供体中选取的正向、接近零和负向各一例；其余9张切片的图件全部列于附录。
+\end{enumerate}
+事后分析只用于解释和检验预设结果的稳健性，不作为独立验证，也不据此修改任何预设方案。

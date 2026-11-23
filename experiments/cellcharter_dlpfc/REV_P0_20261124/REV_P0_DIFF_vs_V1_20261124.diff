@@ -1,0 +1,576 @@
+--- a/experiments/cellcharter_dlpfc/cellcharter_study_introduction_module_v1_20261122.tex
++++ b/experiments/cellcharter_dlpfc/cellcharter_study_introduction_module_rev_p0_20261124.tex
+@@ -1 +1,3 @@
++% REV_P0 2026-11-24：由 cellcharter_study_introduction_module_v1_20261122.tex 派生；V1保持不变。
++% 本轮只改写与CellCharter原作者已有DLPFC工作的重叠定位；证据见 REV_P0_20261124/REV_P0_EVIDENCE_TABLE_20261124.md。
+ % CellCharter研究专题引言模块（非整篇硕士毕业论文统一第一章）
+@@ -9,3 +11,3 @@
+ 
+-现有空间聚类框架已经提出多尺度邻域聚合、空间图表示学习与空间先验建模等机制。CellCharter作为其中一种成熟方法，可以在已有单点表示上叠加多层邻域信息\cite{varrone2024}。但在实际数据分析中，扩大邻域表示范围与增加输入维数常常同时发生；若只比较单一数据集或少量随机初始化，容易将由聚类数、样本差异或标签粒度引起的变化误判成表示机制的必然优势。
++现有空间聚类框架已经提出多尺度邻域聚合、空间图表示学习与空间先验建模等机制。CellCharter作为其中一种成熟方法，可以在已有单点表示上叠加多层邻域信息\cite{varrone2024}。其原作者已在同一套12张DLPFC切片上完成基准比较：以151507、151672、151673三张切片调参，在其余9张切片上评价ARI；调参网格包括2、3、4层邻域，最终选用4层邻域、5000个高变基因和5维scVI潜变量\cite{varrone2024,cellcharteranalyses2024}。因此，“邻域层数会影响DLPFC聚类ARI”并非本研究的首次观察。但在实际数据分析中，扩大邻域表示范围与增加输入维数常常同时发生；若只比较单一数据集或少量随机初始化，容易将由聚类数、样本差异或标签粒度引起的变化误判成表示机制的必然优势。
+ 
+@@ -21,3 +23,3 @@
+ 
+-首先，基于已形成的scVI低维表达表示和CellCharter四层空间邻域聚合缓存，在DLPFC上比较5D至25D的累计特征与多种等维15D特征组合，并在10个技术种子上评价聚类结果。其次，在同一冻结输入上设定固定K网格和无标签AutoK两类补充实验，分析聚类结果对簇数选择方式的敏感性。
++首先，基于已形成的scVI低维表达表示和CellCharter四层空间邻域聚合缓存，在DLPFC上比较5D至25D的累计特征与多种等维15D特征组合，并在10个技术种子上评价聚类结果。在5000个高变基因、5维潜变量条件下，累计15D、20D、25D分别对应原作者调参网格中的2、3、4层邻域，其中25D即原作者单切片基准的最终配置，可用于对照原作者已发表的结果；5D（不聚合）、10D（1层）和非连续的等维15D组合不在原作者网格中。其次，在同一冻结输入上设定固定K网格和无标签AutoK两类补充实验，分析聚类结果对簇数选择方式的敏感性。
+ 
+@@ -26,3 +28,3 @@
+ \subsection{研究工作特点与论文组织}
+-本研究的主要特点是将多尺度特征、聚类数设置、边界评价、技术随机性与独立组织队列放在同一可追溯证据框架内；同时明确区分成熟方法与本文自行完成的实验分析，避免把已有邻域聚合操作写成新的算法结构。具体结果并不以全部评价指标同向改善为前提，边界定位、不同患者的表现以及基线的局限都将作为真实结果完整呈现。
++本研究的主要特点是将多尺度特征、聚类数设置、边界评价、技术随机性与独立组织队列放在同一可追溯证据框架内；同时明确区分成熟方法与本文自行完成的实验分析，避免把已有邻域聚合操作写成新的算法结构。相对于原作者的DLPFC工作，本研究的新增内容限于以下几项：在全部12张切片、10个GMM种子上补充0层与1层累计特征以及非连续等维15D块替换（2--4层的比较与原作者调参网格重叠，仅样本范围和重复结构不同）；预设固定K网格；逐切片的无标签AutoK选K及其事后评分；ARI/NMI之外的严格与容差空间边界评价；双K策略下的成熟基线对照；以及乳腺癌6例患者的外部复核。上述内容均为实证评价，不构成新的聚类方法。具体结果并不以全部评价指标同向改善为前提，边界定位、不同患者的表现以及基线的局限都将作为真实结果完整呈现。
+ 
+--- a/experiments/cellcharter_dlpfc/chapter_02_background_rewrite_v1_20261122.tex
++++ b/experiments/cellcharter_dlpfc/chapter_02_background_rev_p0_20261124.tex
+@@ -1 +1,4 @@
++% REV_P0 2026-11-24：由 chapter_02_background_rewrite_v1_20261122.tex 派生；V1保持不变。
++% 本轮已核对CellCharter原文正文、Methods、Fig.1、Extended Data Fig.1--2、10页Supplementary Information
++% 及官方仓库CSOgroup/cellcharter_analyses（commit fd63ac5）；旧的“未核对补充材料”声明已改写。
+ % 第三篇CellCharter毕业论文第二章相关研究（2026-11-22）新版首稿
+@@ -42,3 +45,13 @@
+ 
+-需要注意，本文尚未逐项完成对CellCharter原论文全部补充材料中尺度消融的内容核对。因而，本节不作“首次发现聚合尺度影响聚类性能”或“既有研究从未评估空间边界”的排他性原创声明。研究的学术价值主要通过完整可复核的实验设计、负结果记录及评价条件的系统说明来体现。
++\subsubsection{原作者在DLPFC上已完成的工作}
++\label{subsubsec:cc-prior-dlpfc-rev-p0}
++CellCharter原文已使用本研究所用的同一套12张DLPFC Visium切片进行基准比较\cite{varrone2024}，与本研究直接相关的内容如下：
++\begin{enumerate}
++  \item \textbf{调参与测试划分。}原文Methods中“Benchmarking comparison of CellCharter with existing tools”一节规定：每位供体随机选1张切片（151507、151672、151673）组成调参集，用网格搜索、每组参数5次重复、取调参集平均ARI最大者确定超参数；其余9张切片作为测试集，每张重复10次，仅以ARI评价，未标注spot参与聚类、不参与评分。Extended Data Fig.~1e、1f对比了“在同一数据上调参和测试”与“调参集与测试集分离”两种做法。
++  \item \textbf{邻域层数已被调参。}Supplementary Information“Hyperparameter tuning: grid search”一节列出CellCharter的候选值：高变基因$\{500,1000,2000,5000\}$，选5000；潜变量维度$\{5,10,15\}$，选5；邻域层数$\{2,3,4\}$，选4。官方仓库\texttt{src/benchmarking/CellCharter/tuning.py}与\texttt{ARI\_CellCharter\_tuning.csv}给出这一网格的逐格ARI\cite{cellcharteranalyses2024}。因此在5000高变基因、5维潜变量条件下，2--4层邻域对ARI的影响已有原作者在3张调参切片上的评价。
++  \item \textbf{单切片与联合聚类。}原作者统一要求各方法输出7个簇（Results正文）；但官方单切片脚本\texttt{individual.py}对151669--151672设$K=5$、其余设$K=7$，与本研究的Oracle-K相同。原文的主要性能结论来自9张测试切片的\textbf{联合聚类}（Fig.~1d、1e；Extended Data Fig.~1h）。在\textbf{单切片}聚类中，原文报告STAGATE表现最好（Extended Data Fig.~1g）\cite{dong2022stagate}。
++  \item \textbf{无标签选K。}CellCharter的选K规则是：对每个候选K重复拟合GMM，按K、$K-1$、$K+1$的Fowlkes--Mallows指数\cite{fowlkes1983}判断稳定性（原文Fig.~1a及Methods“Cluster stability”）。在DLPFC上，原作者对全部12张切片\textbf{联合}运行该规则（候选2--20，10次重复），稳定性峰值为$n=9$。同一设置下BIC的全局最小值在$n=19$，AIC与负对数似然没有清晰拐点（Fig.~1h；Extended Data Fig.~2b；Supplementary Information中关于cluster stability与AIC/BIC/NLL比较的一节）。
++\end{enumerate}
++
++据此，本研究与原作者工作的重叠和差异如下。重叠部分包括：25D配置、Oracle-K设置、ARI评价，以及2--4层邻域对ARI影响的比较方向。本研究另外完成的部分包括：0层与1层累计特征和非连续等维15D组合；在全部12张切片上每切片10个GMM种子的重复结构；预设固定K网格（E3c）；\textbf{逐切片}的稳定性AutoK及其事后ARI/NMI；严格与容差空间边界指标；BANKSY与BayesSpace双K臂对照；乳腺癌外部队列。原作者的无标签选K是在联合样本上作示例，而不是逐切片的标签评分。本研究不作“首次发现聚合尺度影响聚类性能”的声明；对于“既有研究未评估空间边界”，本研究只核对了CellCharter原文与官方仓库，不能推广到全部文献。
+ 
+@@ -47,3 +60,3 @@
+ 
+-非空间GMM是常见的概率混合聚类思路，能够将低维表达表示划分成若干统计成分；但在本项目的非空间基线中，其输入不包含显式组织坐标。Leiden是一种图社区发现算法，Traag等针对图社区划分提出了保证社区连通性的改进方法\cite{traag2019}。当Leiden用于表达近邻图时，其邻居关系主要由表达表征建立，并不自动等于组织中的物理空间六邻接。二者作为非空间对照，有助于描述额外引入空间表示后可能出现的评价差异。
++非空间GMM是常见的概率混合聚类思路，能够将低维表达表示划分成若干统计成分；但在本项目的非空间基线中，其输入不包含显式组织坐标。以BIC等似然准则为GMM选K时，结果容易偏向更多簇；CellCharter原作者在DLPFC联合数据上也观察到BIC建议的簇数（$n=19$）明显多于稳定性峰值（$n=9$）\cite{varrone2024}。Leiden是一种图社区发现算法，Traag等针对图社区划分提出了保证社区连通性的改进方法\cite{traag2019}。当Leiden用于表达近邻图时，其邻居关系主要由表达表征建立，并不自动等于组织中的物理空间六邻接。二者作为非空间对照，有助于描述额外引入空间表示后可能出现的评价差异。
+ 
+@@ -53,3 +66,3 @@
+ 
+-不同原生方法也存在选K判据的适用条件。以BayesSpace为例，其\texttt{qTune}可以呈现不同候选q对应的模型评分，具体如何根据曲线确定q对评价结果具有实际影响。本研究先前实验固定采用最大拟对数似然的自动判据，这并不等同于所有原论文建议的人工选择方法；因此相关结果需要保留可能的搜索边界效应，而不能在观察结果后私自修改判据。这一问题是对照协议的局限，不是可以通过删除异常数据来消除的随机偏差。
++不同原生方法也存在选K判据的适用条件。以BayesSpace为例，其\texttt{qTune}给出不同候选q的平均伪对数似然，官方使用说明建议\textbf{在\texttt{qPlot}曲线的拐点（elbow）附近选q}\cite{bayesspacevignette}。本研究冻结的K-blind规则是取平均伪对数似然最大的q，\textbf{与官方建议不一致}；该规则在本研究数据上频繁选中搜索上界（见第\ref{subsec:cellcharter-e5a-v1}节）。原冻结结果全部保留，不在观察结果后更换判据。这一问题属于对照协议的系统性缺陷，会降低BayesSpace在K-blind条件下的可比性，不能当作随机波动处理。
+ 
+--- a/experiments/cellcharter_dlpfc/chapter_03_methods_rewrite_v1_20261122.tex
++++ b/experiments/cellcharter_dlpfc/chapter_03_methods_rev_p0_20261124.tex
+@@ -1 +1,4 @@
++% REV_P0 2026-11-24：由 chapter_03_methods_rewrite_v1_20261122.tex 派生；V1保持不变。
++% 新增：与原作者DLPFC基准的预处理/K/重复结构逐项对照；B15D提名经过；AutoK重复次数差异；
++% BayesSpace与GMM K-blind规则缺陷；技术seed SD的含义。未改动任何冻结协议参数或实验数据。
+ % 第三篇CellCharter毕业论文第三章（2026-11-22）新版首稿
+@@ -46,2 +49,27 @@
+ 
++上述DLPFC特征流程（\texttt{scripts/cellcharter/prepare\_dlpfc\_10\_features.py}）与CellCharter官方单切片基准脚本\texttt{src/benchmarking/CellCharter/individual.py}\cite{cellcharteranalyses2024}的主要步骤相同，包括：\texttt{filter\_genes}与\texttt{filter\_cells}的\texttt{min\_counts=3}、总量归一化至$10^6$并取对数、在计数层上以\texttt{seurat\_v3}选5000个高变基因、5维scVI潜变量、AdamW优化器配合early stopping与\texttt{reduce\_lr\_on\_plateau}、4层邻域聚合。表\ref{tab:cc-official-protocol-rev-p0}逐项列出两者已知的差异。由于存在这些差异，即使两者数值相近，也不能视为逐spot等价的复现。
++
++\begin{table}[htbp]
++\centering
++\caption{本研究DLPFC 25D流程与CellCharter官方单切片基准的设置对照（依据双方脚本；未核对的项目注明“未核对”）}
++\label{tab:cc-official-protocol-rev-p0}
++\small
++\begin{tabularx}{\linewidth}{p{2.6cm}XX}
++\toprule
++项目 & 官方单切片基准\cite{cellcharteranalyses2024} & 本研究E1/E2\\
++\midrule
++切片范围 & 12张均运行；原文图件只报告9张测试切片 & 12张\\
++聚类方式 & 单切片（\texttt{individual.py}）；原文主结论为9切片联合聚类 & 单切片\\
++K & 151669--151672为5，其余为7 & 同左（Oracle-K）\\
++重复结构 & 10次，每次同时更换scVI与GMM的种子 & scVI固定种子22911训练一次；10个GMM种子\\
++scVI轮次 & 默认上限，early stopping & 上限400，early stopping\\
++GMM设置 & \texttt{cc.tl.SpatialCluster}默认参数，GPU & CellCharter GMM接口，CPU，容差$10^{-3}$，正则$10^{-6}$，最多100 epoch\\
++输入文件 & HumanPilot预处理h5ad & 10x \texttt{filtered\_feature\_bc\_matrix.h5}与\texttt{spots\_aligned.csv}\\
++参考标签字段 & \texttt{sce.layer\_guess} & \texttt{layer\_guess}经\texttt{manual\_layer\_annotations.csv}对齐\\
++软件版本 & 未核对 & 记录于各缓存\texttt{config.json}\\
++评价指标 & 仅ARI & ARI、NMI，另有事后边界指标\\
++\bottomrule
++\end{tabularx}
++\end{table}
++
+ 乳腺癌队列则在每名患者各自的计数数据上重新完成标准化输入与scVI五维表征，再建立患者内CellCharter空间邻域聚合特征。外部批次的模型训练、计算设备和输出状态以\texttt{e5b\_scvi\_feature\_batch\_v1.py}及相应Windows审计为准。该过程并未加载DLPFC训练的scVI权重做跨组织迁移；因此跨数据集比较评价的是流程的重复应用，而非既训练模型的domain generalization。
+@@ -69,2 +97,4 @@
+ 
++需要说明两点数据使用情况。其一，4层邻域、5000高变基因、5维潜变量这组参数，是CellCharter原作者在151507、151672、151673上按参考标签ARI调出的\cite{varrone2024}；本研究直接沿用，因此这3张切片对25D配置不是未接触样本。其二，候选B是在开发切片151507（Oracle-K=7，GMM种子22911）上看到B相对A的ARI高出0.047后才被提名的；151507与151508都属于开发阶段已分析过的切片，随后又和其余10张切片一起纳入E1/E2完整评价。因此，E1/E2中B与A的比较带有提名切片的选择偏倚。结果部分同时报告预设的12切片汇总和排除这两张开发切片后的事后敏感性汇总，两者分别解释。
++
+ \subsection{DLPFC冻结聚类实验设计}
+@@ -82,2 +112,4 @@
+ E3d独立使用12切片和四个累计尺度，构成48个K-blind AutoK配置。冻结候选集合为$K\in\{2,3,\ldots,10\}$，CellCharter实现中同时拟合辅助K=1与11；每个内部K进行5次GMM初始化，正式使用CPU、满5次稳定性尝试与明确seed22911--22915。按稳定性均值最大确定K，并保留原程序的首个最大值并列处理。每组合内部记录$11\times5=55$次模型拟合标签档案，全部48组合对应2640份内部运行标签阵列。该过程使用固定输入及无标签稳定性，人工组织层标签不进入拟合、早停或K选择。
++
++E3d与原作者的稳定性选K示例有两点不同。第一，本研究每个候选K只重复5次，原作者在DLPFC上使用10次（原文Fig.~1a说明与Methods）；原作者还在Supplementary Information中把重复次数增加到25次，检查10次是否已使FMI曲线收敛。本研究的5次重复未做这一收敛检查，因此不能排除重复次数不足造成的选K不稳定。第二，原作者是对12张切片\textbf{联合}运行选K，本研究是对每张切片\textbf{单独}运行。E3d的结果应理解为“5次重复、逐切片”条件下的表现，不等同于原作者推荐设置下的表现。
+ 
+@@ -112,5 +144,5 @@
+ 
+-非空间GMM与Leiden使用已冻结scVI的原始$L_0$五维表示；GMM采用scikit-learn全协方差、K-means初始化、容差$10^{-3}$、协方差正则$10^{-6}$、\texttt{n\_init=1}、最多100次迭代。Leiden在15近邻表示图上聚类。BANKSY使用原始计数和spot像素空间坐标，原生固定15空间近邻、最高角度阶$m=1$、$\lambda=0.2$、20个主成分，经其自身原生变换和Leiden聚类。BayesSpace以同源Visium原计数和\texttt{array\_row}/\texttt{array\_col}阵列坐标为输入，使用2000高变基因、15个主成分、原生\texttt{spatialPreprocess}及\texttt{spatialCluster}流程，正式MCMC配置含10000次迭代、1000次burn-in、\texttt{model=t}与\texttt{init.method=mclust}。BayesSpace最初存在R CSC矩阵索引排序的导入兼容错误，模型拟合前即中止；之后仅修正输入稀疏矩阵表示并保留旧失败记录，未更改冻结科学方法参数。
++非空间GMM与Leiden使用已冻结scVI的原始$L_0$五维表示；GMM采用scikit-learn全协方差、K-means初始化、容差$10^{-3}$、协方差正则$10^{-6}$、\texttt{n\_init=1}、最多100次迭代。Leiden在15近邻表示图上聚类。BANKSY使用原始计数和spot像素空间坐标，原生固定15空间近邻、最高角度阶$m=1$、$\lambda=0.2$、20个主成分，经其自身原生变换和Leiden聚类。BayesSpace以同源Visium原计数和\texttt{array\_row}/\texttt{array\_col}阵列坐标为输入，使用2000高变基因、15个主成分、原生\texttt{spatialPreprocess}及\texttt{spatialCluster}流程，正式MCMC配置含10000次迭代、1000次burn-in、\texttt{model=t}与\texttt{init.method=mclust}。BayesSpace最初存在R CSC矩阵索引排序的导入兼容错误，模型拟合前即中止；之后仅修正输入稀疏矩阵表示并保留旧失败记录，未更改冻结科学方法参数。该BayesSpace配置与CellCharter原作者基准中的BayesSpace配置不同：原作者调参选定1000个高变基因、15个主成分、$\gamma=3$、5000次迭代\cite{varrone2024,cellcharteranalyses2024}；本研究为2000个高变基因、15个主成分、\texttt{model=t}、10000次迭代，$\gamma$取默认值。两组BayesSpace数值因此不能直接比较。此外，本研究对照集\textbf{不包含}原文中单切片表现最好的STAGATE\cite{dong2022stagate}，这是对照覆盖范围的局限。
+ 
+-本研究预先定义两类K规则，见表\ref{tab:cc-baseline-K-v1}。Oracle-K仅使用参考标签的类别数量作为目标，不允许据ARI优化分辨率；部分Leiden或BANKSY配置可能无法恰好得到目标簇数，需记录实际K。对于BayesSpace，自动K-blind使用候选q=2至10的\texttt{qTune}平均伪对数似然最大值规则，此为本研究冻结的自动判据，\textbf{不是原作者建议的人工elbow判断}。该规则可能频繁选中搜索上界，结果必须保留并作为可比性限制；不根据正式评价分数事后改变q搜索区间。
++本研究预先定义两类K规则，见表\ref{tab:cc-baseline-K-v1}。Oracle-K仅使用参考标签的类别数量作为目标，不允许据ARI优化分辨率；部分Leiden或BANKSY配置可能无法恰好得到目标簇数，需记录实际K。对于BayesSpace，自动K-blind使用候选q=2至10的\texttt{qTune}平均伪对数似然最大值规则。此为本研究冻结的自动判据，\textbf{与BayesSpace官方建议的elbow判断不一致}\cite{bayesspacevignette}。对于非空间GMM，K-blind使用BIC最小值规则。两种基于似然的规则在实际运行中都大量选中搜索上界$K=10$（结果见第\ref{subsec:cellcharter-e5a-v1}节及REV\_P0汇总表T5）。这些结果全部保留，并作为K-blind可比性的限制；不根据正式评价分数事后改变规则或搜索区间。
+ 
+@@ -148,3 +180,3 @@
+ 
+-统计遵循\textbf{技术重复先汇总，独立生物来源后描述}原则。DLPFC E1/E2/E3c的10个seed只度量重复拟合变异，E5a和E5b采用3技术seed；AutoK内部5次拟合用于无标签稳定性选择，不是5份独立患者结果。DLPFC 12张切片嵌套于3名供体，切片等权平均是描述性摘要，独立供体间泛化不确定性不能由12切片的简单标准误替代。外部队列为6名患者，患者宏平均及各患者差值均需报告，尤其避免只呈现平均较高的单个患者或最有利的技术seed。本研究未据上述层级进行把单spot、空间边、seed或切片误当独立生物学重复的显著性检验；事后bootstrap若呈现，也必须注明探索性质与小样本解释限制。
++统计遵循\textbf{技术重复先汇总，独立生物来源后描述}原则。各结果表同时给出切片间标准差（或范围）、3位供体各自的均值，以及切片内技术种子标准差的平均值，这些都只作描述性不确定性展示，不用于显著性检验。DLPFC的技术种子标准差只反映GMM初始化的变化（scVI固定种子），因此小于原作者同时更换scVI与GMM种子时的波动（官方单切片基准平均约0.051，本研究25D约0.028），不能解读为本流程“更稳定”。所有新增汇总均由\texttt{REV\_P0\_20261124/rev\_p0\_derived\_summaries\_v1.py}从既有CSV只读计算，输入与输出SHA256记录在\texttt{derived/MANIFEST\_SHA256.csv}中。DLPFC E1/E2/E3c的10个seed只度量重复拟合变异，E5a和E5b采用3技术seed；AutoK内部5次拟合用于无标签稳定性选择，不是5份独立患者结果。DLPFC 12张切片嵌套于3名供体，切片等权平均是描述性摘要，独立供体间泛化不确定性不能由12切片的简单标准误替代。外部队列为6名患者，患者宏平均及各患者差值均需报告，尤其避免只呈现平均较高的单个患者或最有利的技术seed。本研究未据上述层级进行把单spot、空间边、seed或切片误当独立生物学重复的显著性检验；事后bootstrap若呈现，也必须注明探索性质与小样本解释限制。
+ 
+@@ -155,3 +187,3 @@
+ 
+-本研究把CellCharter作为成熟的空间表征工具，所设计的是特征深度、聚类数、边界精度与外部评价的系统实验，不以新网络、新聚类损失或经证实的算法改良为核心成果。现有设计有若干同时存在的限制：累计邻域深度增加也增加了特征维数；Oracle-K使用参考类别数先验；不同成熟空间算法的原生预处理和计算成本并不一致；BayesSpace K-blind自动q判据可能偏向上界；DLPFC的独立供体只有3名，且某些旧来源标注/metadata有历史卫生问题；外部乳腺癌的病理区域标签不能直接与皮层分层标签作跨器官绝对精度比较。上述限制不通过后验更换参数或删除负结果解决，而应在结果与讨论中透明呈现。
++本研究把CellCharter作为成熟的空间表征工具，所设计的是特征深度、聚类数、边界精度与外部评价的系统实验，不以新网络、新聚类损失或经证实的算法改良为核心成果。现有设计有若干同时存在的限制：25D配置及2--4层比较与CellCharter原作者的DLPFC调参和基准重叠，且该配置由原作者在3张切片上按标签调出；候选B在开发切片上提名，后又在含这些切片的完整网格中评价；累计邻域深度增加也增加了特征维数；Oracle-K使用参考类别数先验；不同成熟空间算法的原生预处理和计算成本并不一致；BayesSpace与GMM的K-blind似然判据频繁命中搜索上界，其中BayesSpace判据与官方建议不一致；对照集未包含STAGATE；AutoK只重复5次且逐切片运行；DLPFC的独立供体只有3名，且某些旧来源标注/metadata有历史卫生问题；外部乳腺癌的病理区域标签不能直接与皮层分层标签作跨器官绝对精度比较。上述限制不通过后验更换参数或删除负结果解决，而应在结果与讨论中透明呈现。
+ 
+--- a/experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex
++++ b/experiments/cellcharter_dlpfc/chapter_04_results_rev_p0_20261124.tex
+@@ -1 +1,4 @@
++% REV_P0 2026-11-24：由 chapter_04_results_rewrite_v1_20261122.tex 派生；V1保持不变。
++% 新增数值全部来自 REV_P0_20261124/derived/T1–T8（既有CSV只读汇总；posthoc列已标注）。
++% 本轮不新增实验，不改变任何预测或冻结结果；所有负结果保留并补充。
+ % 第三篇CellCharter毕业论文第四章结果与分析：2026-11-22首版重写
+@@ -31,22 +34,80 @@
+ 
+-将每张切片的10个种子先求平均，再对12张切片作等权描述性平均，累计5D、10D、15D、20D、25D配置的ARI依次为0.3051、0.4081、0.4299、0.4383和0.4418；对应NMI为0.4133、0.5422、0.5780、0.5891和0.5982（表\ref{tab:cellcharter-e1e2-depth-v1}）。在这一固定评价条件下，累计深度提高伴随宏平均ARI、NMI上升，但后期增量明显小于由5D增加至10D的初始差值。由于增加邻域层同时提高了输入维度，这些变化不能单独归因于邻域传播范围，也不能证明更深聚合在所有样本上都优越。
+-
+-\begin{table}[htbp]
+-\centering
+-\caption{DLPFC固定Oracle-K下累计邻域特征的聚类表现（12张切片描述性等权均值；每切片先汇总10个技术种子）}
++将每张切片的10个种子先求平均，再对12张切片作等权描述性平均，累计5D、10D、15D、20D、25D配置的ARI依次为0.3051、0.4081、0.4299、0.4383和0.4418；对应NMI为0.4133、0.5422、0.5780、0.5891和0.5982（表\ref{tab:cellcharter-e1e2-depth-v1}）。
++
++5D到10D的提升幅度最大，而且在12/12张切片和3位供体中方向一致。15D之后，宏平均只略有上升，切片和供体之间方向并不一致：12张切片中有6张的25D ARI低于15D，6张的20D低于15D，5张的25D低于20D；供体D3的ARI依次为15D 0.4648、20D 0.4587、25D 0.4480，方向与宏平均相反。15D之后各深度之间的宏平均差值（0.004--0.012）小于切片间标准差（约0.06--0.07），也与切片内GMM种子标准差（0.023--0.037）处于同一量级。由于增加邻域层同时提高了输入维度，这些变化不能单独归因于邻域传播范围，也不能证明更深聚合在所有样本上都优越。
++
++\begin{table}[htbp]
++\centering
++\caption{DLPFC固定Oracle-K下累计邻域特征的聚类表现。每切片先平均10个GMM种子，再对12切片等权平均；SD为切片间标准差，种子SD为切片内GMM种子标准差的平均值；D1--D3为各供体4张切片的ARI均值。均为描述性统计，来源REV\_P0表T1}
+ \label{tab:cellcharter-e1e2-depth-v1}
+-\begin{tabular}{lccc}
+-\toprule
+-累计邻域特征 & 维度 & ARI & NMI\\
+-\midrule
+-$L_0$ & 5 & 0.3051 & 0.4133\\
+-$L_0+L_1$ & 10 & 0.4081 & 0.5422\\
+-$L_0+L_1+L_2$（A） & 15 & 0.4299 & 0.5780\\
+-$L_0+\cdots+L_3$ & 20 & 0.4383 & 0.5891\\
+-$L_0+\cdots+L_4$ & 25 & 0.4418 & 0.5982\\
+-\bottomrule
+-\end{tabular}
+-\end{table}
+-
+-进一步比较维度相同但邻域组合不同的A（$L_0+L_1+L_2$）与B（$L_0+L_1+L_4$），10技术种子汇总后，B相对A的12切片ARI平均变化约为$+0.0033$，NMI平均变化约为$+0.0109$。虽然均值略为正向，其幅度较小，不同供体和切片的变化方向并不一致。早期单个种子下曾观察到B的平均ARI与边界F1下降，说明单次开发性对比不足以推断候选B具有稳定优势。本研究因而保留两种15维配置的全量正负结果，不以个别样本或最优种子取代完整评价。B只是已有特征块的等维重组，而非经过证实的新聚类模型。
++\small
++\begin{tabular}{lcccccccc}
++\toprule
++累计邻域特征 & 维度 & ARI & SD & 种子SD & NMI & D1 & D2 & D3\\
++\midrule
++$L_0$ & 5 & 0.3051 & 0.063 & 0.023 & 0.4133 & 0.338 & 0.238 & 0.339\\
++$L_0+L_1$ & 10 & 0.4081 & 0.066 & 0.037 & 0.5422 & 0.409 & 0.368 & 0.448\\
++$L_0+L_1+L_2$（A） & 15 & 0.4299 & 0.072 & 0.032 & 0.5780 & 0.429 & 0.396 & 0.465\\
++$L_0+\cdots+L_3$ & 20 & 0.4383 & 0.060 & 0.027 & 0.5891 & 0.455 & 0.401 & 0.459\\
++$L_0+\cdots+L_4$ & 25 & 0.4418 & 0.066 & 0.028 & 0.5982 & 0.475 & 0.402 & 0.448\\
++\bottomrule
++\end{tabular}
++\end{table}
++
++\subsubsection{与CellCharter原作者单切片基准的对照}
++\label{subsubsec:cc-official-compare-rev-p0}
++25D配置与原作者单切片基准的最终配置相同（表\ref{tab:cc-official-protocol-rev-p0}）。将本研究E1/E2结果与官方仓库发布的逐切片ARI\cite{cellcharteranalyses2024}对照，得到表\ref{tab:cc-official-compare-rev-p0}。在全部12张切片、原作者9张测试切片和3张调参切片上，两者的宏平均ARI分别相差$-0.002$、$+0.001$和$-0.011$。但逐切片差值在$-0.104$（151672）到$+0.041$之间，只有5/12为正。
++
++这一对照只说明，在相同K、相同核心参数和相同12张切片上，两者的宏平均ARI处于同一水平。它不构成严格复现，理由有四：两者的重复结构不同，官方每次同时更换scVI与GMM种子，本研究scVI只训练一次；GMM参数、输入文件、标签字段和软件版本不同；原文图件报告的是9张测试切片，主要结论来自联合聚类，而本表是单切片结果；官方数值是作者自行发布的结果文件，本研究没有重跑。
++
++\begin{table}[htbp]
++\centering
++\caption{本研究25D（Oracle-K，10个GMM种子）与CellCharter官方单切片基准（10次重复）的ARI宏平均对照（描述性；来源REV\_P0表T7；官方数值来自cellcharter\_analyses仓库commit fd63ac5）}
++\label{tab:cc-official-compare-rev-p0}
++\small
++\begin{tabular}{lccccc}
++\toprule
++切片集合 & 官方CellCharter & 本研究25D & 差值 & 官方BayesSpace & 官方STAGATE\\
++\midrule
++全部12张 & 0.4438 & 0.4418 & $-0.0020$ & 0.4037 & 0.5186\\
++原作者测试集9张 & 0.4235 & 0.4244 & $+0.0010$ & 0.3800 & 0.5002\\
++原作者调参集3张 & 0.5046 & 0.4939 & $-0.0107$ & 0.4747 & 0.5739\\
++\bottomrule
++\end{tabular}
++\end{table}
++
++在官方单切片结果中，STAGATE在12张和9张切片上的宏平均ARI都高于CellCharter，与原文Extended Data Fig.~1g的结论一致。本研究的对照集没有纳入STAGATE（第\ref{subsec:cc-e5a-v1}节）。
++
++进一步比较维度相同但邻域组合不同的A（$L_0+L_1+L_2$）与B（$L_0+L_1+L_4$）。候选B是在开发切片151507上、单个GMM种子22911下看到ARI高出$+0.047$后提名的（第\ref{subsec:cc-spatial-v1}节）。表\ref{tab:cc-b-minus-a-rev-p0}分别列出各种汇总口径，下面逐一说明。
++
++\begin{enumerate}
++  \item \textbf{预设主结果。}按E1/E2预设网格，每切片先平均10个种子，B相对A的12切片平均变化为ARI $+0.0033$（7/12为正）、NMI $+0.0109$（9/12为正）。这一正向均值幅度很小，远小于切片内种子标准差（约0.03）。
++  \item \textbf{按供体分。}平均变化在D1为$+0.0393$（4/4为正）、D2为$+0.0034$（2/4）、D3为$-0.0328$（1/4）。正向均值主要来自D1，而两张提名开发切片正属于D1。
++  \item \textbf{排除开发切片的事后敏感性汇总。}去掉151507与151508后，其余10张切片的平均ARI变化为$-0.0035$（5/10为正），NMI为$+0.0086$（7/10）。这一口径是看过结果之后才定义的，并且只剩2张D1切片，供体构成不平衡；它不替代上一条的主结果，只说明12切片的正向ARI均值依赖提名切片。
++  \item \textbf{种子层面。}120个“切片×种子”配对中59/120为正。在种子22911下，新增10张切片的平均ARI变化为$-0.0256$（3/10为正），与开发阶段后续的10切片单种子观察一致。种子不是生物学重复，这里只描述初始化变异。
++  \item \textbf{外部队列。}在E5b的6名乳腺癌患者中，K-blind下B相对A的ARI平均变化为$-0.0364$（1/6为正），NMI为$-0.0236$（2/6）；Oracle-K下ARI为$+0.0161$（4/6），NMI为$+0.0111$（4/6）。
++\end{enumerate}
++
++综合上述各口径，在开发切片上观察到的B优势没有在其余切片和外部K-blind条件下复现。本研究把B记为\textbf{开发集提名、经扩展评价未获稳定支持的负结果}。B只是已有特征块的等维重组，不是经过证实的新聚类模型。
++
++\begin{table}[htbp]
++\centering
++\caption{B15D相对A15D的差值（B$-$A）在各汇总口径下的结果（来源REV\_P0表T2；“事后”表示该口径在看过结果后定义）}
++\label{tab:cc-b-minus-a-rev-p0}
++\small
++\begin{tabular}{llccc}
++\toprule
++数据与口径 & 指标 & 平均差值 & 正向数 & 性质\\
++\midrule
++DLPFC 12切片（每切片10种子均值） & ARI & $+0.0033$ & 7/12 & 预设\\
++DLPFC 12切片 & NMI & $+0.0109$ & 9/12 & 预设\\
++DLPFC 排除151507/151508的10切片 & ARI & $-0.0035$ & 5/10 & 事后\\
++DLPFC 排除151507/151508的10切片 & NMI & $+0.0086$ & 7/10 & 事后\\
++DLPFC D1 / D2 / D3 & ARI & $+0.039$ / $+0.003$ / $-0.033$ & 4/4, 2/4, 1/4 & 描述\\
++DLPFC 种子22911，新增10切片 & ARI & $-0.0256$ & 3/10 & 描述\\
++乳腺癌6患者 K-blind & ARI / NMI & $-0.0364$ / $-0.0236$ & 1/6, 2/6 & 预设\\
++乳腺癌6患者 Oracle-K & ARI / NMI & $+0.0161$ / $+0.0111$ & 4/6, 4/6 & 预设\\
++\bottomrule
++\end{tabular}
++\end{table}
+ 
+@@ -59,7 +120,7 @@
+ 
+-以15维配置为例，当K从5增加到9时，12切片等权平均ARI由0.4440变为0.3561；20维配置对应为0.4461至0.3664。两组对比提示在当前数据和固定模型条件下，ARI对预设K具有较强敏感性。需要注意的是，K=5只与4张切片的参考类别数一致，而其余8张的Oracle-K类别数为7，因此这并不是对全部切片普遍“正确K”的检验。不同K对应的ARI变化应作为网格敏感性证据，而非选择论文中最好表现K的依据。
+-
+-针对不使用参考标签选择K的问题，E3d对12张切片与4种累计尺度共48个配置执行原生AutoK流程。正式冻结候选区间为$K\in\{2,\ldots,10\}$，每个配置的内部GMM稳定性评估采用5次技术重复，记录选中K、各候选稳定性与完整预测文件。原始48配置审计全部通过；其中K=2出现9次、K=10出现1次，即10/48次选中冻结搜索边界。此类边界选择作为结果保留，并未在观察到标签后重新扩展搜索范围。
+-
+-在模型与K选择全部完成后，使用原冻结预测和相同人工参考标签单独开展\textbf{事后后验评价}，计算全部48项ARI/NMI，并由列联表计算独立交叉复核。12张切片等权平均结果见表\ref{tab:cellcharter-e3d-v1}。20维配置的平均ARI和NMI分别为0.4311和0.5942，为这四个配置中的最高描述性均值；但25维相对20维并未继续上升，说明增加尺度与改善指标之间并不存在无条件单调关系。
++以15维配置为例，当K从5增加到9时，12切片等权平均ARI由0.4440变为0.3561；20维配置对应为0.4461至0.3664。两组对比提示在当前数据和固定模型条件下，ARI对预设K具有较强敏感性。需要注意的是，K=5只与4张切片的参考类别数一致，而其余8张的Oracle-K类别数为7，因此这并不是对全部切片普遍“正确K”的检验。不同K对应的ARI变化应作为网格敏感性证据，而非选择论文中最好表现K的依据。另一方面，在$K=5,6,7,8,9$的每一个取值下，12切片宏平均ARI的尺度排序都是25D $>$ 20D $>$ 15D $>$ 10D（\texttt{E3C\_20261120\_RELEASE/e3c\_macro\_K\_depth\_20groups.csv}）。也就是说，在K固定时，宏平均的尺度排序对K的取值稳健；但切片层面方向不一致的问题（第\ref{subsec:cellcharter-e1e2-v1}节）依然存在。
++
++针对不使用参考标签选择K的问题，E3d对12张切片与4种累计尺度共48个配置执行原生AutoK流程。正式冻结候选区间为$K\in\{2,\ldots,10\}$，每个配置的内部GMM稳定性评估采用5次技术重复，记录选中K、各候选稳定性与完整预测文件。原始48配置审计全部通过；其中K=2出现9次、K=10出现1次，即10/48次选中冻结搜索边界。此类边界选择作为结果保留，并未在观察到标签后重新扩展搜索范围。选中的K与参考类别数（5或7）相同的情况，在每个尺度下都只有1/12；选中K与参考类别数之差的绝对值，平均为1.58（20D）至2.83（25D）（REV\_P0表T4）。需要注意，本研究每个候选K只做了5次稳定性重复，且逐切片运行；原作者在DLPFC上使用10次重复，并对12张切片联合选K（第\ref{subsec:cc-dlpfc-protocol-v1}节）。因此，E3d的选K不稳定可能部分来自重复次数不足和逐切片设置，本研究不能把它归结为CellCharter稳定性选K规则本身的性能。
++
++在模型与K选择全部完成后，使用原冻结预测和相同人工参考标签单独开展\textbf{事后后验评价}，计算全部48项ARI/NMI，并由列联表计算独立交叉复核。12张切片等权平均结果见表\ref{tab:cellcharter-e3d-v1}。20维配置的平均ARI和NMI分别为0.4311和0.5942，为这四个配置中的最高描述性均值；但25维相对20维并未继续上升，说明增加尺度与改善指标之间并不存在无条件单调关系。按供体看，20D在D1和D3中ARI最高，但在D2中是4个尺度中最低的（D2：10D 0.370，15D 0.396，20D 0.357，25D 0.399）。各尺度切片间ARI标准差为0.097--0.144，而尺度间的宏平均差值为0.007--0.052。由于这一评分是事后进行的，且不同尺度实际选中的K各不相同，20D的较高均值不能作为推荐配置，也不能归因于尺度本身。
+ 
+@@ -90,22 +151,27 @@
+ 
+-表\ref{tab:cellcharter-boundary-v1}列示5种累计尺度的完整主要趋势，每项均为先在相同切片内汇总10技术种子，再对12张切片作等权描述性平均。严格边界F1从5D的0.1441变化至25D的0.1179，总体未随尺度加深而提高；相比之下2-hop容差F1从0.2863增加至0.5333。25D在这5种累计配置中的2-hop均值最高，却具有最低严格F1。该观察表明对“边界是否准确定位”的判断依赖评价空间容差；不能因宽松容差分数较高，就得出精确边界检出更好的结论。
+-
+-\begin{table}[htbp]
+-\centering
+-\caption{E1/E2完整1200预测的边界评价（12切片等权均值；Oracle-K；0/1/2-hop属于事后敏感性分析）}
++表\ref{tab:cellcharter-boundary-v1}列示5种累计尺度的结果，每项均为先在相同切片内汇总10个技术种子，再对12张切片作等权描述性平均。严格0-hop F1在5D与10D之间基本持平（0.1441与0.1446，10D略高），此后逐步下降，25D为0.1179；2-hop容差F1则从5D的0.2863上升到25D的0.5333。
++
++结合precision、recall和边界边数，可以看出严格F1的变化主要由recall决定。严格precision在所有尺度下都只有0.086--0.111。严格recall则从5D的0.494单调下降到25D的0.141。同时，每张切片的预测边界边数从5D的平均4914条降到25D的1097条，相对于参考边界边数（平均830条）的倍数从6.4倍降到1.4倍。较浅表示的预测更碎片化，产生的预测边界远多于参考边界，因此在严格匹配下能覆盖更多参考边界边。所以，5D、10D较高的严格recall和F1不能解读为“边界定位更精确”；25D较低的严格F1同样不能单独说明较深表示“定位更差”。
++
++此外，参考层标注本身存在spot尺度的边界不确定性，0-hop匹配要求与参考边界落在完全相同的网格边上，可能比标注本身的精度更严格。因此，严格F1与容差F1应并列报告、一起解读，不应把0-hop当作“精确定位”的单一判据，也不能因容差F1较高就认为精确边界检出更好。
++
++\begin{table}[htbp]
++\centering
++\caption{E1/E2完整1200份预测的边界评价（Oracle-K；每切片先平均10个种子，再对12切片等权平均；全部属于事后敏感性分析；来源REV\_P0表T3）。P、R为0-hop的precision与recall；“预测/参考”为预测边界边数与参考边界边数之比}
+ \label{tab:cellcharter-boundary-v1}
+-\begin{tabular}{lccc}
+-\toprule
+-累计特征 & 严格0-hop F1 & 1-hop F1 & 2-hop F1\\
+-\midrule
+-5D & 0.1441 & 0.2621 & 0.2863\\
+-10D & 0.1446 & 0.3369 & 0.4116\\
+-15D & 0.1361 & 0.3559 & 0.4838\\
+-20D & 0.1344 & 0.3614 & 0.5223\\
+-25D & 0.1179 & 0.3457 & 0.5333\\
+-\bottomrule
+-\end{tabular}
+-\end{table}
+-
+-这一差异与更深邻域表征可能改变局部预测边界的位置或粗细相容，但目前结果只能证明评价指标之间的权衡，尚不足以单独确立“空间平滑造成边界扩宽”的因果机制，因为邻域层数增加同时改变了输入维度和模型结果。对于另行冻结的E3d K-blind 48份预测，本研究也按同一边界定义完成严格及容差评价；10/15/20/25D的严格F1均值分别为0.1596、0.1299、0.1338、0.1190。两种K设置应独立呈现，不将其合并计算为独立重复。
++\small
++\begin{tabular}{lcccccc}
++\toprule
++累计特征 & 0-hop F1 & 0-hop P & 0-hop R & 1-hop F1 & 2-hop F1 & 预测/参考\\
++\midrule
++5D & 0.1441 & 0.086 & 0.494 & 0.2621 & 0.2863 & 6.42\\
++10D & 0.1446 & 0.097 & 0.321 & 0.3369 & 0.4116 & 3.70\\
++15D & 0.1361 & 0.103 & 0.222 & 0.3559 & 0.4838 & 2.39\\
++20D & 0.1344 & 0.111 & 0.180 & 0.3614 & 0.5223 & 1.69\\
++25D & 0.1179 & 0.105 & 0.141 & 0.3457 & 0.5333 & 1.41\\
++\bottomrule
++\end{tabular}
++\end{table}
++
++这一差异与更深邻域表征使预测分区更平滑、预测边界更少的现象相容。但目前结果只能说明评价指标之间存在权衡，尚不足以确立“空间平滑造成边界扩宽”的因果机制，因为邻域层数增加同时改变了输入维度和模型结果。本研究也没有构建保持簇大小的随机划分等零模型，因此无法给出严格F1在“无信息预测”下的基准水平。对于另行冻结的E3d K-blind 48份预测，本研究也按同一边界定义完成严格及容差评价；10/15/20/25D的严格F1均值分别为0.1596、0.1299、0.1338、0.1190。两种K设置应独立呈现，不将其合并计算为独立重复。
+ 
+@@ -121,19 +187,22 @@
+ \centering
+-\caption{E5a四种基线在DLPFC上的ARI（12张切片等权均值，独立供体$n=3$；不同K条件分开）}
++\caption{E5a四种基线在DLPFC上的ARI（12张切片等权均值，独立供体$n=3$；不同K条件分开；K-blind规则与命中上界次数来源REV\_P0表T5）}
+ \label{tab:cellcharter-e5a-v1}
+-\begin{tabular}{lcc}
+-\toprule
+-对照方法 & K-blind ARI & Oracle-K ARI\\
+-\midrule
+-GMM & 0.2563 & 0.3101\\
+-Leiden & 0.1702 & 0.3265\\
+-BANKSY & 0.2614 & 0.2974\\
+-BayesSpace & 0.3442 & 0.4225\\
+-\bottomrule
+-\end{tabular}
+-\end{table}
+-
+-表\ref{tab:cellcharter-e5a-v1}显示，四种成熟基线在不同K设置下的表现差异较大。作为参考，E3d中A15D在K-blind下的12切片ARI均值为0.3861；E1/E2中同配置Oracle-K的10种子均值为0.4299。应避免把不同重复次数、输入表征、无标签选K算法与模型结构混合造成的差异称为严格意义上的单模块性能增益。
+-
+-尤其需要指出，BayesSpace在本研究K-blind协议下以候选q对应的拟似然最大值作为选K依据，导致DLPFC的36项K-blind任务中28项命中冻结搜索上限$q=10$。这可能影响该基线在K-blind模式下的可比性；本研究遵守原冻结协议保留此缺陷，不因已看过结果而扩大候选区间或替换规则。在Oracle-K条件下，BayesSpace的ARI约为0.4225，与A15D的Oracle-K描述性均值0.4299较为接近。上述对照不支持“CellCharter全面优于BayesSpace”的结论，也不能将Oracle-K结果表述为真实无标签部署性能。
++\small
++\begin{tabularx}{\linewidth}{lXccc}
++\toprule
++对照方法 & K-blind规则 & K-blind命中$K=10$ & K-blind ARI & Oracle-K ARI\\
++\midrule
++GMM & BIC最小（$K=2$--10） & 32/36 & 0.2563 & 0.3101\\
++Leiden & 固定分辨率1.0（不选K） & --- & 0.1702 & 0.3265\\
++BANKSY & 固定分辨率1.0（不选K） & --- & 0.2614 & 0.2974\\
++BayesSpace & qTune平均伪对数似然最大（$q=2$--10；与官方elbow建议不一致） & 28/36 & 0.3442 & 0.4225\\
++\bottomrule
++\end{tabularx}
++\end{table}
++
++表\ref{tab:cellcharter-e5a-v1}显示，四种成熟基线在不同K设置下的表现差异较大。作为参考，E3d中A15D在K-blind下的12切片ARI均值为0.3861，E1/E2中同配置Oracle-K的10种子均值为0.4299。需要强调，两者都不是与E5a同协议的配对比较：CellCharter的K-blind结果来自E3d，使用FMI稳定性选K，每个配置只有1份最终预测；E5a各基线则使用各自的K-blind规则，每个方法3个种子。Leiden和BANKSY在K-blind下只是固定分辨率，并没有选K步骤。因此，这里只能做不同选K程序下的工作流描述性对比，不能称为严格意义上的单模块性能增益。
++
++两种基于似然的K-blind规则都存在明显的搜索上界问题。非空间GMM的BIC规则在36项K-blind任务中有32项选中$K=10$；BayesSpace的伪对数似然最大规则有28项选中$q=10$，且该规则与BayesSpace官方建议的elbow判断不一致\cite{bayesspacevignette}。CellCharter原作者在DLPFC联合数据上也观察到，BIC建议的簇数明显多于稳定性峰值\cite{varrone2024}。因此，这两个基线在K-blind下的可比性有限。本研究遵守原冻结协议保留全部结果，不因已看过结果而扩大候选区间或替换规则；按官方建议选q时BayesSpace的表现如何，本研究\textbf{没有证据}，不作推测。
++
++在Oracle-K条件下，BayesSpace的ARI为0.4225，与A15D的0.4299接近（本研究BayesSpace参数与原作者基准不同，见第\ref{subsec:cc-e5a-v1}节）。上述对照不支持“CellCharter全面优于BayesSpace”的结论，也不能将Oracle-K结果表述为真实无标签部署性能。此外，原文中单切片表现最好的STAGATE不在本研究对照集中（表\ref{tab:cc-official-compare-rev-p0}），所以E5a不能回答CellCharter相对最强已知基线的位置。
+ 
+@@ -168,3 +237,5 @@
+ 
+-在K-blind条件下，A15D相对于5D基础配置的患者宏均值ARI差为$+0.0458$、NMI差为$+0.0583$，两项指标在6/6名患者上均为正向。相对于非空间GMM、Leiden和BANKSY，A15D的ARI患者宏均值差依次约为$+0.0627$、$+0.0956$、$+0.0732$，且每组均在6/6名患者上方向一致。但这一结果并不能泛化为对所有空间方法、所有评价指标的全面优势：与BayesSpace比较时，A15D的ARI仅在4/6名患者上较高，宏平均差约为$+0.0404$；NMI宏平均差反而为$-0.0139$。此外，25D的ARI宏平均值0.2175高于A15D的0.2004，应完整保留，不能因为A15D是重点对照而省略。
++在K-blind条件下，A15D相对于5D基础配置的患者宏均值ARI差为$+0.0458$、NMI差为$+0.0583$，两项指标在6/6名患者上均为正向。相对于非空间GMM、Leiden和BANKSY，A15D的ARI患者宏均值差依次约为$+0.0627$、$+0.0956$、$+0.0732$，每组均在6/6名患者上方向一致。但“6/6为正”需要结合效应大小来看：在ARI低于0.05的3名患者中，这些差值只有0.002--0.028，与患者内3个种子的标准差（0.008--0.011）属于同一量级（REV\_P0表T6），实际意义有限。6名患者在6种CellCharter配置、4种基线、2种K条件和多个指标上进行了多重比较，本研究不报告显著性检验。
++
++这一结果也不能泛化为对所有空间方法、所有评价指标的优势。第一，与BayesSpace比较时，A15D的ARI仅在4/6名患者上较高，宏平均差为$+0.0404$；NMI宏平均差反而为$-0.0139$，BayesSpace的K-blind NMI（0.2970）是全部方法与配置中最高的。而且，E5b中BayesSpace的全部18项K-blind预测都选到了冻结搜索上界$q=10$，非空间GMM也有8/18项选到$K=10$（REV\_P0表T5），因此K-blind下与这两个基线的比较可比性有限。第二，25D的ARI宏平均值0.2175高于A15D的0.2004。第三，候选B15D的K-blind ARI（0.1639）低于A15D（表\ref{tab:cc-b-minus-a-rev-p0}）。
+ 
+@@ -172,3 +243,3 @@
+ 
+-E5b中BayesSpace的全部18项K-blind预测均选到冻结搜索上界$q=10$，因此该模式下与BayesSpace的对比应谨慎解读。Oracle-K作为标签类别数知情敏感性条件另行报告：A15D与BayesSpace的患者等权ARI均值分别约为0.1916和0.1981，NMI分别约为0.2728和0.2866；这些数值也不支持本研究方法在全部条件下占优。外部研究呈现的优势和不足均是当前六名患者与所选标签体系下的观察，不能直接声称适用于其他癌种、所有空间转录组平台或临床应用。
++Oracle-K作为标签类别数知情的敏感性条件另行报告。A15D的患者等权ARI均值为0.1916，低于BayesSpace（0.1981）和Leiden（0.1959），A15D相对二者的ARI差分别为$-0.0065$和$-0.0043$；NMI方面，A15D为0.2728，BayesSpace为0.2866。这些数值同样不支持本研究方法在全部条件下占优。外部研究呈现的优势和不足均是当前六名患者与所选标签体系下的观察，不能直接声称适用于其他癌种、所有空间转录组平台或临床应用。
+ 
+@@ -180,3 +251,4 @@
+ % 论文插图路径使用由原始SVG无更改转换得到的矢量PDF（figures_pdf/）；原始SVG仍单独保留在figures/，不得用生成式图像代替。
+-% 原文件未实际上传时，下面只呈现“待插入”，不使用伪造或新绘图代替。
++% REV_P0：36张PDF已归档GitHub（commit 110b7e19），39页V2预览已归档（commit bb730c2a）；
++% 下列\IfFileExists的else分支仅作编译期路径错误提示，不再表示“待上传”。
+ 
+@@ -194,3 +266,3 @@
+ }{%
+-\par\noindent\emph{[待插入E4原件：151507参考层/A15D/B15D空间三联图；目前GitHub尚未验收此SVG。]}\par
++\par\noindent\emph{[编译提示：未找到E4矢量PDF figures\_pdf/151507/151507\_reference\_A\_B\_spatial.pdf，请检查相对路径。]}\par
+ }
+@@ -204,3 +276,3 @@
+ }{%
+-\par\noindent\emph{[待插入E4原件：151671参考层/A15D/B15D空间三联图。]}\par
++\par\noindent\emph{[编译提示：未找到E4矢量PDF figures\_pdf/151671/151671\_reference\_A\_B\_spatial.pdf，请检查相对路径。]}\par
+ }
+@@ -214,3 +286,3 @@
+ }{%
+-\par\noindent\emph{[待插入E4原件：151675参考层/A15D/B15D空间三联图。]}\par
++\par\noindent\emph{[编译提示：未找到E4矢量PDF figures\_pdf/151675/151675\_reference\_A\_B\_spatial.pdf，请检查相对路径。]}\par
+ }
+@@ -227,6 +299,6 @@
+ }{%
+-\par\noindent\emph{[待插入E4原件：151671的MOBP、PCP4、SNAP25实际表达三联图。]}\par
++\par\noindent\emph{[编译提示：未找到E4矢量PDF figures\_pdf/151671/151671\_MOBP\_PCP4\_SNAP25\_expression.pdf，请检查相对路径。]}\par
+ }
+ 
+-此外，E4对每张切片分别生成参考组织层与A15D/B15D原始聚类编号的完整计数交叉表及可视化，保留未标注spot的排除数量。交叉表反映不同真实层对应的聚类标签构成，避免在无监督聚类编号之间强行建立没有证据的一一对应关系。原E4用户Windows独立审计报告12/12切片、36/36张SVG及36/36份CSV的产物完整性与输入SHA一致，并重新校核marker计数和交叉表；但\textbf{在这些源文件逐张上传GitHub并核对之前，本文不会新增对图上具体组织形态或局部marker模式的定量发现陈述}。
++此外，E4对每张切片分别生成参考组织层与A15D/B15D原始聚类编号的完整计数交叉表及可视化，保留未标注spot的排除数量。交叉表反映不同真实层对应的聚类标签构成，避免在无监督聚类编号之间强行建立没有证据的一一对应关系。原E4独立审计报告12/12切片、36/36张SVG及36/36份CSV的产物完整性与输入SHA一致，并重新校核了marker计数和交叉表。全部36张原始SVG及其派生矢量PDF已归档，并列于附录。本章目前只把E4用作对聚类分布的直观补充，尚未对图中具体的组织形态或局部marker模式作定量陈述；若补写这类观察，须以对应的逐spot CSV和交叉表为依据。
+ 
+@@ -238,7 +310,15 @@
+ 
+-本章的实证结果从三个互补维度说明，多尺度空间特征聚类的评价不能仅依据单一ARI均值。第一，在已冻结的Oracle-K与10技术种子条件下，累计邻域特征从5D扩展至25D时ARI和NMI的切片宏平均上升，但同维度的远邻块替换并未获得可重复的整体优势；尺度深度、特征维数和组织异质性共同影响比较结果。第二，无标签AutoK所得的簇数随切片和特征尺度改变，部分配置触及预定搜索边界；后验ARI/NMI显示尺度性能不是简单单调变化，因此固定K下较高的分数不能直接代替真实无标签应用场景的性能。第三，严格边界F1与1/2-hop容差F1呈现不同趋势，较深表征可能在容差允许的邻近边界检出上较高，却未改善精确边界位置。
+-
+-成熟基线及外部队列进一步揭示结果的适用边界。A15D相对基础非空间设置在多个外部患者中出现方向一致的改善，但与BayesSpace的比较存在指标差异和明显的K-blind选K边界问题。6例乳腺癌患者中存在ARI接近零的低表现病例；这说明跨组织评价应保留患者级差异，而不能只给出一个全体宏平均值。上述结论支持把本项工作定位为\textbf{基于成熟CellCharter流程的多尺度与选K敏感性、空间边界定位及外部复核的系统实证评价}，而不是将已知特征聚合方法包装为新的基础算法。
+-
+-本研究的限制主要包括：（1）DLPFC仅3名独立供体，且供体映射依据公开附录推定分组，仍需与原始元数据进一步核对；乳腺癌外部队列为6例患者，不宜作高精度群体推断；（2）部分原始实验使用标签类别数知情的Oracle-K，不能将其称为纯无监督选K表现；（3）不同空间方法的输入表征与计算路径并非完全相同，BayesSpace原冻结K-blind策略还存在频繁命中上界的缺陷；（4）邻域深度和输入维度共同变化，不能据此确定因果性空间平滑机制；（5）E3d后验评分与E3b容差属于观看既有结果后追加的分析，不能倒称前瞻注册的主终点；（6）用于展示的组织学标注具有数据集特定性，外部队列并非医学诊断金标准。
++本章的实证结果从以下几个方面说明，多尺度空间特征聚类的评价不能仅依据单一ARI均值。
++
++第一，25D配置及2--4层的比较与CellCharter原作者的DLPFC调参和基准重叠；本研究25D的宏平均ARI与官方单切片结果处于同一水平，但由于重复结构、GMM参数、输入文件和版本不同，这不构成严格复现。
++
++第二，在已冻结的Oracle-K与10个技术种子条件下，5D到10D的提升在全部切片中一致；15D之后，宏平均只略有上升，约半数切片和供体D3方向相反。在固定K网格中，宏平均的尺度排序稳定。开发切片上提名的等维候选B，在其余切片和外部K-blind条件下没有复现其优势。
++
++第三，无标签AutoK选出的簇数随切片和尺度变化很大，与参考类别数一致的情况很少。由于只做了5次重复且逐切片运行，这一结果不能直接等同于原作者推荐设置下的表现。事后ARI/NMI显示尺度表现不是简单的单调关系。
++
++第四，严格边界F1主要随recall变化，而recall又与预测分区的碎片化程度（预测边界数量）密切相关；严格F1与1/2-hop容差F1的排序相反，不能单独用其中一个指标判断边界定位精度。
++
++成熟基线及外部队列进一步揭示了结果的适用边界。A15D相对5D和非空间基线在6名外部患者中方向一致，但在3名ARI低于0.05的患者中差值很小。与BayesSpace的比较存在指标方向不一致的问题，并且BayesSpace和GMM的K-blind似然判据都存在明显的搜索上界问题；在Oracle-K下，A15D的ARI低于BayesSpace和Leiden。对照集也未包含原文中单切片表现最好的STAGATE。上述结论支持把本项工作定位为\textbf{基于成熟CellCharter流程、在原作者DLPFC基准之上扩展的多尺度与选K敏感性、空间边界评价及外部复核的系统实证评价}，而不是将已知特征聚合方法包装为新的基础算法。
++
++本研究的限制主要包括：（1）DLPFC仅3名独立供体，且供体映射依据公开附录推定分组，仍需与原始元数据进一步核对；乳腺癌外部队列为6例患者，不宜作高精度群体推断。（2）25D配置由原作者在151507、151672、151673上按参考标签调出，候选B在开发切片151507上提名，这些切片都不是未接触样本。（3）部分实验使用标签类别数知情的Oracle-K，不能称为纯无监督选K表现。（4）不同空间方法的输入表征与计算路径并非完全相同；BayesSpace与GMM的K-blind判据频繁命中上界，其中BayesSpace判据与官方建议不一致；对照集未包含STAGATE。（5）AutoK每个候选K只做5次稳定性重复，未做收敛检查，且逐切片运行。（6）邻域深度和输入维度共同变化，不能据此确定因果性空间平滑机制；边界分析没有零模型基准。（7）E3d事后评分、E3b边界与容差指标、排除开发切片的汇总以及与官方结果的对照，都是在看过既有结果后进行的分析，不能倒称为前瞻注册的主终点或独立验证。（8）技术种子标准差只反映GMM初始化变异，不是生物学重复。（9）用于展示的组织学标注具有数据集特定性，外部队列并非医学诊断金标准。
+ 
+--- a/experiments/cellcharter_dlpfc/cellcharter_study_conclusion_module_v1_20261122.tex
++++ b/experiments/cellcharter_dlpfc/cellcharter_study_conclusion_module_rev_p0_20261124.tex
+@@ -1 +1,3 @@
++% REV_P0 2026-11-24：由 cellcharter_study_conclusion_module_v1_20261122.tex 派生；V1保持不变。
++% 按REV_P0结果改写结论1--5及局限；新增数值来源 REV_P0_20261124/derived/T1--T8。
+ % CellCharter研究专题结论与展望模块（非整篇硕士学位论文总论终稿）
+@@ -6,16 +8,28 @@
+ \subsection{主要实证结论}
+-本研究在成熟CellCharter空间邻域表示与聚类流程基础上，围绕特征深度、聚类数确定、空间边界以及跨组织评价开展了系统的计算实验。DLPFC部分包含12张切片、3名独立供体；外部数据为6名乳腺癌患者。本研究保存各阶段冻结实验方案、技术种子、预测来源哈希、完整正负结果和事后分析记录，避免仅凭最有利切片或单次初始化得出过度概括的结论。
++本研究在成熟CellCharter空间邻域表示与聚类流程基础上，围绕特征深度、聚类数确定、空间边界以及跨组织评价开展了系统的计算实验。DLPFC部分包含12张切片、3名独立供体；外部数据为6名乳腺癌患者。CellCharter原作者已在同一DLPFC数据上完成基准比较，并对2--4层邻域做过调参\cite{varrone2024,cellcharteranalyses2024}，本研究的25D配置即其最终配置。因此，本研究的贡献是在该基准之上作扩展性的实证评价，不是新方法，也不是对“邻域层数影响ARI”的首次发现。
+ 
+-第一，在固定Oracle-K条件下，将DLPFC每张切片的技术种子先平均再对12切片等权汇总，累计邻域特征从5D增加到25D时，ARI由0.3051提高至0.4418，NMI由0.4133提高至0.5982。然而，固定同为15D的A、B特征组合并未表现出一致的大幅优势；聚合层数、特征维数和输入块选择难以在这一组实验中完全拆开，不能简单归因为“更深的邻域一定更好”。
++第一，在固定Oracle-K条件下，每张切片先平均10个技术种子，再对12张切片等权汇总：累计邻域特征从5D增加到25D时，ARI由0.3051提高至0.4418，NMI由0.4133提高至0.5982。其中5D到10D的提升在12/12张切片上方向一致；15D之后，宏平均只略有上升，约半数切片以及供体D3的方向相反。本研究25D的宏平均ARI（0.4418）与原作者官方单切片结果（0.4438）处于同一水平，但两者在重复结构、GMM参数、输入文件和软件版本上存在差异，不构成严格复现。
+ 
+-第二，聚类数设置改变了尺度比较的解释。E3c预设K网格显示ARI/NMI随K而变化，但这种扫描不是无标签模型选择；E3d原生AutoK在48个切片--尺度组合中完成无标签选择，其中10项触及冻结K=2至10搜索区间边界。事后独立评价表明，20D在4个累计尺度中拥有较高的12切片描述性ARI和NMI均值（0.4311与0.5942），而25D并未进一步提升到更高均值。不同尺度实际K可变，因此这些变化反映工作流程整体而非单一尺度机制的因果效应。
++第二，等维候选B15D（$L_0+L_1+L_4$）是在开发切片151507上看到正向结果后提名的。按预设口径，B相对A15D的12切片平均ARI变化为$+0.0033$；排除两张开发切片后，其余10张切片的平均变化为$-0.0035$（事后汇总）。按供体看，D1为正、D3为负；在外部6名患者的K-blind条件下为$-0.0364$（1/6为正）。B应记为开发集提名、扩展评价中未获稳定支持的负结果。
+ 
+-第三，空间边界评价呈现与整体聚类指标不同的趋势。E1/E2完整1200份Oracle-K源预测的事后边界分析显示，累计5D至25D的严格0-hop F1分别为0.1441至0.1179，而2-hop容差F1分别为0.2863至0.5333。由此可见，空间邻近容差会改变不同配置的比较结果，容差下较高的边界匹配率不能替代严格网格边界的准确定位。这是一项指标定义敏感性观察，不等于已通过实验确定特定的生物学“过度平滑”原因。
++第三，聚类数设置改变了尺度比较的解释。在E3c预设固定K网格中，每个K下宏平均ARI的尺度排序都是25D $>$ 20D $>$ 15D $>$ 10D，但这种扫描不是无标签模型选择。E3d逐切片AutoK在48个切片--尺度组合中，有10项触及冻结的K=2至10搜索区间边界，选中K与参考类别数一致的情况在每个尺度下只有1/12。本研究每个候选K只做5次重复，少于原作者的10次，且原作者是联合选K。事后评价中，20D的12切片ARI和NMI均值较高（0.4311与0.5942），但供体之间不一致；由于不同尺度实际选中的K不同，这一结果不能作为推荐配置。
+ 
+-第四，与非空间GMM、Leiden及成熟空间方法BANKSY、BayesSpace比较时，CellCharter的表现取决于数据、K策略和指标，不能宣称对所有空间方法普遍占优。特别是本研究冻结的BayesSpace K-blind自动选K判据，在DLPFC的36项中有28项、乳腺癌的18项中有18项命中搜索上界，影响公平解释；不能为获得有利结果而在观察数据后改写原K规则。
++第四，空间边界评价呈现与整体聚类指标不同的趋势，以下均为事后分析。严格0-hop F1在5D与10D之间基本持平（0.1441与0.1446），此后下降至25D的0.1179；2-hop容差F1则由0.2863上升至0.5333。严格F1的变化主要来自recall：浅层表示的预测更碎片化，预测边界边数是参考边界的6.4倍（5D），而25D为1.4倍。因此，严格F1较高不等于定位更精确，容差F1较高也不能代替严格定位。这是一项指标定义敏感性观察，不等于已经通过实验确定了“过度平滑”的生物学原因。
+ 
+-第五，在六患者乳腺癌外部队列的K-blind评价中，CellCharter A15D相对5D基础配置的ARI宏平均差约为$+0.0458$，NMI差约为$+0.0583$，两项指标在6/6例患者上方向一致。但与BayesSpace比较时，ARI仅在4/6例患者较高，患者平均NMI差约为$-0.0139$。A15D在3/6例患者的ARI低于0.05，而在另一些患者表现明显较高，提示流程效果具有较强的样本异质性。此结果是将相同研究流程重新用于新组织队列所得的观察，不是将DLPFC已训练模型直接泛化到乳腺癌。
++第五，与非空间GMM、Leiden及成熟空间方法BANKSY、BayesSpace比较时，CellCharter的表现取决于数据、K策略和指标，不能宣称对所有空间方法普遍占优。本研究冻结的BayesSpace K-blind判据与官方建议的elbow判断不一致\cite{bayesspacevignette}，在DLPFC的36项中有28项、乳腺癌的18项中有18项命中搜索上界；非空间GMM的BIC判据在DLPFC也有32/36项命中上界。这些结果全部保留，但会降低K-blind对比的可比性。此外，对照集未包含原文中单切片表现最好的STAGATE。
++
++第六，在6名乳腺癌患者的外部K-blind评价中，A15D相对5D基础配置的ARI宏平均差约为$+0.0458$、NMI差约为$+0.0583$，两项指标在6/6例患者上方向一致；但在3名ARI低于0.05的患者中，这些差值与种子波动处于同一量级。与BayesSpace比较时，A15D的ARI仅在4/6例患者较高，患者平均NMI差约为$-0.0139$；在Oracle-K下，A15D的ARI低于BayesSpace和Leiden。此结果是将相同研究流程重新用于新组织队列所得的观察，不是将DLPFC已训练模型直接泛化到乳腺癌。
+ 
+ \subsection{研究局限}
+-本研究在解释层面主要受到以下因素限制：（1）DLPFC仅3位供体且存在供体内多个切片，乳腺癌仅6名患者，均不足以支持高精度总体推断；（2）DLPFC部分参考标注来源及旧开发样本的数据卫生问题需在论文数据来源中保留；（3）Oracle-K使用参考类别数，不能代表真正未知类别数的无标签应用；（4）部分实验中的邻域深度与输入维度同步变化，成熟基线的预处理及计算预算又存在方法间差异；（5）E3d的后验ARI/NMI以及E3b的1/2-hop边界分析是在已有模型结果之后追加的事后分析；（6）病理区域标签与皮层层级标签的语义不同，不能将跨组织ARI绝对值直接对比。
++本研究在解释层面主要受到以下因素限制：
++\begin{enumerate}
++  \item DLPFC仅3位供体且存在供体内多个切片，乳腺癌仅6名患者，均不足以支持高精度总体推断。
++  \item 25D配置由原作者按参考标签在3张切片上调出，候选B在开发切片上提名，这些切片都不是未接触样本；DLPFC部分参考标注来源及旧开发样本的数据卫生问题需在论文数据来源中保留。
++  \item Oracle-K使用参考类别数，不能代表真正未知类别数的无标签应用。
++  \item 部分实验中的邻域深度与输入维度同步变化；成熟基线的预处理、计算预算及K-blind规则又存在方法间差异，其中BayesSpace与GMM的似然判据频繁命中上界，对照集未包含STAGATE。
++  \item AutoK只做5次稳定性重复，且逐切片运行。
++  \item E3d的后验ARI/NMI、E3b的边界与容差分析、排除开发切片的汇总，以及与官方结果的对照，都是在已有模型结果之后追加的事后分析。
++  \item 技术种子标准差只反映GMM初始化变异，不是生物学重复。
++  \item 病理区域标签与皮层层级标签的语义不同，不能将跨组织ARI绝对值直接对比。
++\end{enumerate}
+ 
+@@ -24,3 +38,3 @@
+ \subsection{后续工作展望}
+-后续研究可在更多独立供体和组织类型上检验当前观察的适用性；在不读取评价标签的条件下比较更合适的聚类数选择策略；使用明确的等维和等计算预算对照，进一步区分尺度范围、特征维数和模型随机性；同时将组织层过渡区域的标注不确定性与边界评价结合，避免仅凭单一参考标签和单一指标判断算法表现。
++后续研究可以在以下方向展开：在更多独立供体和组织类型上检验当前观察的适用性；按各方法官方建议的选K方式（例如BayesSpace的elbow判断）以及足够的稳定性重复次数重新设计K-blind对照，并纳入STAGATE等强基线；使用明确的等维和等计算预算对照，进一步区分尺度范围、特征维数和模型随机性；为边界指标建立零模型基准，并结合组织层过渡区域的标注不确定性，避免仅凭单一参考标签和单一指标判断算法表现。
+ 
+--- a/experiments/cellcharter_dlpfc/thesis_cellcharter_verified_references_20261122.bib
++++ b/experiments/cellcharter_dlpfc/thesis_cellcharter_references_rev_p0_20261124.bib
+@@ -1,8 +1,17 @@
+-% Reference entries used by chapter_02_background_rewrite_v1_20261122.tex.
+-% Source metadata checked against journal/PubMed or project LITERATURE_EVIDENCE_AND_NOVELTY_20261111.md.
+-% This is a bibliography seed, not proof the full supplementary materials were read.
+-% DOI accuracy checked; formatting and "et al." author expansion require final thesis review.
++% REV_P0 (2026-11-24) bibliography for the CellCharter thesis unit.
++% Derived from thesis_cellcharter_verified_references_20261122.bib (kept unchanged).
++% Changes in this revision:
++%   * varrone2024: author list corrected to the published record (PDF title page;
++%     Europe PMC PMID 38066188): Marco Varrone, Daniele Tavernari,
++%     Albert Santamaria-Martinez, Logan A. Walsh, Giovanni Ciriello; issue number added.
++%   * sun2026: issue number 9 added (Europe PMC record, checked 2026-11-24).
++%   * New: dong2022stagate, fowlkes1983, cellcharteranalyses2024, bayesspacevignette.
++%     STAGATE and Fowlkes-Mallows strings follow the reference list of Varrone et al. 2024
++%     (refs 32 and 45); the two @misc entries are software/documentation sources.
++%   * wu2021zenodo is kept for the data-availability statement; it is not yet \cite'd
++%     in the body text (open item).
++% Remaining "others" author lists must still be expanded to the school's style.
+ 
+ @article{lopez2018,
+-  author  = {Lopez, Romain and Regier, Jeffrey and Cole, Michael B. and others},
++  author  = {Lopez, Romain and Regier, Jeffrey and Cole, Michael B. and Jordan, Michael I. and Yosef, Nir},
+   title   = {Deep generative modeling for single-cell transcriptomics},
+@@ -26,3 +35,3 @@
+ @article{varrone2024,
+-  author  = {Varrone, Marianna and Tavernari, Daniele and Santamaria-Mart{\'\i}nez, Alberto and others},
++  author  = {Varrone, Marco and Tavernari, Daniele and Santamaria-Mart{\'\i}nez, Albert and Walsh, Logan A. and Ciriello, Giovanni},
+   title   = {{CellCharter} reveals spatial cell niches associated with tissue remodeling and cell plasticity},
+@@ -31,4 +40,13 @@
+   volume  = {56},
++  number  = {1},
+   pages   = {74--84},
+   doi     = {10.1038/s41588-023-01588-4}
++}
++
++@misc{cellcharteranalyses2024,
++  author       = {{Computational Systems Oncology group}},
++  title        = {cellcharter\_analyses: code and results to reproduce the analyses of {CellCharter} (commit fd63ac5585a3f18846a0891e120864179d4ca429)},
++  year         = {2024},
++  howpublished = {\url{https://github.com/CSOgroup/cellcharter_analyses}},
++  note         = {MIT License; accessed 2026-11-24}
+ }
+@@ -45,4 +63,14 @@
+ 
++@article{dong2022stagate,
++  author  = {Dong, Kangning and Zhang, Shihua},
++  title   = {Deciphering spatial domains from spatially resolved transcriptomics with an adaptive graph attention auto-encoder},
++  journal = {Nature Communications},
++  year    = {2022},
++  volume  = {13},
++  pages   = {1739},
++  doi     = {10.1038/s41467-022-29439-6}
++}
++
+ @article{zhang2025,
+-  author  = {Zhang, W. and Zhang, Z. and others},
++  author  = {Zhang, Wei and Zhang, Ziqi and Yang, Hailong and others},
+   title   = {{m2ST}: dual multi-scale graph clustering for spatially resolved transcriptomics},
+@@ -57,3 +85,3 @@
+ @article{sun2026,
+-  author  = {Sun, J. and Biharie, K. and Cai, P. and others},
++  author  = {Sun, Jieran and Biharie, Kirti and Cai, Peiying and others},
+   title   = {Beyond benchmarking: an expert-guided consensus approach to spatially aware clustering},
+@@ -62,2 +90,3 @@
+   volume  = {23},
++  number  = {9},
+   pages   = {1814--1826},
+@@ -86,2 +115,9 @@
+ 
++@misc{bayesspacevignette,
++  author       = {Zhao, Edward and others},
++  title        = {{BayesSpace} package vignette (Bioconductor): choosing the number of clusters with \texttt{qTune} and \texttt{qPlot}},
++  howpublished = {\url{https://bioconductor.org/packages/release/bioc/vignettes/BayesSpace/inst/doc/BayesSpace.html}},
++  note         = {Recommends choosing q around the elbow of the pseudo-log-likelihood curve; accessed 2026-11-24; text of the version matching BayesSpace 1.20.2 not separately checked}
++}
++
+ @article{traag2019,
+@@ -94,2 +130,11 @@
+   doi     = {10.1038/s41598-019-41695-z}
++}
++
++@article{fowlkes1983,
++  author  = {Fowlkes, Edward B. and Mallows, Colin L.},
++  title   = {A method for comparing two hierarchical clusterings},
++  journal = {Journal of the American Statistical Association},
++  year    = {1983},
++  volume  = {78},
++  pages   = {553--569}
+ }
+--- a/experiments/cellcharter_dlpfc/cellcharter_study_full_preview_layout_v2_20261123.tex
++++ b/experiments/cellcharter_dlpfc/cellcharter_study_full_preview_rev_p0_20261124.tex
+@@ -1,8 +1,7 @@
+-% LAYOUT V2 EXPERIMENTAL PREVIEW (2026-11-23), preserves research text and original V1.
+-% Changes are limited to preview typesetting, not E4 SVG/PDF or scientific results.
+-% The archived v1 is intentionally unchanged.
+-% Independent CellCharter research-unit FIRST DRAFT preview, not the user's full Master's dissertation.
+-% Content includes INTRO, BACKGROUND, METHODS, RESULTS, CONCLUSIONS.
+-% Must be integrated into the University's official thesis template later.
+-% XeLaTeX + BibTeX preview, not compiled in this assistant session.
++% REV_P0 PREVIEW (2026-11-24): independent P0 scientific-text revision of the
++% CellCharter research unit. V1 (…_v1_20261122) and layout V2 (…_layout_v2_20261123)
++% remain unchanged. Typesetting settings are copied from layout V2; the appendix is
++% the unchanged layout-V2 appendix (no E4 figure, caption or path changes).
++% NOT compiled in the assistant session (no XeLaTeX on that machine).
++% Not the user's full Master's dissertation; must be integrated into the school template.
+ \documentclass[UTF8,a4paper,12pt]{ctexart}
+@@ -12,3 +11,4 @@
+ \usepackage{graphicx,float}
+-\usepackage{caption} % provide \captionof for nonfloating, source-ordered appendix figures
++\usepackage{caption}
++\usepackage{url}
+ \usepackage[hidelinks]{hyperref}
+@@ -16,3 +16,3 @@
+ \setlength{\parskip}{0.08em}
+-\raggedbottom % do not artificially stretch sparse pages
++\raggedbottom
+ \renewcommand{\arraystretch}{1.14}
+@@ -20,14 +20,12 @@
+ \begin{document}
+-\input{cellcharter_study_introduction_module_v1_20261122}
++\input{cellcharter_study_introduction_module_rev_p0_20261124}
+ \clearpage
+-\input{chapter_02_background_rewrite_v1_20261122}
++\input{chapter_02_background_rev_p0_20261124}
+ \clearpage
+-\input{chapter_03_methods_rewrite_v1_20261122}
++\input{chapter_03_methods_rev_p0_20261124}
+ \clearpage
+-\input{chapter_04_results_rewrite_v1_20261122}
++\input{chapter_04_results_rev_p0_20261124}
+ \clearpage
+-\input{cellcharter_study_conclusion_module_v1_20261122}
++\input{cellcharter_study_conclusion_module_rev_p0_20261124}
+ \clearpage
+-% Full E4 appendix appears only after original SVGs have been checked and
+-% converted to XeLaTeX-compatible vector PDFs. No image synthesis permitted.
+ \IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151507/151507_reference_A_B_spatial.pdf}{%
+@@ -39,3 +37,3 @@
+ \bibliographystyle{unsrt}
+-\bibliography{thesis_cellcharter_verified_references_20261122}
++\bibliography{thesis_cellcharter_references_rev_p0_20261124}
+ \end{document}

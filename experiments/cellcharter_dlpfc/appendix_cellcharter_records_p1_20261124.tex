@@ -1,0 +1,34 @@
+% P1 学术写作版（2026-11-24）：数据、代码与实验记录附录。
+% 承接从正文移出的实验编号、结果文件与可复现性信息。未编译。
+\section{数据、代码与实验记录}
+\label{sec:cc-records-p1}
+
+\subsection{数据可用性}
+DLPFC Visium数据及人工层注释来自Maynard等公开的数据资源\cite{maynard2021}。乳腺癌Visium数据及病理区域注释来自Wu等的公开数据\cite{wu2021,wu2021zenodo}。CellCharter原作者的基准代码与结果文件取自其公开仓库\cite{cellcharteranalyses2024}；本研究用于对照的文件固定在提交\texttt{fd63ac5}，按MIT许可随本研究的记录一并保存。原始10x表达矩阵、scVI模型权重以及部分对照方法的逐spot预测，因体积较大没有放入公开仓库；正文所有表格中的数值都可以由已公开的结果文件复算。
+
+\subsection{实验记录编号对照}
+正文按研究问题组织，研究过程中的实验记录则按内部编号归档。两者的对应关系见表\ref{tab:cc-record-map-p1}。各项分析的方案文件均在相应模型拟合之前固定；每项结果都保存了逐任务的预测文件或指标文件及其SHA256校验值。
+
+\begin{table}[htbp]
+\centering
+\caption{正文内容与实验记录编号、结果目录的对应关系（目录相对于\texttt{experiments/cellcharter\_dlpfc/}）}
+\label{tab:cc-record-map-p1}
+\small
+\begin{tabularx}{\linewidth}{p{1.2cm}Xp{1.8cm}X}
+\toprule
+编号 & 内容 & 正文位置 & 结果目录\\
+\midrule
+E1/E2 & 10种邻域配置$\times$10个GMM种子，参考类别数 & 第\ref{subsec:cc-res-neighborhood-p1}节 & \texttt{E1E2\_20261119\_RELEASE}；逐任务预测见\texttt{E3B\_E1E2\_1200\_PREDICTIONS\_20261122}\\
+E3c & 固定$K=5$--9网格 & 第\ref{subsec:cc-res-k-p1}节 & \texttt{E3C\_20261120\_RELEASE}\\
+E3d & 逐切片稳定性选K及事后评分 & 第\ref{subsec:cc-res-k-p1}节 & \texttt{E3D\_20261122\_RELEASE}，\texttt{E3D\_POSTHOC\_20261122\_RELEASE}\\
+E3b & 严格与容差边界评价（事后） & 第\ref{subsec:cc-res-boundary-p1}节 & \texttt{E3B\_E1E2\_1200\_POSTHOC\_20261122\_RELEASE}，\texttt{E3B\_E3D48\_POSTHOC\_20261122\_RELEASE}\\
+E4 & 空间分布、标记基因与交叉计数图 & 第\ref{subsec:cc-res-maps-p1}节及附录 & \texttt{E4\_SOURCE\_FIGURES\_20261122\_RELEASE}\\
+E5a & DLPFC成熟方法对照 & 第\ref{subsec:cc-res-baselines-p1}节 & \texttt{E5A\_20261122\_RELEASE}\\
+E5b & 乳腺癌患者队列 & 第\ref{subsec:cc-res-external-p1}节 & \texttt{E5B\_20261122\_RELEASE}\\
+汇总 & 描述性再汇总表T1--T11（只读、可复算） & 各节表注 & \texttt{REV\_P0\_20261124/derived}，\texttt{P1\_20261124/derived}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{可复现性说明}
+各分析的方案文件包括：邻域表征比较的GMM方案（\texttt{THIRD\_PAPER\_E1E2\_FROZEN\_GMM\_PROTOCOL\_20261113.md}）、固定K网格方案（\texttt{THIRD\_PAPER\_E3C\_K\_SENSITIVITY\_FROZEN\_PROTOCOL\_20261119.md}）、稳定性选K方案（\texttt{E3D\_AUTOK\_FROZEN\_PROTOCOL\_20261120.md}）、成熟方法对照方案（\texttt{E5A\_FROZEN\_FAIR\_BASELINE\_PROTOCOL\_20261120.md}）和外部队列方案（\texttt{E5B\_FROZEN\_EXTERNAL\_VALIDATION\_PROTOCOL\_20261121.md}）。正文中的描述性再汇总，由\texttt{REV\_P0\_20261124/rev\_p0\_derived\_summaries\_v1.py}和\texttt{P1\_20261124/p1\_additional\_summaries\_v1.py}从上述结果文件只读计算，只依赖Python标准库；输入与输出的SHA256分别记录在两处\texttt{derived/MANIFEST\_SHA256.csv}中。DLPFC特征生成脚本为\texttt{scripts/cellcharter/prepare\_dlpfc\_10\_features.py}，所用的软件版本记录在各特征缓存的配置文件中。

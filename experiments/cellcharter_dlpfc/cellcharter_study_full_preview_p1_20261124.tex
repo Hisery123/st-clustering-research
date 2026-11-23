@@ -1,0 +1,49 @@
+% P1 ACADEMIC-WRITING PREVIEW (2026-11-24) of the CellCharter research unit.
+% Builds on REV_P0 (kept unchanged); V1 and layout V2 also unchanged. NOT compiled in the
+% assistant session (no TeX on that machine). Not the full dissertation; must later be moved into
+% the school's official thesis template. Compile: xelatex -> bibtex -> xelatex -> xelatex.
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,longtable}
+\usepackage{graphicx,float}
+\usepackage{caption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.08em}
+\raggedbottom
+\renewcommand{\arraystretch}{1.14}
+\setcounter{secnumdepth}{3}
+\title{基于CellCharter的空间转录组聚类性能评价：\\邻域尺度敏感性、聚类数规则与空间边界评价权衡}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\input{cellcharter_study_abstract_p1_20261124}
+\clearpage
+\tableofcontents
+\clearpage
+\input{cellcharter_study_introduction_p1_20261124}
+\clearpage
+\input{chapter_02_background_p1_20261124}
+\clearpage
+\input{chapter_03_methods_p1_20261124}
+\clearpage
+\input{chapter_04_results_discussion_p1_20261124}
+\clearpage
+\input{cellcharter_study_conclusion_p1_20261124}
+\clearpage
+\appendix
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151507/151507_reference_A_B_spatial.pdf}{%
+\input{appendix_e4_all12_figures_p1_20261124}
+\clearpage
+}{\PackageError{CellCharterPreview}{Required E4 figure PDF missing; 36-figure appendix cannot be omitted}{Compile in the complete project repository with figures_pdf present; do not mistake a shortened PDF for a complete thesis preview.}}
+\input{appendix_cellcharter_records_p1_20261124}
+
+\clearpage
+\bibliographystyle{unsrt}
+\bibliography{thesis_cellcharter_references_p1_20261124}
+\end{document}

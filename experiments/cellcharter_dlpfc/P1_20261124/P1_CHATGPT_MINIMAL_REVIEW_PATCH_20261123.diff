@@ -1,0 +1,31 @@
+--- claude-original/experiments/cellcharter_dlpfc/chapter_04_results_discussion_p1_20261124.tex
++++ reviewed/experiments/cellcharter_dlpfc/chapter_04_results_discussion_p1_20261124.tex
+@@ -86,7 +86,7 @@
+ \end{tabular}
+ \end{table}
+ 
+-\paragraph{与原作者基准结果的一致性。}25维配置与原作者单切片基准的最终配置相同。本研究25维的宏平均ARI为0.4418，官方发布的单切片结果为0.4438；在原作者的9张测试切片上分别为0.4244与0.4235（事后对照）\cite{cellcharteranalyses2024}。两者处于同一水平，说明本研究的特征构建与聚类流程与原作者的实现相符，后续的尺度比较建立在可信的基线之上。不过，逐切片差值在$-0.104$至$+0.041$之间；两者在随机种子结构、GMM参数、输入文件和软件版本上也存在差异（表\ref{tab:cc-official-protocol-p1}），因此这只是数值水平上的一致，不是逐spot的严格复现。在同一官方结果中，STAGATE单切片的宏平均ARI为0.5186，高于CellCharter，这与原文的结论一致\cite{varrone2024}。
++\paragraph{与原作者基准结果的一致性。}25维配置与原作者单切片基准的最终配置相同。本研究25维的宏平均ARI为0.4418，官方发布的单切片结果为0.4438；在原作者的9张测试切片上分别为0.4244与0.4235（事后对照）\cite{cellcharteranalyses2024}。两者的宏平均数值处于同一水平，可作为本研究尺度评价的外部参照，但数值接近本身不能验证实现细节一致或逐spot预测相同。具体而言，逐切片差值在$-0.104$至$+0.041$之间；两者在随机种子结构、GMM参数、输入文件和软件版本上也存在差异（表\ref{tab:cc-official-protocol-p1}），因此这只是数值水平上的一致，不是逐spot的严格复现。在同一官方结果中，STAGATE单切片的宏平均ARI为0.5186，高于CellCharter，这与原文的结论一致\cite{varrone2024}。
+ 
+ \subsection{聚类数规则：K的设定会改变尺度比较的结论}
+ \label{subsec:cc-res-k-p1}
+@@ -180,7 +180,7 @@
+ \subsection{与成熟空间聚类方法的比较}
+ \label{subsec:cc-res-baselines-p1}
+ 
+-\paragraph{参考类别数条件。}在参考类别数条件下，CellCharter各邻域配置都明显优于非空间方法，与空间方法BayesSpace处于相近水平（表\ref{tab:cc-oracle-methods-p1}）。CellCharter 15维（A）与25维的ARI分别为0.4299和0.4418，BayesSpace为0.4225；非空间GMM、Leiden和BANKSY在0.297--0.327之间。NMI的排序与此相近：25维为0.598，BayesSpace为0.588，A为0.578。非空间GMM与CellCharter $L_0$使用相同的5维输入，两者的ARI非常接近（0.3101与0.3051），这从内部印证了两套实现的一致性。由于CellCharter每张切片用10个种子、对照方法用3个种子，而且各方法使用各自的原生预处理，这一比较是完整流程之间的描述性比较。
++\paragraph{参考类别数条件。}在参考类别数条件下，纳入邻域信息的CellCharter 10--25维配置，其ARI均高于非空间GMM、Leiden以及空间方法BANKSY；仅用自身表示的5维$L_0$与GMM接近，且低于Leiden。15--25维配置与BayesSpace处于相近水平（表\ref{tab:cc-oracle-methods-p1}）。CellCharter 15维（A）与25维的ARI分别为0.4299和0.4418，BayesSpace为0.4225；非空间GMM、Leiden和BANKSY在0.297--0.327之间。NMI的排序与此相近：25维为0.598，BayesSpace为0.588，A为0.578。非空间GMM与CellCharter $L_0$使用相同的5维输入，两者的ARI非常接近（0.3101与0.3051），这从内部印证了两套实现的一致性。由于CellCharter每张切片用10个种子、对照方法用3个种子，而且各方法使用各自的原生预处理，这一比较是完整流程之间的描述性比较。
+ 
+ \begin{table}[htbp]
+ \centering
+--- claude-original/experiments/cellcharter_dlpfc/cellcharter_study_full_preview_p1_20261124.tex
++++ reviewed/experiments/cellcharter_dlpfc/cellcharter_study_full_preview_p1_20261124.tex
+@@ -40,7 +40,7 @@
+ \IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151507/151507_reference_A_B_spatial.pdf}{%
+ \input{appendix_e4_all12_figures_p1_20261124}
+ \clearpage
+-}{}
++}{\PackageError{CellCharterPreview}{Required E4 figure PDF missing; 36-figure appendix cannot be omitted}{Compile in the complete project repository with figures_pdf present; do not mistake a shortened PDF for a complete thesis preview.}}
+ \input{appendix_cellcharter_records_p1_20261124}
+ 
+ \clearpage

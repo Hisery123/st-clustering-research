@@ -1,0 +1,17 @@
+PASS cellcharter_study_full_preview_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS cellcharter_study_abstract_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS cellcharter_study_introduction_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS chapter_02_background_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS chapter_03_methods_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS chapter_04_results_discussion_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS cellcharter_study_conclusion_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS appendix_e4_all12_figures_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+PASS appendix_cellcharter_records_p1_20261124.tex: braces=0 mismatched=[] unclosed=[] bare_underscore_in_emph=[]
+labels=89 refs=31 missing_refs=[] duplicate_labels=[]
+bib_keys=15 cited=15 missing_cites=[] uncited=[]
+experiment_codes_in_main_text=[]
+process_words_in_main_text=[]  (informational; allowed only where needed for method disclosure)
+stale_placeholders=[]
+preview_inputs=['cellcharter_study_abstract_p1_20261124', 'cellcharter_study_introduction_p1_20261124', 'chapter_02_background_p1_20261124', 'chapter_03_methods_p1_20261124', 'chapter_04_results_discussion_p1_20261124', 'cellcharter_study_conclusion_p1_20261124', 'appendix_e4_all12_figures_p1_20261124', 'appendix_cellcharter_records_p1_20261124'] missing=[]
+pgfplots_figures=2
+OVERALL PASS (static only; NOT compiled)

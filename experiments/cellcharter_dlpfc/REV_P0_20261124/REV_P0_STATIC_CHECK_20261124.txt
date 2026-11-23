@@ -1,0 +1,13 @@
+PASS cellcharter_study_introduction_module_rev_p0_20261124.tex: brace_balance=0 begin=0 end=0 mismatched=[] unclosed=[]
+PASS chapter_02_background_rev_p0_20261124.tex: brace_balance=0 begin=3 end=3 mismatched=[] unclosed=[]
+PASS chapter_03_methods_rev_p0_20261124.tex: brace_balance=0 begin=9 end=9 mismatched=[] unclosed=[]
+PASS chapter_04_results_rev_p0_20261124.tex: brace_balance=0 begin=20 end=20 mismatched=[] unclosed=[]
+PASS cellcharter_study_conclusion_module_rev_p0_20261124.tex: brace_balance=0 begin=1 end=1 mismatched=[] unclosed=[]
+PASS cellcharter_study_full_preview_rev_p0_20261124.tex: brace_balance=0 begin=1 end=1 mismatched=[] unclosed=[]
+PASS appendix_layout_v2(unchanged): brace_balance=0 begin=36 end=36 mismatched=[] unclosed=[]
+labels=85 refs=13 missing_refs=[] duplicate_labels=[]
+bib_keys=15 cited=14 missing_cites=[] uncited_bib_entries=['wu2021zenodo']
+stale_placeholder_strings_in_rev_body=[]
+appendix_layout_v2_fallback_branches=36 (unchanged V2 file; only rendered if a figure PDF is missing; V2 39-page PDF rendered all 36 figures; logged as open item)
+preview_inputs=['cellcharter_study_introduction_module_rev_p0_20261124', 'chapter_02_background_rev_p0_20261124', 'chapter_03_methods_rev_p0_20261124', 'chapter_04_results_rev_p0_20261124', 'cellcharter_study_conclusion_module_rev_p0_20261124', 'appendix_e4_all12_figures_layout_v2_20261123']
+OVERALL PASS (static only; NOT compiled)

@@ -1,0 +1,9 @@
+feature_dim,oracle_k,n_slices,n_best_below_oracle,n_best_equal_oracle,mean_ari_best,mean_ari_oracle,note,posthoc
+10,5,4,0,4,0.367702,0.367702,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True
+10,7,8,6,2,0.468074,0.428284,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True
+15,5,4,0,4,0.395842,0.395842,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True
+15,7,8,7,1,0.482767,0.446932,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True
+20,5,4,0,4,0.401164,0.401164,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True
+20,7,8,5,0,0.48316,0.456916,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True
+25,5,4,0,4,0.402386,0.402386,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True
+25,7,8,7,1,0.497956,0.461514,"grid lower bound is K=5, so K<5 is never observable for oracle_k=5 slices",True

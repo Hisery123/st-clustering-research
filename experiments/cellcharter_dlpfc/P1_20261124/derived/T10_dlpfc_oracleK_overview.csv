@@ -1,0 +1,11 @@
+method,regime,n_seeds_per_slice,ari_12slice_mean,ari_sd_slices,nmi_12slice_mean,source
+CellCharter L0 5D,oracle_k,10,0.305082,0.062966,0.413282,E1E2 all_120_condition_stats
+CellCharter 10D,oracle_k,10,0.40809,0.066404,0.542196,E1E2 all_120_condition_stats
+CellCharter A15D,oracle_k,10,0.429902,0.072009,0.578017,E1E2 all_120_condition_stats
+CellCharter B15D,oracle_k,10,0.433184,0.075553,0.588884,E1E2 all_120_condition_stats
+CellCharter 20D,oracle_k,10,0.438332,0.059894,0.58908,E1E2 all_120_condition_stats
+CellCharter 25D,oracle_k,10,0.441805,0.066401,0.598203,E1E2 all_120_condition_stats
+BANKSY,oracle_k,3,0.297357,,0.420694,E5A method_regime_descriptives
+BayesSpace,oracle_k,3,0.422519,,0.587515,E5A method_regime_descriptives
+GMM,oracle_k,3,0.310076,,0.41354,E5A method_regime_descriptives
+Leiden,oracle_k,3,0.326471,,0.42041,E5A method_regime_descriptives

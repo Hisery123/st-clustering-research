@@ -1,0 +1,15 @@
+aggregation,n_units,mean_delta,n_positive,min_delta,max_delta,posthoc,note
+"DLPFC 12 slices, ARI (10-seed mean per slice) [prespecified E1/E2 grid]",12,0.003282,7,-0.063314,0.049889,False,primary
+"DLPFC 12 slices, NMI",12,0.010867,9,-0.035787,0.043317,False,primary
+"DLPFC 10 slices excl. dev 151507/151508, ARI",10,-0.003529,5,-0.063314,0.043762,True,sensitivity: removes slices on which B was nominated; leaves only 2 D1 slices
+"DLPFC 10 slices excl. dev 151507/151508, NMI",10,0.008582,7,-0.035787,0.043317,True,sensitivity
+"DLPFC Donor 1 (4 slices), ARI",4,0.039251,4,0.024777,0.049889,False,donor-level descriptive
+"DLPFC Donor 2 (4 slices), ARI",4,0.003412,2,-0.01523,0.019046,False,donor-level descriptive
+"DLPFC Donor 3 (4 slices), ARI",4,-0.032818,1,-0.063314,0.002463,False,donor-level descriptive
+"DLPFC 120 slice-x-GMM-seed pairs, ARI",120,0.003282,59,-0.121468,0.153482,False,seeds are NOT biological replicates
+"DLPFC seed 22911, 12 slices, ARI",12,-0.017541,4,-0.117841,0.063475,False,single-seed history
+"DLPFC seed 22911, 10 non-dev slices, ARI",10,-0.025566,3,-0.117841,0.063475,False,matches the earlier 10-section single-seed observation
+"E5b 6 patients, k_blind, ARI (3-seed mean per patient)",6,-0.036433,1,-0.144499,0.022005,False,"external cohort, frozen protocol"
+"E5b 6 patients, k_blind, NMI (3-seed mean per patient)",6,-0.023556,2,-0.146468,0.026338,False,"external cohort, frozen protocol"
+"E5b 6 patients, oracle_k, ARI (3-seed mean per patient)",6,0.016087,4,-0.026812,0.045677,False,"external cohort, frozen protocol"
+"E5b 6 patients, oracle_k, NMI (3-seed mean per patient)",6,0.011105,4,-0.025798,0.032649,False,"external cohort, frozen protocol"

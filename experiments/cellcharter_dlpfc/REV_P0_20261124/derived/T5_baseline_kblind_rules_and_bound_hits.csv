@@ -1,0 +1,5 @@
+method,k_blind_rule,dlpfc_kblind_tasks,dlpfc_kblind_upper_bound_hits,dlpfc_kblind_actual_k_range,e5b_kblind_tasks,e5b_kblind_actual_k_eq_10,dlpfc_ari_kblind,dlpfc_ari_oracle,dlpfc_nmi_kblind,dlpfc_nmi_oracle,e5b_ari_kblind,e5b_ari_oracle,e5b_nmi_kblind,e5b_nmi_oracle
+GMM,BIC minimum over K=2..10 (scikit-learn GMM on L0 5D),36,32,9-10,18,8,0.256339,0.310076,0.405314,0.41354,0.13765,0.143167,0.230389,0.218133
+Leiden,fixed resolution 1.0 (no K selection),36,0,16-21,18,0,0.170239,0.326471,0.374314,0.42041,0.104757,0.195932,0.2323,0.247312
+BANKSY,fixed Leiden resolution 1.0 (no K selection),36,0,8-12,18,6,0.261432,0.297357,0.42471,0.420694,0.12711,0.157873,0.265669,0.256639
+BayesSpace,"qTune q=2..10, max mean pseudo-log-likelihood (frozen; differs from official elbow advice)",36,28,8-10,18,18,0.344215,0.422519,0.556195,0.587515,0.159954,0.19806,0.297032,0.286555

@@ -1,0 +1,39 @@
+% REV_P0 PREVIEW (2026-11-24): independent P0 scientific-text revision of the
+% CellCharter research unit. V1 (…_v1_20261122) and layout V2 (…_layout_v2_20261123)
+% remain unchanged. Typesetting settings are copied from layout V2; the appendix is
+% the unchanged layout-V2 appendix (no E4 figure, caption or path changes).
+% NOT compiled in the assistant session (no XeLaTeX on that machine).
+% Not the user's full Master's dissertation; must be integrated into the school template.
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,longtable}
+\usepackage{graphicx,float}
+\usepackage{caption}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.08em}
+\raggedbottom
+\renewcommand{\arraystretch}{1.14}
+\setcounter{secnumdepth}{3}
+\begin{document}
+\input{cellcharter_study_introduction_module_rev_p0_20261124}
+\clearpage
+\input{chapter_02_background_rev_p0_20261124}
+\clearpage
+\input{chapter_03_methods_rev_p0_20261124}
+\clearpage
+\input{chapter_04_results_rev_p0_20261124}
+\clearpage
+\input{cellcharter_study_conclusion_module_rev_p0_20261124}
+\clearpage
+\IfFileExists{E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/151507/151507_reference_A_B_spatial.pdf}{%
+\clearpage
+\appendix
+\input{appendix_e4_all12_figures_layout_v2_20261123}
+}{}
+
+\bibliographystyle{unsrt}
+\bibliography{thesis_cellcharter_references_rev_p0_20261124}
+\end{document}
