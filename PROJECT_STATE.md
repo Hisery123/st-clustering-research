@@ -3,6 +3,17 @@
 **更新日期：2026-11-23（用户要求科研存档）**  
 **仓库：** `Hisery123/st-clustering-research`，`main`。本文档为精简权威快照；原长篇历史已完整备份到 [ARCHIVED_PROJECT_STATE_BEFORE_20261123_CHECKPOINT.md](RESEARCH_JOURNAL/ARCHIVED_PROJECT_STATE_BEFORE_20261123_CHECKPOINT.md)，不应按历史中旧的“待做实验”段落复原当前计划。更详尽交接见 [CURRENT_RESEARCH_HANDOFF.md](CURRENT_RESEARCH_HANDOFF.md)、[2026-11-23科研日记](RESEARCH_JOURNAL/2026-11-23.md)。
 
+## 零、最新收工检查点：P0/P1学术修订版已上传，P1尚未编译（2026-11-23，最高时序优先级）
+
+> **本段是最新状态，覆盖本文件下面早期的“下一步检查xelatex / 编译V1或V2 / 获取模板”之类历史待办，不代表早期工作未完成。** 下次只从下面的唯一下一步恢复，勿重做E3/E4/E5、SVG转PDF、P0/P1文件导入或Git推送。
+
+- **截至收工远端GitHub main HEAD，经连接独立查询：** `088c8d4730dee35791e34e0ae6374452bf52a6ee`。用户Windows实际执行`git status --short`空输出；`git pull --ff-only`将本地`bb730c2`快进到`f17314b`，纳入最新学术写作规范；成功解压本次审查后的P0/P1包；`git add`后输出**58个全为A（新增），无M或D**；本地提交`088c8d4`（58 files, 5823 insertions）；`git push origin main`回报`f17314b..088c8d4 main -> main`。随后助手独立核实远端HEAD及P1主稿、两份证据表实际存在。**远端归档完成，无需再推一次。**
+- **新稿入口：** [P1主稿](experiments/cellcharter_dlpfc/cellcharter_study_full_preview_p1_20261124.tex)；[P1证据映射](experiments/cellcharter_dlpfc/P1_20261124/P1_EVIDENCE_MAP_20261124.md)；[P0证据表](experiments/cellcharter_dlpfc/REV_P0_20261124/REV_P0_EVIDENCE_TABLE_20261124.md)。P0/P1各自目录保留修改日志、静态核对、派生T1–T11汇总与源脚本；旧V1/V2源稿及V2 39页PDF均未被覆盖。新上传文件曾有LF→CRLF提示，属于Windows Git换行符警告；不可仅凭提示声称上传后的所有字节保真已验收，必要时依清单复核。
+- **写作进展与边界：** Claude在朋友电脑制作P0科学修订及P1学术叙事版本；本助手曾审查用户提供的压缩包，纠正“所有邻域配置优于非空间方法”的泛化、把0.4418与原作者0.4438数值相近误读为实现一致、以及缺失E4图时附录可能静默跳过的问题；发布安全合并包，用户已实地导入并推送。写作目标见 [ACADEMIC_WRITING_AND_CONTRIBUTION_STANDARD.md](ACADEMIC_WRITING_AND_CONTRIBUTION_STANDARD.md)：**内部严审、成稿突出真实研究问题与贡献，不写实验流水账，也不强制标题含“复现”**。学位论文优先，普通SCI四区仅写作/工作量参考而非保证。
+- **未完成（严格不得标PASS）：** P1尚未在Windows实际运行 XeLaTeX/BibTeX；尚无P1编译日志、PDF或图页/公式/引文的实物验收，`pgfplots`新增图是否正常显示未知；尚未套用学校正式学位论文模板，尚未完成导师/Claude最终全文审阅。此前V1/V2真实编译成功不等于P1编译成功。
+- **唯一下一步（下次会话再执行，今天收工）：** 在 Windows `D:\paper\st-clustering-research\experiments\cellcharter_dlpfc` 以 `cellcharter_study_full_preview_p1_20261124.tex` 为入口，按已经规划的**新隔离目录** `D:\paper\CellCharter_reproduction\results\cellcharter_thesis_p1_compile_20261123` 进行**第一遍 XeLaTeX**并回传`XELATEX_FIRST_EXIT`及日志末尾；失败则只修真实编译错误，成功后再单步BibTeX→XeLaTeX×2及PDF实物审查。**今天未执行P1编译，不要补写成功。** 不修改科研CSV/预测/源图，不重训。
+- **给接手GPT的5个重要提醒：** ①远端`088c8d4`已归档P0/P1，不重复上传；②现在重点是P1实际编译与论文表达，不是继续探索新算法；③V1=43页、V2=39页已有真实PDF，P1没有；④DLPFC独立供体n=3、外部乳腺癌患者n=6，Oracle-K/K-blind、事后评价、BayesSpace对照边界及负结果不可抹去；⑤本地Windows由用户亲自操作，每回合最多一条命令，报错要看真实输出。
+
 ## 一、研究目标和科研约束
 
 - **硕士毕业论文优先**：CellCharter成熟流程的多尺度空间聚类、K选择、边界与外部样本系统实证评价；不强行宣称新算法/已证实创新。不为高创新性无限增加实验；已有负结果完整写入论文。
