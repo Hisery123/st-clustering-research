@@ -37,3 +37,11 @@ Windows一键脚本： [publish_e4_original_figures_v1.ps1](publish_e4_original_
 **当前唯一操作**：用户Windows运行经GitHub Git-blob SHA固定的原始E4上传脚本；成功应打印`E4_GITHUB_ORIGINALS_PUSH_PASS svg=36 csv=36 manifests=12 total_files=88`和非空新commit SHA。若失败，保留工作目录及错误输出，不重复运行覆盖。
 
 完成后由助手独立重新读取GitHub树统计72份实验原文件+12个manifest及批次/审计JSON的实际存在，抽样或逐项核对源SHA；再开展真实SVG→PDF的排版转换。未经该验收，不将本任务标记“原始E4图件归档PASS”。
+
+## 2026-11-23｜E3B/E4上传后的CRLF字节保真风险（已定位，修复未执行）
+
+**有新核查证据，必须覆盖2026-11-22的“GitHub原件逐字节完全相同”旧说法。** E4确实已经提交GitHub，共88文件：36张SVG、36份CSV、12样本manifest、原batch/audit、README、来源清单；上传提交`0b3a13fbe784711b2c522a09282feeb8a82771e8`。但读取GitHub E4原生SVG `figures/151507/151507_reference_A_B_spatial.svg`并对远端Git blob内容独立计算SHA256，得到`8d3f84cc015bbbefceefd0b4d9744910fc318c8b48ac3e01ebe58442a551a750`，不同于本地原件清单`7d76f7f61d750c9503056aaf60cfd43310e2ce8d72ead91d202655fb868849c1`；远端LF字节仅将每个换行恢复为Windows CRLF后重新计算，则**完全等于原件SHA**。E3B首份原始预测`predictions/151507/cum_L0/seed_22911/predictions.csv`亦发现同样问题：远端LF的SHA`f8b0d04ea183ee4df18882b8f2c43e16f83a1b5a5c3d5144d8d10c7e9d42903c`，恢复CRLF后等于原件`cabbb5f476be36ac7c38270e68ccb87146f9a1d665ace2b780e1b22406671525`。科学数值没有因此重新计算或修改，但旧“Git源字节与Windows原件相同”的表述不成立，必须修复后才能称原始字节完全备份。
+
+已分别为`E3B_E1E2_1200_PREDICTIONS_20261122/`与`E4_SOURCE_FIGURES_20261122_RELEASE/`提交`.gitattributes`、设置`* -text`禁用未来Git换行自动规范化；已上传**综合一次性精确Git blob修复脚本**`experiments/cellcharter_dlpfc/repair_e3b_e4_exact_git_blobs_v1.py`：拟从原始E3B ZIP（固定SHA256 cfad75...）与E4源Windows文件分别校验1200+86=1286份SHA256，`git hash-object -w --stdin`写入原始字节的Git blob，`git update-index --index-info`直接提交原字节，再验证完整提交树并非强制push。**目前只是准备和提交修复脚本，用户尚未报告运行；不得称远端字节修复通过。**早期只修E4的`repair_e4_exact_source_blobs_v1.ps1`被综合版取代，不要先运行它。另已准备`convert_e4_original_svg_to_pdf_and_push_v1.py`，但必须先完成1286份原始Git blob的字节修复，才能开始转换36份真实SVG成论文矢量PDF。
+
+论文正文及36图附录已写入GitHub，原E4图件存在的事实与“严格逐字节匹配原Windows SHA”需要分开报告；同理E3B全部1200文件存在但部分CRLF被规范化。下一步用户在Windows手动执行单条固定SHA脚本下载、核验、精确Git blob修复命令，提供PASS/FAIL；助手再远端核验提交树与来源清单。全程无训练、无更改参考标签、无数据数值重算。
