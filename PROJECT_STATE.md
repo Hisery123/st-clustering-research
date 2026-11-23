@@ -20,22 +20,21 @@
 | 科研论文正文 | 已上传CellCharter专题[第二章](experiments/cellcharter_dlpfc/chapter_02_background_rewrite_v1_20261122.tex)、[第三章](experiments/cellcharter_dlpfc/chapter_03_methods_rewrite_v1_20261122.tex)、[第四章](experiments/cellcharter_dlpfc/chapter_04_results_rewrite_v1_20261122.tex) V1，专题引言/结论、BibTeX、[合稿预览入口](experiments/cellcharter_dlpfc/cellcharter_study_full_preview_v1_20261122.tex)以及[12切片36图附录](experiments/cellcharter_dlpfc/appendix_e4_all12_figures_v1_20261122.tex)。历史11月12日旧稿保留。**这只是CellCharter研究专题初稿，不等于整篇硕士论文终稿。**|
 | 文稿检查 | TeX文本静态检查基本通过。**未进行真实XeLaTeX/BibTeX编译；未应用学校正式学位论文模板；未交导师或Claude正式审阅。**E4图位采用原始SVG派生矢量PDF路径，文件不存在时只显示待插图提示。 |
 
-## 三、E4 SVG→PDF 本地转换最新状态（2026-11-23更新）
+## 三、E4 SVG→PDF 已上传GitHub（2026-11-23最新）
 
-- **本地批量转换：用户提供的 Codex 最终报告称已完成**：Windows 商店 Inkscape 1.4.4 在已注册应用包上下文中调用CLI，原有 `151507` 的3份PDF未覆盖，新增33份，12切片×3图=36份PDF均与原SVG同目录同名（仅扩展名改为PDF）；采用PDF 1.5、文字转路径、滤镜回退300 dpi。报告称36份源SVG和原有3份PDF的SHA256未变化，PDF转换失败0次；测试阶段发生1次控制台UnicodeEncodeError并已恢复，原始失败记录保留。**以上批量产物存在性、结构与渲染为Codex报告，不能当作助手已打开33份新PDF。**
-- **本轮助手独立复核**：收到`final_manifest.csv`（36行）和`FINAL_CHECK_REPORT.txt`；36行没有重复/缺项、字段缺失、哈希格式错误或命名错位；12切片每片三类齐全，状态33 `success` +3 `existing_protected`；全部列出PDF 1.5、单页、0字体资源及非零矢量绘制操作。36份来源SVG的相对路径+SHA256与GitHub冻结`SOURCE_SHA256.csv`对照一致；此前用户上传的151507三张PDF实物经独立SHA256与字节数核算，3/3对应清单。
-- **尚未独立验收**：33份新PDF实物、`final_report.json`、最终图件视觉对比及真实学校论文模板编译；不能将Codex报告等价为这些环节已经完成。
-- **GitHub当前仅含E4原始SVG/CSV，不含这36份本地派生PDF。** Windows本地清单/报告路径：`D:\paper\CellCharter_reproduction\results\e4_spatial_visualization_v1\svg_pdf_review_20261123_v1\`。PDF位于原E4批次各切片文件夹；本地完成不等于远端上传。
-- 过去的`E4_CONVERTER_MISSING`、winget下载中断和商店版CLI拒绝访问均属**已绕过的历史工具问题**，不应再作为当前阻断或要求重新转换。
+- **真实远端提交**：`110b7e19a4a5e1af5680bcade7218cc2034bf975`（`main` HEAD已核实），提交仅新增`E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/`下36个PDF、`CONVERSION_SHA256.csv`、`CONVERSION_AUDIT.json`、`README.md`，合计39文件，未修改科研原件和稿件。目录：[figures_pdf](experiments/cellcharter_dlpfc/E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/)。
+- **转换事实与原始报告**：用户Windows本地Codex（Microsoft Store Inkscape 1.4.4）按PDF1.5、文字转路径、滤镜回退300dpi处理，原151507的3PDF保留，新增33张，合计12切片×3图=36张；Codex报告转换失败0次，有一次已恢复的GBK日志`UnicodeEncodeError`，完整日志仍在Windows。
+- **助手独立核实范围**：通过GitHub连接读取实际commit的39项文件和`main` HEAD；远端目录12切片+3元数据存在。直接检查远端36行`CONVERSION_SHA256.csv`与36项`CONVERSION_AUDIT.json`完整一致（PDF路径、SHA256、字节、原SVG SHA），33项`success`+3项`existing_protected`，无重复/缺项，PDF字节数汇总66,324,070。36/36来源SVG的路径和SHA256与冻结`SOURCE_SHA256.csv`逐项一致。**远端36张PDF的实际字节SHA256系用户Codex后推送报告重下GitHub对象核算36/36；助手这次未亲自下载全部36个二进制PDF重算SHA，因此不得写成助手独立字节验证36/36。**此前151507的3个PDF用户上传实物已与本地清单SHA一致。
+- **未完成**：真实XeLaTeX/BibTeX合稿编译、学校学位论文模板适配、图件排版可读性复核、参考文献完整性核查、Claude与导师终审。E4 PDF归档不是科研新实验、新算法或学位论文完成的证据。原始SVG/CSV与E3b之前的原字节修复已完成，不重复转换/训练/修复。
 
-## 四、恢复工作：只进行一件事
+## 四、恢复工作：唯一下一步
 
-**唯一下一步：本地36份派生PDF及转换清单安全归档到GitHub预定`E4_SOURCE_FIGURES_20261122_RELEASE/figures_pdf/{slice}/`位置**（保持原始SVG/CSV和Git blob不变；先校验36份目标文件SHA、目标目录冲突，保留已有3份PDF，不重训、不重绘、不重复转换）。用户Windows本地亲自操作或明确委托本地Codex；上传后由助手独立核验GitHub PDF文件树36/36、来源/派生SHA、至少151507/151671/151675代表图外观。随后才进行XeLaTeX实际编译、学校模板/参考文献审查及Claude集中审稿。当前不得称论文最终排版或终审完成。
+**开始论文真实排版编译阶段**：仓库中的`cellcharter_study_full_preview_v1_20261122.tex`和`appendix_e4_all12_figures_v1_20261122.tex`已使用与远端`figures_pdf/`一致的相对路径；但尚未在Windows本地确认可用XeLaTeX/BibTeX。**第一步仅在本地检查`xelatex`和`bibtex`是否可调用**，不运行编译、不覆盖实验数据；根据检查结果再给下一条操作。之后编译独立专题预览、核对代表图151507/151671/151675及参考文献，再接入学校正式模板并送Claude审查。
 
 ## 五、新对话最重要提醒
 
 1. 先看本快照、[交接](CURRENT_RESEARCH_HANDOFF.md)和最新日记；旧的超过15万字状态已移入历史快照，不要按早期TODO重新训练已完成实验。
 2. E3b+E4的CRLF问题**已彻底修复并经远端对象核验**，无需再次运行原始上传/修复脚本。
-3. Windows端36个PDF**据Codex报告已本地转换**，清单和旧3份实物已获独立核查；但GitHub尚无36份派生PDF，下一步是安全归档与远端复核，不再重试转换器安装。
+3. **GitHub main已归档36份PDF（commit `110b7e19`）与3个元数据**；提交39文件和元数据/源SVG哈希经助手独立核查，36 PDF远端字节SHA256来自用户Codex报告。下一步确认XeLaTeX/BibTeX环境并实际编译，不再转换。
 4. CellCharter仅为毕业论文中的一个研究专题，数值和局限必须以已有CSV/实际报告为准，不能从论文草稿反推原始实验。
 5. 用户要求每做完一个文稿/科研日志即同步GitHub；仅对真实已完成状态标记PASS。
