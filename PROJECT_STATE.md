@@ -31,10 +31,17 @@
 
 **开始论文真实排版编译阶段**：仓库中的`cellcharter_study_full_preview_v1_20261122.tex`和`appendix_e4_all12_figures_v1_20261122.tex`已使用与远端`figures_pdf/`一致的相对路径；但尚未在Windows本地确认可用XeLaTeX/BibTeX。**第一步仅在本地检查`xelatex`和`bibtex`是否可调用**，不运行编译、不覆盖实验数据；根据检查结果再给下一条操作。之后编译独立专题预览、核对代表图151507/151671/151675及参考文献，再接入学校正式模板并送Claude审查。
 
-## 五、新对话最重要提醒
+## 五、首次真实LaTeX编译和PDF布局审查（2026-11-23）
+
+- **Windows实际编译完成**：MiKTeX的`xelatex`与`bibtex`可调用；用户实际执行 XeLaTeX第一遍退出码0，产出42页；BibTeX退出码0；XeLaTeX第二、第三遍退出码0，最终专题预览`cellcharter_study_full_preview_v1_20261122.pdf` **43页**。输出位于本地`D:\paper\CellCharter_reproduction\results\cellcharter_thesis_preview_compile_20261123\`，不等于整篇硕士论文终稿。
+- **助手实物PDF独立检查**：用户上传完整43页PDF；没有全空白页，原36张E4附录图均进入PDF（正文另4张图，共图1–40）；但P16、P26分别仅剩一小段末行，P2/P7/P28也留白较多；附录P29–42小图有大片白边，且`figure[htbp]`浮动导致P33/P37/P42出现切片小节标题迟于其图片，最后一幅图跑到参考文献页附近。这是**实际排版缺陷，当前不得标记论文版式PASS**。有Underfull hbox警告，不等于错误。
+- **已安全新增未经编译的排版试验V2，保留V1完全不动**：`experiments/cellcharter_dlpfc/cellcharter_study_full_preview_layout_v2_20261123.tex`及`appendix_e4_all12_figures_layout_v2_20261123.tex`。主文件仅收紧预览页边距/段距、载入caption包和改引用V2附录；附录对36个`figure[htbp]`替换为非浮动minipage+`captionof{figure}`，保持原图路径、内容与caption/label不改。**V2目前静态检查36/36，但没有用户Windows实际编译和视觉验收，是否消除留白待验证。**
+- 下一唯一操作：Windows本地 `D:\paper\st-clustering-research` 用`git pull --ff-only`取得已提交的两个V2源稿（若有工作区冲突停止，不强制覆盖）；随后单独编译V2输出到新的隔离目录，经图片顺序/目录标题/页数/参考文献核验再决定如何排版。原V1实验数据、SVG、PDF及稿件保持不变。
+
+## 六、新对话最重要提醒
 
 1. 先看本快照、[交接](CURRENT_RESEARCH_HANDOFF.md)和最新日记；旧的超过15万字状态已移入历史快照，不要按早期TODO重新训练已完成实验。
 2. E3b+E4的CRLF问题**已彻底修复并经远端对象核验**，无需再次运行原始上传/修复脚本。
-3. **GitHub main已归档36份PDF（commit `110b7e19`）与3个元数据**；提交39文件和元数据/源SVG哈希经助手独立核查，36 PDF远端字节SHA256来自用户Codex报告。下一步确认XeLaTeX/BibTeX环境并实际编译，不再转换。
+3. GitHub E4 36份PDF已归档；Windows真实XeLaTeX/BibTeX均成功，V1预览PDF 43页但存在明确排版缺陷（P16/P26几乎空白、附录浮动标题错位）；已新增未编译的V2安全修版，下一步更新本地仓库并实际编译V2。
 4. CellCharter仅为毕业论文中的一个研究专题，数值和局限必须以已有CSV/实际报告为准，不能从论文草稿反推原始实验。
 5. 用户要求每做完一个文稿/科研日志即同步GitHub；仅对真实已完成状态标记PASS。
