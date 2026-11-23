@@ -6,6 +6,10 @@
 
 用户使用Windows/PowerShell亲自运行，助手审查设计、代码、实验统计、LaTeX稿件并逐步维护GitHub；按**毕业论文先行**原则，对成熟CellCharter流程开展已完成的多尺度、K敏感性、边界、成熟基线及外部六患者系统评价，不强行宣称新方法。原始实验数据、负结果、后验分析和K选择局限如实披露。DLPFC独立$n=3$供体（12切片嵌套），乳腺癌独立$n=6$患者，不将seed/spot作为生物独立n。
 
+## 今后论文改写的核心风格要求（用户2026-11-23明确）
+
+**请先阅读 [ACADEMIC_WRITING_AND_CONTRIBUTION_STANDARD.md](ACADEMIC_WRITING_AND_CONTRIBUTION_STANDARD.md)，并遵循 [AGENTS.md](AGENTS.md) 的对应规则。** 用户明确不接受把“跑了哪些E1/E2/E3实验”“保存了哪些CSV/SHA/提交”“复现审计通过”依次罗列成正式论文。应先严格内部审查证据，再用成熟的学术表达，围绕**科学问题、尚未充分讨论的评价维度、研究设计、整体与局部指标不一致/跨患者异质性等真实发现、学术和应用意义**组织段落。善于凝练贡献、正向陈述可证实的发现，但不掩盖负结果、不能夸大新颖性或因果。CellCharter既有机制必须在方法中清楚归属原作者，**标题不强制使用“复现”**。目标为硕士毕业、普通SCI四区仅作质量参考，不以顶刊增量要求无限追加实验。Claude修订P0稿也必须遵守这一标准。
+
 ## 已确认完成并有文件
 
 1. **E1/E2、E3c、E3d、E3b、E5a、E5b**完成并归档相应结果/审计；主要数值入口 [THESIS_WRITING_EVIDENCE_MAP_20261122.md](experiments/cellcharter_dlpfc/THESIS_WRITING_EVIDENCE_MAP_20261122.md)。E3b容差和E3d ARI/NMI评分属于事后后验。
